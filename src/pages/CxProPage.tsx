@@ -5,7 +5,7 @@ import './CxProPage.css'
 const CX_IMAGES = '/cx-pro-images'
 /** Bump this when you replace section 21 images (same filenames) to avoid cache */
 const CX_SECTION_21_CACHE = 2
-const CX_CAROUSEL_CARD_WIDTH = 560
+const CX_CAROUSEL_CARD_WIDTH = 476   /* 15% smaller than 560 */
 const CX_CAROUSEL_GAP = 20
 const CX_SLIDE_DURATION_MS = 500
 const CX_SLIDE_EASING = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
@@ -90,7 +90,7 @@ function CxLightbox({
   )
 }
 
-const CX_CAROUSEL_SECTION6_CARD_WIDTH = 700
+const CX_CAROUSEL_SECTION6_CARD_WIDTH = 595   /* legacy; square carousel ignores */
 const CX_CAROUSEL_SECTION6_GAP = 20
 
 function CxCarousel({
@@ -105,98 +105,97 @@ function CxCarousel({
   cardGap?: number
 }) {
   const [index, setIndex] = useState(0)
-  const [slideOffset, setSlideOffset] = useState(0)
   const [isSliding, setIsSliding] = useState(false)
   const imageUrls = items.map((i) => i.imageUrl).filter((u): u is string => !!u)
-  const slidePx = (cardWidth ?? CX_CAROUSEL_CARD_WIDTH) + (cardGap ?? CX_CAROUSEL_GAP)
+  const n = items.length
 
   if (items.length === 0) return null
 
   const goPrev = () => {
-    if (isSliding || items.length <= 1) return
+    if (isSliding || n <= 1) return
     setIsSliding(true)
-    setSlideOffset(slidePx)
-    setTimeout(() => {
-      setIndex((i) => (i - 1 + items.length) % items.length)
-      setSlideOffset(0)
-      setIsSliding(false)
-    }, CX_SLIDE_DURATION_MS)
+    setIndex((i) => (i - 1 + n) % n)
+    setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
   }
 
   const goNext = () => {
-    if (isSliding || items.length <= 1) return
+    if (isSliding || n <= 1) return
     setIsSliding(true)
-    setSlideOffset(-slidePx)
-    setTimeout(() => {
-      setIndex((i) => (i + 1) % items.length)
-      setSlideOffset(0)
-      setIsSliding(false)
-    }, CX_SLIDE_DURATION_MS)
+    setIndex((i) => (i + 1) % n)
+    setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
   }
 
-  const handleCardClick = (idx: number) => {
+  const handleSlideClick = () => {
     if (isSliding) return
-    if (onOpenLightbox && imageUrls.length > 0) {
-      onOpenLightbox(imageUrls, idx)
-    } else if (items.length > 1) {
-      if (idx !== index) {
-        if ((idx - index + items.length) % items.length === 1) goNext()
-        else goPrev()
-      }
-    }
+    if (onOpenLightbox && imageUrls.length > 0) onOpenLightbox(imageUrls, index)
   }
+
+  /* Square viewport, one slide at a time; track slides left/right so next/prev slides in from right/left */
+  const trackTranslatePercent = n > 0 ? (index * 100) / n : 0
 
   return (
     <div className="cx-carousel-wrapper">
-      {items.length > 1 && (
+      <div className="cx-carousel-viewport">
+        <div
+          className="cx-carousel-track"
+          style={{
+            width: `${n * 100}%`,
+            transform: `translateX(-${trackTranslatePercent}%)`,
+            transition: isSliding ? `transform ${CX_SLIDE_DURATION_MS}ms ${CX_SLIDE_EASING}` : 'none',
+          }}
+        >
+          {items.map((item, i) => (
+            <div
+              key={item.id}
+              className="cx-carousel-slide"
+              style={{ width: `${100 / n}%` }}
+              role={item.imageUrl ? 'button' : undefined}
+              tabIndex={item.imageUrl ? 0 : -1}
+              onClick={handleSlideClick}
+              onKeyDown={(e) => e.key === 'Enter' && handleSlideClick()}
+              aria-hidden={i !== index}
+            >
+              <div className="cx-carousel-slide-inner">
+                {item.imageUrl ? (
+                  <img src={item.imageUrl} alt="" className="cx-carousel-card-img" />
+                ) : (
+                  <span className="cx-carousel-placeholder">Image {i + 1}</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {items[index].caption != null && (
+        <p className="cx-carousel-caption-below">{items[index].caption}</p>
+      )}
+      {n > 1 && (
         <>
-          <button type="button" className="cx-carousel-arrow cx-carousel-arrow-left" onClick={goPrev} aria-label="Previous slide" aria-hidden={isSliding}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M15 18l-6-6 6-6" /></svg>
-          </button>
-          <button type="button" className="cx-carousel-arrow cx-carousel-arrow-right" onClick={goNext} aria-label="Next slide" aria-hidden={isSliding}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M9 18l6-6-6-6" /></svg>
-          </button>
+          <div className="cx-carousel-indicators-spacer" aria-hidden />
+          <div className="cx-carousel-indicators" role="tablist" aria-label="Carousel slides">
+          <div className="cx-carousel-indicators-pill">
+            {items.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              aria-label={`Slide ${i + 1}`}
+              className={`cx-carousel-dot ${i === index ? 'cx-carousel-dot--active' : ''}`}
+              onClick={() => {
+                if (isSliding) return
+                if (i !== index) {
+                  setIsSliding(true)
+                  setIndex(i)
+                  setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
+                }
+              }}
+            />
+          ))}
+          </div>
+        </div>
         </>
       )}
-      <div
-        className="cx-carousel"
-        style={{
-          transform: `translate(calc(-50% + ${slideOffset}px), 0)`,
-          transition: slideOffset === 0 ? 'none' : `transform ${CX_SLIDE_DURATION_MS}ms ${CX_SLIDE_EASING}`,
-        }}
-        data-sliding={isSliding || undefined}
-      >
-        {(items.length === 1 ? [0] : [-1, 0, 1]).map((offset) => {
-          const idx = (index + offset + items.length) % items.length
-          const item = items[idx]
-          const isActive = offset === 0
-          const isPrev = offset === -1
-          const isNext = offset === 1
-          return (
-            <div
-              key={`${offset}-${item.id}`}
-              className={`cx-carousel-card ${isActive ? 'cx-carousel-card-active' : 'cx-carousel-card-side'} ${item.imageUrl ? 'cx-carousel-card-clickable' : ''}`}
-              role={item.imageUrl ? 'button' : !isActive && items.length > 1 ? 'button' : undefined}
-              tabIndex={item.imageUrl || !isActive ? 0 : -1}
-              onClick={() => handleCardClick(idx)}
-              onKeyDown={(e) => e.key === 'Enter' && (item.imageUrl ? handleCardClick(idx) : !isSliding && items.length > 1 && (isPrev ? goPrev() : isNext ? goNext() : null))}
-              aria-hidden={!isActive}
-            >
-              {item.imageUrl ? (
-                <>
-                  <img src={item.imageUrl} alt="" className="cx-carousel-card-img" />
-                  {item.caption != null && <span className="cx-carousel-card-caption">{item.caption}</span>}
-                </>
-              ) : (
-                <>
-                  <span>Image {idx + 1}</span>
-                  {item.caption != null && <span className="cx-carousel-card-caption">{item.caption}</span>}
-                </>
-              )}
-            </div>
-          )
-        })}
-      </div>
     </div>
   )
 }
@@ -395,15 +394,15 @@ export default function CxProPage() {
         </div>
         </div>
 
-        {/* 6. Carousel of images */}
+        {/* 6. Carousel of images (Problems Solved) */}
         <div className="cx-section">          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
             <CxCarousel
               items={[
-                { id: '6.1', imageUrl: `${CX_IMAGES}/6.1.png` },
-                { id: '6.2', imageUrl: `${CX_IMAGES}/6.2.png` },
-                { id: '6.3', imageUrl: `${CX_IMAGES}/6.3.png` },
-                { id: '6.4', imageUrl: `${CX_IMAGES}/6.4.png` },
-                { id: '6.5', imageUrl: `${CX_IMAGES}/6.5.png` },
+                { id: '6.1', imageUrl: `${CX_IMAGES}/6.1.png`, caption: 'Engineering Mock – Starting point reference' },
+                { id: '6.2', imageUrl: `${CX_IMAGES}/6.2.png`, caption: 'Initial concept mock – Post Initial Discussions' },
+                { id: '6.3', imageUrl: `${CX_IMAGES}/6.3.png`, caption: 'Version 1.0 – Venue Launch MVP' },
+                { id: '6.4', imageUrl: `${CX_IMAGES}/6.4.png`, caption: 'Version 2.0 – Post-Launch Upgrades' },
+                { id: '6.5', imageUrl: `${CX_IMAGES}/6.5.png`, caption: 'Version 3.0 – Pre B2B2C Launch' },
               ]}
               onOpenLightbox={openLightbox}
               cardWidth={CX_CAROUSEL_SECTION6_CARD_WIDTH}

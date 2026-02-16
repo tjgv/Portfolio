@@ -28,7 +28,7 @@
   padding: 0 24px 0;
   color: #000000;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
-  overflow-x: visible; /* allow carousel sections to overflow left/right */
+  /* no overflow-x: hidden here so full-bleed hero grey reaches viewport edges; page-level overflow clips scroll */
 }
 
 .cx-pro-page .project-main h1,
@@ -239,6 +239,28 @@
 /* When a header section immediately follows an XL header section, remove XL bottom margin */
 .cx-pro-page .cx-section:has(.xl-header):has(+ .cx-section .cx-header-section) .xl-header {
   margin-bottom: 0;
+}
+
+/* At 2400px+ use pixel spacing for XL headers so vh doesn’t cause excessive scrolling */
+@media (min-width: 2400px) {
+  .cx-pro-page .xl-header {
+    margin-top: 450px;
+    margin-bottom: 250px;
+  }
+
+  .cx-pro-page .cx-section:has(.xl-header):has(+ .cx-section .cx-header-section) .xl-header {
+    margin-bottom: 0;
+  }
+
+  .cx-header-section {
+    margin-top: 350px;
+  }
+
+  .cx-block__col1,
+  .cx-block__col2 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 }
 
 .cx-pro-page .header-1 {
@@ -644,6 +666,8 @@
   min-width: 100vw;
   height: 100vh;
   min-height: 100vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
   overflow: hidden;
   background: #111;
 }
@@ -675,144 +699,144 @@
   color: transparent;
 }
 
-/* Carousel full-bleed wrapper: symmetric left/right overflow */
+/* Carousel: same width as content (divider), nothing in page margins; 24px fade at edges */
 .cx-carousel-bleed {
-  width: 100vw;
+  width: 100%;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  overflow: visible;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
-/* Large carousel cards (sections 6, 21, 23, 47): 700px cards, less padding, 4px corner radius */
-.cx-carousel-bleed--large-cards .cx-carousel {
-  gap: 20px;
-}
-
-.cx-carousel-bleed--large-cards .cx-carousel-card {
-  width: 700px;
-  height: 394px;
-  padding: 6px;
-  border-radius: 4px;
-}
-
-.cx-carousel-bleed--large-cards .cx-carousel-card-img {
-  border-radius: 4px;
-}
-
-/* Carousel – home-page style (no condensing): fixed cards, prev/next arrows, slide transition */
+/* Carousel wrapper: 100% width (respects margins), 85vh tall, 7vh internal padding, hero grey */
 .cx-carousel-wrapper {
   position: relative;
   width: 100%;
-  max-width: 100%;
-  min-width: 0;
+  height: 85vh;
+  padding: 7vh;
+  box-sizing: border-box;
   margin: 32px 0;
-  overflow: visible; /* let side cards show in page margins */
-}
-
-.cx-carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 20;
-  width: 48px;
-  height: 48px;
-  border: none;
-  background: rgba(0, 0, 0, 0.33);
-  color: #fff;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.2s ease, background 0.2s ease;
-}
-
-.cx-carousel-arrow:hover {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.cx-carousel-arrow-left {
-  left: 10vw;
-}
-
-.cx-carousel-arrow-right {
-  right: 10vw;
-}
-
-.cx-carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
-  left: 50%;
-  width: max-content;
-  max-width: none;
-  min-height: 346px;
-  backface-visibility: hidden;
-}
-
-.cx-carousel[data-sliding] {
-  will-change: transform;
-}
-
-.cx-carousel-card {
-  position: relative;
-  flex-shrink: 0;
-  width: 560px;
-  height: 315px;
-  background-color: #e7e7e7;
-  border-radius: 12px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  background-color: #F5F5F5;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+}
+
+/* Viewport: flex 1, overflow hidden so only one slide visible; content vertically centered */
+.cx-carousel-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cx-carousel-track {
+  display: flex;
+  height: 100%;
+  flex-shrink: 0;
+  will-change: transform;
+  backface-visibility: hidden;
+  align-items: center;
+}
+
+.cx-carousel-slide {
+  flex: 0 0 auto;
+  height: auto;
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: #8c8d8c;
-  font-size: 14px;
-  text-align: center;
-  padding: 24px;
+  cursor: pointer;
+  padding: 0;
   box-sizing: border-box;
 }
 
-.cx-carousel-card-active {
-  z-index: 2;
-}
-
-.cx-carousel-card-side {
-  z-index: 1;
-  cursor: pointer;
-  opacity: 0.85;
-}
-
-.cx-carousel-card-side:hover {
-  opacity: 1;
-}
-
-.cx-carousel-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
+.cx-carousel-slide-inner {
+  position: relative;
+  width: 85%;
+  max-width: 100%;
   display: block;
-  flex: 1;
-  min-height: 0;
+  background: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
-.cx-carousel-card-caption {
-  margin-top: 12px;
-  font-size: 12px;
+.cx-carousel-wrapper .cx-carousel-card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: middle;
+  border-radius: 8px;
+}
+
+.cx-carousel-placeholder {
   color: #8c8d8c;
-  flex-shrink: 0;
+  font-size: 14px;
 }
 
-@media (max-width: 1200px) {
-  .cx-carousel-card {
-    width: min(560px, 80vw);
-    height: auto;
-    aspect-ratio: 16 / 9;
-  }
+.cx-carousel-caption-below {
+  margin: 12px 0 0;
+  font-size: 13.8px;
+  color: #8c8d8c;
+  opacity: 0.75;
+  text-align: center;
+}
+
+/* Spacer reserves space so viewport doesn’t sit under indicators */
+.cx-carousel-indicators-spacer {
+  flex-shrink: 0;
+  height: 48px;
+}
+
+/* Circle indicators: fixed 12px from bottom of wrapper, wrapped in black pill at 15% opacity */
+.cx-carousel-indicators {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.cx-carousel-indicators .cx-carousel-indicators-pill {
+  pointer-events: auto;
+}
+
+.cx-carousel-indicators-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #d0d0d0;
+}
+
+.cx-carousel-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(112, 112, 112, 0.15);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease;
+}
+
+.cx-carousel-dot:hover {
+  background: rgba(90, 90, 90, 0.15);
+}
+
+.cx-carousel-dot--active {
+  background: #000;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 /* Problem stat cards (3 stacked in grid) */
@@ -932,17 +956,20 @@
 
 .cx-feature-card--purple {
   background: rgba(167, 95, 216, 0.08);
-  box-shadow: 0 8px 24px rgba(167, 95, 216, 0.32);
+  box-shadow: 0 8px 24px rgba(167, 95, 216, 0.01);
+  border: 1px solid rgba(167, 95, 216, 0.5);
 }
 
 .cx-feature-card--blue {
   background: rgba(113, 182, 228, 0.08);
-  box-shadow: 0 8px 24px rgba(113, 182, 228, 0.5);
+  box-shadow: 0 8px 24px rgba(113, 182, 228, 0.1);
+  border: 1px solid rgba(113, 182, 228, 0.5);
 }
 
 .cx-feature-card--orange {
   background: rgba(242, 168, 84, 0.08);
-  box-shadow: 0 8px 24px rgba(242, 168, 84, 0.54);
+  box-shadow: 0 8px 24px rgba(242, 168, 84, 0.12);
+  border: 1px solid rgba(242, 168, 84, 0.5);
 }
 
 .cx-feature-card-title {
@@ -1220,9 +1247,6 @@
   cursor: pointer;
 }
 
-.cx-pro-page .cx-carousel-card-clickable {
-  cursor: pointer;
-}
 
 /* Full-screen lightbox – grey overlay, 75px side margin, X to close, click outside to close */
 @keyframes cx-lightbox-fadeIn {
@@ -1414,3 +1438,54 @@
     padding: 48px max(48px, calc((100vw - 1200px) / 2)) 64px;
   }
 }
+
+/* ----- Small screens: stack columns vertically on project pages ----- */
+@media (max-width: 900px) {
+  .cx-block {
+    grid-template-columns: 1fr;
+    gap: 12px 0;
+  }
+
+  .cx-block__col1,
+  .cx-block__col2 {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+
+  .cx-header-section {
+    margin-top: 20vh;
+  }
+
+  .cx-two-cols {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .cx-two-images {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .cx-three-images {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .cx-stat-cards,
+  .cx-feature-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .cx-s5-row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .cx-pro-page .project-main {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+

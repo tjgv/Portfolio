@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { PROMPTS, TYPE_FILTERS } from '../data/prompts'
 
-const CARD_FINAL_WIDTH = 900
-const CARD_FINAL_HEIGHT = 506
+const CARD_FINAL_WIDTH = 765   /* 15% smaller than 900 */
+const CARD_FINAL_HEIGHT = 430 /* 15% smaller than 506 */
 const workProjects = ['Project 1', 'Project 2', 'Project 3']
 const PROJECT_1_IMAGE = '/project1-cx.png'
 const PROJECT_2_IMAGE = '/project2-events.png'
@@ -16,6 +16,11 @@ const WORK_PROJECTS_DATA: Record<string, { headline: string; subheadline: string
 }
 const STICKY_WRAPPER_VH = 200
 const HERO_CONTAINER_FADE_VH = 10
+/** Fixed + condense duration in vh. One source of truth so they match. */
+const WORK_FIXED_AND_CONDENSE_VH = 50
+const WORK_SPACER_VH = WORK_FIXED_AND_CONDENSE_VH
+/** Condense completes in ~90% of fixed scroll so effect finishes before section unfixes (removes ~5vh mismatch). */
+const WORK_CONDENSE_RANGE_VH = (WORK_FIXED_AND_CONDENSE_VH / 100) * 0.9
 const SCRIM_FADE_VH = 60
 const SCRIM_OPACITY_START = 0.1
 
@@ -83,7 +88,7 @@ export default function HomePage() {
 
   const getRevealStyle = (start: number, duration: number) => {
     const progress = Math.min(Math.max((scrollProgress - start) / duration, 0), 1)
-    return { opacity: progress, transform: `translateY(${40 * (1 - progress)}px)` }
+    return { opacity: progress, transform: `translateY(${75 * (1 - progress)}px)` } /* 40 + 35px slide distance */
   }
 
   const heroRevealStarts = [0.08, 0.2, 0.32, 0.44, 0.56]
@@ -136,17 +141,13 @@ export default function HomePage() {
 
       if (workWrapperRef.current) {
         const rect = workWrapperRef.current.getBoundingClientRect()
-        const prevTop = prevRectTopRef.current
         prevRectTopRef.current = rect.top
-        const scrollingUp = rect.top > prevTop
-        const condenseRangePx = vh * 0.5
-        const expandRangePx = vh * 0.2
-        const triggerTop = vh * 0.5
+        const condenseRangePx = vh * WORK_CONDENSE_RANGE_VH /* 3*vh = 300vh scroll for 0→1 */
+        /* Progress 0→1 as wrapper top goes 0 → -condenseRangePx (even over full fixed range) */
         let progress: number
-        if (rect.top > triggerTop) progress = 0
-        else if (rect.top <= 0) progress = 1
-        else if (scrollingUp) progress = Math.max(0, 1 - rect.top / expandRangePx)
-        else progress = (triggerTop - rect.top) / condenseRangePx
+        if (rect.top > 0) progress = 0
+        else if (rect.top <= -condenseRangePx) progress = 1
+        else progress = (0 - rect.top) / condenseRangePx
         setCondenseProgress(Math.min(1, Math.max(0, progress)))
       }
 
@@ -183,15 +184,14 @@ export default function HomePage() {
       <section className="section-hero" ref={heroRef}>
         <div className="section-content">
           <div className="hero-lockup" style={{ opacity: heroContainerOpacity }} aria-hidden={heroContainerOpacity < 0.01}>
-            <div className="hero-headline-container">
+            <div className="hero-headline-cta-column">
               <h1 className="visuallyhidden">TJ Gomez-Vidal - Product Designer</h1>
-              <h2 className="hero-headline">TJ Gomez-Vidal<br /><span className="hero-headline-sub">Product Designer</span></h2>
+              <h2 className="hero-headline"><span className="hero-headline-name">TJ Gomez-Vidal</span><br /><span className="hero-headline-sub">Product Designer</span></h2>
+              <Link to="/contact" className="hero-cta">Get in touch</Link>
             </div>
-            <div className="cta-wrapper-container">
-              <div className="cta-wrapper">
-                <a href="#contact" className="hero-cta">Get in touch</a>
-              </div>
-            </div>
+          </div>
+          <div className="hero-scroll-arrow" aria-hidden>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
           </div>
         </div>
         <div className="sticky-wrapper" ref={stickyWrapperRef} style={{ height: `${STICKY_WRAPPER_VH}vh` }}>
@@ -240,7 +240,8 @@ export default function HomePage() {
               </button>
             </>
           )}
-          <div className="work-carousel" style={{ transform: `translate3d(${slideOffset}px, 0, 0)`, transition: slideOffset === 0 ? 'none' : `transform ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}` }} data-sliding={isSliding || undefined}>
+          <div className="work-carousel-wrap">
+            <div className="work-carousel" style={{ transform: `translate3d(${slideOffset}px, 0, 0)`, transition: slideOffset === 0 ? 'none' : `transform ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}` }} data-sliding={isSliding || undefined}>
             {[-1, 0, 1].map((offset) => {
               const idx = (workIndex + offset + workProjects.length) % workProjects.length
               const label = workProjects[idx]
@@ -302,9 +303,10 @@ export default function HomePage() {
                 </div>
               )
             })}
+            </div>
           </div>
         </section>
-        <div className="work-section-spacer" aria-hidden="true" />
+        <div className="work-section-spacer" style={{ height: `${WORK_SPACER_VH}vh` }} aria-hidden="true" />
       </div>
 
       <section id="prompts" className={`content-section ${cardsVisible ? 'prompts-grid-visible' : ''}`} ref={scrollTargetRef}>

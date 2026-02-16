@@ -73,7 +73,7 @@
   width: 100%;
 }
 
-/* Section content (lockup) - overlay first viewport only, bottom-aligned */
+/* Section content (lockup) - overlay first viewport, vertically centered */
 .section-hero .section-content {
   position: absolute;
   top: 0;
@@ -82,8 +82,9 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 calc(100px + 5vw) 3vh;
+  justify-content: center;
+  align-items: center;
+  padding: 0 calc(100px + 5vw);
   z-index: 2;
   pointer-events: none;
 }
@@ -163,20 +164,28 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 84px;
+  gap: 119px; /* 84px + 35px */
 }
 
-/* Apple-style lockup: headline + CTA stacked vertically */
+/* Hero lockup: centered column, vertically centered in hero */
 .hero-lockup {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 50px;
+  align-items: center;
   width: 100%;
-  margin-bottom: 4vh;
   will-change: opacity;
   transition: opacity 0.2s ease-out;
   pointer-events: auto;
+}
+
+/* Centered column: name, product designer, CTA */
+.hero-headline-cta-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px; /* 16px + 10px */
+  width: 100%;
+  text-align: center;
 }
 
 .hero-headline-container {
@@ -185,21 +194,50 @@
 
 .hero-headline {
   font-family: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(38px, 5.5vw + 26px, 60px);
+  font-size: clamp(32px, 4.7vw + 22px, 51px);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: 0.03em;
   margin: 0;
   color: white;
+  text-align: center;
+}
+
+.hero-headline-name {
+  text-transform: uppercase;
+  letter-spacing: 0.08em; /* +3% from 0.05em */
+  font-weight: 900;
+  font-size: 1.4375em; /* 15% larger than previous 1.25em */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .hero-headline-sub {
   font-size: 0.67em;
-  font-weight: 700;
+  font-weight: 600; /* 700 − 100 */
   letter-spacing: 0.01em;
   display: block;
   margin-top: -0.15em;
   line-height: 1.1;
+}
+
+/* Pulsing down arrow at bottom center of viewport */
+.hero-scroll-arrow {
+  position: absolute;
+  bottom: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  pointer-events: none;
+  animation: hero-scroll-arrow-pulse 1.5s ease-in-out infinite;
+}
+
+.hero-scroll-arrow svg {
+  display: block;
+}
+
+@keyframes hero-scroll-arrow-pulse {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(6px); }
 }
 
 .cta-wrapper-container {
@@ -217,23 +255,23 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 21px 28px;
-  background-color: #ffffff;
-  color: #000000;
+  padding: 5px 24px;
+  background-color: transparent;
+  color: #ffffff;
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
-  border: none;
+  border: 2px solid #ffffff;
   border-radius: 1000px;
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
   white-space: nowrap;
 }
 
 .hero-cta:hover {
-  opacity: 0.9;
-  transform: scale(1.02);
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .hero-text-container {
@@ -258,6 +296,7 @@
   margin: 0;
   letter-spacing: -0.02em;
   will-change: opacity, transform;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out; /* +200ms fade & slide */
 }
 
 /* Work section: sticky for 100vh of scroll (spacer), then scrolls away naturally */
@@ -303,10 +342,10 @@
   }
 }
 
-/* Minimal spacer – next section appears right after condensing finishes */
+/* Spacer height set inline to match condense scroll range – keeps work section sticky for full condense */
 .work-section-spacer {
   width: 100%;
-  height: 15vh;
+  min-height: 100vh;
   background-color: #000000;
   pointer-events: none;
 }
@@ -341,6 +380,32 @@
   right: 10vw;
 }
 
+.work-carousel-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* 12px fade at left and right */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 12px,
+    black calc(100% - 12px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 12px,
+    black calc(100% - 12px),
+    transparent 100%
+  );
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+}
+
 .work-carousel {
   position: relative;
   width: 100%;
@@ -364,7 +429,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s ease, width 0.2s ease-out, height 0.2s ease-out;
+  transition: opacity 0.25s ease, width 0.35s ease-out, height 0.35s ease-out;
 }
 
 .work-card-active {
@@ -375,7 +440,7 @@
 .work-card-next {
   z-index: 1;
   cursor: pointer;
-  transition: opacity 0.2s ease, width 0.2s ease-out, height 0.2s ease-out;
+  transition: opacity 0.25s ease, width 0.35s ease-out, height 0.35s ease-out;
 }
 
 .work-card-side:hover {
@@ -474,7 +539,7 @@
 
 .typography-heading-headline {
   font-family: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 17px;
+  font-size: 12.75px; /* 25% smaller than 17px */
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -485,7 +550,7 @@
 
 .typography-heading-subheadline {
   font-family: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 40px;
+  font-size: 30px; /* 25% smaller than 40px */
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -952,11 +1017,11 @@
   }
 
   .hero-headline {
-    font-size: clamp(32px, 6vw, 48px);
+    font-size: clamp(27px, 5.1vw, 41px); /* 15% smaller */
   }
 
   .hero-cta {
-    padding: 12px 24px;
+    padding: 5px 24px;
     font-size: 14px;
   }
 
@@ -974,5 +1039,22 @@
 
   .content-section {
     padding: 5vh calc(40px + 5vw) 5vh;
+  }
+}
+
+/* Extra-small screens: tighter padding */
+@media (max-width: 480px) {
+  .section-hero .section-content {
+    padding: 0 20px;
+  }
+
+  .section-value-props,
+  .content-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .navbar-content {
+    padding: 0 16px;
   }
 }
