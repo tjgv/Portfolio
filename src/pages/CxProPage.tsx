@@ -277,9 +277,7 @@ export default function CxProPage() {
         </section>
 
         {/* 2. (2x1) Col1 empty, Col2: "Context" XL Header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>2</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="xl-header">Context</h2>
@@ -288,9 +286,7 @@ export default function CxProPage() {
         </div>
 
         {/* 3. (2x1) Col1: "What is Cosm?" Header 2 | Col2: paragraph + placeholder image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>3</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1">
             <h2 className="header-2">What is Cosm?</h2>
           </div>
@@ -306,9 +302,7 @@ export default function CxProPage() {
         </div>
 
         {/* 4. (2x1) Has top divider. Col1: "My Role" H2 | Col2: role/team/timeline blocks + paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>4</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">My Role</h2>
           </div>
@@ -361,9 +355,7 @@ export default function CxProPage() {
         </div>
 
         {/* 5. Header section: Icon + "Evolution of CX Pro" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>5</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -381,10 +373,30 @@ export default function CxProPage() {
         </div>
         </div>
 
+        {/* 5b. (2x1) Has divider. Col1: H2 | Col2: paragraph – same style as Learning and Alignment */}
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
+          <div className="cx-block__col1">
+            <h2 className="header-2">Problems Solved</h2>
+          </div>
+          <div className="cx-block__col2 cx-stack">
+            <p className="paragraph-text">
+              This case study demonstrates the various problem spaces I guided CX Pro which each version represents.
+            </p>
+            <p className="paragraph-text">
+              <strong>Version 1.0:</strong> (Dec 23 – Jun 24) Rapid pivots around constant shifting of engineering scope to find an MVP
+            </p>
+            <p className="paragraph-text">
+              <strong>Version 2.0:</strong> (Jul 24 – Feb 25) Re-centering product around user needs post launch as we began to have users.
+            </p>
+            <p className="paragraph-text">
+              <strong>Version 3.0:</strong> (Mar 25 – Oct 25) Honing in on conceptual clarity to prepare for an external B2B2C launch.
+            </p>
+          </div>
+        </div>
+        </div>
+
         {/* 6. Carousel of images */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>6</span>
-          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
+        <div className="cx-section">          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
             <CxCarousel
               items={[
                 { id: '6.1', imageUrl: `${CX_IMAGES}/6.1.png` },
@@ -401,9 +413,7 @@ export default function CxProPage() {
         </div>
 
         {/* 7. Header section: Icon + "From 0 to 1" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>7</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -422,9 +432,7 @@ export default function CxProPage() {
         </div>
 
         {/* 8. (2x1) Has divider. Col1: "Problem" H2 | Col2: paragraph + 3 stat cards */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>8</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Problem</h2>
           </div>
@@ -457,9 +465,7 @@ export default function CxProPage() {
         </div>
 
         {/* 9. (2x1) Has divider. Col1: "Learning and Alignment" H2 | Col2: paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>9</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Learning and Alignment</h2>
           </div>
@@ -472,9 +478,7 @@ export default function CxProPage() {
         </div>
 
         {/* 10. Full width Figma embed */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>10</span>
-        <div className="cx-figma-embed">
+        <div className="cx-section">        <div className="cx-figma-embed">
           <iframe
             src="https://embed.figma.com/design/74MwW6NWOIc6F23o2q8jVP/Figma-Portfolio?node-id=550-32512&embed-host=share"
             style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
@@ -485,9 +489,7 @@ export default function CxProPage() {
         </div>
 
         {/* 11. (2x1) Has divider. Col1: "Gaining Alignment" H2 | Col2: 2 divs horizontal + paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>11</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Gaining Alignment</h2>
           </div>
@@ -510,9 +512,7 @@ export default function CxProPage() {
         </div>
 
         {/* 12. Header section: Icon + "Version 1 CX Pro" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>12</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -531,9 +531,7 @@ export default function CxProPage() {
         </div>
 
         {/* 13. (2x1) Has divider. Col1: "MVP Candidate" H2 | Col2: paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>13</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">MVP Candidate</h2>
           </div>
@@ -546,17 +544,13 @@ export default function CxProPage() {
         </div>
 
         {/* 14. Full width image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>14</span>
-        <div className="cx-full-width">
+        <div className="cx-section">        <div className="cx-full-width">
           <img src={`${CX_IMAGES}/14.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/14.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/14.png`], 0)} />
         </div>
         </div>
 
         {/* 15. Full screen loop background video */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>15</span>
-        <div className="cx-full-screen cx-video-backdrop">
+        <div className="cx-section">        <div className="cx-full-screen cx-video-backdrop">
           <video
             className="cx-video-backdrop__video"
             src="/cx-pro-images/15.mp4"
@@ -574,9 +568,7 @@ export default function CxProPage() {
         </div>
 
         {/* 16. (2x1) Col1 empty | Col2: "Design" XL Header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>16</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="xl-header">Design</h2>
@@ -585,9 +577,7 @@ export default function CxProPage() {
         </div>
 
         {/* 17. Header section: Icon + "Post Launch Design Initatives" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>17</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -606,9 +596,7 @@ export default function CxProPage() {
         </div>
 
         {/* 18. (2x1) Has divider. Col1: "Prioritizing Fast Follow Items" H2 | Col2: paragraph + image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>18</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Prioritizing Fast Follow Items</h2>
           </div>
@@ -624,9 +612,7 @@ export default function CxProPage() {
         </div>
 
         {/* 19. (2x1) Has divider. Col1: "Addressing the right problems" H2 | Col2: paragraph + 3 colored cards (2 top, 1 bottom) */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>19</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Addressing the right problems</h2>
           </div>
@@ -656,9 +642,7 @@ export default function CxProPage() {
         </div>
 
         {/* 20. (2x1) Has divider. Col1: "Project #1: Global Controls" H2 | Col2: paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>20</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Project #1: Global Controls</h2>
           </div>
@@ -673,9 +657,7 @@ export default function CxProPage() {
         </div>
 
         {/* 21. Carousel */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>21</span>
-          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
+        <div className="cx-section">          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
             <CxCarousel
               items={[
                 { id: '21.1', imageUrl: `${CX_IMAGES}/21.1.png?v=${CX_SECTION_21_CACHE}` },
@@ -690,9 +672,7 @@ export default function CxProPage() {
         </div>
 
         {/* 22. (2x1) Has divider. Col1: "Project #2: Show Manager" H2 | Col2: paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>22</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Project #2: Show Manager</h2>
           </div>
@@ -708,9 +688,7 @@ export default function CxProPage() {
         </div>
 
         {/* 23. Carousel */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>23</span>
-          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
+        <div className="cx-section">          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
             <CxCarousel
               items={[
                 { id: '23.1', imageUrl: `${CX_IMAGES}/23.1.png` },
@@ -725,9 +703,7 @@ export default function CxProPage() {
         </div>
 
         {/* 24. Full width Figma embed */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>24</span>
-        <div className="cx-figma-embed">
+        <div className="cx-section">        <div className="cx-figma-embed">
           <iframe
             src="https://embed.figma.com/design/74MwW6NWOIc6F23o2q8jVP/Figma-Portfolio---Library-Snipept?node-id=52-13783&embed-host=share"
             style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
@@ -738,9 +714,7 @@ export default function CxProPage() {
         </div>
 
         {/* 25. (2x1) Has divider. Col1: "Design System Upkeep and Scaling" H2 | Col2: paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>25</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Design System Upkeep and Scaling</h2>
           </div>
@@ -753,17 +727,13 @@ export default function CxProPage() {
         </div>
 
         {/* 26. Full width image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>26</span>
-        <div className="cx-full-width">
+        <div className="cx-section">        <div className="cx-full-width">
           <img src={`${CX_IMAGES}/26.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/26.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/26.png`], 0)} />
         </div>
         </div>
 
         {/* 27. Header section: Icon + "Version 2.0" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>27</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -782,9 +752,7 @@ export default function CxProPage() {
         </div>
 
         {/* 28. (2x1) Has divider. Col1: "Optimized Workflows" H2 | Col2: paragraph + quote block */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>28</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Optimized Workflows</h2>
           </div>
@@ -801,9 +769,7 @@ export default function CxProPage() {
         </div>
 
         {/* 29. Full width Figma embed */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>29</span>
-        <div className="cx-figma-embed">
+        <div className="cx-section">        <div className="cx-figma-embed">
           <iframe
             src="https://embed.figma.com/design/74MwW6NWOIc6F23o2q8jVP/Figma-Portfolio?node-id=2749-32695&embed-host=share"
             style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
@@ -814,9 +780,7 @@ export default function CxProPage() {
         </div>
 
         {/* 30. Full width image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>30</span>
-        <div className="cx-full-width">
+        <div className="cx-section">        <div className="cx-full-width">
           <img src={`${CX_IMAGES}/30.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/30.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/30.png`], 0)} />
         </div>
         </div>
@@ -824,9 +788,7 @@ export default function CxProPage() {
         {/* ----- Section: Impact (31-33) – background #e7e7e7 ----- */}
         <section className="cx-section-gray">
           {/* 31. (2x1) Col1 empty | Col2: "Impact" XL Header */}
-          <div className="cx-section">
-            <span className="cx-section-num" aria-hidden>31</span>
-          <div className="cx-block">
+          <div className="cx-section">          <div className="cx-block">
             <div className="cx-block__col1" />
             <div className="cx-block__col2">
               <h2 className="xl-header">Impact</h2>
@@ -835,9 +797,7 @@ export default function CxProPage() {
           </div>
 
           {/* 32. Header section: Icon + "Version 2.0 Results" + sub-header */}
-          <div className="cx-section">
-            <span className="cx-section-num" aria-hidden>32</span>
-          <div className="cx-block">
+          <div className="cx-section">          <div className="cx-block">
             <div className="cx-block__col1" />
             <div className="cx-block__col2">
               <div className="cx-header-section">
@@ -856,9 +816,7 @@ export default function CxProPage() {
           </div>
 
           {/* 33. (2x1) Has divider. Col1: "Impact Scores" H2 | Col2: paragraph + 3 metric blocks */}
-          <div className="cx-section">
-            <span className="cx-section-num" aria-hidden>33</span>
-          <div className="cx-block cx-block--divider">
+          <div className="cx-section">          <div className="cx-block cx-block--divider">
             <div className="cx-block__col1">
               <h2 className="header-2">Impact Scores</h2>
             </div>
@@ -894,9 +852,7 @@ export default function CxProPage() {
         </section>
 
         {/* 34. (2x1) Col1 empty | Col2: "Discovery" XL Header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>34</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="xl-header">Discovery</h2>
@@ -905,9 +861,7 @@ export default function CxProPage() {
         </div>
 
         {/* 35. Header section: Icon + "User Research" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>35</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -926,9 +880,7 @@ export default function CxProPage() {
         </div>
 
         {/* 36. (2x1) Has divider. Col1: "Auditing Use Cases" H2 | Col2: paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>36</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Auditing Use Cases</h2>
           </div>
@@ -941,17 +893,13 @@ export default function CxProPage() {
         </div>
 
         {/* 37. Full width image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>37</span>
-        <div className="cx-full-width">
+        <div className="cx-section">        <div className="cx-full-width">
           <img src={`${CX_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/37.png`], 0)} />
         </div>
         </div>
 
         {/* 38. (2x1) Has divider. Col1: "Understanding New Users" H2 | Col2: paragraph + 2 images horizontal */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>38</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Understanding New Users</h2>
           </div>
@@ -968,9 +916,7 @@ export default function CxProPage() {
         </div>
 
         {/* 39. Header section: Icon + "Designing for B2B2C" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>39</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -989,9 +935,7 @@ export default function CxProPage() {
         </div>
 
         {/* 40. (2x1) Has divider. Col1: "Finding our North Star" H2 | Col2: paragraph + image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>40</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Finding our North Star</h2>
           </div>
@@ -1007,9 +951,7 @@ export default function CxProPage() {
         </div>
 
         {/* 41. (2x1) Has divider. Col1: "Scaling it back" H2 | Col2: paragraph + image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>41</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Scaling it back</h2>
           </div>
@@ -1025,9 +967,7 @@ export default function CxProPage() {
         </div>
 
         {/* 42. Header section: Icon + "Version 3.0" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>42</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -1046,9 +986,7 @@ export default function CxProPage() {
         </div>
 
         {/* 43. (2x1) Has divider. Col1: "Conceptually Simplifying" H2 | Col2: numbered list */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>43</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Conceptually Simplifying</h2>
           </div>
@@ -1066,9 +1004,7 @@ export default function CxProPage() {
         </div>
 
         {/* 44. Full width image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>44</span>
-          <div className="cx-full-width">
+        <div className="cx-section">          <div className="cx-full-width">
             <img src={`${CX_IMAGES}/44.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/44.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/44.png`], 0)} />
           </div>
         </div>
@@ -1076,9 +1012,7 @@ export default function CxProPage() {
         {/* ----- Section: Projected Impact / Revenue (45-47) – background #e7e7e7 ----- */}
         <section className="cx-section-gray">
           {/* 45. (2x1) Col1 empty | Col2: "Projected Impact" XL Header */}
-          <div className="cx-section">
-            <span className="cx-section-num" aria-hidden>45</span>
-          <div className="cx-block">
+          <div className="cx-section">          <div className="cx-block">
             <div className="cx-block__col1" />
             <div className="cx-block__col2">
               <h2 className="xl-header">Projected Impact</h2>
@@ -1087,9 +1021,7 @@ export default function CxProPage() {
           </div>
 
           {/* 46. (2x1) Has divider. Col1: "Revenue Outlook" H2 | Col2: paragraph + 2-line revenue block */}
-          <div className="cx-section">
-            <span className="cx-section-num" aria-hidden>46</span>
-          <div className="cx-block cx-block--divider">
+          <div className="cx-section">          <div className="cx-block cx-block--divider">
             <div className="cx-block__col1">
               <h2 className="header-2">Revenue Outlook</h2>
             </div>
@@ -1106,9 +1038,7 @@ export default function CxProPage() {
           </div>
 
           {/* 47. Carousel */}
-          <div className="cx-section">
-            <span className="cx-section-num" aria-hidden>47</span>
-            <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
+          <div className="cx-section">            <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
               <CxCarousel
                 items={[
                   { id: '47.1', imageUrl: `${CX_IMAGES}/47.1.png` },

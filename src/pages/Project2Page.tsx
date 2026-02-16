@@ -232,9 +232,7 @@ export default function Project2Page() {
         </section>
 
         {/* 2. (2x1) Col1 empty, Col2: "Context" XL Header */}
-        <div ref={s2Ref} data-section="s2" className="cx-section">
-          <span className="cx-section-num" aria-hidden>2</span>
-        <div className="cx-block">
+        <div ref={s2Ref} data-section="s2" className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="xl-header">Context</h2>
@@ -243,9 +241,7 @@ export default function Project2Page() {
         </div>
 
         {/* 3. (2x1) Col1: "Context" Header 2 | Col2: paragraph + placeholder image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>3</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1">
             <h2 className="header-2">Context</h2>
           </div>
@@ -261,9 +257,7 @@ export default function Project2Page() {
         </div>
 
         {/* 4. (2x1) Col1: "Problem Solved" | Col2: paragraph + image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>4</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1">
             <h2 className="header-2">Problem Solved</h2>
           </div>
@@ -279,9 +273,7 @@ export default function Project2Page() {
         </div>
 
         {/* 5. (2x1) Has top divider. Col1: "My Role" H2 | Col2: role/team/timeline blocks + paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>5</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">My Role</h2>
           </div>
@@ -354,9 +346,7 @@ export default function Project2Page() {
         </div>
 
         {/* XL header section: "Discovery" */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>6</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="xl-header">Discovery</h2>
@@ -365,9 +355,7 @@ export default function Project2Page() {
         </div>
 
         {/* 5. Header section: Icon + "Research and Synthesis" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>5</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -386,9 +374,7 @@ export default function Project2Page() {
         </div>
 
         {/* 7. (2x1) Has divider. Col1: "Analyzing current dashboard usage data" H2 | Col2: paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>7</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Analyzing current dashboard usage data</h2>
           </div>
@@ -401,17 +387,13 @@ export default function Project2Page() {
         </div>
 
         {/* 8. Full width image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>8</span>
-        <div className="cx-full-width">
+        <div className="cx-section">        <div className="cx-full-width">
           <img src={`${VALIDUS_IMAGES}/8.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} />
         </div>
         </div>
 
         {/* 9. (2x1) Has divider. Col1: "Comparing usage data to platform CTR's" H2 | Col2: paragraph + image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>9</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Comparing usage data to platform CTR's</h2>
           </div>
@@ -427,9 +409,7 @@ export default function Project2Page() {
         </div>
 
         {/* 10. (2x1) Has divider. Col1: "Emotional-Social Mapping " H2 | Col2: paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>10</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Emotional-Social Mapping </h2>
           </div>
@@ -442,17 +422,13 @@ export default function Project2Page() {
         </div>
 
         {/* 11. Full viewport image (100vh, bypasses margins) */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>11</span>
-        <div className="cx-fullscreen-image">
+        <div className="cx-section">        <div className="cx-fullscreen-image">
           <img src={`${VALIDUS_IMAGES}/social-mapping.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} />
         </div>
         </div>
 
         {/* 12. (2x1) Col1 empty | Col2: "Design" XL Header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>12</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="xl-header">Design</h2>
@@ -461,9 +437,7 @@ export default function Project2Page() {
         </div>
 
         {/* 13. Header section: Icon + "Post Launch Design Initatives" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>13</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -482,9 +456,7 @@ export default function Project2Page() {
         </div>
 
         {/* 14. (2x1) Has divider. Col1: "Prioritizing Fast Follow Items" H2 | Col2: paragraph + image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>14</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Prioritizing Fast Follow Items</h2>
           </div>
@@ -500,9 +472,7 @@ export default function Project2Page() {
         </div>
 
         {/* 15. (2x1) Has divider. Col1: "Addressing the fear of the unknown" H2 | Col2: paragraph + image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>15</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Addressing the fear of the unknown</h2>
           </div>
@@ -524,9 +494,7 @@ export default function Project2Page() {
         </div>
 
         {/* 16. (2x1) Has divider. Col1: "Addressing high volume workloads" H2 | Col2: paragraph + image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>16</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Addressing high volume workloads</h2>
           </div>
@@ -545,9 +513,7 @@ export default function Project2Page() {
         </div>
 
         {/* 17. (2x1) Has divider. Col1: "Streamlining Workflows" H2 | Col2: paragraph + gif */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>17</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Streamlining Workflows</h2>
           </div>
@@ -563,9 +529,7 @@ export default function Project2Page() {
         </div>
 
         {/* 18. (2x1) Col1 empty | Col2: "Evaluative Research" XL Header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>18</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="xl-header">Evaluative Research</h2>
@@ -574,9 +538,7 @@ export default function Project2Page() {
         </div>
 
         {/* 19. Header section: Icon + "Validating Designs" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>19</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -595,9 +557,7 @@ export default function Project2Page() {
         </div>
 
         {/* 20. (2x1) Has divider. Col1: "Research Strategy" H2 | Col2: paragraph + 4 icon lines */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>20</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Research Strategy</h2>
           </div>
@@ -628,17 +588,13 @@ export default function Project2Page() {
         </div>
 
         {/* 21. Full width image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>21</span>
-        <div className="cx-full-width">
+        <div className="cx-section">        <div className="cx-full-width">
           <img src={`${VALIDUS_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} />
         </div>
         </div>
 
         {/* 22. (2x1) Has divider. Col1: "Problem Validation:" H2 | Col2: paragraph */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>22</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Problem Validation:</h2>
           </div>
@@ -657,9 +613,7 @@ export default function Project2Page() {
         </div>
 
         {/* 23. (2x1) Has divider. Col1: "Testing Satisfaction" H2 | Col2: Q paragraph + image */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>23</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Testing Satisfaction</h2>
           </div>
@@ -675,9 +629,7 @@ export default function Project2Page() {
         </div>
 
         {/* 24. (2x1) Has divider. Col1: "Task Completion Metrics" H2 | Col2: paragraph + 2 stat cards (speed icon on line 1) */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>24</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Task Completion Metrics</h2>
           </div>
@@ -710,9 +662,7 @@ export default function Project2Page() {
         </div>
 
         {/* 25. (2x1) Col1 empty | Col2: XL Header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>25</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="xl-header">Final Product</h2>
@@ -721,9 +671,7 @@ export default function Project2Page() {
         </div>
 
         {/* 26. Header section: Icon + "Validus Dashboard" + sub-header */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>26</span>
-        <div className="cx-block">
+        <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <div className="cx-header-section">
@@ -742,9 +690,7 @@ export default function Project2Page() {
         </div>
 
         {/* 27. (2x1) Has divider. Col1: "User Quote" H2 | Col2: quote + attribution block */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>27</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">User Quote</h2>
           </div>
@@ -764,9 +710,7 @@ export default function Project2Page() {
         </div>
 
         {/* 28. Full width image + phone overlay (slides in from right when in view) */}
-        <div className="cx-section">
-          <span className="cx-section-num" aria-hidden>28</span>
-        <div ref={s28WrapRef} className="cx-s28-wrap">
+        <div className="cx-section">        <div ref={s28WrapRef} className="cx-s28-wrap">
           <div className="cx-full-width">
             <img src={`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} />
           </div>
@@ -777,9 +721,7 @@ export default function Project2Page() {
         </div>
 
         {/* 29. (2x1) Col1: gif loop | Col2: gif loop */}
-        <div className="cx-section cx-section--s29">
-          <span className="cx-section-num" aria-hidden>29</span>
-        <div className="cx-block cx-block--divider">
+        <div className="cx-section cx-section--s29">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <div className="cx-full-width">
               <img src={`${VALIDUS_IMAGES}/6924c0a3b71c1080835011d7_Beta-UI-Promo-2.gif`} alt="" style={{ width: '100%', display: 'block' }} />

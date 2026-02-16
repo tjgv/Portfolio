@@ -1,11 +1,14 @@
-/* Section number label (for editing reference – remove for production) */
-.cx-section-num {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 600;
-  color: #16a34a;
-  margin-bottom: 4px;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+/* Section number label (hidden – was for editing reference) */
+.cx-section-num,
+.cx-section .cx-section-num,
+.project-page .cx-section-num {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
 }
 
 /* CX Pro case study – white background, black text, 2x1 grid layout */
@@ -241,33 +244,33 @@
 .cx-pro-page .header-1 {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
   font-size: 42px;
-  line-height: 52px;
+  line-height: 44px; /* 15% reduction from 52px */
   font-weight: 800;
   color: #000;
-  margin-top: 50px;
+  margin-top: 42px; /* 15% reduction from 50px */
   margin-bottom: 0;
 }
 
 .cx-pro-page .header-2 {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
   font-size: 20px;
-  line-height: 28px;
+  line-height: 24px; /* 15% reduction from 28px */
   font-weight: 700;
   color: #000;
-  margin: 0 0 16px;
+  margin: 0 0 14px; /* 15% reduction from 16px */
 }
 
 /* Section 9 stat card headers (25% larger than base) */
 .cx-stat-cards--section9-headers .header-2 {
   font-size: 22.5px;
-  line-height: 31.5px;
+  line-height: 27px; /* 15% reduction from 31.5px */
 }
 
 .cx-pro-page .sub-header-1,
 .cx-pro-page .project-main p.sub-header-1 {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
   font-size: 22px;
-  line-height: 29px;
+  line-height: 25px; /* 15% reduction from 29px */
   font-weight: 600;
   color: #8c8d8c !important;
   margin: 0;
@@ -276,10 +279,10 @@
 .cx-pro-page .paragraph-text {
   font-family: 'Inter', -apple-system, sans-serif;
   font-size: 16px;
-  line-height: 27px;
+  line-height: 23px; /* 15% reduction from 27 */
   font-weight: 400;
   color: #000;
-  margin: 0 0 16px;
+  margin: 0 0 14px; /* 15% reduction from 16px */
 }
 
 .cx-pro-page .paragraph-text:last-child {
@@ -289,34 +292,38 @@
 /* ----- 2x1 Grid block ----- */
 .cx-block {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px 48px;
+  grid-template-columns: 0.85fr 1.15fr; /* col2 15% wider than equal split */
+  gap: 17px 41px; /* row 15% reduction from 20px */
   align-items: start;
-  padding: 0 0 32px;
+  padding: 0 0 27px; /* 15% reduction from 32px */
 }
 
 .cx-block--divider {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
-  padding-top: 32px;
+  padding-top: 27px; /* 15% reduction from 32px */
 }
 
 .cx-block__col1 {
   min-height: 1px;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 }
 
 .cx-block__col2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 14px; /* 15% reduction from 16px */
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 }
 
-/* Header section: column 1 empty, column 2 = one div with 3 stacked divs, 12px gap */
+/* Header section: column 1 empty, column 2 = one div with 3 stacked divs */
 .cx-header-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px; /* 15% reduction from 12px */
   margin-top: 35vh;
 }
 
@@ -352,27 +359,27 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px; /* 15% reduction from 12px */
   width: 100%;
 }
 
-/* Section 5 column 2: role / team / timeline blocks (vertical stack, 12px gap) */
+/* Section 5 column 2: role / team / timeline blocks (vertical stack) */
 .cx-s5-blocks {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px; /* 15% reduction from 12px */
   width: 100%;
 }
 
 .cx-s5-stack {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px; /* 15% reduction from 12px */
   width: 100%;
 }
 
 .cx-s5-stack + .cx-s5-stack {
-  margin-top: 24px;
+  margin-top: 20px; /* 15% reduction from 24px */
 }
 
 .cx-s5-row {
@@ -727,11 +734,11 @@
 }
 
 .cx-carousel-arrow-left {
-  left: 0;
+  left: 10vw;
 }
 
 .cx-carousel-arrow-right {
-  right: 0;
+  right: 10vw;
 }
 
 .cx-carousel {
@@ -1310,11 +1317,11 @@
 }
 
 .cx-lightbox-arrow-left {
-  left: 24px;
+  left: 10vw;
 }
 
 .cx-lightbox-arrow-right {
-  right: 24px;
+  right: 10vw;
 }
 
 .cx-lightbox-strip {
