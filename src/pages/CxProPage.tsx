@@ -244,7 +244,7 @@ export default function CxProPage() {
         {/* 1. Intro section – hero with logo, hero text, chips, arrow */}
         <section className="cx-hero-intro" aria-label="Project intro">
           <div className="cx-hero-intro-body">
-            <img src="/cosm-logotype.png" alt="Cosm" className="cx-hero-logo" />
+            <img src="/cosm-logotype.png" alt="Cosm" className="cx-hero-logo" fetchPriority="high" />
             <p className="cx-hero-text">
               Leading the design of Cosm's immersive venue platform, evolving a 0→1 product into a scalable B2B2C flagship
             </p>
@@ -467,6 +467,7 @@ export default function CxProPage() {
             style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
             allowFullScreen
             title="Figma embed"
+            fetchPriority="high"
           />
         </div>
         </div>
@@ -692,6 +693,7 @@ export default function CxProPage() {
             style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
             allowFullScreen
             title="Figma Library embed"
+            fetchPriority="high"
           />
         </div>
         </div>
@@ -758,18 +760,19 @@ export default function CxProPage() {
             style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
             allowFullScreen
             title="Figma embed"
+            fetchPriority="high"
           />
         </div>
         </div>
 
-        {/* 30. Full width image */}
-        <div className="cx-section">        <div className="cx-full-width">
+        {/* 30. Full width image (stacks above grey overlap below) */}
+        <div className="cx-section cx-section--above-gray-overlap">        <div className="cx-full-width">
           <img src={`${CX_IMAGES}/30.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/30.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/30.png`], 0)} />
         </div>
         </div>
 
-        {/* ----- Section: Impact (31-33) – background #e7e7e7 ----- */}
-        <section className="cx-section-gray">
+        {/* ----- Section: Impact (31-33) – background #e7e7e7, grey extends halfway behind image above ----- */}
+        <section className="cx-section-gray cx-section-gray--overlap-prev">
           {/* 31. (2x1) Col1 empty | Col2: "Impact" XL Header */}
           <div className="cx-section">          <div className="cx-block">
             <div className="cx-block__col1" />
@@ -986,14 +989,14 @@ export default function CxProPage() {
         </div>
         </div>
 
-        {/* 44. Full width image */}
-        <div className="cx-section">          <div className="cx-full-width">
+        {/* 44. Full width image (stacks above grey overlap below) */}
+        <div className="cx-section cx-section--above-gray-overlap">          <div className="cx-full-width">
             <img src={`${CX_IMAGES}/44.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/44.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/44.png`], 0)} />
           </div>
         </div>
 
-        {/* ----- Section: Projected Impact / Revenue (45-47) – background #e7e7e7 ----- */}
-        <section className="cx-section-gray">
+        {/* ----- Section: Projected Impact / Revenue (45-47) – background #e7e7e7, grey extends halfway behind image above ----- */}
+        <section className="cx-section-gray cx-section-gray--overlap-prev">
           {/* 45. (2x1) Col1 empty | Col2: "Projected Impact" XL Header */}
           <div className="cx-section">          <div className="cx-block">
             <div className="cx-block__col1" />

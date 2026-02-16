@@ -1099,6 +1099,18 @@
   box-sizing: border-box;
 }
 
+/* Section above Impact grey: keep image on top so grey extends behind it */
+.cx-section--above-gray-overlap {
+  position: relative;
+  z-index: 1;
+}
+
+/* Impact section: grey extends halfway behind the full-width image above (~half of typical image height) */
+.cx-section-gray--overlap-prev {
+  margin-top: -255px;
+  padding-top: 303px; /* 48px + 255px so content stays in place */
+}
+
 .cx-section-gray .xl-header,
 .cx-section-gray .header-1,
 .cx-section-gray .header-2,
@@ -1436,6 +1448,10 @@
 
   .cx-section-gray {
     padding: 48px max(48px, calc((100vw - 1200px) / 2)) 64px;
+  }
+
+  .cx-section-gray--overlap-prev {
+    padding-top: 303px;
   }
 }
 

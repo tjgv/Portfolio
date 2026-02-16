@@ -213,7 +213,7 @@ export default function Project2Page() {
         {/* 1. Intro section – hero with logo, hero text, chips, arrow */}
         <section className="cx-hero-intro" aria-label="Project intro">
           <div className="cx-hero-intro-body">
-            <img src="/validus-logo.svg" alt="Validus" className="cx-hero-logo" />
+            <img src="/validus-logo.svg" alt="Validus" className="cx-hero-logo" fetchPriority="high" />
             <p className="cx-hero-text">
               How might we help officers trust that they're seeing every crucial signal, and not drowning in market data?
             </p>
