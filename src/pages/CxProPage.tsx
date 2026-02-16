@@ -467,7 +467,6 @@ export default function CxProPage() {
             style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
             allowFullScreen
             title="Figma embed"
-            fetchPriority="high"
           />
         </div>
         </div>
@@ -693,7 +692,6 @@ export default function CxProPage() {
             style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
             allowFullScreen
             title="Figma Library embed"
-            fetchPriority="high"
           />
         </div>
         </div>
@@ -760,7 +758,6 @@ export default function CxProPage() {
             style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
             allowFullScreen
             title="Figma embed"
-            fetchPriority="high"
           />
         </div>
         </div>
