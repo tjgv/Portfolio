@@ -5,8 +5,6 @@ import './CxProPage.css'
 const CX_IMAGES = '/cx-pro-images'
 /** Bump this when you replace section 21 images (same filenames) to avoid cache */
 const CX_SECTION_21_CACHE = 2
-const CX_CAROUSEL_CARD_WIDTH = 476   /* 15% smaller than 560 */
-const CX_CAROUSEL_GAP = 20
 const CX_SLIDE_DURATION_MS = 500
 const CX_SLIDE_EASING = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
 
@@ -96,8 +94,8 @@ const CX_CAROUSEL_SECTION6_GAP = 20
 function CxCarousel({
   items,
   onOpenLightbox,
-  cardWidth,
-  cardGap,
+  cardWidth: _cardWidth,
+  cardGap: _cardGap,
 }: {
   items: CarouselItem[]
   onOpenLightbox?: (urls: string[], index: number) => void
@@ -110,20 +108,6 @@ function CxCarousel({
   const n = items.length
 
   if (items.length === 0) return null
-
-  const goPrev = () => {
-    if (isSliding || n <= 1) return
-    setIsSliding(true)
-    setIndex((i) => (i - 1 + n) % n)
-    setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
-  }
-
-  const goNext = () => {
-    if (isSliding || n <= 1) return
-    setIsSliding(true)
-    setIndex((i) => (i + 1) % n)
-    setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
-  }
 
   const handleSlideClick = () => {
     if (isSliding) return
