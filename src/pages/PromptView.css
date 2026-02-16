@@ -1,0 +1,204 @@
+/* Prompt View page - modeled after https://www.aiuxplayground.com/prompts/survey-question-generator */
+.prompt-view {
+  min-height: 100vh;
+  padding: 120px calc(100px + 5vw) 80px;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.prompt-view-error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.prompt-view-back {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #a1a1aa;
+  text-decoration: none;
+  transition: color 0.2s;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.prompt-view-back:hover {
+  color: #ffffff;
+}
+
+.prompt-view-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(28px, 4vw + 20px, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 48px 0;
+}
+
+.prompt-view-section {
+  margin-bottom: 40px;
+}
+
+.prompt-view-section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.prompt-view-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #ffffff;
+}
+
+.prompt-view-section-header .prompt-view-heading {
+  margin: 0;
+}
+
+.prompt-view-subheading {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #d4d4d8;
+}
+
+.prompt-view-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #a1a1aa;
+  margin: 0;
+}
+
+.prompt-view-copy {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  background-color: #27272a;
+  color: #ffffff;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.prompt-view-copy:hover {
+  background-color: #3f3f46;
+  border-color: #52525b;
+}
+
+.prompt-view-code {
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 24px;
+  background-color: #111111;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  color: #d4d4d8;
+  overflow-x: auto;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.prompt-view-steps {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.prompt-view-step {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #a1a1aa;
+  margin-bottom: 12px;
+}
+
+.prompt-view-step:last-child {
+  margin-bottom: 0;
+}
+
+.prompt-view-tips {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.prompt-view-tip {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #a1a1aa;
+  margin-bottom: 8px;
+}
+
+.prompt-view-tip:last-child {
+  margin-bottom: 0;
+}
+
+.prompt-view-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.prompt-view-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  padding: 6px 12px;
+  background-color: #27272a;
+  color: #a1a1aa;
+  border-radius: 6px;
+}
+
+.prompt-view-related {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.prompt-view-related li {
+  margin-bottom: 20px;
+}
+
+.prompt-view-related li:last-child {
+  margin-bottom: 0;
+}
+
+.prompt-view-related-link {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  margin-bottom: 4px;
+  transition: color 0.2s;
+}
+
+.prompt-view-related-link:hover {
+  color: #a1a1aa;
+}
+
+.prompt-view-related-desc {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #71717a;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .prompt-view {
+    padding: 100px calc(40px + 5vw) 60px;
+  }
+}

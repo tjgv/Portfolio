@@ -1,0 +1,1409 @@
+/* Section number label (for editing reference – remove for production) */
+.cx-section-num {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #16a34a;
+  margin-bottom: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* CX Pro case study – white background, black text, 2x1 grid layout */
+
+.project-page.cx-pro-page {
+  background-color: #ffffff;
+  overflow-x: hidden; /* clip at viewport so no horizontal scroll */
+}
+
+.project-page .project-main {
+  padding-top: 44px;
+}
+
+.cx-pro-page .project-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 0;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  overflow-x: visible; /* allow carousel sections to overflow left/right */
+}
+
+.cx-pro-page .project-main h1,
+.cx-pro-page .project-main h2,
+.cx-pro-page .project-main h3,
+.cx-pro-page .project-main p,
+.cx-pro-page .project-main li,
+.cx-pro-page .project-main span,
+.cx-pro-page .project-main cite,
+.cx-pro-page .project-main a {
+  color: inherit;
+}
+
+.cx-pro-page .nav-brand {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #7B7B7B;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cx-pro-page .nav-brand:hover {
+  color: #7B7B7B;
+  opacity: 0.85;
+}
+
+.cx-pro-page .nav-link {
+  color: #7B7B7B;
+}
+
+.cx-pro-page .nav-link:hover {
+  color: #7B7B7B;
+  opacity: 0.85;
+}
+
+.cx-pro-page .navbar-glass {
+  position: static;
+  background-color: #F5F5F5;
+  border-bottom: none;
+  padding-top: 24px;
+}
+
+/* ----- Hero intro section (100vh, 100vw, #F5F5F5) ----- */
+.cx-hero-intro {
+  width: 100vw;
+  min-height: 100vh;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  background-color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.cx-hero-intro-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 29px;
+  max-width: 800px;
+  text-align: center;
+}
+
+.cx-hero-logo {
+  display: block;
+  max-width: 20%;
+  height: auto;
+  object-fit: contain;
+  animation: cx-hero-logo-fade-in 700ms ease-in-out forwards;
+}
+
+@keyframes cx-hero-logo-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cx-hero-slide-up-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cx-hero-text {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 675;
+  color: #333333;
+  margin: 0;
+  animation: cx-hero-slide-up-fade-in 700ms ease-in-out forwards;
+}
+
+.cx-hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  animation: cx-hero-slide-up-fade-in 700ms ease-in-out forwards;
+}
+
+.cx-hero-chip {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #858585;
+  opacity: 0.75;
+  background-color: #EFEFEF;
+  border: 1px solid #ECECEC;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+.cx-hero-arrow {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #333333;
+  animation: cx-hero-arrow-pulse 1.5s ease-in-out infinite;
+}
+
+/* Arrow inside hero body (e.g. Validus): no absolute positioning, pulse only */
+.cx-hero-intro-body .cx-hero-arrow {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  margin-top: 8px;
+  animation: cx-hero-arrow-pulse-inline 1.5s ease-in-out infinite;
+}
+
+@keyframes cx-hero-arrow-pulse {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(4px); }
+}
+
+@keyframes cx-hero-arrow-pulse-inline {
+  0%, 100% { opacity: 0.5; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(4px); }
+}
+
+/* Validus: bridge image between hero and section 2 */
+.validus-page .cx-hero-intro {
+  padding-bottom: 0;
+  overflow: visible;
+}
+
+.validus-page .validus-hero-bridge {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+  width: 100%;
+  max-width: min(90vw, 1350px);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.validus-page .validus-hero-bridge img {
+  width: 100%;
+  height: auto;
+  max-height: 63vh;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 -4px 24px rgba(0, 0, 0, 0.08));
+}
+
+/* Pull section 2 up so it sits under the bridge image */
+.validus-page .cx-hero-intro + .cx-section {
+  position: relative;
+  z-index: 1;
+  margin-top: -8vh;
+}
+
+/* S29: extra top padding */
+.cx-section--s29 {
+  padding-top: 10vh;
+}
+
+/* Section 2: hide "Context" header on Validus */
+.validus-page .cx-hero-intro + .cx-section .xl-header {
+  visibility: hidden;
+}
+
+/* ----- Typography ----- */
+.cx-pro-page .xl-header {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
+  font-size: 100px;
+  line-height: 120px;
+  font-weight: 700;
+  color: #000;
+  margin: 45vh 0 25vh;
+}
+
+/* When a header section immediately follows an XL header section, remove XL bottom margin */
+.cx-pro-page .cx-section:has(.xl-header):has(+ .cx-section .cx-header-section) .xl-header {
+  margin-bottom: 0;
+}
+
+.cx-pro-page .header-1 {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
+  font-size: 42px;
+  line-height: 52px;
+  font-weight: 800;
+  color: #000;
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+
+.cx-pro-page .header-2 {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 16px;
+}
+
+/* Section 9 stat card headers (25% larger than base) */
+.cx-stat-cards--section9-headers .header-2 {
+  font-size: 22.5px;
+  line-height: 31.5px;
+}
+
+.cx-pro-page .sub-header-1,
+.cx-pro-page .project-main p.sub-header-1 {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
+  font-size: 22px;
+  line-height: 29px;
+  font-weight: 600;
+  color: #8c8d8c !important;
+  margin: 0;
+}
+
+.cx-pro-page .paragraph-text {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 27px;
+  font-weight: 400;
+  color: #000;
+  margin: 0 0 16px;
+}
+
+.cx-pro-page .paragraph-text:last-child {
+  margin-bottom: 0;
+}
+
+/* ----- 2x1 Grid block ----- */
+.cx-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 48px;
+  align-items: start;
+  padding: 0 0 32px;
+}
+
+.cx-block--divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-top: 32px;
+}
+
+.cx-block__col1 {
+  min-height: 1px;
+}
+
+.cx-block__col2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* Header section: column 1 empty, column 2 = one div with 3 stacked divs, 12px gap */
+.cx-header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 35vh;
+}
+
+.cx-header-section__icon {
+  /* wrapper for icon placeholder or SVG */
+}
+
+.cx-header-section__icon-svg {
+  display: block;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.cx-header-section__title {
+  /* wrapper for header-1 */
+}
+
+.cx-header-section__title .header-1 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.cx-header-section__sub {
+  /* wrapper for sub-header-1 */
+}
+
+.cx-header-section__sub .sub-header-1 {
+  margin: 0;
+}
+
+.cx-block__col2 .cx-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Section 5 column 2: role / team / timeline blocks (vertical stack, 12px gap) */
+.cx-s5-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.cx-s5-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.cx-s5-stack + .cx-s5-stack {
+  margin-top: 24px;
+}
+
+.cx-s5-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.cx-s5-heading-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.cx-s5-divider {
+  height: 0;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  margin-top: 4px;
+}
+
+.cx-s5-icon {
+  width: 24px;
+  height: 24px;
+  background: #e7e7e7;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.cx-s5-icon-svg {
+  background: none;
+  display: block;
+}
+
+.cx-s5-label {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+
+.cx-s5-value {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #5a5a5a;
+}
+
+.cx-s5-para {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 27px;
+  color: #000;
+  margin: 0;
+}
+
+.cx-s5-person {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cx-s5-name {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #5a5a5a;
+}
+
+.cx-s5-role {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #9e9e9e !important;
+}
+
+/* Intro hero – unchanged for now */
+.cx-pro-page .project-hero {
+  padding: 64px 0 48px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.cx-pro-page .project-title {
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 32px;
+  color: #000;
+}
+
+.cx-pro-page .project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cx-pro-page .project-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: baseline;
+}
+
+.cx-pro-page .project-meta-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #666;
+  min-width: 80px;
+}
+
+.cx-pro-page .project-meta-value {
+  font-size: 14px;
+  color: #000;
+  line-height: 1.5;
+}
+
+/* Icon + text lines (8px gap, text weight 600) */
+.cx-icon-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+.cx-icon-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cx-icon-line__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+.cx-icon-line__icon svg {
+  display: block;
+}
+.cx-icon-line__text {
+  font-weight: 600;
+}
+
+/* Full width (respect container margins) */
+.cx-full-width {
+  width: 100%;
+  margin: 24px 0;
+}
+
+.cx-full-width img,
+.cx-full-width .cx-img-placeholder {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+
+/* S28: full-width image + phone overlay sliding in from right */
+.cx-s28-wrap {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.cx-section:has(.cx-s28-wrap) {
+  overflow: visible;
+}
+
+.cx-s28-wrap .cx-full-width {
+  margin-bottom: 0;
+  margin-top: 24px;
+}
+
+.cx-s28-phone {
+  position: absolute;
+  bottom: calc(-72px - 5vh);
+  right: 24px;
+  max-width: 370px;
+  width: 42%;
+  opacity: 0;
+  transform: translateX(120%);
+  z-index: 2;
+  transition: none;
+}
+
+.cx-s28-phone--visible {
+  animation: cx-s28-phone-slide 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+.cx-s28-phone img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+@keyframes cx-s28-phone-slide {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.cx-img-placeholder {
+  min-height: 280px;
+  background: #e7e7e7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8c8d8c;
+  font-size: 14px;
+}
+
+/* Full screen (ignore margins) */
+.cx-full-screen {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+}
+
+.cx-full-screen .cx-video-placeholder {
+  width: 100%;
+  min-height: 400px;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8c8d8c;
+  font-size: 14px;
+}
+
+/* Full viewport image (100vh, bypasses margins) */
+.cx-fullscreen-image {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.cx-fullscreen-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Section 15: full-screen looping background video – entire viewport */
+.cx-video-backdrop {
+  position: relative;
+  width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #111;
+}
+
+.cx-video-backdrop__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cx-video-backdrop__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
+  font-size: clamp(48px, 12vw, 120px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  /* Inner shadow: gradient from bright top to darker bottom, clipped to text */
+  background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.95) 30%, rgba(255, 255, 255, 0.75) 70%, rgba(0, 0, 0, 0.35) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Carousel full-bleed wrapper: symmetric left/right overflow */
+.cx-carousel-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+/* Large carousel cards (sections 6, 21, 23, 47): 700px cards, less padding, 4px corner radius */
+.cx-carousel-bleed--large-cards .cx-carousel {
+  gap: 20px;
+}
+
+.cx-carousel-bleed--large-cards .cx-carousel-card {
+  width: 700px;
+  height: 394px;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.cx-carousel-bleed--large-cards .cx-carousel-card-img {
+  border-radius: 4px;
+}
+
+/* Carousel – home-page style (no condensing): fixed cards, prev/next arrows, slide transition */
+.cx-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 32px 0;
+  overflow: visible; /* let side cards show in page margins */
+}
+
+.cx-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: rgba(0, 0, 0, 0.33);
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.cx-carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.cx-carousel-arrow-left {
+  left: 0;
+}
+
+.cx-carousel-arrow-right {
+  right: 0;
+}
+
+.cx-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  left: 50%;
+  width: max-content;
+  max-width: none;
+  min-height: 346px;
+  backface-visibility: hidden;
+}
+
+.cx-carousel[data-sliding] {
+  will-change: transform;
+}
+
+.cx-carousel-card {
+  position: relative;
+  flex-shrink: 0;
+  width: 560px;
+  height: 315px;
+  background-color: #e7e7e7;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #8c8d8c;
+  font-size: 14px;
+  text-align: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.cx-carousel-card-active {
+  z-index: 2;
+}
+
+.cx-carousel-card-side {
+  z-index: 1;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.cx-carousel-card-side:hover {
+  opacity: 1;
+}
+
+.cx-carousel-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  flex: 1;
+  min-height: 0;
+}
+
+.cx-carousel-card-caption {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #8c8d8c;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .cx-carousel-card {
+    width: min(560px, 80vw);
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Problem stat cards (3 stacked in grid) */
+/* Card grids: 2 columns, wrap to next row when more than 2 (section 8 + section 19) */
+.cx-stat-cards,
+.cx-feature-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+  width: 100%;
+}
+
+/* Shared card dimensions – same width & height for all cards in section 8 and 19 */
+.cx-stat-card,
+.cx-feature-card {
+  min-height: 200px;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.cx-stat-card {
+  background: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 14px 19px 19px 19px;
+}
+
+.cx-stat-card .paragraph-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cx-stat-card-divider {
+  height: 0;
+  border: none;
+  border-top: 1px solid #d0d0d0;
+  margin: 8px 0;
+}
+
+/* Card line 1 with icon on the right (e.g. S24 Task Completion cards) */
+.cx-stat-card__line1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cx-stat-card__line1 .header-2 {
+  margin-bottom: 0;
+}
+
+/* Quote attribution block (e.g. S27 User Quote) – top divider, icon + name, role */
+.cx-quote-attribution {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.cx-quote-attribution__row1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.cx-quote-attribution__row1 img,
+.cx-quote-attribution__row1 svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.cx-quote-attribution__role {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #555;
+}
+
+/* Gaining alignment: 2 divs horizontal */
+.cx-two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.cx-two-cols .cx-learning-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cx-learning-item .header-1 {
+  margin-top: 0;
+  font-size: 42px;
+  line-height: 52px;
+}
+
+.cx-learning-item .cx-line2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+}
+
+/* Feature cards (item 19) – 2 top, 1 bottom, with colors and icons */
+.cx-feature-card {
+  align-items: flex-start;
+  text-align: left;
+  position: relative;
+}
+
+.cx-feature-card--purple {
+  background: rgba(167, 95, 216, 0.08);
+  box-shadow: 0 8px 24px rgba(167, 95, 216, 0.32);
+}
+
+.cx-feature-card--blue {
+  background: rgba(113, 182, 228, 0.08);
+  box-shadow: 0 8px 24px rgba(113, 182, 228, 0.5);
+}
+
+.cx-feature-card--orange {
+  background: rgba(242, 168, 84, 0.08);
+  box-shadow: 0 8px 24px rgba(242, 168, 84, 0.54);
+}
+
+.cx-feature-card-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.cx-feature-card-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  margin: 0;
+  flex: 1;
+}
+
+.cx-feature-card-icon {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  border-radius: 4px;
+}
+
+/* Quote block (gray background) */
+.cx-quote-block {
+  background: #e7e7e7;
+  border-radius: 6px;
+  padding: 24px 28px;
+  margin: 16px 0 0;
+}
+
+.cx-quote-block .paragraph-text {
+  font-size: 16px;
+  line-height: 27px;
+  margin: 0;
+}
+
+.cx-quote-block cite {
+  display: block;
+  margin-top: 12px;
+  font-size: 14px;
+  font-style: normal;
+  color: #666;
+}
+
+/* Impact metric blocks (item 33) */
+.cx-metric-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.cx-metric-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cx-metric-block .cx-metric-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 27px;
+  font-weight: 400;
+  color: #8c8d8c;
+}
+
+.cx-metric-value-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 12px;
+}
+
+.cx-metric-block .cx-metric-value {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 700;
+  color: #000;
+}
+
+.cx-metric-block .cx-metric-old {
+  font-size: 20px;
+  line-height: 36px;
+  color: #8c8d8c;
+  text-decoration: line-through;
+}
+
+/* Revenue text block */
+.cx-revenue-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 16px;
+}
+
+.cx-revenue-block .cx-line1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 27px;
+  font-weight: 400;
+  color: #8c8d8c;
+}
+
+.cx-revenue-block .cx-line2 {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 700;
+  color: #000;
+}
+
+/* Gray section background */
+/* Gray sections: background extends to viewport edges; content stays aligned with main column */
+.cx-section-gray {
+  background: #e7e7e7;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 48px max(24px, calc((100vw - 1200px) / 2)) 64px;
+  box-sizing: border-box;
+}
+
+.cx-section-gray .xl-header,
+.cx-section-gray .header-1,
+.cx-section-gray .header-2,
+.cx-section-gray .paragraph-text,
+.cx-section-gray .cx-metric-value {
+  color: #000;
+}
+
+.cx-section-gray .sub-header-1,
+.cx-section-gray p.sub-header-1 {
+  color: #8c8d8c !important;
+}
+
+.cx-section-gray .cx-metric-block .cx-metric-label,
+.cx-section-gray .cx-metric-block .cx-metric-old,
+.cx-section-gray .cx-revenue-block .cx-line1 {
+  color: #8c8d8c !important;
+}
+
+/* Figma embed */
+.cx-figma-embed {
+  width: 100%;
+  margin: 24px 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cx-figma-embed iframe {
+  width: 100%;
+  height: 480px;
+  border: none;
+}
+
+/* Two images horizontal */
+.cx-two-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.cx-two-images img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Section 38: two images stacked vertically, larger (full column width) */
+.cx-two-images--stacked {
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.cx-two-images--stacked img {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Three images equally spaced */
+.cx-three-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+  margin-top: 24px;
+}
+
+/* Lists */
+.cx-pro-page .project-list {
+  margin: 12px 0 16px;
+  padding-left: 24px;
+  max-width: 100%;
+}
+
+.cx-pro-page .project-list li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+  color: #000;
+}
+
+.cx-pro-page .project-list-numbered {
+  list-style: decimal;
+}
+
+/* Footer */
+/* Footer – same structure as home page, off-white, full width */
+.cx-pro-page .project-footer.site-footer-offwhite {
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: 0;
+  padding: 48px calc(48px + 5vw);
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-top: none;
+  box-sizing: border-box;
+}
+
+.cx-pro-page .project-footer .footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.cx-pro-page .project-footer .footer-info a {
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.cx-pro-page .project-footer .footer-info a:hover {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: underline;
+}
+
+.cx-pro-page .project-footer .footer-quote {
+  margin: 48px 0 0 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.35);
+  max-width: 600px;
+}
+
+/* Icon placeholder */
+.cx-icon-placeholder {
+  width: 40px;
+  height: 40px;
+  background: #e7e7e7;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* Clickable images – open full-screen lightbox (CX Pro only) */
+.cx-pro-page .cx-img-openable {
+  cursor: pointer;
+}
+
+.cx-pro-page .cx-carousel-card-clickable {
+  cursor: pointer;
+}
+
+/* Full-screen lightbox – grey overlay, 75px side margin, X to close, click outside to close */
+@keyframes cx-lightbox-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cx-lightbox-fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.cx-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 75px;
+  box-sizing: border-box;
+  animation: cx-lightbox-fadeIn 0.25s ease-out;
+}
+
+.cx-lightbox-overlay.cx-lightbox-closing {
+  animation: cx-lightbox-fadeOut 0.2s ease-out forwards;
+}
+
+.cx-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 10001;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.cx-lightbox-close:hover {
+  background: #fff;
+}
+
+.cx-lightbox-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  width: 100%;
+  max-width: calc(100vw - 150px);
+}
+
+.cx-lightbox-img {
+  max-width: 100%;
+  max-height: calc(100vh - 180px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.cx-lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10001;
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.cx-lightbox-arrow:hover {
+  background: #fff;
+}
+
+.cx-lightbox-arrow-left {
+  left: 24px;
+}
+
+.cx-lightbox-arrow-right {
+  right: 24px;
+}
+
+.cx-lightbox-strip {
+  position: absolute;
+  bottom: 24px;
+  left: 75px;
+  right: 75px;
+  z-index: 10001;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-height: 80px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.cx-lightbox-thumb {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  background: transparent;
+}
+
+.cx-lightbox-thumb:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.cx-lightbox-thumb-active {
+  border-color: #fff;
+}
+
+.cx-lightbox-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Floating scroll-to-top: bottom right, circle, appears after scroll to S3 */
+.cx-pro-page .cx-scroll-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.2s ease, visibility 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.cx-pro-page .cx-scroll-to-top--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.cx-pro-page .cx-scroll-to-top:hover {
+  background: rgba(0, 0, 0, 0.88);
+  transform: scale(1.05);
+}
+
+.cx-pro-page .cx-scroll-to-top:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+  .cx-pro-page .project-main {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  .cx-section-gray {
+    padding: 48px max(48px, calc((100vw - 1200px) / 2)) 64px;
+  }
+}

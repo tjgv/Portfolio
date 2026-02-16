@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>T.J. Gomez-Vidal</title>
+  </head>
+  <body>
+    <script>
+      (function(){
+        function scrollToTop() {
+          window.scrollTo(0, 0);
+          try { document.documentElement.scrollTop = 0; } catch(_) {}
+          try { document.body.scrollTop = 0; } catch(_) {}
+        }
+        function scrollToPromptsSection() {
+          var el = document.getElementById('prompts');
+          if (el) { el.scrollIntoView({ behavior: 'auto', block: 'start' }); return true; }
+          return false;
+        }
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        var isPromptPage = window.location.pathname.indexOf('/prompts/') === 0;
+        var isProjectPage = window.location.pathname === '/project1' || window.location.pathname === '/project2';
+        var hasHashPrompts = window.location.hash === '#prompts';
+        if (isPromptPage || isProjectPage) {
+          scrollToTop();
+          setTimeout(scrollToTop, 0);
+          setTimeout(scrollToTop, 50);
+          setTimeout(scrollToTop, 150);
+          setTimeout(scrollToTop, 500);
+          setTimeout(scrollToTop, 1000);
+          var resizeObs = new ResizeObserver(function() {
+            if (document.body.scrollHeight > 400) { scrollToTop(); resizeObs.disconnect(); }
+          });
+          if (document.body) resizeObs.observe(document.body);
+          else document.addEventListener('DOMContentLoaded', function() { resizeObs.observe(document.body); });
+        }
+        if (hasHashPrompts) {
+          if (!scrollToPromptsSection()) {
+            var tries = 0, iv = setInterval(function() {
+              if (scrollToPromptsSection() || ++tries > 100) clearInterval(iv);
+            }, 100);
+          }
+          [500, 1000, 1500, 2000].forEach(function(ms) { setTimeout(scrollToPromptsSection, ms); });
+        }
+        window.addEventListener('pageshow', function(e) {
+          if (e.persisted) {
+            if (window.location.pathname.indexOf('/prompts/') === 0 || window.location.pathname === '/project1' || window.location.pathname === '/project2') scrollToTop();
+            if (window.location.hash === '#prompts') scrollToPromptsSection();
+          }
+        });
+        window.addEventListener('load', function() {
+          if (window.location.pathname.indexOf('/prompts/') === 0 || window.location.pathname === '/project1' || window.location.pathname === '/project2') scrollToTop();
+          if (window.location.hash === '#prompts') scrollToPromptsSection();
+        });
+      })();
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

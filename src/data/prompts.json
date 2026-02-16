@@ -1,0 +1,419 @@
+[
+  {
+    "id": 1,
+    "slug": "wcag-audit-report",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "WCAG Audit Report",
+    "description": "Document accessibility issues with severity ratings, WCAG criterion mappings, and actionable remediation guidance.",
+    "tags": [
+      "accessibility",
+      "wcag",
+      "audit",
+      "compliance",
+      "a11y",
+      "remediation"
+    ],
+    "useCase": "Documenting accessibility audit findings, building remediation plans, communicating issues to stakeholders, or meeting WCAG compliance requirements.",
+    "prompt": "You are an accessibility expert helping me document findings from an accessibility audit. I need a comprehensive report that communicates issues clearly and prioritizes remediation.\n\nAudit Context:\n- Product/feature audited: [What was tested]\n- Scope: [Pages, flows, or components covered]\n- Testing methods used: [Automated tools, manual testing, assistive tech]\n- WCAG conformance target: [A, AA, or AAA]\n- Testing date: [When the audit was conducted]\n\nPlease structure an accessibility audit report with the following sections:\n\n1. Executive Summary\n   - Overall conformance status\n   - Total issues found by severity\n   - Critical blockers requiring immediate attention\n   - Estimated remediation effort\n   - Pass/fail/conditional recommendation\n\n2. Testing Methodology\n   - Automated testing tools used\n   - Manual testing conducted\n   - Assistive technologies tested\n   - Browsers and devices tested\n   - Limitations or gaps in the audit\n\n3. Issue Documentation\n   For each issue found, document:\n\n   Issue #[X]: [Issue Title]\n   - Severity: [Critical / Serious / Moderate / Minor]\n   - WCAG Criterion: [e.g., 1.1.1 Non-text Content]\n   - WCAG Level: [A / AA / AAA]\n   - Location: [Page, component, or URL]\n   - Description: [What the issue is]\n   - User Impact: [Who is affected and how]\n   - Current Behavior: [What happens now]\n   - Expected Behavior: [What should happen]\n   - Reproduction Steps: [How to reproduce]\n   - Screenshot/Code: [Visual evidence]\n   - Recommended Fix: [How to remediate]\n   - Effort Estimate: [Low / Medium / High]\n\n4. Issue Summary by Category\n   Group issues by WCAG principle:\n   - Perceivable (images, video, color)\n   - Operable (keyboard, navigation, timing)\n   - Understandable (labels, errors, consistency)\n   - Robust (parsing, compatibility)\n\n5. Remediation Roadmap\n   Immediate (Critical):\n   - Issues that completely block users\n   - Timeline: [Suggested]\n\n   Short-term (Serious):\n   - Issues that significantly degrade the experience\n   - Timeline: [Suggested]\n\n   Medium-term (Moderate):\n   - Issues that cause difficulty but have workarounds\n   - Timeline: [Suggested]\n\n   Long-term (Minor):\n   - Issues that are minor inconveniences\n   - Timeline: [Suggested]\n\n6. Positive Findings\n   - What is working well\n   - Good patterns worth maintaining\n   - Areas of strong compliance\n\n7. Recommendations\n   - Process improvements\n   - Training needs\n   - Tooling suggestions\n   - Ongoing monitoring plan",
+    "howToUse": "1. Complete your accessibility testing using a combination of automated tools, manual testing, and assistive technology.\n2. Gather all findings, screenshots, and supporting evidence.\n3. Replace the bracketed placeholders with your specific audit context.\n4. Paste raw findings into the prompt and let the AI structure them into the report format.\n5. Review severity ratings and WCAG criterion mappings for accuracy.\n6. Add or refine remediation recommendations for each issue.\n7. Build a prioritized roadmap with input from stakeholders.",
+    "relatedIds": [
+      2,
+      11,
+      5
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "design-completeness-checklist",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "Design Completeness Checklist",
+    "description": "Verify that designs are thorough and ready for engineering handoff with comprehensive state and edge-case coverage.",
+    "tags": [
+      "design-handoff",
+      "design-qa",
+      "checklist",
+      "completeness",
+      "engineering"
+    ],
+    "useCase": "Self-reviewing designs before handoff, running design QA, ensuring nothing is missed, or establishing team standards for design completeness.",
+    "prompt": "You are a design QA expert helping me verify that designs are complete before engineering handoff. I need to ensure nothing is missing that would cause development delays.\n\nDesign Context:\n- Feature/flow being designed: [What you're designing]\n- Design tool: [Figma, Sketch, etc.]\n- Design system: [Your design system name, if any]\n- Target platforms: [Web, iOS, Android, etc.]\n\nPlease create a completeness checklist covering:\n\n1. Screen Coverage\n   \u25a1 All screens in the flow documented\n   \u25a1 Entry points identified\n   \u25a1 Exit points (success, cancel, back) covered\n   \u25a1 Navigation between screens is clear\n   \u25a1 User flow diagram included\n\n2. Interactive States\n   For each interactive element:\n   \u25a1 Default state\n   \u25a1 Hover state\n   \u25a1 Active/pressed state\n   \u25a1 Focus state (for accessibility)\n   \u25a1 Disabled state\n   \u25a1 Loading state\n   \u25a1 Selected state (if applicable)\n\n3. Input States\n   For each form field:\n   \u25a1 Empty/placeholder state\n   \u25a1 Filled state\n   \u25a1 Focused state\n   \u25a1 Error state with message\n   \u25a1 Success/validated state\n   \u25a1 Disabled state\n   \u25a1 Character limits shown\n\n4. Content States\n   \u25a1 Empty state (no data)\n   \u25a1 Loading/skeleton state\n   \u25a1 Partial data state\n   \u25a1 Full data state\n   \u25a1 Error state (failed to load)\n   \u25a1 Pagination or infinite scroll (if applicable)\n\n5. Error Handling\n   \u25a1 Form validation errors\n   \u25a1 API/server errors\n   \u25a1 Network errors\n   \u25a1 Timeout states\n   \u25a1 Permission errors\n   \u25a1 Error recovery paths\n\n6. Edge Cases\n   \u25a1 Maximum content length\n   \u25a1 Minimum content\n   \u25a1 Special characters\n   \u25a1 Long usernames/text truncation\n   \u25a1 Missing images or avatars\n   \u25a1 Zero results\n   \u25a1 Single item vs. multiple items\n\n7. Responsive Design\n   \u25a1 Desktop (1440px, 1280px)\n   \u25a1 Tablet (768px)\n   \u25a1 Mobile (375px, 320px)\n   \u25a1 Breakpoint behavior documented\n   \u25a1 Touch vs. click considerations\n\n8. Accessibility\n   \u25a1 Color contrast passing (4.5:1 minimum for text)\n   \u25a1 Focus order documented\n   \u25a1 Touch targets minimum 44\u00d744px\n   \u25a1 Alt text for images specified\n   \u25a1 Screen reader announcements noted\n\n9. Motion & Animation\n   \u25a1 Transitions specified (duration, easing)\n   \u25a1 Loading animations\n   \u25a1 Micro-interactions\n   \u25a1 Reduced motion alternative\n\n10. Copy & Content\n    \u25a1 All UI copy finalized (no placeholder text)\n    \u25a1 Error messages written\n    \u25a1 Empty state messages\n    \u25a1 Button labels\n    \u25a1 Placeholder text\n    \u25a1 Tooltip content\n    \u25a1 Confirmation dialogs\n\n11. Assets\n    \u25a1 Icons exported (SVG)\n    \u25a1 Images exported (appropriate formats)\n    \u25a1 Assets named consistently\n    \u25a1 @2x/@3x provided if needed\n\n12. Documentation\n    \u25a1 Component specifications\n    \u25a1 Spacing and sizing annotated\n    \u25a1 Design system tokens referenced\n    \u25a1 Interaction notes\n    \u25a1 Known limitations documented",
+    "howToUse": "1. Replace placeholders with your feature and design context.\n2. Work through each checklist item systematically.\n3. Mark items as complete, not applicable, or needs work.\n4. Address any gaps before scheduling handoff.\n5. Use this as a reusable template for your team's definition of done.\n6. Review with your engineering partner before final handoff.",
+    "relatedIds": [
+      8,
+      11,
+      1
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "design-feedback-workshop",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "Design Feedback Workshop",
+    "description": "Facilitate productive design critiques that improve work quality and build team feedback skills.",
+    "tags": [
+      "design-critique",
+      "feedback",
+      "workshop",
+      "facilitation",
+      "collaboration"
+    ],
+    "useCase": "Running design critiques, training team members on facilitation, establishing a healthy critique culture, or improving existing feedback processes.",
+    "prompt": "You are an expert design critique facilitator helping me run effective feedback sessions. I need to gather useful, actionable feedback while keeping the session productive.\n\nCritique Context:\n- Design being reviewed: [What's being critiqued]\n- Design stage: [Early concept, mid-fidelity, final review]\n- Designer presenting: [Name/role]\n- Reviewers: [Who's participating]\n- Time available: [Duration]\n- Specific feedback needed: [Areas of focus]\n\nPlease help me facilitate an effective critique:\n\n1. Pre-Critique Setup\n\n   Share in advance:\n   \u25a1 Design files or prototype link\n   \u25a1 Context document (problem, constraints, goals)\n   \u25a1 Specific questions for reviewers\n   \u25a1 Guidance on what feedback is and isn't helpful at this stage\n\n   Facilitator prep:\n   \u25a1 Review the work beforehand\n   \u25a1 Prepare clarifying questions\n   \u25a1 Set up note-taking\n   \u25a1 Confirm time and attendees\n\n2. Critique Agenda\n\n   [5 min] Set Context\n   - Facilitator sets ground rules and goals\n   - Presenter shares the problem and constraints\n   - Clarify the stage of the work\n\n   [5\u201310 min] Present Work\n   - Designer walks through the design\n   - No feedback yet\u2014only questions for understanding\n\n   [20\u201330 min] Gather Feedback\n   - Structured feedback from reviewers\n   - Use the \"I like / I wish / What if\" format\n\n   [5\u201310 min] Synthesize\n   - Identify themes and priorities\n   - Clarify next steps\n   - Thank reviewers\n\n3. Ground Rules\n   Read aloud at the start:\n\n   For reviewers:\n   - Critique the work, not the person\n   - Be specific and actionable\n   - Ask questions before making assumptions\n   - Focus on user needs and project goals\n   - Use the \"I like / I wish / What if\" format\n\n   For the presenter:\n   - Listen without defending\n   - Ask clarifying questions\n   - Take notes (or designate a note-taker)\n   - You are not obligated to accept all feedback\n\n4. Facilitation Prompts\n\n   To start discussion:\n   - \"What's working well in this design?\"\n   - \"Where do you see potential friction for users?\"\n   - \"[Designer] specifically asked about [X]\u2014any thoughts?\"\n\n   To go deeper:\n   - \"Can you say more about that?\"\n   - \"What would that look like specifically?\"\n   - \"How might a user experience that?\"\n\n   To redirect:\n   - \"Let's focus on [specific area] for now.\"\n   - \"Great point\u2014let's save that for a future iteration.\"\n   - \"Let's hear from someone who hasn't spoken yet.\"\n\n   To manage scope:\n   - \"Is that in scope for this phase?\"\n   - \"Let's note that for later discussion.\"\n\n   When feedback conflicts:\n   - \"We have different perspectives here. [Designer], how do you see this?\"\n   - \"Both are valid approaches. What are the trade-offs?\"\n\n5. Feedback Framework\n\n   Ask reviewers to structure feedback as:\n\n   \"I like...\" (what's working)\n   - Specific element or decision\n   - Why it works\n\n   \"I wish...\" (what could improve)\n   - Specific concern\n   - Impact on the user\n\n   \"What if...\" (ideas and suggestions)\n   - Alternative approach\n   - Potential benefit\n\n6. Note-Taking Template\n\n   Feedback Item:\n   - Category: [I like / I wish / What if]\n   - Feedback: [What was said]\n   - From: [Reviewer]\n   - Related to: [Screen/component/flow]\n   - Priority: [Must address / Consider / Note for later]\n\n7. Wrap-Up Checklist\n\n   At the end of the session:\n   \u25a1 Summarize key themes\n   \u25a1 Identify must-address items\n   \u25a1 Clarify any conflicting feedback\n   \u25a1 Confirm next steps and timeline\n   \u25a1 Thank reviewers\n   \u25a1 Share notes within 24 hours\n\n8. Post-Critique Follow-Up\n\n   For the presenter:\n   - Review and prioritize feedback\n   - Create action items\n   - Iterate on the design\n   - Share updated work to close the loop\n\n   For the facilitator:\n   - Send thank-you and notes\n   - Note what worked well for next time\n   - Identify process improvements",
+    "howToUse": "1. Replace placeholders with your specific critique context.\n2. Share design work and context with reviewers in advance.\n3. Review the agenda and adjust timing for your session length.\n4. Read ground rules aloud at the start of each critique.\n5. Use facilitation prompts to guide and steer discussion.\n6. Take notes throughout the session.\n7. Share notes and follow up on changes made.",
+    "relatedIds": [
+      8,
+      7,
+      4
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "ideation-techniques-exercises",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "Ideation Techniques & Exercises",
+    "description": "Run structured ideation sessions using techniques like How Might We, Crazy 8s, SCAMPER, and other brainstorming exercises.",
+    "tags": [
+      "ideation",
+      "brainstorming",
+      "workshop",
+      "creative-thinking",
+      "design-thinking"
+    ],
+    "useCase": "Running ideation sessions, generating creative solutions, facilitating design workshops, or broadly exploring a problem space.",
+    "prompt": "Help me run an ideation session to generate ideas for [problem/challenge]. Include:\n\n1. Preparation\n   - Problem framing review\n   - Success criteria for ideas\n   - Constraints to consider\n   - Number of participants\n   - Time available\n\n2. Problem Reframing (How Might We)\n   Create 10\u201315 \"How Might We\" statements:\n   - Reframe the problem from different angles\n   - Start broad, then get specific\n   - Focus on opportunities, not solutions\n   - Make them actionable and inspiring\n   - Example: \"How might we make onboarding feel effortless?\"\n\n3. Crazy 8s Exercise\n   - Instructions for sketching 8 ideas in 8 minutes\n   - How to fold paper into 8 sections\n   - Tips for rapid sketching\n   - Emphasize quantity over quality\n   - No idea is too wild\n\n4. Brainstorming Techniques\n   For each technique, provide:\n   - When to use it\n   - How to run it\n   - Time needed\n   - Materials required\n\n   Techniques:\n   - Brain dump: Individual silent idea generation\n   - Round robin: Taking turns sharing ideas\n   - Build on ideas: \"Yes, and...\" approach\n   - Worst possible idea: Reverse thinking\n   - SCAMPER: Substitute, Combine, Adapt, Modify, Put to other use, Eliminate, Reverse\n   - Analogies: \"How would [company/person] solve this?\"\n\n5. Divergent Thinking Prompts\n   - What if we had no constraints?\n   - What if we started from scratch?\n   - What if we did the opposite?\n   - What if our users were [different persona]?\n   - What would [inspiring company] do?\n   - What if technology wasn't a limitation?\n\n6. Facilitation Tips\n   - Create psychological safety\n   - Defer judgment during divergent phases\n   - Encourage wild ideas\n   - Build on others' ideas\n   - Stay focused on the topic\n   - Prioritize quantity first\n   - Use visual aids and sketches\n\n7. Idea Capture\n   - How to document ideas quickly\n   - Use sticky notes or digital tools\n   - One idea per note\n   - Include rough sketches when possible\n   - Number or name each idea\n\n8. Warm-Up Exercises\n   Quick exercises to get creative energy flowing:\n   - Draw your worst idea\n   - 30 uses for a paperclip\n   - Mash up two unrelated things\n   - Redesign an everyday object\n\n9. Time Management\n   - Suggested timing for each activity\n   - When to move on vs. dig deeper\n   - Break timing\n   - Energy management throughout the session\n\n10. Next Steps After Ideation\n    - How to review and cluster ideas\n    - Dot-voting techniques\n    - Selecting ideas to develop further\n    - Combining and refining top concepts\n\nFormat as a complete ideation facilitation guide with specific exercises, timing, and step-by-step instructions.",
+    "howToUse": "1. Replace [problem/challenge] with your specific problem (e.g., \"improving mobile app onboarding\" or \"reducing cart abandonment\").\n2. Add context: describe the problem background, target users, and constraints.\n3. Specify the format: mention \"solo brainstorming\" or \"team session with 5 people\" for tailored techniques.\n4. Set a time limit (e.g., \"We have 2 hours\" or \"Quick 30-minute session\") so activities are scoped appropriately.\n5. Review the output and pick 2\u20133 techniques that fit your time and team.\n6. Prepare materials: sticky notes, markers, paper, or a digital whiteboard.\n7. Run the session following the facilitation guide and capture all ideas.",
+    "relatedIds": [
+      7,
+      3,
+      10
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "design-system-rollout",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "Design System Rollout Plan",
+    "description": "Plan a phased design system rollout covering migration strategy, team training, adoption tracking, and ongoing support.",
+    "tags": [
+      "design-system",
+      "rollout",
+      "adoption",
+      "migration",
+      "design-ops",
+      "strategy"
+    ],
+    "useCase": "Planning a design system rollout, managing adoption across teams, or creating migration strategies for existing products.",
+    "prompt": "Create a rollout strategy for our design system. Include:\n\n1. Current State Assessment\n   - Current design and code situation\n   - Team size and structure\n   - Product complexity (number of screens/features)\n   - Technical stack\n   - Pain points with the current approach\n   - Reasons for adopting a design system\n\n2. Rollout Goals\n   - What success looks like\n   - Key metrics to track:\n     * Component adoption rate\n     * Reduction in design inconsistencies\n     * Time saved per project\n     * Developer velocity improvements\n     * Design-to-code handoff efficiency\n   - Timeline for full adoption\n\n3. Phased Rollout Plan\n\n   Phase 1: Pilot (Weeks 1\u20134)\n   - Select 1\u20132 pilot teams or projects\n   - Rationale for choosing these teams (low risk, high visibility, etc.)\n   - Pilot scope (which components to use)\n   - Success criteria for the pilot\n   - Feedback collection method\n\n   Phase 2: Early Adopters (Weeks 5\u20138)\n   - Expand to 3\u20135 teams\n   - Target teams eager to adopt the new system\n   - Increase component coverage\n   - Iterate based on pilot feedback\n\n   Phase 3: Majority Adoption (Weeks 9\u201316)\n   - Roll out to all new projects\n   - Begin migrating existing projects\n   - Full component library available\n   - Scale up support and training\n\n   Phase 4: Full Migration (Weeks 17+)\n   - Migrate remaining legacy projects\n   - Deprecate old components\n   - Establish ongoing maintenance processes\n\n4. Migration Strategy\n   For existing projects:\n   - Migration priority order (high-traffic pages first vs. low-risk first)\n   - Migration approach:\n     * Incremental: page by page, component by component\n     * Big bang: full rewrite (only if necessary)\n     * Hybrid: coexistence of old and new\n   - Migration checklist per project\n   - How to handle breaking changes\n   - Estimated migration time per project\n\n5. Training Program\n\n   For Designers:\n   - Component library training (2 hours)\n   - Design principles and guidelines (1 hour)\n   - Process for requesting new components\n   - Office hours for questions\n   - Materials: video tutorials, written guides\n\n   For Developers:\n   - Component API documentation walkthrough (2 hours)\n   - Code examples and patterns (1 hour)\n   - How to contribute to the system\n   - Testing and QA guidelines\n   - Integration workshop\n\n   For Product Managers:\n   - Design system overview (30 minutes)\n   - Benefits and expected timelines\n   - How it affects the product roadmap\n\n6. Communication Plan\n\n   Launch Announcement:\n   - Email to all teams\n   - Slack announcement\n   - Demo session\n   - Highlight key benefits\n\n   Ongoing Communication:\n   - Weekly office hours\n   - Monthly design system newsletter\n   - Dedicated Slack channel for questions\n   - Quarterly roadmap updates\n   - Success stories and case studies\n\n7. Support Structure\n   - Design system team roles and ownership\n   - How to get help:\n     * Slack channel for quick questions\n     * Office hours for complex issues\n     * Documentation and FAQs\n     * Issue tracker for bugs and requests\n   - SLA for responses and fixes\n   - Escalation path for blockers\n\n8. Adoption Incentives\n   - Recognition for early adopters\n   - Showcase successful migrations\n   - Adoption leaderboard or gamification\n   - Make the design system easier to use than the alternative\n   - Deprecation timeline for old components\n\n9. Governance and Contribution\n   - Who can contribute components\n   - Contribution process:\n     * Propose a new component\n     * Design review\n     * Build and test\n     * Documentation\n     * Release\n   - Component approval criteria\n   - Version control and release cadence\n\n10. Measuring Success\n    Track these metrics:\n    - Component adoption rate (% of product using the system)\n    - Design-to-code handoff time\n    - Number of design inconsistencies\n    - Developer velocity (time to ship features)\n    - Design time savings\n    - Code reuse percentage\n    - Team satisfaction scores\n    - Support ticket volume\n\n11. Risk Mitigation\n    Potential risks and mitigations:\n    - Teams resist adoption \u2192 Make benefits clear, provide support, gather feedback\n    - Migration breaks production \u2192 Thorough testing, gradual rollout, rollback plan\n    - System doesn't meet all needs \u2192 Clear contribution process, regular feedback sessions\n    - Documentation goes stale \u2192 Tie documentation updates to the release process\n\n12. Long-Term Maintenance\n    - Quarterly component audits\n    - Regular user feedback sessions\n    - Deprecation and cleanup process\n    - Performance monitoring\n    - Accessibility compliance reviews\n    - Version upgrade strategy\n\nFormat as a comprehensive rollout plan with clear phases, timelines, and assigned responsibilities.",
+    "howToUse": "1. Add context about your organization (e.g., team size, tech stack, current state of design consistency).\n2. Define constraints such as timeline limits or the need to keep shipping features during rollout.\n3. Specify priorities (e.g., \"Fast adoption by the mobile team, minimal disruption to web\").\n4. Paste the prompt into your AI tool and review the generated plan.\n5. Adjust phases and timelines to be realistic for your organization.\n6. Modify communication and incentive strategies to fit your company culture.\n7. Get leadership buy-in by sharing the plan with stakeholders.\n8. Turn the strategy into a detailed project plan with tasks and owners.",
+    "relatedIds": [
+      6,
+      11,
+      13
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "design-token-system",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "Design Token System Setup",
+    "description": "Create a structured design token system covering color, typography, spacing, elevation, and responsive breakpoints for use in design tools and code.",
+    "tags": [
+      "design-tokens",
+      "design-system",
+      "foundations",
+      "design-ops",
+      "theming"
+    ],
+    "useCase": "Creating design token systems for design systems, component libraries, and design operations workflows.",
+    "prompt": "Create a design token system for a design system. Include:\n\n1. Color Tokens\n   - Primary colors (brand palette)\n   - Semantic colors (success, error, warning, info)\n   - Neutral colors (grays, backgrounds, surfaces)\n   - Dark mode variants\n   - Usage guidelines for each token\n\n2. Typography Tokens\n   - Font families\n   - Font size scale\n   - Font weights\n   - Line heights\n   - Letter spacing\n   - Usage guidelines\n\n3. Spacing Tokens\n   - Spacing scale (e.g., 4px, 8px, 12px, 16px, 24px, 32px, 48px, 64px)\n   - Usage guidelines\n   - When to use each spacing value\n\n4. Border Radius Tokens\n   - Radius values\n   - Usage guidelines (e.g., buttons, cards, modals)\n\n5. Shadow Tokens\n   - Elevation levels\n   - Shadow definitions per level\n   - Usage guidelines\n\n6. Breakpoint Tokens\n   - Responsive breakpoints\n   - Usage guidelines\n\nFormat tokens so they work in both design tools (e.g., Figma) and code. Include naming conventions and usage examples for each category.",
+    "howToUse": "1. Add context about your brand colors, typography choices, and existing design patterns.\n2. Specify whether you need dark mode tokens.\n3. Mention your design tool (Figma, Sketch) and code framework (React, Vue, etc.).\n4. Paste into your AI tool and review the generated token system.\n5. Refine as needed (e.g., \"Add more semantic colors\" or \"Include animation tokens\").",
+    "relatedIds": [
+      5,
+      11,
+      2
+    ]
+  },
+  {
+    "id": 7,
+    "slug": "figjam-workshop-template",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "FigJam Workshop Template Generator",
+    "description": "Generate structured FigJam board templates for workshops, brainstorms, retrospectives, and collaborative sessions.",
+    "tags": [
+      "figjam",
+      "workshop",
+      "ideation",
+      "collaboration",
+      "template",
+      "facilitation"
+    ],
+    "useCase": "Creating structured FigJam board templates for brainstorms, retrospectives, planning sessions, research synthesis, or any collaborative workshop.",
+    "prompt": "Create a FigJam board template for my workshop or collaborative session:\n\nWorkshop type: [e.g., brainstorming, retrospective, planning, research synthesis, stakeholder alignment, ideation]\nDuration: [e.g., 1 hour, half-day, full day]\nParticipants: [Number of people and their roles]\nGoals: [What you want to accomplish]\nFormat: [Remote, in-person, or hybrid]\n\nPlease generate a FigJam template structure with:\n\n1. Board Layout\n   - Header section (workshop title, goals, agenda)\n   - Participant zones (space for each person or team)\n   - Activity areas (one section per exercise)\n   - Synthesis/output zone (where conclusions go)\n   - Parking lot (for off-topic ideas to revisit later)\n\n2. Activity Sections\n   For each activity, include:\n   - Section title and purpose\n   - Clear instructions for participants\n   - Time allocation\n   - Sticky note templates or frameworks\n   - Example content to guide participants\n\n3. Frameworks & Templates\n   Based on workshop type, suggest appropriate frameworks:\n   - Brainstorming: categories, affinity mapping, dot voting\n   - Retrospective: What worked / What didn't / Actions\n   - Planning: Goals, priorities, timeline, owners\n   - Research synthesis: Themes, insights, opportunities\n   - Decision-making: Pros/cons, impact-effort matrix, voting\n\n4. Collaboration Features\n   - Voting areas (dot voting, emoji reactions)\n   - Discussion zones (for async comments)\n   - Timer placeholders\n   - Facilitator notes section\n\n5. Output & Next Steps\n   - Summary section\n   - Key decisions or insights\n   - Action items with owners\n   - Links to related documents\n\nProvide a detailed structure with:\n- Visual layout recommendations (left-to-right flow, section colors)\n- Instruction text for each section\n- Sticky note templates with placeholder content\n- Tips for facilitating each section",
+    "howToUse": "1. Specify your workshop type, duration, and goals.\n2. Describe participants and format (remote, hybrid, or in-person).\n3. List the activities or exercises you want to include.\n4. Paste into your AI tool and review the generated structure.\n5. Recreate the template in FigJam using the layout recommendations.\n6. Add your specific content and customize colors and styling.",
+    "relatedIds": [
+      4,
+      3,
+      14
+    ]
+  },
+  {
+    "id": 8,
+    "slug": "stakeholder-design-review",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "Stakeholder Design Review Prep",
+    "description": "Prepare for design reviews by structuring your presentation, anticipating questions, and documenting design decisions.",
+    "tags": [
+      "design-review",
+      "presentation",
+      "stakeholder",
+      "feedback",
+      "communication"
+    ],
+    "useCase": "Preparing for design reviews, structuring design presentations, or facilitating design critiques with cross-functional partners.",
+    "prompt": "Prepare for a design review of [design/feature].\n\nDesign Context:\n- What's being reviewed: [Describe the design]\n- Review audience: [Designers / Stakeholders / Cross-functional]\n- Review goals: [What you want to achieve]\n- Time allocated: [Duration]\n\nProvide:\n\n1. Review Structure\n   - Introduction (context setting)\n   - Design presentation (key flows and screens)\n   - Discussion and feedback\n   - Next steps and action items\n\n2. Presentation Flow\n   - Opening: Problem statement and goals\n   - Design process: How you arrived at this solution\n   - Solution: Key design decisions\n   - Rationale: Why you made these decisions\n   - Questions: Specific areas where you need feedback\n\n3. Key Design Decisions to Highlight\n   - Major design choices\n   - Rationale for each decision\n   - Alternatives considered\n   - Trade-offs made\n\n4. Anticipated Questions\n   - Questions you expect from reviewers\n   - Prepared answers for each\n   - Data or evidence to support your answers\n   - Areas where you need input\n\n5. Feedback Framework\n   - What feedback you are seeking\n   - What is already decided and not open for discussion\n   - Open questions\n   - Decision points\n\n6. Supporting Materials\n   - Design files to show\n   - Research data\n   - User feedback\n   - Competitive examples\n   - Prototypes or demos\n\n7. Stakeholder-Specific Prep\n   - For designers: Design rationale, alternatives considered\n   - For PMs: User value, business impact\n   - For engineers: Technical feasibility, constraints\n   - For executives: Strategic alignment, ROI\n\n8. Follow-Up Plan\n   - How to capture feedback\n   - Action item tracking\n   - Next review (if needed)\n   - Decision documentation\n\nFormat as a review preparation guide with talking points and a materials checklist.",
+    "howToUse": "1. Replace [design/feature] with the design you're presenting (e.g., \"New checkout flow\" or \"Mobile app onboarding\").\n2. Specify your review audience (e.g., \"Designers and PMs\" or \"Cross-functional team\").\n3. Describe your review goals (e.g., \"Get feedback on navigation flow and validate design decisions\").\n4. Set the time allocation (e.g., \"30 minutes\" or \"1 hour\").\n5. If you have design files or research data, paste links or descriptions.\n6. Review the generated prep guide, paying attention to anticipated questions and the feedback framework.\n7. Prepare supporting materials (design files, research, prototypes) listed in the guide.\n8. Practice your presentation using the flow as speaking notes.\n9. Use the review structure during the actual session.",
+    "relatedIds": [
+      3,
+      15,
+      2
+    ]
+  },
+  {
+    "id": 9,
+    "slug": "user-persona-generator",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "User Persona Generator",
+    "description": "Create detailed user personas from research data, including demographics, goals, pain points, behaviors, and journey touchpoints.",
+    "tags": [
+      "persona",
+      "user-research",
+      "design",
+      "discovery",
+      "ux"
+    ],
+    "useCase": "Creating user personas from research data, understanding target users, or aligning the team around user needs.",
+    "prompt": "Create detailed user personas based on the following research data:\n\n[Paste research data: interviews, surveys, analytics, user observations]\n\nFor each persona, include:\n\n1. Persona Overview\n   - Name and photo/avatar description\n   - Demographics (age, location, occupation, education)\n   - Quote that captures their essence\n   - Role and responsibilities\n\n2. Goals and Motivations\n   - Primary goals (what they want to achieve)\n   - Secondary goals\n   - Motivations (why these goals matter to them)\n   - How they define success\n\n3. Pain Points and Frustrations\n   - Current pain points\n   - Frustrations with existing solutions\n   - Barriers to success\n   - Emotional responses\n\n4. Behaviors and Habits\n   - How they currently solve the problem\n   - Tools and platforms they use\n   - Information consumption habits\n   - Decision-making process\n\n5. Needs and Expectations\n   - What they need from a solution\n   - Expectations and assumptions\n   - Desired outcomes\n   - Must-have vs. nice-to-have features\n\n6. Context and Environment\n   - When and where they use products or services\n   - Physical and digital environment\n   - Constraints and limitations\n   - Influences and influencers\n\n7. User Journey Touchpoints\n   - Key moments of interaction\n   - Emotional state at each touchpoint\n   - Opportunities for improvement\n\nFormat as detailed, realistic personas with specific details and direct quotes from the research.",
+    "howToUse": "1. Organize your research data: collect interview transcripts, survey responses, analytics insights, or observation notes.\n2. Replace [Paste research data] with your organized data (e.g., \"Interview 1: [transcript]\" or \"Survey responses: [data]\").\n3. Add context before the prompt: describe your product and research goals.\n4. If you have existing personas, paste them and ask for updates based on new research.\n5. Review the generated personas for accuracy in demographics, goals, pain points, and behaviors.\n6. Request refinements such as \"Create 2\u20133 personas\" or \"Focus on primary vs. secondary personas.\"\n7. Export personas to Figma, Miro, or your design documentation.\n8. Share with your team to align around user needs.",
+    "relatedIds": [
+      16,
+      10,
+      12
+    ]
+  },
+  {
+    "id": 10,
+    "slug": "design-brief-template",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "Design Brief Template",
+    "description": "Create a comprehensive design brief capturing project requirements, goals, constraints, success criteria, and stakeholder alignment.",
+    "tags": [
+      "design-brief",
+      "requirements",
+      "project-planning",
+      "kickoff",
+      "project-management"
+    ],
+    "useCase": "Creating design briefs for new projects, documenting requirements, or aligning stakeholders on project scope and objectives.",
+    "prompt": "Create a comprehensive design brief for [project name/product]. Include:\n\n1. Project Overview\n   - Project name and description\n   - Project type (website, app, product feature, etc.)\n   - Timeline and milestones\n   - Budget considerations\n\n2. Business Context\n   - Business goals and objectives\n   - Success metrics and KPIs\n   - Target business outcomes\n   - Strategic alignment\n\n3. User Context\n   - Target audience and user personas\n   - User goals and needs\n   - User pain points to address\n   - User journey considerations\n\n4. Project Scope\n   - What is included in scope\n   - What is explicitly out of scope\n   - Phase 1 vs. future phases\n   - Dependencies and constraints\n\n5. Requirements\n   - Functional requirements\n   - Non-functional requirements\n   - Technical requirements\n   - Content requirements\n   - Brand guidelines and constraints\n\n6. Design Objectives\n   - Primary design goals\n   - Key design principles\n   - Design constraints\n   - Brand and style considerations\n\n7. Success Criteria\n   - How success will be measured\n   - Key performance indicators\n   - User satisfaction metrics\n   - Business impact metrics\n\n8. Timeline and Deliverables\n   - Project phases and milestones\n   - Key deliverables\n   - Review and approval process\n   - Launch timeline\n\n9. Team and Stakeholders\n   - Project team members and roles\n   - Key stakeholders\n   - Decision makers\n   - Communication plan\n\n10. Risks and Assumptions\n    - Potential risks\n    - Assumptions being made\n    - Mitigation strategies\n    - Open questions\n\nFormat as a comprehensive design brief document ready for a project kickoff.",
+    "howToUse": "1. Replace [project name/product] with your specific project (e.g., \"Redesign of Mobile App Onboarding\" or \"Analytics Dashboard Feature\").\n2. Add context before the prompt: describe your project, goals, and constraints.\n3. If you have existing requirements or a PRD, paste them and ask the AI to create a design brief based on them.\n4. If you have user research, include persona details or research findings.\n5. Review the generated brief for scope, requirements, and success criteria.\n6. Request refinements (e.g., \"Expand the design objectives\" or \"Add more technical constraints\").\n7. Export to Notion, Confluence, or your team wiki.\n8. Share with stakeholders to align on project scope and objectives.",
+    "relatedIds": [
+      12,
+      9,
+      13
+    ]
+  },
+  {
+    "id": 11,
+    "slug": "ui-component-specification",
+    "type": "prompt-template",
+    "pillClass": "Design",
+    "title": "UI Component Specification",
+    "description": "Generate detailed UI component specs with states, variants, interaction patterns, and technical requirements for design system handoff.",
+    "tags": [
+      "ui-components",
+      "specs",
+      "design-system",
+      "handoff",
+      "documentation"
+    ],
+    "useCase": "Creating detailed component specifications for design systems, engineering handoffs, or component library documentation.",
+    "prompt": "Create a comprehensive UI component specification for [component name]. Include:\n\n1. Component Overview\n   - Purpose and use cases\n   - When to use vs. when not to use\n   - Accessibility requirements\n\n2. Visual Design\n   - Dimensions and spacing\n   - Color variants (default, hover, active, disabled)\n   - Typography specifications\n   - Iconography requirements\n\n3. States and Variants\n   - Default state\n   - Interactive states (hover, focus, active)\n   - Error states\n   - Loading states\n   - Disabled states\n\n4. Interaction Patterns\n   - User interactions (click, tap, keyboard)\n   - Animation and transitions\n   - Responsive behavior across breakpoints\n\n5. Technical Specifications\n   - Props/parameters\n   - Events/callbacks\n   - Dependencies\n\nFormat as a structured document ready for handoff to developers.",
+    "howToUse": "1. Replace [component name] with your specific component (e.g., \"Primary Button\", \"Modal Dialog\", \"Dropdown Menu\").\n2. Add context about your design system, brand guidelines, or existing component library.\n3. If you have visual references, upload screenshots of similar components from your existing UI or Figma designs.\n4. If you have existing code, paste the current component structure for reference.\n5. Paste the prompt into your AI tool and review the output.\n6. Ask follow-up questions like \"Add dark mode variants\" or \"Include mobile responsive specs.\"",
+    "relatedIds": [
+      6,
+      5,
+      2
+    ]
+  },
+  {
+    "id": 12,
+    "slug": "project-scope-definition",
+    "type": "prompt-template",
+    "pillClass": "Product",
+    "title": "Project Scope Definition",
+    "description": "Define clear project scope with explicit in/out boundaries, assumptions, constraints, and a scope change process.",
+    "tags": [
+      "scope",
+      "product-management",
+      "requirements",
+      "planning",
+      "scope-creep"
+    ],
+    "useCase": "Defining scope for new projects, preventing scope creep, aligning stakeholders on boundaries, or documenting what is in and out of a release.",
+    "prompt": "You are a product manager helping me define clear scope for a project. I need explicit boundaries to prevent scope creep and align stakeholders.\n\nProject Context:\n- Project name: [Your project]\n- Problem being solved: [The core problem]\n- Target users: [Who this is for]\n- Timeline: [Expected duration]\n- Resources: [Team size and constraints]\n\nPlease help me define comprehensive scope:\n\n1. Project Overview\n   One-sentence summary:\n   [What we're building and why]\n\n   Success statement:\n   \"This project is successful when [specific, measurable outcome]\"\n\n2. In Scope (Explicitly)\n   Features & Functionality:\n   \u25a1 [Feature 1]: [Brief description]\n   \u25a1 [Feature 2]: [Brief description]\n   \u25a1 [Feature 3]: [Brief description]\n\n   User Flows:\n   \u25a1 [Flow 1]: [Brief description]\n   \u25a1 [Flow 2]: [Brief description]\n\n   Platforms/Environments:\n   \u25a1 [e.g., Web, iOS, Android]\n   \u25a1 [e.g., Production only, or includes staging]\n\n   User Segments:\n   \u25a1 [Which users this applies to]\n\n   Integrations:\n   \u25a1 [Systems that must integrate]\n\n3. Out of Scope (Explicitly)\n   NOT building:\n   \u2717 [Feature explicitly excluded]: [Why]\n   \u2717 [Feature explicitly excluded]: [Why]\n\n   NOT addressing:\n   \u2717 [User need explicitly deferred]: [Why / when it may be addressed]\n   \u2717 [Edge case explicitly excluded]: [Why]\n\n   NOT supporting:\n   \u2717 [Platform/browser/device]: [Why]\n   \u2717 [User segment]: [Why]\n\n   Future consideration:\n   - [Item for potential future phase]\n   - [Item for potential future phase]\n\n4. Scope Boundaries\n   | Decision Point | In Scope | Out of Scope | Rationale |\n   |----------------|----------|--------------|----------|\n   | [Example] | [What's in] | [What's out] | [Why] |\n\n5. Assumptions\n   We are assuming:\n   \u25a1 [Technical assumption]: [Impact if wrong]\n   \u25a1 [User assumption]: [Impact if wrong]\n   \u25a1 [Business assumption]: [Impact if wrong]\n   \u25a1 [Resource assumption]: [Impact if wrong]\n\n   Dependencies:\n   \u25a1 [Dependency]: [Owner, risk if not met]\n\n6. Constraints\n   Hard constraints (cannot change):\n   - [Timeline constraint]\n   - [Budget constraint]\n   - [Technical constraint]\n   - [Regulatory constraint]\n\n   Soft constraints (prefer to maintain):\n   - [Preferred constraint]\n\n7. Success Criteria\n   Minimum viable scope (must have for launch):\n   \u25a1 [Requirement 1]\n   \u25a1 [Requirement 2]\n   \u25a1 [Requirement 3]\n\n   Target scope (plan to include):\n   \u25a1 [Additional item 1]\n   \u25a1 [Additional item 2]\n\n   Stretch scope (if time permits):\n   \u25a1 [Nice to have 1]\n   \u25a1 [Nice to have 2]\n\n8. Scope Change Process\n   If a scope change is requested:\n   1. Document the change request\n   2. Assess impact on timeline, resources, and other scope\n   3. Get approval from [decision maker]\n   4. Update scope document and communicate to the team\n\n   Triggers for scope discussion:\n   - [Scenario that would require revisiting scope]\n\n9. Sign-Off\n   This scope is agreed by:\n   - Product: [Name, Date]\n   - Engineering: [Name, Date]\n   - Design: [Name, Date]\n   - Stakeholders: [Name, Date]",
+    "howToUse": "1. Start with the problem you're solving and your success criteria.\n2. Replace all placeholders with your specific project details.\n3. Be explicit about what is OUT of scope\u2014this prevents arguments later.\n4. Document assumptions that could change scope if they prove wrong.\n5. Define your minimum viable scope clearly.\n6. Get sign-off from key stakeholders.\n7. Reference this document whenever scope discussions arise.",
+    "relatedIds": [
+      10,
+      15,
+      13
+    ]
+  },
+  {
+    "id": 13,
+    "slug": "success-metrics-okrs",
+    "type": "prompt-template",
+    "pillClass": "Product",
+    "title": "Success Metrics & OKRs",
+    "description": "Create OKRs and measurable goals for product teams with objectives, key results, supporting initiatives, and a review cadence.",
+    "tags": [
+      "okr",
+      "goals",
+      "planning",
+      "strategy",
+      "objectives",
+      "metrics"
+    ],
+    "useCase": "Setting quarterly or annual goals, defining OKRs, aligning teams on priorities, or establishing measurable success criteria.",
+    "prompt": "Create OKRs and goals for [team/product/quarter]. Include:\n\n1. Context Setting\n   - Team or product area\n   - Time period (quarter, year, etc.)\n   - Strategic priorities from leadership\n   - Previous quarter review (what worked, what didn't)\n   - Current challenges or opportunities\n\n2. OKR Framework Overview\n   Objective: The qualitative goal (what you want to achieve)\n   - Aspirational and inspiring\n   - Aligned with company strategy\n   - Achievable but ambitious\n   - Clear and memorable\n\n   Key Results: Quantitative outcomes (how you'll measure success)\n   - Specific and measurable\n   - Time-bound\n   - Outcome-focused (not task-based)\n   - 3\u20135 per objective\n   - Roughly 70% confidence of achieving\n\n3. Company/Team Objectives\n   Create 3\u20135 objectives for the period:\n\n   Format:\n   Objective: [Aspirational goal statement]\n   - Why this matters\n   - How it connects to company strategy\n   - Owner\n\n   Key Results:\n   - KR1: [Measurable outcome with target]\n   - KR2: [Measurable outcome with target]\n   - KR3: [Measurable outcome with target]\n\n   Example:\n   Objective: Become the top choice for enterprise customers\n   - KR1: Increase enterprise ARR from $5M to $10M\n   - KR2: Achieve 90%+ satisfaction score from enterprise customers\n   - KR3: Close 20 enterprise deals (>$100K ACV)\n\n4. Sample Objectives by Focus Area\n\n   Growth:\n   - \"Accelerate user acquisition and activation\"\n   - \"Drive expansion revenue from existing customers\"\n   - \"Capture market share in [segment]\"\n\n   Product:\n   - \"Deliver delightful core experiences\"\n   - \"Build a scalable, performant platform\"\n   - \"Launch [feature] that drives adoption\"\n\n   User Experience:\n   - \"Make the product easy to learn and use\"\n   - \"Reduce friction in key workflows\"\n   - \"Deliver a consistently excellent experience\"\n\n   Operational:\n   - \"Build a high-performing, efficient team\"\n   - \"Ship faster with high quality\"\n   - \"Establish data-driven decision making\"\n\n5. Key Result Examples\n\n   Adoption & Engagement:\n   - Increase DAU from X to Y\n   - Improve activation rate from X% to Y%\n   - Achieve X% of users using [feature]\n\n   Quality & Performance:\n   - Reduce page load time to under X seconds\n   - Decrease bug count by X%\n   - Achieve X% uptime\n\n   Business Impact:\n   - Generate $X in new ARR\n   - Reduce churn from X% to Y%\n   - Increase conversion rate by X%\n\n   Customer Satisfaction:\n   - Achieve NPS of X\n   - Reach X% CSAT score\n   - Reduce support tickets by X%\n\n6. Supporting Initiatives\n   For each objective, list 3\u20135 initiatives:\n   - Initiative name\n   - Brief description\n   - Expected impact on key results\n   - Owner\n   - Timeline\n\n7. Measurement Plan\n   - How each key result will be tracked\n   - Data source for each metric\n   - Reporting cadence\n   - Dashboard or tool to use\n   - Baseline values\n\n8. Dependencies & Risks\n   - What needs to happen for success\n   - Dependencies on other teams\n   - Potential blockers\n   - Mitigation strategies\n\n9. Review Cadence\n   - Weekly: Check-in format\n   - Monthly: Deep-dive review\n   - Quarterly: Retrospective and grading\n   - Who participates in each review\n\n10. Grading & Reflection\n    - How OKRs will be graded (0.0 to 1.0 scale)\n    - What 0.3, 0.7, and 1.0 mean\n    - End-of-quarter reflection questions\n    - How learnings inform the next quarter\n\nFormat as a clear OKR document with objectives, key results, and supporting initiatives.",
+    "howToUse": "1. Replace [team/product/quarter] with your context (e.g., \"Product Design team for Q2 2026\").\n2. Add strategic context by mentioning company priorities.\n3. Reference the previous quarter: share what worked and what didn't.\n4. List current challenges or opportunities.\n5. Paste the prompt and review the generated objectives and key results.\n6. Check that key results are measurable, ambitious, and achievable.\n7. Share for feedback from your team and stakeholders before finalizing.",
+    "relatedIds": [
+      12,
+      17,
+      10
+    ]
+  },
+  {
+    "id": 14,
+    "slug": "meeting-agenda-outliner",
+    "type": "prompt-template",
+    "pillClass": "Product",
+    "title": "Meeting Agenda Outliner",
+    "description": "Generate structured meeting agendas with clear objectives, time allocations, attendee roles, and action item tracking.",
+    "tags": [
+      "meeting",
+      "planning",
+      "collaboration",
+      "agenda",
+      "productivity"
+    ],
+    "useCase": "Creating structured meeting agendas for kickoffs, planning sessions, reviews, brainstorms, syncs, or workshops.",
+    "prompt": "Create a structured meeting agenda. I'll provide the details:\n\nMeeting type: [e.g., project kickoff, weekly sync, planning session, review meeting, brainstorm]\nDuration: [e.g., 30 min, 1 hour, 2 hours]\nAttendees: [Who's attending and their roles]\nPurpose: [What this meeting should accomplish]\n\nPlease generate an agenda with:\n\n1. Meeting Objective\n   - Primary goal (what we are trying to accomplish)\n   - Desired outcomes (what we will have at the end)\n   - How we will know the meeting was successful\n\n2. Attendees & Roles\n   - Who needs to be there and why\n   - Who is optional vs. required\n   - Role each person plays (presenter, decision-maker, contributor, informed)\n\n3. Agenda Items\n   For each topic:\n   - Topic name\n   - Time allocation\n   - Owner/presenter\n   - Purpose (inform, discuss, or decide)\n   - Expected outcome\n\n4. Preparation Required\n   - What attendees should review beforehand\n   - Materials or data to bring\n   - Questions to think about in advance\n\n5. Meeting Logistics\n   - Date, time, and timezone\n   - Location or video link\n   - Note-taker assignment\n\n6. Action Items Template\n   - Decisions made\n   - Action items with owners and deadlines\n   - Follow-up needed\n   - Next meeting (if recurring)\n\nFormat as a ready-to-share agenda document that can be sent with the calendar invite.",
+    "howToUse": "1. Specify your meeting type, duration, and purpose.\n2. List the attendees and their roles.\n3. Describe what you want to accomplish.\n4. Paste into your AI tool and review the generated agenda.\n5. Customize time allocations based on priority.\n6. Send the agenda with your calendar invite.",
+    "relatedIds": [
+      7,
+      15,
+      3
+    ]
+  },
+  {
+    "id": 15,
+    "slug": "stakeholder-alignment-document",
+    "type": "prompt-template",
+    "pillClass": "Product",
+    "title": "Stakeholder Alignment Document",
+    "description": "Build alignment on key decisions with a structured options analysis, trade-off documentation, and a clear recommendation.",
+    "tags": [
+      "stakeholder",
+      "alignment",
+      "decision-making",
+      "communication",
+      "strategy"
+    ],
+    "useCase": "Aligning stakeholders on decisions, documenting trade-offs, or building consensus on product direction.",
+    "prompt": "Create a stakeholder alignment document for [decision/topic].\n\nContext:\n- Decision to align on: [Describe the decision]\n- Stakeholders involved: [List stakeholders]\n- Current state: [Describe the current situation]\n- Proposed direction: [Describe your recommendation]\n\nProvide:\n\n1. Executive Summary\n   - What decision needs to be made\n   - Why this decision matters now\n   - Recommended direction\n   - Key trade-offs\n\n2. Background & Context\n   - Current situation\n   - Problem or opportunity\n   - Why action is needed now\n   - Relevant history\n\n3. Options Analysis\n   For each option:\n   - Description\n   - Pros and cons\n   - Risks and benefits\n   - Resource requirements\n   - Timeline implications\n\n4. Recommended Approach\n   - Recommended option\n   - Rationale\n   - Expected outcomes\n   - Success criteria\n\n5. Trade-Offs & Considerations\n   - What we are optimizing for\n   - What we are de-prioritizing\n   - Risks and mitigations\n   - Dependencies\n\n6. Impact Analysis\n   - User impact\n   - Business impact\n   - Technical impact\n   - Team impact\n\n7. Implementation Plan\n   - Phases and milestones\n   - Resource needs\n   - Timeline\n   - Dependencies\n\n8. Success Metrics\n   - How to measure success\n   - Key performance indicators\n   - Review cadence\n   - Decision checkpoints\n\n9. Open Questions\n   - Questions that still need answers\n   - Assumptions being made\n   - Information gaps\n\n10. Next Steps\n    - Immediate actions\n    - Decision needed by [date]\n    - Follow-up meetings\n    - Communication plan\n\nFormat as a clear, scannable document ready for stakeholder review.",
+    "howToUse": "1. Replace [decision/topic] with the decision at hand (e.g., \"Choose mobile app design approach\" or \"Prioritize Q1 features\").\n2. List stakeholders by name and role.\n3. Describe the current state and your proposed direction.\n4. Add context about your product and decision-making environment.\n5. Paste the prompt and review the generated alignment document.\n6. Refine as needed (e.g., \"Expand the trade-offs section\" or \"Add more options\").\n7. Export to Notion, Confluence, or your stakeholder communication tool.\n8. Share with stakeholders to drive alignment and get buy-in.",
+    "relatedIds": [
+      8,
+      12,
+      18
+    ]
+  },
+  {
+    "id": 16,
+    "slug": "survey-question-generator",
+    "type": "prompt-template",
+    "pillClass": "Research",
+    "title": "Survey Question Generator",
+    "description": "Design effective, unbiased survey questions with proper scales, logical ordering, and bias checks to yield actionable insights.",
+    "tags": [
+      "survey-design",
+      "user-research",
+      "quantitative-research",
+      "data-collection"
+    ],
+    "useCase": "Designing NPS surveys, CSAT questionnaires, feature research, churn analysis, or any quantitative user research.",
+    "prompt": "You are a survey research expert helping me design effective survey questions. I need questions that are clear, unbiased, and will generate actionable data.\n\nResearch Context:\n- Research goal: [What you want to learn]\n- Target audience: [Who will take this survey]\n- How results will be used: [Decisions this will inform]\n- Survey length target: [e.g., 5\u201310 minutes]\n\nPlease help me create survey questions for:\n[Describe what you want to measure, e.g., \"user satisfaction with our new feature\" or \"understanding why users churn\"]\n\nFor each topic, generate:\n\n1. Recommended Question\n   - Question text (clear, neutral wording)\n   - Question type (multiple choice, scale, open-ended, etc.)\n   - Answer options (if applicable)\n   - Why this wording works\n\n2. Alternative Phrasings\n   - 2\u20133 different ways to ask the same thing\n   - When to use each alternative\n\n3. Potential Biases to Avoid\n   - Leading language to watch for\n   - Double-barreled questions to split\n   - Loaded terms to neutralize\n\n4. Follow-Up Questions\n   - Conditional questions based on answers\n   - Probing questions for deeper insight\n\n5. Scale Recommendations\n   For rating scales:\n   - Recommended scale (5-point, 7-point, etc.)\n   - Label suggestions (fully labeled vs. endpoints only)\n   - Whether to include a neutral option\n\n6. Question Order Suggestions\n   - Recommended sequence\n   - Why this order reduces bias\n\nAlso provide:\n- Screening questions to ensure qualified respondents\n- Demographic questions (if relevant)\n- One open-ended question for unexpected insights\n- Estimated completion time\n\nFlag any questions that:\n- Are double-barreled (asking two things at once)\n- Use leading or loaded language\n- Have unclear or overlapping answer options\n- May cause survey fatigue",
+    "howToUse": "1. Replace the research context placeholders with your specific study details.\n2. Describe what you want to measure in clear terms.\n3. Specify your target audience and how results will inform decisions.\n4. Paste the prompt and review the generated questions for clarity and neutrality.\n5. Check flagged biases and revise any problematic wording.\n6. Test the survey with a small pilot group before full distribution.",
+    "relatedIds": [
+      9,
+      17,
+      13
+    ]
+  },
+  {
+    "id": 17,
+    "slug": "ab-test-decision-framework",
+    "type": "prompt-template",
+    "pillClass": "Research",
+    "title": "A/B Test Decision Framework",
+    "description": "Make rigorous ship, iterate, or abandon decisions based on experiment results with statistical and practical significance analysis.",
+    "tags": [
+      "ab-testing",
+      "experimentation",
+      "decision-making",
+      "analysis",
+      "data-driven"
+    ],
+    "useCase": "Making ship/no-ship decisions after A/B tests, presenting experiment results to stakeholders, or establishing decision criteria for your experimentation program.",
+    "prompt": "You are an experimentation expert helping me make a decision based on A/B test results. I need to determine whether to ship, iterate, or abandon this change.\n\nTest Results:\n- Feature tested: [What was tested]\n- Test duration: [How long it ran]\n- Sample size: [Total users in the test]\n- Primary metric: [What you measured]\n- Primary result: [e.g., +5.2% conversion, p=0.03]\n- Confidence interval: [e.g., +2.1% to +8.3%]\n- Secondary metrics: [List results for each]\n- Guardrail metrics: [Any negative impacts?]\n- Segment results: [Any notable differences by segment?]\n\nPlease help me analyze and decide:\n\n1. Statistical Validity Check\n   \u25a1 Did the test reach the planned sample size?\n   \u25a1 Was it run for the planned duration?\n   \u25a1 Sample ratio as expected (no SRM)?\n   \u25a1 Results stable over time (no novelty effect)?\n   \u25a1 No major external events during the test?\n\n   Validity assessment: [Valid / Concerns / Invalid]\n   Concerns to note: [Any issues]\n\n2. Statistical Significance Analysis\n   - p-value: [From results]\n   - Significance threshold: [Usually 0.05]\n   - Statistically significant: [Yes/No]\n   - Confidence interval: [From results]\n   - Does the CI exclude zero: [Yes/No]\n\n   Interpretation: [What this means]\n\n3. Practical Significance Analysis\n   - Effect size: [e.g., +5.2%]\n   - Minimum detectable effect: [What was your MDE?]\n   - Is the effect practically meaningful: [Yes/No]\n   - Annualized impact: [e.g., $X revenue, Y users affected]\n\n   Interpretation: [Is this worth shipping?]\n\n4. Secondary Metrics Review\n   | Metric | Result | Direction | Concerning? |\n   |--------|--------|-----------|-------------|\n   | [Metric 1] | [Result] | [Up/Down/Flat] | [Yes/No] |\n\n   Trade-offs identified: [Any concerning patterns?]\n\n5. Guardrail Metrics Review\n   | Metric | Result | Threshold | Status |\n   |--------|--------|-----------|--------|\n   | [Metric 1] | [Result] | [Threshold] | [Pass/Fail] |\n\n   Any guardrails breached: [Yes/No]\n\n6. Segment Analysis\n   Notable segment differences:\n   - [Segment]: [How results differ]\n   - Implications: [What this means for the decision]\n\n7. Qualitative Context\n   - User feedback during the test: [Any signals?]\n   - Support tickets: [Any increases?]\n   - Engineering concerns: [Technical debt, maintenance?]\n   - Business context: [Strategic alignment?]\n\n8. Decision Framework\n\n   SHIP if:\n   \u25a1 Statistically significant positive result\n   \u25a1 Practically meaningful effect size\n   \u25a1 No guardrail violations\n   \u25a1 No concerning secondary effects\n   \u25a1 Valid test with no issues\n\n   ITERATE if:\n   \u25a1 Directionally positive but not significant\n   \u25a1 A specific segment shows promise\n   \u25a1 Secondary metrics suggest refinement is needed\n   \u25a1 Learnings suggest a better approach\n\n   ABANDON if:\n   \u25a1 Negative or null result\n   \u25a1 Guardrails violated\n   \u25a1 Effect size too small to matter\n   \u25a1 Cost or complexity not worth the small gain\n\n9. Recommendation\n   Decision: [Ship / Iterate / Abandon]\n\n   Rationale:\n   - Primary evidence: [Key data point]\n   - Supporting evidence: [Secondary evidence]\n   - Risks: [What could go wrong]\n   - Mitigations: [How to address risks]\n\n   If shipping:\n   - Rollout plan: [Gradual or full?]\n   - Monitoring: [What to watch]\n\n   If iterating:\n   - What to change: [Specific improvements]\n   - Next test hypothesis: [What to test next]\n\n   If abandoning:\n   - Key learnings: [What we learned]\n   - Documentation: [Archive the results]",
+    "howToUse": "1. Wait until your test has reached the planned sample size and duration.\n2. Gather all metric results, including guardrails and segment breakdowns.\n3. Replace placeholders with your actual test results.\n4. Work through each section systematically.\n5. Be candid about concerns or ambiguity in the data.\n6. Make a clear recommendation with supporting rationale.\n7. Document the decision for future reference.",
+    "relatedIds": [
+      16,
+      13,
+      15
+    ]
+  },
+  {
+    "id": 18,
+    "slug": "simplify-technical-concepts",
+    "type": "prompt-template",
+    "pillClass": "Other",
+    "title": "Simplify Technical Concepts",
+    "description": "Rewrite technical explanations in plain language so non-technical stakeholders can understand without losing accuracy.",
+    "tags": [
+      "communication",
+      "plain-language",
+      "technical-writing",
+      "stakeholder",
+      "simplify"
+    ],
+    "useCase": "Communicating technical concepts to non-technical stakeholders, improving cross-functional understanding, or simplifying complex explanations for broader audiences.",
+    "prompt": "Rewrite this [design/engineering explanation] in plain English so that non-technical stakeholders can understand it.\n\n[Paste technical explanation]\n\nProvide:\n\n1. Plain English Version\n   - Rewritten explanation without jargon\n   - Uses everyday language\n   - Maintains accuracy and meaning\n\n2. Key Concepts Explained\n   - Technical terms replaced with simple explanations\n   - Complex ideas broken into digestible pieces\n   - Analogies or real-world examples where helpful\n\n3. Original Terms Glossary\n   - Technical terms from the original text\n   - Simple definition for each\n   - When these terms are actually needed\n\n4. Visual or Example Suggestions\n   - Ways to illustrate the concept visually\n   - Real-world analogies\n   - How to demonstrate the concept in a meeting\n\n5. Audience-Specific Versions\n   - For executives: high-level, business impact focus\n   - For product managers: feature-focused, user impact\n   - For marketing: user-facing benefits, positioning\n\nFormat as a clear, jargon-free explanation ready for stakeholder communication.",
+    "howToUse": "1. Replace [design/engineering explanation] with the type of explanation (e.g., \"API integration explanation\" or \"design system migration rationale\").\n2. Paste the full technical text in place of [Paste technical explanation].\n3. Add context about your audience and communication goal.\n4. Specify your target audience if you want a particular version prioritized.\n5. Review the plain English version for accuracy and clarity.\n6. Use the audience-specific versions for tailored presentations or emails.\n7. Apply the visual suggestions to create supporting materials if needed.",
+    "relatedIds": [
+      15,
+      8,
+      14
+    ]
+  }
+]

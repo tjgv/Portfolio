@@ -1,0 +1,255 @@
+/* App Container */
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 50px 100px 0 100px;
+  overflow: hidden;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.nav-brand {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.nav-brand:hover {
+  opacity: 0.7;
+}
+
+.nav-links {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+/* Bio Section */
+.bio {
+  margin-bottom: 25px;
+}
+
+.bio-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #000000;
+  max-width: calc(40vw + 50px);
+}
+
+/* Carousel Wrapper */
+.carousel-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Carousel Container */
+.carousel-container {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0 -100px 0 -100px;
+  padding: 0 100px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scroll-padding: 0 100px;
+}
+
+.carousel {
+  display: flex;
+  gap: 25px;
+  height: 100%;
+}
+
+/* Card */
+.card {
+  min-width: calc(100vw - 200px);
+  width: calc(100vw - 200px);
+  height: 100%;
+  border-radius: 24px 24px 0 0;
+  background-color: #2A2A2A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+}
+
+.card-content {
+  color: #ffffff;
+  text-align: center;
+}
+
+.card-content h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Custom Scrollbar */
+.carousel-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carousel-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 100px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.25);
+  transition: background-color 0.3s ease;
+}
+
+.carousel-dot.active {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .app-container {
+    padding: 40px 60px 0 60px;
+  }
+
+  .carousel-container {
+    margin: 0 -60px 0 -60px;
+    padding: 0 60px;
+  }
+
+  .card {
+    min-width: 85vw;
+    width: 85vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 30px 40px 0 40px;
+  }
+
+  .navbar {
+    margin-bottom: 20px;
+  }
+
+  .nav-brand,
+  .nav-link {
+    font-size: 16px;
+  }
+
+  .bio {
+    margin-bottom: 40px;
+  }
+
+  .bio-text {
+    font-size: 14px;
+  }
+
+  .carousel-container {
+    margin: 0 -40px 0 -40px;
+    padding: 0 40px;
+  }
+
+  .card {
+    min-width: 90vw;
+    width: 90vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 20px 20px 0 20px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .nav-brand,
+  .nav-link {
+    font-size: 14px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .bio {
+    margin-bottom: 30px;
+  }
+
+  .bio-text {
+    font-size: 13px;
+  }
+
+  .carousel-container {
+    margin: 0 -20px 0 -20px;
+    padding: 0 20px;
+  }
+
+  .card {
+    min-width: 95vw;
+    width: 95vw;
+    border-radius: 16px;
+  }
+
+  .card-content h2 {
+    font-size: 24px;
+  }
+}
