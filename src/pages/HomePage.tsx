@@ -315,6 +315,9 @@ export default function HomePage() {
         <p className="prompts-section-subtitle">
           A.I. is changing how designers work. Below are prompts that I have found helpful for speeding up nearly every stage of my design process.
         </p>
+        <p className="prompts-section-subtitle prompts-credit-line">
+          Prompt Credit: <a href="https://www.aiuxplayground.com/" target="_blank" rel="noopener noreferrer" className="prompts-credit-link">Ai/UX Playground</a>
+        </p>
         <div className="search-filter-wrap">
           <div className="search-input-wrap">
             <input type="text" placeholder="Search prompts..." className="search-input" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} aria-label="Search cards" />
