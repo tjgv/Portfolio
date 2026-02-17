@@ -80,5 +80,11 @@ export const PROMPTS: Prompt[] = seededShuffle(PROMPTS_RAW, 42)
 export const PROMPTS_BY_SLUG = new Map(PROMPTS.map((p) => [p.slug, p]))
 export const PROMPTS_BY_ID = new Map(PROMPTS.map((p) => [p.id, p]))
 
-/** Filter chips = All + unique primary types from prompts (max 7 types) */
-export const TYPE_FILTERS = ['All', ...Array.from(new Set(PROMPTS.map((p) => p.type))).slice(0, 7)]
+/** Filter chips = All + unique primary types from prompts (max 7 types); Other and Research swapped for display order */
+const _uniqueTypes = Array.from(new Set(PROMPTS.map((p) => p.type))).slice(0, 7)
+const iOther = _uniqueTypes.indexOf('Other')
+const iResearch = _uniqueTypes.indexOf('Research')
+if (iOther !== -1 && iResearch !== -1) {
+  [_uniqueTypes[iOther], _uniqueTypes[iResearch]] = [_uniqueTypes[iResearch], _uniqueTypes[iOther]]
+}
+export const TYPE_FILTERS = ['All', ..._uniqueTypes]
