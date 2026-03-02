@@ -288,11 +288,12 @@
   filter: drop-shadow(0 -4px 24px rgba(0, 0, 0, 0.08));
 }
 
-/* Pull section 2 up so it sits under the bridge image */
+/* Pull section 2 up so it sits under the bridge image; pad content so text clears the laptop */
 .validus-page .cx-hero-intro + .cx-section {
   position: relative;
   z-index: 1;
   margin-top: -8vh;
+  padding-top: 42vh; /* Push Context/Problem Solved text below the laptop image */
 }
 
 /* S29: extra top padding */
