@@ -61,6 +61,7 @@
 
 /* Grid card: clickable, opens modal */
 .ai-prompts-grid-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -79,6 +80,78 @@
   border-color: #d4d4d4;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   background: #fafafa;
+}
+
+/* Copy button: top right, visible on card hover */
+.ai-prompts-grid-card-copy {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.ai-prompts-grid-card:hover .ai-prompts-grid-card-copy,
+.ai-prompts-grid-card:focus-within .ai-prompts-grid-card-copy {
+  opacity: 1;
+}
+
+.ai-prompts-grid-card-copy:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* Copy tooltip: black, white text, pop animation, 900ms stay, 350ms fadeout */
+/* Total: ~150ms pop + 900ms stay + 350ms fade = 1400ms */
+.ai-prompts-grid-card-copy-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+  background: #1a1a1a;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: ai-prompts-copy-tooltip-pop 1400ms forwards;
+}
+
+@keyframes ai-prompts-copy-tooltip-pop {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) scale(0.4);
+  }
+  8% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.12);
+  }
+  11% {
+    opacity: 1;
+    transform: translateX(-50%) scale(0.97);
+  }
+  11%, 75% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1);
+  }
 }
 
 .ai-prompts-grid-card-pill {

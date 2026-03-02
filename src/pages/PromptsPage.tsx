@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { PROMPTS, PROMPTS_BY_SLUG, PROMPTS_BY_ID, TYPE_FILTERS, type Prompt } from '../data/prompts'
+import { Copy } from 'lucide-react'
+import { PROMPTS, PROMPTS_BY_SLUG, TYPE_FILTERS, type Prompt } from '../data/prompts'
 import './HomePageV2.css'
 import './PromptsPage.css'
 
@@ -8,17 +9,11 @@ function PromptDetailContent({
   prompt,
   copied,
   onCopy,
-  onSelectRelated,
 }: {
   prompt: Prompt
   copied: boolean
   onCopy: () => void
-  onSelectRelated: (slug: string) => void
 }) {
-  const relatedPrompts = prompt.relatedIds
-    .map((id) => PROMPTS_BY_ID.get(id))
-    .filter((p): p is Prompt => p != null)
-
   return (
     <>
       <h1 className="ai-prompts-detail-title">{prompt.title}</h1>
@@ -74,26 +69,6 @@ function PromptDetailContent({
           Prompt Credit: <a href="https://www.aiuxplayground.com/" target="_blank" rel="noopener noreferrer">Ai/UX Playground</a>
         </p>
       </section>
-
-      {relatedPrompts.length > 0 && (
-        <section className="ai-prompts-detail-section">
-          <h2 className="ai-prompts-detail-heading">Related Prompts</h2>
-          <ul className="ai-prompts-detail-related">
-            {relatedPrompts.map((p) => (
-              <li key={p.id}>
-                <button
-                  type="button"
-                  className="ai-prompts-detail-related-link"
-                  onClick={() => onSelectRelated(p.slug)}
-                >
-                  {p.title}
-                </button>
-                <span className="ai-prompts-detail-related-desc">{p.description}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </>
   )
 }
@@ -103,13 +78,11 @@ function PromptPopup({
   onClose,
   copied,
   onCopy,
-  onSelectRelated,
 }: {
   prompt: Prompt
   onClose: () => void
   copied: boolean
   onCopy: () => void
-  onSelectRelated: (slug: string) => void
 }) {
   useEffect(() => {
     const onEscape = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
@@ -139,7 +112,7 @@ function PromptPopup({
           </button>
         </nav>
         <div className="home-v2-popup-scroll ai-prompts-popup-scroll">
-          <PromptDetailContent prompt={prompt} copied={copied} onCopy={onCopy} onSelectRelated={onSelectRelated} />
+          <PromptDetailContent prompt={prompt} copied={copied} onCopy={onCopy} />
         </div>
       </div>
     </div>
@@ -163,6 +136,7 @@ export default function PromptsPage() {
   const [filterType, setFilterType] = useState<string>('All')
   const [searchQuery, setSearchQuery] = useState('')
   const [copied, setCopied] = useState(false)
+  const [copiedCardId, setCopiedCardId] = useState<string | null>(null)
 
   const typeFiltered = filterType === 'All'
     ? PROMPTS
@@ -170,7 +144,17 @@ export default function PromptsPage() {
   const filteredPrompts = typeFiltered.filter((p) => matchesSearch(p, searchQuery))
   const selectedPrompt = selectedSlug ? PROMPTS_BY_SLUG.get(selectedSlug) : null
 
-  const copyPrompt = useCallback(() => {
+  const copyPrompt = useCallback((prompt: Prompt) => {
+    navigator.clipboard.writeText(prompt.prompt)
+    setCopied(true)
+    setCopiedCardId(prompt.id)
+    setTimeout(() => {
+      setCopied(false)
+      setCopiedCardId(null)
+    }, 1400) /* ~150ms pop + 900ms stay + 350ms fadeout */
+  }, [])
+
+  const copyPromptFromModal = useCallback(() => {
     if (!selectedPrompt) return
     navigator.clipboard.writeText(selectedPrompt.prompt)
     setCopied(true)
@@ -230,13 +214,33 @@ export default function PromptsPage() {
 
           <div className="ai-prompts-grid">
             {filteredPrompts.map((card) => (
-              <button
+              <div
                 key={card.id}
-                type="button"
+                role="button"
+                tabIndex={0}
                 className={`ai-prompts-grid-card ${card.pillClass}`}
                 onClick={() => setSelectedSlug(card.slug)}
+                onKeyDown={(e) => e.key === 'Enter' && setSelectedSlug(card.slug)}
                 aria-label={`${card.title} – view prompt`}
               >
+                <button
+                  type="button"
+                  className="ai-prompts-grid-card-copy"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    copyPrompt(card)
+                  }}
+                  onKeyDown={(e) => e.stopPropagation()}
+                  aria-label={copiedCardId === card.id ? 'Copied!' : 'Copy prompt'}
+                  title={copiedCardId === card.id ? 'Copied!' : 'Copy prompt'}
+                >
+                  <Copy size={16} aria-hidden />
+                  {copiedCardId === card.id && (
+                    <span className="ai-prompts-grid-card-copy-tooltip">
+                      Copied!
+                    </span>
+                  )}
+                </button>
                 <span className="ai-prompts-grid-card-pill">{card.type}</span>
                 <h3 className="ai-prompts-grid-card-title">{card.title}</h3>
                 <p className="ai-prompts-grid-card-desc">{card.description}</p>
@@ -245,7 +249,7 @@ export default function PromptsPage() {
                     <span key={tag}>{tag}</span>
                   ))}
                 </div>
-              </button>
+              </div>
             ))}
           </div>
         </main>
@@ -271,8 +275,7 @@ export default function PromptsPage() {
           prompt={selectedPrompt}
           onClose={() => setSelectedSlug(null)}
           copied={copied}
-          onCopy={copyPrompt}
-          onSelectRelated={setSelectedSlug}
+          onCopy={copyPromptFromModal}
         />
       )}
     </div>
