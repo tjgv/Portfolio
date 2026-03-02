@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useRef, lazy, Suspense } from 'react'
-import { Gamepad2 } from 'lucide-react'
+import { Gamepad2, Maximize2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import type { FigPalFollowState, FigPalBuilderState } from '../components/FigPalCharacterBuilder'
 import { SvgOrImg } from '../components/FigPalCharacterBuilder'
@@ -125,11 +125,10 @@ function CaseStudyPopup({
             type="button"
             className="home-v2-popup-expand"
             onClick={handleExpandClick}
-            aria-label="Expand to full case study"
+            aria-label="View full case study"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3" />
-            </svg>
+            <Maximize2 size={18} aria-hidden />
+            <span className="home-v2-popup-expand-text">View Full</span>
           </button>
           <button
             type="button"
@@ -144,11 +143,6 @@ function CaseStudyPopup({
         </nav>
         <div className="home-v2-popup-scroll">
           <header className="home-v2-popup-header">
-            {caseStudyId === 'project1' ? (
-              <img src="/cosm-logotype.png" alt="" className="home-v2-popup-logo" />
-            ) : (
-              <img src="/validus-logo.svg" alt="" className="home-v2-popup-logo" />
-            )}
             <h1 className="home-v2-popup-title">{title}</h1>
           </header>
           <div className="home-v2-popup-meta">

@@ -238,6 +238,15 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           </div>
         </section>
 
+        {/* Embedded preview: show hero bridge image between project info and Context */}
+        {embedded && (
+          <div className="cx-section">
+            <div className="cx-full-width validus-preview-hero-img">
+              <img src="/validus-images/hero-bridge.png" alt="" />
+            </div>
+          </div>
+        )}
+
         {/* 3. (2x1) Col1: "Context" Header 2 | Col2: paragraph + placeholder image */}
         <div ref={s2Ref} data-section="s2" className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1">
@@ -254,8 +263,8 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         </div>
         </div>
 
-        {/* 4. (2x1) Col1: "Problem Solved" | Col2: paragraph + image */}
-        <div className="cx-section">        <div className="cx-block">
+        {/* 4. (2x1) Col1: "Problem Solved" | Col2: paragraph + image – last section in embedded preview */}
+        <div className="cx-section validus-preview-last">        <div className="cx-block">
           <div className="cx-block__col1">
             <h2 className="header-2">Problem Solved</h2>
           </div>
@@ -270,7 +279,8 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         </div>
         </div>
 
-        {/* 5. (2x1) Has top divider. Col1: "My Role" H2 | Col2: role/team/timeline blocks + paragraph */}
+        {/* 5. (2x1) Has top divider. Col1: "My Role" H2 | Col2: role/team/timeline blocks + paragraph – hidden in preview (redundant with modal meta) */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">My Role</h2>
@@ -342,6 +352,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           </div>
         </div>
         </div>
+        )}
 
         {/* 5. Header section: Icon + "Research and Synthesis" + sub-header */}
         <div className="cx-section">        <div className="cx-block">

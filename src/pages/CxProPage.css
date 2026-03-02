@@ -286,6 +286,9 @@
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 -4px 24px rgba(0, 0, 0, 0.08));
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 /* Pull section 2 up so it sits under the bridge image; pad content so text clears the laptop */
@@ -294,6 +297,25 @@
   z-index: 1;
   margin-top: -8vh;
   padding-top: calc(42vh + 50px); /* Push Context/Problem Solved text below the laptop image */
+}
+
+/* Embedded preview: reset the gap – hero is hidden, so no need for overlap padding */
+.cx-pro-page--embedded.validus-page .cx-hero-intro + .cx-section {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Embedded preview: hero bridge image between project info and Context */
+.validus-preview-hero-img img {
+  width: 100%;
+  height: auto;
+  max-height: 40vh;
+  object-fit: contain;
+}
+
+/* Embedded preview: hide all sections after Problem Solved (no stray divider/content) */
+.cx-pro-page--embedded.validus-page .validus-preview-last ~ .cx-section {
+  display: none;
 }
 
 /* S29: extra top padding */
@@ -616,7 +638,9 @@
 .cx-full-width .cx-img-placeholder {
   width: 100%;
   display: block;
-  border-radius: 0;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 /* S28: full-width image + phone overlay sliding in from right */
@@ -654,7 +678,9 @@
 .cx-s28-phone img {
   width: 100%;
   display: block;
-  border-radius: 12px;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 @keyframes cx-s28-phone-slide {
@@ -715,6 +741,9 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 /* Section 15: full-screen looping background video – entire viewport */
@@ -873,7 +902,9 @@
   height: auto;
   object-fit: contain;
   display: block;
-  border-radius: 8px;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 .cx-carousel-placeholder {
@@ -1263,6 +1294,9 @@
   height: auto;
   display: block;
   object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 /* Section 38: two images stacked vertically, larger (full column width) */
@@ -1274,6 +1308,9 @@
 .cx-two-images--stacked img {
   width: 100%;
   max-width: 100%;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 /* Three images equally spaced */
@@ -1283,6 +1320,14 @@
   gap: 24px;
   width: 100%;
   margin-top: 24px;
+}
+
+.cx-three-images img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 /* Lists */
@@ -1361,6 +1406,9 @@
 /* Clickable images – open full-screen lightbox (CX Pro only) */
 .cx-pro-page .cx-img-openable {
   cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 
@@ -1432,6 +1480,9 @@
   height: auto;
   object-fit: contain;
   display: block;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 .cx-lightbox-arrow {
@@ -1504,6 +1555,9 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
 }
 
 /* Floating scroll-to-top: bottom right, circle, appears after scroll to S3 */
