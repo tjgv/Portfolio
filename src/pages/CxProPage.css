@@ -293,7 +293,7 @@
   position: relative;
   z-index: 1;
   margin-top: -8vh;
-  padding-top: 42vh; /* Push Context/Problem Solved text below the laptop image */
+  padding-top: calc(42vh + 50px); /* Push Context/Problem Solved text below the laptop image */
 }
 
 /* S29: extra top padding */
