@@ -1,11 +1,15 @@
 import './App.css'
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useLayoutEffect } from 'react'
-import HomePage from './pages/HomePage'
+import { useLayoutEffect, lazy, Suspense } from 'react'
+import HomePageV2 from './pages/HomePageV2'
 import ContactPage from './pages/ContactPage'
 import PromptView from './pages/PromptView'
+import PromptsPage from './pages/PromptsPage'
 import CxProPage from './pages/CxProPage'
 import Project2Page from './pages/Project2Page'
+
+// Lazy-load Workflow Builder (isolates @xyflow/react) – no impact on main site
+const WorkflowBuilderPage = lazy(() => import('./pages/WorkflowBuilderPage'))
 
 function ScrollToTopOnNavigate() {
   const location = useLocation()
@@ -36,10 +40,12 @@ export default function App() {
     <>
       <ScrollToTopOnNavigate />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePageV2 />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/project1" element={<CxProPage />} />
         <Route path="/project2" element={<Project2Page />} />
+        <Route path="/workflow" element={<Suspense fallback={null}><WorkflowBuilderPage /></Suspense>} />
+        <Route path="/ai" element={<PromptsPage />} />
         <Route path="/prompts/:slug" element={<PromptView />} />
       </Routes>
     </>

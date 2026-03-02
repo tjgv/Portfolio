@@ -30,7 +30,7 @@ export default function PromptView() {
         </nav>
         <main className="prompt-view prompt-view-error">
           <p>Prompt not found.</p>
-          <a href="/#prompts" className="prompt-view-back">← Back to prompts</a>
+          <Link to="/ai" className="prompt-view-back">← Back to prompts</Link>
         </main>
       </div>
     )
@@ -54,7 +54,7 @@ export default function PromptView() {
       </nav>
 
       <main className="prompt-view">
-        <a href="/#prompts" className="prompt-view-back">← Back to prompts</a>
+        <Link to="/ai" className="prompt-view-back">← Back to prompts</Link>
 
         <h1 className="prompt-view-title">{prompt.title}</h1>
 

@@ -14,7 +14,7 @@
 }
 
 .prompt-view-back {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: #a1a1aa;
@@ -29,7 +29,7 @@
 }
 
 .prompt-view-title {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: clamp(28px, 4vw + 20px, 42px);
   font-weight: 700;
   line-height: 1.2;
@@ -51,7 +51,7 @@
 }
 
 .prompt-view-heading {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 12px 0;
@@ -63,7 +63,7 @@
 }
 
 .prompt-view-subheading {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 16px;
   font-weight: 600;
   margin: 0 0 12px 0;
@@ -71,7 +71,7 @@
 }
 
 .prompt-view-text {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color: #a1a1aa;
@@ -79,7 +79,7 @@
 }
 
 .prompt-view-copy {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
   font-weight: 500;
   padding: 8px 16px;
@@ -117,7 +117,7 @@
 }
 
 .prompt-view-step {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color: #a1a1aa;
@@ -134,7 +134,7 @@
 }
 
 .prompt-view-tip {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color: #a1a1aa;
@@ -152,7 +152,7 @@
 }
 
 .prompt-view-tag {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 13px;
   padding: 6px 12px;
   background-color: #27272a;
@@ -176,7 +176,7 @@
 
 .prompt-view-related-link {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 16px;
   font-weight: 500;
   color: #ffffff;
@@ -191,7 +191,7 @@
 
 .prompt-view-related-desc {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
   color: #71717a;
   line-height: 1.4;

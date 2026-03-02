@@ -15,7 +15,7 @@ export default defineConfig({
       configureServer(server) {
         server.middlewares.use((req, _res, next) => {
           const url = req.url ?? ''
-          if (url.startsWith('/src/') || url.startsWith('/@') || url.startsWith('/node_modules/') || url.startsWith('/assets/') || /\.[a-z0-9]+$/i.test(url.split('?')[0])) {
+          if (url.startsWith('/api') || url.startsWith('/src/') || url.startsWith('/@') || url.startsWith('/node_modules/') || url.startsWith('/assets/') || /\.[a-z0-9]+$/i.test(url.split('?')[0])) {
             return next()
           }
           req.url = '/index.html'
@@ -35,5 +35,11 @@ export default defineConfig({
   server: {
     port: 5177,
     strictPort: true, // fail if 5177 is taken — close other dev server tabs/terminals first
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      },
+    },
   },
 })

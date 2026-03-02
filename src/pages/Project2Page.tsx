@@ -112,7 +112,11 @@ function smoothScrollToTop() {
   requestAnimationFrame(scroll)
 }
 
-export default function Project2Page() {
+export interface Project2PageProps {
+  embedded?: boolean
+}
+
+export default function Project2Page({ embedded = false }: Project2PageProps = {}) {
   const [lightbox, setLightbox] = useState<{ items: string[]; index: number } | null>(null)
   const openLightbox = useCallback((items: string[], index: number) => setLightbox({ items, index }), [])
   const closeLightbox = useCallback(() => setLightbox(null), [])
@@ -121,7 +125,6 @@ export default function Project2Page() {
   const [s28InView, setS28InView] = useState(false)
   const s2Ref = useRef<HTMLDivElement>(null)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
-
   useEffect(() => {
     const update = () => {
       const s2 = s2Ref.current
@@ -168,6 +171,7 @@ export default function Project2Page() {
   }, [])
 
   useLayoutEffect(() => {
+    if (embedded) return
     scrollToTop()
     pageTopRef.current?.scrollIntoView({ block: 'start', behavior: 'auto' })
     const timeouts: ReturnType<typeof setTimeout>[] = []
@@ -178,9 +182,10 @@ export default function Project2Page() {
       }, ms))
     }
     return () => timeouts.forEach(clearTimeout)
-  }, [])
+  }, [embedded])
 
   useEffect(() => {
+    if (embedded) return
     const id = setInterval(() => {
       scrollToTop()
       pageTopRef.current?.scrollIntoView({ block: 'start', behavior: 'auto' })
@@ -190,13 +195,14 @@ export default function Project2Page() {
       clearInterval(id)
       clearTimeout(stop)
     }
-  }, [])
+  }, [embedded])
 
   return (
-    <div ref={pageTopRef} className="app project-page cx-pro-page validus-page">
+    <div ref={pageTopRef} className={`app project-page cx-pro-page validus-page${embedded ? ' cx-pro-page--embedded' : ''}`}>
       {lightbox != null && (
         <CxLightbox items={lightbox.items} initialIndex={lightbox.index} onClose={closeLightbox} />
       )}
+      {!embedded && (
       <nav className="navbar-glass" aria-label="Main navigation">
         <div className="navbar-content">
           <Link to="/" className="nav-brand nav-brand-back" aria-label="Back to home">
@@ -208,10 +214,11 @@ export default function Project2Page() {
           </div>
         </div>
       </nav>
+      )}
 
-      <main className="project-main">
-        {/* 1. Intro section – hero with logo, hero text, chips, arrow */}
-        <section className="cx-hero-intro" aria-label="Project intro">
+      <main className={`project-main${embedded ? ' project-main--embedded' : ''}`}>
+        {/* 1. Intro section – hero with logo, hero text, chips, arrow (hidden when embedded) */}
+        <section className={`cx-hero-intro${embedded ? ' cx-hero-intro--hidden' : ''}`} aria-label="Project intro">
           <div className="cx-hero-intro-body">
             <img src="/validus-logo.svg" alt="Validus" className="cx-hero-logo" fetchPriority="high" />
             <p className="cx-hero-text">
@@ -231,17 +238,8 @@ export default function Project2Page() {
           </div>
         </section>
 
-        {/* 2. (2x1) Col1 empty, Col2: "Context" XL Header */}
-        <div ref={s2Ref} data-section="s2" className="cx-section">        <div className="cx-block">
-          <div className="cx-block__col1" />
-          <div className="cx-block__col2">
-            <h2 className="xl-header">Context</h2>
-          </div>
-        </div>
-        </div>
-
         {/* 3. (2x1) Col1: "Context" Header 2 | Col2: paragraph + placeholder image */}
-        <div className="cx-section">        <div className="cx-block">
+        <div ref={s2Ref} data-section="s2" className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1">
             <h2 className="header-2">Context</h2>
           </div>
@@ -345,15 +343,6 @@ export default function Project2Page() {
         </div>
         </div>
 
-        {/* XL header section: "Discovery" */}
-        <div className="cx-section">        <div className="cx-block">
-          <div className="cx-block__col1" />
-          <div className="cx-block__col2">
-            <h2 className="xl-header">Discovery</h2>
-          </div>
-        </div>
-        </div>
-
         {/* 5. Header section: Icon + "Research and Synthesis" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
@@ -373,7 +362,8 @@ export default function Project2Page() {
         </div>
         </div>
 
-        {/* 7. (2x1) Has divider. Col1: "Analyzing current dashboard usage data" H2 | Col2: paragraph */}
+        {/* 7. (2x1) Has divider. Col1: "Analyzing current dashboard usage data" H2 | Col2: paragraph – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Analyzing current dashboard usage data</h2>
@@ -385,14 +375,18 @@ export default function Project2Page() {
           </div>
         </div>
         </div>
+        )}
 
-        {/* 8. Full width image */}
+        {/* 8. Full width image – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-full-width">
           <img src={`${VALIDUS_IMAGES}/8.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} />
         </div>
         </div>
+        )}
 
-        {/* 9. (2x1) Has divider. Col1: "Comparing usage data to platform CTR's" H2 | Col2: paragraph + image */}
+        {/* 9. (2x1) Has divider. Col1: "Comparing usage data to platform CTR's" H2 | Col2: paragraph + image – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Comparing usage data to platform CTR's</h2>
@@ -407,6 +401,7 @@ export default function Project2Page() {
           </div>
         </div>
         </div>
+        )}
 
         {/* 10. (2x1) Has divider. Col1: "Emotional-Social Mapping " H2 | Col2: paragraph */}
         <div className="cx-section">        <div className="cx-block cx-block--divider">
@@ -427,15 +422,6 @@ export default function Project2Page() {
         </div>
         </div>
 
-        {/* 12. (2x1) Col1 empty | Col2: "Design" XL Header */}
-        <div className="cx-section">        <div className="cx-block">
-          <div className="cx-block__col1" />
-          <div className="cx-block__col2">
-            <h2 className="xl-header">Design</h2>
-          </div>
-        </div>
-        </div>
-
         {/* 13. Header section: Icon + "Post Launch Design Initatives" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
@@ -450,22 +436,6 @@ export default function Project2Page() {
               <div className="cx-header-section__sub">
                 <p className="sub-header-1">Addressing the emotions CO's face during the steps in their job that Validus touches.</p>
               </div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        {/* 14. (2x1) Has divider. Col1: "Prioritizing Fast Follow Items" H2 | Col2: paragraph + image */}
-        <div className="cx-section">        <div className="cx-block cx-block--divider">
-          <div className="cx-block__col1">
-            <h2 className="header-2">Prioritizing Fast Follow Items</h2>
-          </div>
-          <div className="cx-block__col2 cx-stack">
-            <p className="paragraph-text">
-              After launch, our focus shifted to stabilizing the product and improving day-to-day workflows. The most important changes in the dynamic is: 1. We now have users to learn from 2. Design is now ahead of engineering, but not by much. Immediate goals post launch: 1. Fill engineering backlog to create a steady lead on engineering 2. Rectify usability pitfalls from the assumption-based phase of design. As Validus had been built at warp speed, Operators (our users) were dealing with bugs, system errors, and an unfamiliar workflow all at once. To address this, I created a shared system-request document to collect user insights and guide design initatives.
-            </p>
-            <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/18.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/18.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/18.png`], 0)} />
             </div>
           </div>
         </div>
@@ -528,15 +498,6 @@ export default function Project2Page() {
         </div>
         </div>
 
-        {/* 18. (2x1) Col1 empty | Col2: "Evaluative Research" XL Header */}
-        <div className="cx-section">        <div className="cx-block">
-          <div className="cx-block__col1" />
-          <div className="cx-block__col2">
-            <h2 className="xl-header">Evaluative Research</h2>
-          </div>
-        </div>
-        </div>
-
         {/* 19. Header section: Icon + "Validating Designs" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
@@ -556,7 +517,8 @@ export default function Project2Page() {
         </div>
         </div>
 
-        {/* 20. (2x1) Has divider. Col1: "Research Strategy" H2 | Col2: paragraph + 4 icon lines */}
+        {/* 20. (2x1) Has divider. Col1: "Research Strategy" H2 | Col2: paragraph + 4 icon lines – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Research Strategy</h2>
@@ -586,6 +548,7 @@ export default function Project2Page() {
           </div>
         </div>
         </div>
+        )}
 
         {/* 21. Full width image */}
         <div className="cx-section">        <div className="cx-full-width">
@@ -661,15 +624,6 @@ export default function Project2Page() {
         </div>
         </div>
 
-        {/* 25. (2x1) Col1 empty | Col2: XL Header */}
-        <div className="cx-section">        <div className="cx-block">
-          <div className="cx-block__col1" />
-          <div className="cx-block__col2">
-            <h2 className="xl-header">Final Product</h2>
-          </div>
-        </div>
-        </div>
-
         {/* 26. Header section: Icon + "Validus Dashboard" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
@@ -689,7 +643,8 @@ export default function Project2Page() {
         </div>
         </div>
 
-        {/* 27. (2x1) Has divider. Col1: "User Quote" H2 | Col2: quote + attribution block */}
+        {/* 27. (2x1) Has divider. Col1: "User Quote" H2 | Col2: quote + attribution block – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">User Quote</h2>
@@ -708,6 +663,7 @@ export default function Project2Page() {
           </div>
         </div>
         </div>
+        )}
 
         {/* 28. Full width image + phone overlay (slides in from right when in view) */}
         <div className="cx-section">        <div ref={s28WrapRef} className="cx-s28-wrap">
@@ -735,6 +691,7 @@ export default function Project2Page() {
         </div>
         </div>
 
+        {!embedded && (
         <footer className="project-footer site-footer-offwhite" id="contact">
           <div className="footer-info">
             <div>TJ Gomez-Vidal ©</div>
@@ -743,8 +700,10 @@ export default function Project2Page() {
           </div>
           <p className="footer-quote">"Great design is invisible—it anticipates needs before users articulate them."</p>
         </footer>
+        )}
       </main>
 
+      {!embedded && (
       <button
         type="button"
         className={`cx-scroll-to-top ${showScrollToTop ? 'cx-scroll-to-top--visible' : ''}`}
@@ -753,6 +712,7 @@ export default function Project2Page() {
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 19V5M5 12l7-7 7 7"/></svg>
       </button>
+      )}
     </div>
   )
 }

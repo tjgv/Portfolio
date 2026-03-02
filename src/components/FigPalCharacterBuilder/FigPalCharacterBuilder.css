@@ -1,0 +1,413 @@
+/* FigPal character builder modal */
+.figpal-builder {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  padding-top: 60px;
+  background: #d4e8d4;
+  animation: figpal-builder-fade 0.2s ease-out;
+  overflow-y: auto;
+  gap: 20px;
+}
+
+@keyframes figpal-builder-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.figpal-builder-name-and-pal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.figpal-builder-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.figpal-builder-name-input {
+  width: 100%;
+  max-width: 200px;
+  padding: 8px 12px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.figpal-builder-name-input:focus {
+  border-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+.figpal-builder-name-input::placeholder {
+  color: #999;
+}
+
+.figpal-builder-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.06);
+  color: #1a1a1a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.figpal-builder-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.figpal-builder-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Pal section: arrows left | character | arrows right */
+.figpal-builder-pal-section {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: calc(12px + 5vw);
+  width: 100%;
+}
+
+.figpal-builder-arrows {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15% 4px 15%;
+  gap: 50px;
+}
+
+.figpal-builder-arrows--left {
+  align-items: flex-end;
+}
+
+.figpal-builder-arrows--right {
+  align-items: flex-start;
+}
+
+.figpal-builder-arrow--top {
+  align-self: flex-start;
+}
+
+.figpal-builder-arrow--middle {
+  align-self: center;
+}
+
+.figpal-builder-arrow--bottom {
+  align-self: flex-end;
+}
+
+.figpal-builder-arrow {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.06);
+  color: #1a1a1a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.figpal-builder-arrow:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.figpal-builder-arrow:active {
+  transform: scale(0.96);
+}
+
+.figpal-builder-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Center: character above stage (60% of original = 40% reduction), shifted up 5vh */
+.figpal-builder-center {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 5px;
+  transform: translateY(-5vh);
+}
+
+.figpal-builder-stage {
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 168px;
+  height: 48px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  pointer-events: none;
+}
+
+/* SVG – 60% of original (400→240, 460→276) */
+.figpal-builder-character-wrap {
+  position: relative;
+  width: 240px;
+  height: 276px;
+  min-width: 240px;
+  min-height: 276px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.figpal-builder-character,
+.figpal-builder-accessory {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+.figpal-builder-accessory {
+  z-index: 1;
+}
+
+/* Color dots */
+.figpal-builder-colors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.figpal-builder-color-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.figpal-builder-color-dot:hover {
+  transform: scale(1.1);
+}
+
+.figpal-builder-color-dot--active {
+  border-color: #1a1a1a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Follow mouse toggle */
+.figpal-builder-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.figpal-builder-toggle-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.figpal-builder-toggle {
+  width: 48px;
+  height: 26px;
+  border: none;
+  border-radius: 13px;
+  background: rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  padding: 2px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.figpal-builder-toggle--on {
+  background: #6366f1;
+}
+
+.figpal-builder-toggle-track {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 11px;
+}
+
+.figpal-builder-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.figpal-builder-toggle--on .figpal-builder-toggle-thumb {
+  transform: translateX(22px);
+}
+
+/* Floating character (follow cursor on desktop; parked bottom-right on mobile) */
+.figpal-floating {
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  margin-top: -32px;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.figpal-floating--mobile {
+  margin-left: 0;
+  margin-top: 0;
+  right: 8px;
+  bottom: 8px;
+  left: auto;
+  top: auto;
+}
+
+.figpal-floating-char,
+.figpal-floating-acc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.figpal-floating-acc {
+  z-index: 1;
+}
+
+/* FigPal Sign – fixed at bottom right when Follow Me is on */
+.figpal-sign-wrap {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 120px;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.figpal-sign-name {
+  position: absolute;
+  bottom: calc(32px + 30%);
+  left: 0;
+  right: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.figpal-sign {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.figpal-sign-wrap--clickable {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Parked FigPal – 75% of previous (96→72), stage underneath, name hidden */
+.figpal-parked {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 72px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: calc(4px + 1%);
+  cursor: pointer;
+  z-index: 9998;
+}
+
+.figpal-parked-name {
+  display: none;
+}
+
+.figpal-parked-stage {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 28px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  pointer-events: none;
+}
+
+.figpal-parked-char-wrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.figpal-parked-char,
+.figpal-parked-acc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.figpal-parked-acc {
+  z-index: 1;
+}

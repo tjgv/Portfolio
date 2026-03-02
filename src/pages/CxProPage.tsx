@@ -109,6 +109,20 @@ function CxCarousel({
 
   if (items.length === 0) return null
 
+  const goPrev = () => {
+    if (isSliding || n <= 1) return
+    setIsSliding(true)
+    setIndex((i) => (i - 1 + n) % n)
+    setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
+  }
+
+  const goNext = () => {
+    if (isSliding || n <= 1) return
+    setIsSliding(true)
+    setIndex((i) => (i + 1) % n)
+    setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
+  }
+
   const handleSlideClick = () => {
     if (isSliding) return
     if (onOpenLightbox && imageUrls.length > 0) onOpenLightbox(imageUrls, index)
@@ -119,6 +133,16 @@ function CxCarousel({
 
   return (
     <div className="cx-carousel-wrapper">
+      {n > 1 && (
+        <>
+          <button type="button" className="cx-carousel-arrow cx-carousel-arrow-left" onClick={goPrev} aria-label="Previous slide" disabled={isSliding}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+          <button type="button" className="cx-carousel-arrow cx-carousel-arrow-right" onClick={goNext} aria-label="Next slide" disabled={isSliding}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M9 18l6-6-6-6" /></svg>
+          </button>
+        </>
+      )}
       <div className="cx-carousel-viewport">
         <div
           className="cx-carousel-track"
@@ -192,13 +216,18 @@ function scrollToTop() {
   if (root && root !== document.body) (root as HTMLElement).scrollTop = 0
 }
 
-export default function CxProPage() {
+export interface CxProPageProps {
+  embedded?: boolean
+}
+
+export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
   const [lightbox, setLightbox] = useState<{ items: string[]; index: number } | null>(null)
   const openLightbox = useCallback((items: string[], index: number) => setLightbox({ items, index }), [])
   const closeLightbox = useCallback(() => setLightbox(null), [])
   const pageTopRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
+    if (embedded) return
     scrollToTop()
     pageTopRef.current?.scrollIntoView({ block: 'start', behavior: 'auto' })
     const timeouts: ReturnType<typeof setTimeout>[] = []
@@ -209,9 +238,10 @@ export default function CxProPage() {
       }, ms))
     }
     return () => timeouts.forEach(clearTimeout)
-  }, [])
+  }, [embedded])
 
   useEffect(() => {
+    if (embedded) return
     const id = setInterval(() => {
       scrollToTop()
       pageTopRef.current?.scrollIntoView({ block: 'start', behavior: 'auto' })
@@ -221,28 +251,30 @@ export default function CxProPage() {
       clearInterval(id)
       clearTimeout(stop)
     }
-  }, [])
+  }, [embedded])
 
   return (
-    <div ref={pageTopRef} className="app project-page cx-pro-page">
+    <div ref={pageTopRef} className={`app project-page cx-pro-page${embedded ? ' cx-pro-page--embedded' : ''}`}>
       {lightbox != null && (
         <CxLightbox items={lightbox.items} initialIndex={lightbox.index} onClose={closeLightbox} />
       )}
-      <nav className="navbar-glass" aria-label="Main navigation">
-        <div className="navbar-content">
-          <Link to="/" className="nav-brand nav-brand-back" aria-label="Back to home">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          </Link>
-          <div className="nav-links">
-            <a href="https://www.linkedin.com/in/trent-gomez-vidal/" target="_blank" rel="noopener noreferrer" className="nav-link">LinkedIn</a>
-            <Link to="/contact" className="nav-link">Contact</Link>
+      {!embedded && (
+        <nav className="navbar-glass" aria-label="Main navigation">
+          <div className="navbar-content">
+            <Link to="/" className="nav-brand nav-brand-back" aria-label="Back to home">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </Link>
+            <div className="nav-links">
+              <a href="https://www.linkedin.com/in/trent-gomez-vidal/" target="_blank" rel="noopener noreferrer" className="nav-link">LinkedIn</a>
+              <Link to="/contact" className="nav-link">Contact</Link>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
-      <main className="project-main">
-        {/* 1. Intro section – hero with logo, hero text, chips, arrow */}
-        <section className="cx-hero-intro" aria-label="Project intro">
+      <main className={`project-main${embedded ? ' project-main--embedded' : ''}`}>
+        {/* 1. Intro section – hero with logo, hero text, chips, arrow (hidden when embedded; popup has its own header) */}
+        <section className={`cx-hero-intro${embedded ? ' cx-hero-intro--hidden' : ''}`} aria-label="Project intro">
           <div className="cx-hero-intro-body">
             <img src="/cosm-logotype.png" alt="Cosm" className="cx-hero-logo" fetchPriority="high" />
             <p className="cx-hero-text">
@@ -258,15 +290,6 @@ export default function CxProPage() {
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
           </div>
         </section>
-
-        {/* 2. (2x1) Col1 empty, Col2: "Context" XL Header */}
-        <div className="cx-section">        <div className="cx-block">
-          <div className="cx-block__col1" />
-          <div className="cx-block__col2">
-            <h2 className="xl-header">Context</h2>
-          </div>
-        </div>
-        </div>
 
         {/* 3. (2x1) Col1: "What is Cosm?" Header 2 | Col2: paragraph + placeholder image */}
         <div className="cx-section">        <div className="cx-block">
@@ -284,7 +307,8 @@ export default function CxProPage() {
         </div>
         </div>
 
-        {/* 4. (2x1) Has top divider. Col1: "My Role" H2 | Col2: role/team/timeline blocks + paragraph */}
+        {/* 4. (2x1) Has top divider. Col1: "My Role" H2 | Col2: role/team/timeline blocks + paragraph – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">My Role</h2>
@@ -336,8 +360,10 @@ export default function CxProPage() {
           </div>
         </div>
         </div>
+        )}
 
-        {/* 5. Header section: Icon + "Evolution of CX Pro" + sub-header */}
+        {/* 5. Header section: Icon + "Evolution of CX Pro" + sub-header – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
@@ -355,6 +381,7 @@ export default function CxProPage() {
           </div>
         </div>
         </div>
+        )}
 
         {/* 5b. (2x1) Has divider. Col1: H2 | Col2: paragraph – same style as Learning and Alignment */}
         <div className="cx-section">        <div className="cx-block cx-block--divider">
@@ -414,10 +441,10 @@ export default function CxProPage() {
         </div>
         </div>
 
-        {/* 8. (2x1) Has divider. Col1: "Problem" H2 | Col2: paragraph + 3 stat cards */}
+        {/* 8. (2x1) Has divider. Col1: "Phase 1 Problems" H2 | Col2: paragraph + 3 stat cards */}
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
-            <h2 className="header-2">Problem</h2>
+            <h2 className="header-2">Phase 1 Problems</h2>
           </div>
           <div className="cx-block__col2 cx-stack">
             <p className="paragraph-text">
@@ -447,31 +474,7 @@ export default function CxProPage() {
         </div>
         </div>
 
-        {/* 9. (2x1) Has divider. Col1: "Learning and Alignment" H2 | Col2: paragraph */}
-        <div className="cx-section">        <div className="cx-block cx-block--divider">
-          <div className="cx-block__col1">
-            <h2 className="header-2">Learning and Alignment</h2>
-          </div>
-          <div className="cx-block__col2 cx-stack">
-            <p className="paragraph-text">
-              When I joined the team, Engineering was already deep into building the underlying features/systems that CX Pro would eventually control. With aggressive timelines, these systems were constantly in flux - both in scope and in behavior - as requirements shifted to meet delivery deadlines. The created a dynamic where design trailed engineering innovation. To ensure this didn't snowball into an aimless direction, I organized a feature priortization working session with stakeholders so that I had a list of tangible flows to iterate on as engineering built those systems. To understand how those flows should be designed, I followed up with a user-understanding working session to discuss what we can assume about our future users' needs.
-            </p>
-          </div>
-        </div>
-        </div>
-
-        {/* 10. Full width Figma embed */}
-        <div className="cx-section">        <div className="cx-figma-embed">
-          <iframe
-            src="https://embed.figma.com/design/74MwW6NWOIc6F23o2q8jVP/Figma-Portfolio?node-id=550-32512&embed-host=share"
-            style={{ width: '100%', height: '100%', minHeight: 480, border: '1px solid rgba(0,0,0,0.1)' }}
-            allowFullScreen
-            title="Figma embed"
-          />
-        </div>
-        </div>
-
-        {/* 11. (2x1) Has divider. Col1: "Gaining Alignment" H2 | Col2: 2 divs horizontal + paragraph */}
+        {/* 9. (2x1) Has divider. Col1: "Gaining Alignment" H2 | Col2: 2 divs horizontal + paragraph */}
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Gaining Alignment</h2>
@@ -491,6 +494,27 @@ export default function CxProPage() {
               After the initial set of stakeholder review sessions, we gained alignment on primary use-cases and the fundamental nature for how the product should behave.
             </p>
           </div>
+        </div>
+        </div>
+
+        {/* 10. (2x1) Has divider. Col1: "Learning and Alignment" H2 | Col2: paragraph – hidden in preview */}
+        {!embedded && (
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
+          <div className="cx-block__col1">
+            <h2 className="header-2">Learning and Alignment</h2>
+          </div>
+          <div className="cx-block__col2 cx-stack">
+            <p className="paragraph-text">
+              When I joined the team, Engineering was already deep into building the underlying features/systems that CX Pro would eventually control. With aggressive timelines, these systems were constantly in flux - both in scope and in behavior - as requirements shifted to meet delivery deadlines. The created a dynamic where design trailed engineering innovation. To ensure this didn't snowball into an aimless direction, I organized a feature priortization working session with stakeholders so that I had a list of tangible flows to iterate on as engineering built those systems. To understand how those flows should be designed, I followed up with a user-understanding working session to discuss what we can assume about our future users' needs.
+            </p>
+          </div>
+        </div>
+        </div>
+        )}
+
+        {/* 11. Full width image (Table - replaced Figma embed) */}
+        <div className="cx-section">        <div className="cx-full-width">
+          <img src={`${CX_IMAGES}/Table.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/Table.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/Table.png`], 0)} />
         </div>
         </div>
 
@@ -532,7 +556,8 @@ export default function CxProPage() {
         </div>
         </div>
 
-        {/* 15. Full screen loop background video */}
+        {/* 15. Full screen loop background video – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-full-screen cx-video-backdrop">
           <video
             className="cx-video-backdrop__video"
@@ -549,15 +574,7 @@ export default function CxProPage() {
           </div>
         </div>
         </div>
-
-        {/* 16. (2x1) Col1 empty | Col2: "Design" XL Header */}
-        <div className="cx-section">        <div className="cx-block">
-          <div className="cx-block__col1" />
-          <div className="cx-block__col2">
-            <h2 className="xl-header">Design</h2>
-          </div>
-        </div>
-        </div>
+        )}
 
         {/* 17. Header section: Icon + "Post Launch Design Initatives" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
@@ -594,7 +611,8 @@ export default function CxProPage() {
         </div>
         </div>
 
-        {/* 19. (2x1) Has divider. Col1: "Addressing the right problems" H2 | Col2: paragraph + 3 colored cards (2 top, 1 bottom) */}
+        {/* 19. (2x1) Has divider. Col1: "Addressing the right problems" H2 | Col2: paragraph + 3 colored cards – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Addressing the right problems</h2>
@@ -623,6 +641,7 @@ export default function CxProPage() {
           </div>
         </div>
         </div>
+        )}
 
         {/* 20. (2x1) Has divider. Col1: "Project #1: Global Controls" H2 | Col2: paragraph */}
         <div className="cx-section">        <div className="cx-block cx-block--divider">
@@ -685,7 +704,8 @@ export default function CxProPage() {
           </div>
         </div>
 
-        {/* 24. Full width Figma embed */}
+        {/* 24. Full width Figma embed (Show manager deliverables) – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-figma-embed">
           <iframe
             src="https://embed.figma.com/design/74MwW6NWOIc6F23o2q8jVP/Figma-Portfolio---Library-Snipept?node-id=52-13783&embed-host=share"
@@ -695,8 +715,10 @@ export default function CxProPage() {
           />
         </div>
         </div>
+        )}
 
-        {/* 25. (2x1) Has divider. Col1: "Design System Upkeep and Scaling" H2 | Col2: paragraph */}
+        {/* 25. (2x1) Has divider. Col1: "Design System Upkeep and Scaling" H2 | Col2: paragraph – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Design System Upkeep and Scaling</h2>
@@ -708,12 +730,15 @@ export default function CxProPage() {
           </div>
         </div>
         </div>
+        )}
 
-        {/* 26. Full width image */}
+        {/* 26. Full width image – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-full-width">
           <img src={`${CX_IMAGES}/26.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/26.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/26.png`], 0)} />
         </div>
         </div>
+        )}
 
         {/* 27. Header section: Icon + "Version 2.0" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
@@ -751,7 +776,8 @@ export default function CxProPage() {
         </div>
         </div>
 
-        {/* 29. Full width Figma embed */}
+        {/* 29. Full width Figma embed (Version 2.0 Core Use Cases) – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-figma-embed">
           <iframe
             src="https://embed.figma.com/design/74MwW6NWOIc6F23o2q8jVP/Figma-Portfolio?node-id=2749-32695&embed-host=share"
@@ -761,6 +787,7 @@ export default function CxProPage() {
           />
         </div>
         </div>
+        )}
 
         {/* 30. Full width image (stacks above grey overlap below) */}
         <div className="cx-section cx-section--above-gray-overlap">        <div className="cx-full-width">
@@ -770,15 +797,6 @@ export default function CxProPage() {
 
         {/* ----- Section: Impact (31-33) – background #e7e7e7, grey extends halfway behind image above ----- */}
         <section className="cx-section-gray cx-section-gray--overlap-prev">
-          {/* 31. (2x1) Col1 empty | Col2: "Impact" XL Header */}
-          <div className="cx-section">          <div className="cx-block">
-            <div className="cx-block__col1" />
-            <div className="cx-block__col2">
-              <h2 className="xl-header">Impact</h2>
-            </div>
-          </div>
-          </div>
-
           {/* 32. Header section: Icon + "Version 2.0 Results" + sub-header */}
           <div className="cx-section">          <div className="cx-block">
             <div className="cx-block__col1" />
@@ -833,15 +851,6 @@ export default function CxProPage() {
           </div>
           </div>
         </section>
-
-        {/* 34. (2x1) Col1 empty | Col2: "Discovery" XL Header */}
-        <div className="cx-section">        <div className="cx-block">
-          <div className="cx-block__col1" />
-          <div className="cx-block__col2">
-            <h2 className="xl-header">Discovery</h2>
-          </div>
-        </div>
-        </div>
 
         {/* 35. Header section: Icon + "User Research" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
@@ -917,7 +926,8 @@ export default function CxProPage() {
         </div>
         </div>
 
-        {/* 40. (2x1) Has divider. Col1: "Finding our North Star" H2 | Col2: paragraph + image */}
+        {/* 40. (2x1) Has divider. Col1: "Finding our North Star" H2 | Col2: paragraph + image – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Finding our North Star</h2>
@@ -932,8 +942,10 @@ export default function CxProPage() {
           </div>
         </div>
         </div>
+        )}
 
-        {/* 41. (2x1) Has divider. Col1: "Scaling it back" H2 | Col2: paragraph + image */}
+        {/* 41. (2x1) Has divider. Col1: "Scaling it back" H2 | Col2: paragraph + image – hidden in preview */}
+        {!embedded && (
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Scaling it back</h2>
@@ -948,6 +960,7 @@ export default function CxProPage() {
           </div>
         </div>
         </div>
+        )}
 
         {/* 42. Header section: Icon + "Version 3.0" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
@@ -992,17 +1005,9 @@ export default function CxProPage() {
           </div>
         </div>
 
-        {/* ----- Section: Projected Impact / Revenue (45-47) – background #e7e7e7, grey extends halfway behind image above ----- */}
+        {/* ----- Section: Projected Impact / Revenue (45-47) – hidden in preview ----- */}
+        {!embedded && (
         <section className="cx-section-gray cx-section-gray--overlap-prev">
-          {/* 45. (2x1) Col1 empty | Col2: "Projected Impact" XL Header */}
-          <div className="cx-section">          <div className="cx-block">
-            <div className="cx-block__col1" />
-            <div className="cx-block__col2">
-              <h2 className="xl-header">Projected Impact</h2>
-            </div>
-          </div>
-          </div>
-
           {/* 46. (2x1) Has divider. Col1: "Revenue Outlook" H2 | Col2: paragraph + 2-line revenue block */}
           <div className="cx-section">          <div className="cx-block cx-block--divider">
             <div className="cx-block__col1">
@@ -1049,7 +1054,9 @@ export default function CxProPage() {
           </div>
 
         </section>
+        )}
 
+        {!embedded && (
         <footer className="project-footer site-footer-offwhite" id="contact">
           <div className="footer-info">
             <div>TJ Gomez-Vidal ©</div>
@@ -1058,6 +1065,7 @@ export default function CxProPage() {
           </div>
           <p className="footer-quote">"Great design is invisible—it anticipates needs before users articulate them."</p>
         </footer>
+        )}
       </main>
     </div>
   )

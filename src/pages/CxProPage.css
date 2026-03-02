@@ -18,8 +18,87 @@
   overflow-x: hidden; /* clip at viewport so no horizontal scroll */
 }
 
+.cx-hero-intro--hidden {
+  display: none !important;
+}
+
 .project-page .project-main {
   padding-top: 44px;
+}
+
+.cx-pro-page--embedded .project-main {
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+}
+
+/* Preview only: hide large header sections (From 0 to 1, Version 1 CX Pro, etc.) */
+.cx-pro-page--embedded .cx-section:has(.cx-header-section) {
+  display: none;
+}
+
+/* Preview only: social-mapping / fullscreen image extends edge-to-edge of modal, full width visible */
+.cx-pro-page--embedded .cx-fullscreen-image {
+  width: calc(100% + 64px);
+  max-width: none;
+  min-width: 0;
+  margin-left: -32px;
+  margin-right: -32px;
+  height: auto;
+  min-height: 0;
+}
+
+.cx-pro-page--embedded .cx-fullscreen-image img {
+  position: static;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 0;
+}
+
+@media (max-width: 767px) {
+  .cx-pro-page--embedded .cx-fullscreen-image {
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    margin-right: -24px;
+  }
+}
+
+@media (max-width: 479px) {
+  .cx-pro-page--embedded .cx-fullscreen-image {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+/* Preview only: 6px rounded corners on all images */
+.cx-pro-page--embedded .cx-full-width img,
+.cx-pro-page--embedded .cx-full-width .cx-img-placeholder,
+.cx-pro-page--embedded .cx-carousel-wrapper .cx-carousel-card-img,
+.cx-pro-page--embedded .cx-carousel-slide-inner,
+.cx-pro-page--embedded .cx-two-images img,
+.cx-pro-page--embedded .cx-three-images img,
+.cx-pro-page--embedded .cx-img-openable,
+.cx-pro-page--embedded .cx-feature-card,
+.cx-pro-page--embedded .cx-stat-card {
+  border-radius: 6px;
+}
+
+/* Preview only: remove grey background formatting – make Impact section like other sections */
+.cx-pro-page--embedded .cx-section-gray {
+  background: #fff;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+}
+
+.cx-pro-page--embedded .cx-section-gray--overlap-prev {
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .cx-pro-page .project-main {
@@ -27,7 +106,7 @@
   margin: 0 auto;
   padding: 0 24px 0;
   color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Figtree', sans-serif;
   /* no overflow-x: hidden here so full-bleed hero grey reaches viewport edges; page-level overflow clips scroll */
 }
 
@@ -123,7 +202,7 @@
 }
 
 .cx-hero-text {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
   font-size: 26px;
   line-height: 32px;
   font-weight: 675;
@@ -141,7 +220,7 @@
 }
 
 .cx-hero-chip {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Figtree', sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: #858585;
@@ -221,37 +300,9 @@
   padding-top: 10vh;
 }
 
-/* Section 2: hide "Context" header on Validus */
-.validus-page .cx-hero-intro + .cx-section .xl-header {
-  visibility: hidden;
-}
-
 /* ----- Typography ----- */
-.cx-pro-page .xl-header {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
-  font-size: 100px;
-  line-height: 120px;
-  font-weight: 700;
-  color: #000;
-  margin: 45vh 0 25vh;
-}
-
-/* When a header section immediately follows an XL header section, remove XL bottom margin */
-.cx-pro-page .cx-section:has(.xl-header):has(+ .cx-section .cx-header-section) .xl-header {
-  margin-bottom: 0;
-}
-
-/* At 2400px+ use pixel spacing for XL headers so vh doesn’t cause excessive scrolling */
+/* At 2400px+ use pixel spacing so vh doesn’t cause excessive scrolling */
 @media (min-width: 2400px) {
-  .cx-pro-page .xl-header {
-    margin-top: 450px;
-    margin-bottom: 250px;
-  }
-
-  .cx-pro-page .cx-section:has(.xl-header):has(+ .cx-section .cx-header-section) .xl-header {
-    margin-bottom: 0;
-  }
-
   .cx-header-section {
     margin-top: 350px;
   }
@@ -264,7 +315,7 @@
 }
 
 .cx-pro-page .header-1 {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Figtree', sans-serif;
   font-size: 42px;
   line-height: 44px; /* 15% reduction from 52px */
   font-weight: 800;
@@ -274,7 +325,7 @@
 }
 
 .cx-pro-page .header-2 {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Figtree', sans-serif;
   font-size: 20px;
   line-height: 24px; /* 15% reduction from 28px */
   font-weight: 700;
@@ -290,7 +341,7 @@
 
 .cx-pro-page .sub-header-1,
 .cx-pro-page .project-main p.sub-header-1 {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Figtree', sans-serif;
   font-size: 22px;
   line-height: 25px; /* 15% reduction from 29px */
   font-weight: 600;
@@ -299,7 +350,7 @@
 }
 
 .cx-pro-page .paragraph-text {
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Figtree', -apple-system, sans-serif;
   font-size: 16px;
   line-height: 23px; /* 15% reduction from 27 */
   font-weight: 400;
@@ -311,12 +362,13 @@
   margin-bottom: 0;
 }
 
-/* ----- 2x1 Grid block ----- */
+/* ----- 2x1 Grid block: title above content, both full width ----- */
 .cx-block {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr; /* col2 15% wider than equal split */
-  gap: 17px 41px; /* row 15% reduction from 20px */
-  align-items: start;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 12px 0;
+  align-items: stretch;
   padding: 0 0 27px; /* 15% reduction from 32px */
 }
 
@@ -326,17 +378,21 @@
 }
 
 .cx-block__col1 {
+  order: 0;
   min-height: 1px;
-  margin-top: 3vh;
-  margin-bottom: 3vh;
+  margin-top: 0;
+  margin-bottom: 4px;
 }
 
 .cx-block__col2 {
+  order: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 14px; /* 15% reduction from 16px */
-  margin-top: 3vh;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0;
   margin-bottom: 3vh;
 }
 
@@ -380,9 +436,10 @@
 .cx-block__col2 .cx-stack {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 10px; /* 15% reduction from 12px */
   width: 100%;
+  min-width: 0;
 }
 
 /* Section 5 column 2: role / team / timeline blocks (vertical stack) */
@@ -439,21 +496,21 @@
 }
 
 .cx-s5-label {
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Figtree', -apple-system, sans-serif;
   font-size: 18px;
   font-weight: 600;
   color: #000;
 }
 
 .cx-s5-value {
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Figtree', -apple-system, sans-serif;
   font-size: 18px;
   font-weight: 600;
   color: #5a5a5a;
 }
 
 .cx-s5-para {
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Figtree', -apple-system, sans-serif;
   font-size: 16px;
   line-height: 27px;
   color: #000;
@@ -467,14 +524,14 @@
 }
 
 .cx-s5-name {
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Figtree', -apple-system, sans-serif;
   font-size: 16px;
   font-weight: 400;
   color: #5a5a5a;
 }
 
 .cx-s5-role {
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Figtree', -apple-system, sans-serif;
   font-size: 16px;
   font-weight: 300;
   color: #9e9e9e !important;
@@ -688,7 +745,7 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Figtree', sans-serif;
   font-size: clamp(48px, 12vw, 120px);
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -707,12 +764,11 @@
   box-sizing: border-box;
 }
 
-/* Carousel wrapper: min-height 85vh so image area can grow; caption/indicators below */
+/* Carousel wrapper: wraps image + caption; caption/indicators below */
 .cx-carousel-wrapper {
   position: relative;
   width: 100%;
-  min-height: 85vh;
-  padding: 7vh;
+  padding: 24px;
   box-sizing: border-box;
   margin: 32px 0;
   overflow: hidden;
@@ -724,10 +780,53 @@
   border-radius: 12px;
 }
 
-/* Viewport: grows to fit image; large min-height so full image can show */
+/* Left/right arrows: only visible on hover, fade 350ms ease-in-out */
+.cx-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.33);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 350ms ease-in-out, background 0.2s ease;
+}
+
+.cx-carousel-wrapper:hover .cx-carousel-arrow {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cx-carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.cx-carousel-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cx-carousel-arrow-left {
+  left: 16px;
+}
+
+.cx-carousel-arrow-right {
+  right: 16px;
+}
+
+/* Viewport: wraps image; shrinks to content */
 .cx-carousel-viewport {
-  flex: 1 1 auto;
-  min-height: 70vh;
+  flex: 0 1 auto;
+  min-height: 0;
   overflow: hidden;
   display: flex;
   align-items: stretch;
@@ -736,7 +835,6 @@
 
 .cx-carousel-track {
   display: flex;
-  height: 100%;
   flex-shrink: 0;
   will-change: transform;
   backface-visibility: hidden;
@@ -745,7 +843,6 @@
 
 .cx-carousel-slide {
   flex: 0 0 auto;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -758,8 +855,7 @@
   position: relative;
   width: 85%;
   max-width: 100%;
-  height: 100%;
-  max-height: 100%;
+  aspect-ratio: 16 / 10;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -784,7 +880,7 @@
   font-size: 14px;
 }
 
-/* Caption below image area; doesn't steal space from image */
+/* Caption below image; 12px gap from image */
 .cx-carousel-caption-below {
   flex-shrink: 0;
   margin: 12px 0 0;
@@ -952,7 +1048,7 @@
   font-size: 20px;
   line-height: 28px;
   font-weight: 600;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Figtree', sans-serif;
 }
 
 /* Feature cards (item 19) – 2 top, 1 bottom, with colors and icons */
@@ -981,7 +1077,7 @@
 }
 
 .cx-feature-card-title {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Figtree', sans-serif;
   font-size: 16px;
   line-height: 20px;
   font-weight: 600;
@@ -989,7 +1085,7 @@
 }
 
 .cx-feature-card-desc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
@@ -1043,7 +1139,7 @@
 }
 
 .cx-metric-block .cx-metric-label {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 16px;
   line-height: 27px;
   font-weight: 400;
@@ -1058,7 +1154,7 @@
 }
 
 .cx-metric-block .cx-metric-value {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Figtree', sans-serif;
   font-size: 28px;
   line-height: 36px;
   font-weight: 700;
@@ -1081,7 +1177,7 @@
 }
 
 .cx-revenue-block .cx-line1 {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 16px;
   line-height: 27px;
   font-weight: 400;
@@ -1089,7 +1185,7 @@
 }
 
 .cx-revenue-block .cx-line2 {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Figtree', sans-serif;
   font-size: 28px;
   line-height: 36px;
   font-weight: 700;
@@ -1119,7 +1215,6 @@
   padding-top: 303px; /* 48px + 255px so content stays in place */
 }
 
-.cx-section-gray .xl-header,
 .cx-section-gray .header-1,
 .cx-section-gray .header-2,
 .cx-section-gray .paragraph-text,
@@ -1230,7 +1325,7 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 12px;
   color: rgba(0, 0, 0, 0.5);
 }
@@ -1247,7 +1342,7 @@
 
 .cx-pro-page .project-footer .footer-quote {
   margin: 48px 0 0 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 12px;
   color: rgba(0, 0, 0, 0.35);
   max-width: 600px;
@@ -1454,6 +1549,11 @@
     padding-right: 48px;
   }
 
+  .cx-pro-page--embedded .project-main {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .cx-section-gray {
     padding: 48px max(48px, calc((100vw - 1200px) / 2)) 64px;
   }
@@ -1463,16 +1563,14 @@
   }
 }
 
-/* ----- Small screens: stack columns vertically on project pages ----- */
-@media (max-width: 900px) {
-  .cx-block {
-    grid-template-columns: 1fr;
-    gap: 12px 0;
-  }
-
+/* ----- Mobile & tablet: other responsive tweaks ----- */
+@media (max-width: 1024px) {
   .cx-block__col1,
   .cx-block__col2 {
-    margin-top: 2vh;
+    min-width: 0;
+  }
+
+  .cx-block__col2 {
     margin-bottom: 2vh;
   }
 
@@ -1504,6 +1602,12 @@
   .cx-s5-row {
     flex-direction: column;
   }
+
+  .cx-full-width,
+  .cx-block__col2 .cx-full-width {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1511,5 +1615,24 @@
     padding-left: 20px;
     padding-right: 20px;
   }
+
+  .cx-pro-page--embedded .project-main {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
+
+/* Validus project 2 – looping video */
+.validus-video-wrap {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.validus-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+}

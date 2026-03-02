@@ -34,7 +34,7 @@
 }
 
 .nav-brand {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Figtree', sans-serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -54,7 +54,7 @@
 }
 
 .nav-link {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Figtree', sans-serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -258,7 +258,7 @@
   padding: 5px 24px;
   background-color: transparent;
   color: #ffffff;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
@@ -289,7 +289,7 @@
 }
 
 .hero-line {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: clamp(30.8px, 4.4vw + 22px, 50px);
   font-weight: 700;
   line-height: 1.15;
@@ -325,7 +325,7 @@
   position: absolute;
   top: 48px;
   left: 50%;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: clamp(20.5px, 2.95vw + 14.7px, 33.5px);
   font-weight: 700;
   line-height: 1.15;
@@ -453,7 +453,7 @@
 
 .work-card-inner {
   color: #fff;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -616,7 +616,7 @@
 
 /* Prompts section title - same style as hero-line / value lines */
 .prompts-section-title {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: clamp(30.8px, 4.4vw + 22px, 50px);
   font-weight: 700;
   line-height: 1.15;
@@ -626,7 +626,7 @@
 }
 
 .prompts-section-subtitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: clamp(15px, 2.2vw + 10px, 24px);
   font-weight: 400;
   line-height: 1.35;
@@ -672,7 +672,7 @@
   background-color: rgba(24, 24, 27, 0.5);
   border: 1px solid #27272a;
   border-radius: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
   color: #e4e4e7;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -709,7 +709,7 @@
   padding: 8px 16px;
   border: none;
   border-radius: 9999px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
   font-weight: 400;
   background-color: #27272a;
@@ -738,7 +738,7 @@
   margin: 0;
   margin-left: auto;
   text-align: right;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: #a1a1aa;
@@ -899,7 +899,7 @@
 
 .card-pill {
   display: inline-block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -928,7 +928,7 @@
 }
 
 .card-title {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 18px;
   font-weight: 400;
   color: #ffffff;
@@ -945,7 +945,7 @@
 }
 
 .card-desc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
   color: #a1a1aa;
   margin: 0 0 12px 0;
@@ -965,7 +965,7 @@
 }
 
 .card-tags span {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 12px;
   padding: 2px 8px;
   background-color: #27272a;
@@ -975,7 +975,7 @@
 
 .cards-empty {
   grid-column: 1 / -1;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
   color: #71717a;
   text-align: center;
@@ -1008,14 +1008,14 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.35);
 }
 
 .footer-quote {
   margin: 48px 0 0 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.15);
   max-width: 600px;

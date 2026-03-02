@@ -1,59 +1,116 @@
+/* About page – matches work page layout, image left + text right */
+/* Uses HomePageV2.css for gradient, content-margin, logo, header, nav, footer */
+
 .contact-page {
-  min-height: 100vh;
-  background-color: #111111;
+  background-color: #ffffff;
 }
 
-.contact-page .contact-main {
-  padding: 120px 24px 80px;
-  max-width: 640px;
-  margin: 0 auto;
-  text-align: center;
+/* About grid: image left, content right – image matches text height */
+.contact-about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: stretch;
 }
 
-.contact-title {
-  font-family: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(32px, 5vw, 48px);
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0 0 16px;
-  color: #fff;
+@media (max-width: 1023px) {
+  .contact-about-grid {
+    gap: 32px;
+  }
 }
 
-.contact-intro {
-  font-family: 'Inter', sans-serif;
-  font-size: 18px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 40px;
+@media (max-width: 767px) {
+  .contact-about-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
 
-.contact-links {
+/* Image – left side, stretches to match text height */
+.contact-about-image {
+  width: 100%;
+  min-height: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #efefef;
+  background: #fff;
+}
+
+.contact-about-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  vertical-align: middle;
+  /* Scale slightly to crop out dark stroke baked into the image edges */
+  transform: scale(1.02);
+}
+
+@media (max-width: 767px) {
+  .contact-about-image {
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 479px) {
+  .contact-about-image {
+    border-radius: 16px;
+  }
+}
+
+/* Content – right side */
+.contact-about-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
-  margin-bottom: 48px;
 }
 
-.contact-link {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.contact-link:hover {
-  color: #fff;
-}
-
-.contact-quote {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.35);
+.contact-about-title {
+  font-family: 'Figtree', sans-serif;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
   margin: 0;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
+  color: #1a1a1a;
+}
+
+.contact-about-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 20px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  color: #6b6b6b;
+  margin: 0;
+}
+
+.contact-about-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contact-about-meta-item svg {
+  flex-shrink: 0;
+}
+
+.contact-about-text {
+  font-family: 'Figtree', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.contact-about-text p {
+  margin: 0 0 1em;
+}
+
+.contact-about-text p:last-child {
+  margin-bottom: 0;
+}
+
+.contact-about-text strong {
+  font-weight: 700;
+  color: #1a1a1a;
 }
