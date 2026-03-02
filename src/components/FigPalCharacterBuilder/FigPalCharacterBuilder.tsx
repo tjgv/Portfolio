@@ -52,7 +52,7 @@ function getInitialState(): FigPalBuilderState {
 }
 
 export default function FigPalCharacterBuilder({
-  onClose,
+  onClose: _onClose,
   onFollowMouseChange,
   initialState,
   onStateChange,

@@ -210,10 +210,11 @@ function WorkflowBuilderInner({
   const hasTestEventTrigger = useMemo(
     () =>
       nodes.some(
-        (n) =>
-          n?.type === 'trigger' &&
-          n.data?.kind === 'event' &&
-          (n.data?.config?.eventType ?? '') === 'test event',
+        (n) => {
+          if (n?.type !== 'trigger' || n.data?.kind !== 'event') return false
+          const cfg = (n.data as { config?: { eventType?: string } })?.config
+          return (cfg?.eventType ?? '') === 'test event'
+        },
       ),
     [nodes],
   )

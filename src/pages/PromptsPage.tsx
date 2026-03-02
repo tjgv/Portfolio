@@ -8,10 +8,12 @@ function PromptDetailContent({
   prompt,
   copied,
   onCopy,
+  onSelectRelated,
 }: {
   prompt: Prompt
   copied: boolean
   onCopy: () => void
+  onSelectRelated: (slug: string) => void
 }) {
   const relatedPrompts = prompt.relatedIds
     .map((id) => PROMPTS_BY_ID.get(id))
