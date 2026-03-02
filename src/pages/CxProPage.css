@@ -298,17 +298,21 @@
   display: flex;
   justify-content: center;
   pointer-events: none;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-.validus-page .validus-hero-bridge img {
+.validus-page .validus-hero-bridge img,
+.validus-hero-bridge-img {
   width: 100%;
   height: auto;
   max-height: 63vh;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 -4px 24px rgba(0, 0, 0, 0.08));
   border-radius: 4px;
-  border: 1px solid #efefef;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   box-sizing: border-box;
 }
 
@@ -320,6 +324,11 @@
   padding-top: calc(42vh + 50px); /* Push Context/Problem Solved text below the laptop image */
 }
 
+/* Full page only: add 100px extra gap below first image (not preview modal) */
+.validus-page:not(.cx-pro-page--embedded) .cx-hero-intro + .cx-section {
+  padding-top: calc(42vh + 150px);
+}
+
 /* Embedded preview: reset the gap – hero is hidden, so no need for overlap padding */
 .cx-pro-page--embedded.validus-page .cx-hero-intro + .cx-section {
   margin-top: 0;
@@ -327,11 +336,15 @@
 }
 
 /* Embedded preview: hero bridge image between project info and Context */
-.validus-preview-hero-img img {
+.cx-pro-page--embedded .validus-preview-hero-img img,
+.cx-pro-page--embedded .validus-hero-bridge-img {
   width: 100%;
   height: auto;
   max-height: 40vh;
   object-fit: contain;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Embedded preview: hide all sections after Problem Solved (no stray divider/content) */
@@ -719,6 +732,10 @@
   margin-top: 24px;
 }
 
+.cx-s28-wrap .cx-full-width img {
+  border: none;
+}
+
 .cx-s28-phone {
   position: absolute;
   bottom: calc(-72px - 5vh);
@@ -735,11 +752,14 @@
   animation: cx-s28-phone-slide 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
 }
 
-.cx-s28-phone img {
+.cx-s28-phone img,
+.cx-s28-phone .cx-img-openable {
   width: 100%;
   display: block;
   border-radius: 4px;
-  border: 1px solid #efefef;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   box-sizing: border-box;
 }
 

@@ -234,7 +234,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
             </div>
           </div>
           <div className="validus-hero-bridge" aria-hidden>
-            <img src="/validus-images/hero-bridge.png" alt="" />
+            <img src="/validus-images/hero-bridge.png" alt="" className="validus-hero-bridge-img" />
           </div>
         </section>
 
@@ -242,7 +242,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         {embedded && (
           <div className="cx-section">
             <div className="cx-full-width validus-preview-hero-img">
-              <img src="/validus-images/hero-bridge.png" alt="" />
+              <img src="/validus-images/hero-bridge.png" alt="" className="validus-hero-bridge-img" />
             </div>
           </div>
         )}
@@ -256,9 +256,6 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
             <p className="paragraph-text">
               Eventus is a software company which offers products that monitor global market data to identify patterns of illegal activity. Eventus tailors their products to Compliance Officers—people who are hired by organizations to ensure they are compliant with trading regulations. Eventus' main platform is Validus. Validus helps compliance officers by using algorithms which detect suspicious behavior, and contextualizes that data for compliance officer review.
             </p>
-            <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/3.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/3.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/3.png`], 0)} />
-            </div>
           </div>
         </div>
         </div>
@@ -272,9 +269,6 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
             <p className="paragraph-text">
               The previous dashboard forced users to hunt for important information and offered no sense of priority or progress. We redesigned it to do the opposite: lead users to the right alerts quickly, present data in a way that matches their intuition, and make high-volume work feel approachable through clear visual progress indicators.
             </p>
-            <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/4.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/4.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/4.png`], 0)} />
-            </div>
           </div>
         </div>
         </div>

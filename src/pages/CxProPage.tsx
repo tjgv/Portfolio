@@ -216,6 +216,28 @@ function scrollToTop() {
   if (root && root !== document.body) (root as HTMLElement).scrollTop = 0
 }
 
+const SMOOTH_SCROLL_DURATION_MS = 1100
+function easeInOutCubic(t: number): number {
+  return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
+}
+function smoothScrollToTop() {
+  const start = performance.now()
+  const startY = window.scrollY ?? document.documentElement.scrollTop ?? 0
+  const scroll = () => {
+    const elapsed = performance.now() - start
+    const t = Math.min(elapsed / SMOOTH_SCROLL_DURATION_MS, 1)
+    const eased = easeInOutCubic(t)
+    const y = startY * (1 - eased)
+    window.scrollTo(0, y)
+    document.documentElement.scrollTop = y
+    document.body.scrollTop = y
+    const root = document.scrollingElement
+    if (root && root !== document.body) (root as HTMLElement).scrollTop = y
+    if (t < 1) requestAnimationFrame(scroll)
+  }
+  requestAnimationFrame(scroll)
+}
+
 export interface CxProPageProps {
   embedded?: boolean
 }
@@ -225,6 +247,34 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
   const openLightbox = useCallback((items: string[], index: number) => setLightbox({ items, index }), [])
   const closeLightbox = useCallback(() => setLightbox(null), [])
   const pageTopRef = useRef<HTMLDivElement>(null)
+  const s2Ref = useRef<HTMLDivElement>(null)
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
+
+  useEffect(() => {
+    const update = () => {
+      const s2 = s2Ref.current
+      const scrollY = window.scrollY ?? document.documentElement.scrollTop ?? 0
+      if (s2) {
+        const r2 = s2.getBoundingClientRect()
+        setShowScrollToTop(r2.bottom <= 100)
+      } else {
+        setShowScrollToTop(scrollY > 500)
+      }
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    document.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    const t = setTimeout(update, 200)
+    const t2 = setTimeout(update, 600)
+    return () => {
+      window.removeEventListener('scroll', update)
+      document.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+      clearTimeout(t)
+      clearTimeout(t2)
+    }
+  }, [])
 
   useLayoutEffect(() => {
     if (embedded) return
@@ -301,7 +351,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         </div>
 
         {/* 3. (2x1) Col1: "What is Cosm?" Header 2 | Col2: paragraph + placeholder image */}
-        <div className="cx-section">        <div className="cx-block">
+        <div ref={s2Ref} className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1">
             <h2 className="header-2">What is Cosm?</h2>
           </div>
@@ -398,22 +448,87 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
             <h2 className="header-2">Problems Solved</h2>
           </div>
           <div className="cx-block__col2 cx-stack">
-            <p className="paragraph-text">
-              This case study demonstrates the various problem spaces I guided CX Pro which each version represents.
-            </p>
-            <p className="paragraph-text">
-              <strong>Version 1.0:</strong> (Dec 23 – Jun 24) Rapid pivots around constant shifting of engineering scope to find an MVP
-            </p>
-            <p className="paragraph-text">
-              <strong>Version 2.0:</strong> (Jul 24 – Feb 25) Re-centering product around user needs post launch as we began to have users.
-            </p>
-            <p className="paragraph-text">
-              <strong>Version 3.0:</strong> (Mar 25 – Oct 25) Honing in on conceptual clarity to prepare for an external B2B2C launch.
-            </p>
+            {embedded ? (
+              <>
+                <p className="paragraph-text">
+                  <strong>Concept → V1.0 (Venue Launch)</strong><br /><br />
+                  <strong>Problem</strong><br />
+                  Six-month runway to launch. Engineering scope was fluid, and product assumptions didn&apos;t match how the system would actually function.<br /><br />
+                  <strong>Approach</strong><br />
+                  Aligned stakeholders on product goals, embedded with engineering to map system dependencies, and translated constraints into a flexible interaction model that could adapt as scope shifted.<br /><br />
+                  <strong>Outcome</strong><br />
+                  Delivered a viable MVP in time for venue launch.
+                </p>
+                <div className="cx-full-width">
+                  <img src={`${CX_IMAGES}/Table.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/Table.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/Table.png`], 0)} />
+                </div>
+                <div className="cx-full-width">
+                  <img src={`${CX_IMAGES}/14.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/14.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/14.png`], 0)} />
+                </div>
+                <p className="paragraph-text">
+                  <strong>V1.0 → V2.0 (Operational Reality)</strong><br /><br />
+                  <strong>Problem</strong><br />
+                  The system was built without real users. Once the venue launched, usability gaps surfaced across the entire workflow, with too many issues to tackle simultaneously.<br /><br />
+                  <strong>Approach</strong><br />
+                  Created a structured user-request intake, built an effort/impact prioritization model, and ran rapid UX cycles on the highest-leverage improvements.<br /><br />
+                  <strong>Outcome</strong><br />
+                  Reduced operator training time by 82% while supporting more complex shows.
+                </p>
+                <div className="cx-full-width">
+                  <img src={`${CX_IMAGES}/18.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/18.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/18.png`], 0)} />
+                </div>
+                <div className="cx-full-width">
+                  <img src={`${CX_IMAGES}/30.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/30.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/30.png`], 0)} />
+                </div>
+                <p className="paragraph-text">
+                  <strong>V2.0 → V3.0 (Preparing for B2B Scale)</strong><br /><br />
+                  <strong>Problem</strong><br />
+                  Transitioning to external customers with unknown use cases and a broader range of technical proficiency.<br /><br />
+                  <strong>Approach</strong><br />
+                  Ran a focused discovery cycle on new-user flows: journey mapping, interviews, and usability evaluation.<br /><br />
+                  <strong>Key Insight</strong><br />
+                  Usability was acceptable, but learnability and conceptual clarity were weak. The system attempted to do too much in a single unified interface.<br /><br />
+                  <strong>Hypothesis</strong><br />
+                  Segmenting the tool into context-specific views would improve comprehension and onboarding.<br /><br />
+                  <strong>Validation</strong><br />
+                  Tested conceptual mocks with 5 operators; 96% responded positively to the new direction.<br /><br />
+                  <strong>Result</strong><br />
+                  Defined a phased evolution toward a simplified, modular product architecture.<br /><br />
+                  <strong>Projected Impact</strong><br />
+                  $X–XXM over 5 years.
+                </p>
+                <div className="cx-full-width">
+                  <img src={`${CX_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/37.png`], 0)} />
+                </div>
+                <div className="cx-full-width">
+                  <img src={`${CX_IMAGES}/38.1.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} />
+                </div>
+                <div className="cx-full-width">
+                  <img src={`${CX_IMAGES}/44.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/44.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/44.png`], 0)} />
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="paragraph-text">
+                  This case study demonstrates the various problem spaces I guided CX Pro which each version represents.
+                </p>
+                <p className="paragraph-text">
+                  <strong>Version 1.0:</strong> (Dec 23 – Jun 24) Rapid pivots around constant shifting of engineering scope to find an MVP
+                </p>
+                <p className="paragraph-text">
+                  <strong>Version 2.0:</strong> (Jul 24 – Feb 25) Re-centering product around user needs post launch as we began to have users.
+                </p>
+                <p className="paragraph-text">
+                  <strong>Version 3.0:</strong> (Mar 25 – Oct 25) Honing in on conceptual clarity to prepare for an external B2B2C launch.
+                </p>
+              </>
+            )}
           </div>
         </div>
         </div>
 
+        {!embedded && (
+        <>
         {/* 6. Carousel of images (Problems Solved) */}
         <div className="cx-section">          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
             <CxCarousel
@@ -1032,6 +1147,9 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
           </div>
         </div>
 
+        </>
+        )}
+
         {/* ----- Section: Projected Impact / Revenue (45-47) – hidden in preview ----- */}
         {!embedded && (
         <section className="cx-section-gray cx-section-gray--overlap-prev">
@@ -1103,6 +1221,17 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         </footer>
         )}
       </main>
+
+      {!embedded && (
+        <button
+          type="button"
+          className={`cx-scroll-to-top ${showScrollToTop ? 'cx-scroll-to-top--visible' : ''}`}
+          onClick={smoothScrollToTop}
+          aria-label="Scroll to top"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
+      )}
     </div>
   )
 }
