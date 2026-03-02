@@ -1008,6 +1008,11 @@
   gap: 28px;
 }
 
+/* Embedded project pages: avoid min-height 100vh so scroll works and extra preview content is reachable */
+.home-v2-popup-preview .app.cx-pro-page--embedded {
+  min-height: 0;
+}
+
 /* Preview sections (first ~6 of case study) */
 .home-v2-preview-section {
   display: flex;

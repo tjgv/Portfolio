@@ -291,6 +291,15 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
           </div>
         </section>
 
+        {/* XL header: "Context" – col1 empty, col2 XL text only */}
+        <div className="cx-section cx-header-xl-section cx-header-xl-section--context">        <div className="cx-block">
+          <div className="cx-block__col1" />
+          <div className="cx-block__col2">
+            <h2 className="header-xl">Context</h2>
+          </div>
+        </div>
+        </div>
+
         {/* 3. (2x1) Col1: "What is Cosm?" Header 2 | Col2: paragraph + placeholder image */}
         <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1">
@@ -576,6 +585,15 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         </div>
         )}
 
+        {/* XL header: "Design" – col1 empty, col2 XL text only */}
+        <div className="cx-section cx-header-xl-section">        <div className="cx-block">
+          <div className="cx-block__col1" />
+          <div className="cx-block__col2">
+            <h2 className="header-xl">Design</h2>
+          </div>
+        </div>
+        </div>
+
         {/* 17. Header section: Icon + "Post Launch Design Initatives" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
@@ -797,6 +815,15 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
 
         {/* ----- Section: Impact (31-33) – background #e7e7e7, grey extends halfway behind image above ----- */}
         <section className="cx-section-gray cx-section-gray--overlap-prev">
+          {/* XL header: "Impact" – col1 empty, col2 XL text only */}
+          <div className="cx-section cx-header-xl-section">          <div className="cx-block">
+            <div className="cx-block__col1" />
+            <div className="cx-block__col2">
+              <h2 className="header-xl">Impact</h2>
+            </div>
+          </div>
+          </div>
+
           {/* 32. Header section: Icon + "Version 2.0 Results" + sub-header */}
           <div className="cx-section">          <div className="cx-block">
             <div className="cx-block__col1" />
@@ -1008,6 +1035,15 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         {/* ----- Section: Projected Impact / Revenue (45-47) – hidden in preview ----- */}
         {!embedded && (
         <section className="cx-section-gray cx-section-gray--overlap-prev">
+          {/* XL header: "Projected Impact" – col1 empty, col2 XL text only */}
+          <div className="cx-section cx-header-xl-section cx-header-xl-section--projected-impact">          <div className="cx-block">
+            <div className="cx-block__col1" />
+            <div className="cx-block__col2">
+              <h2 className="header-xl">Projected Impact</h2>
+            </div>
+          </div>
+          </div>
+
           {/* 46. (2x1) Has divider. Col1: "Revenue Outlook" H2 | Col2: paragraph + 2-line revenue block */}
           <div className="cx-section">          <div className="cx-block cx-block--divider">
             <div className="cx-block__col1">

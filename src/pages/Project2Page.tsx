@@ -247,8 +247,8 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           </div>
         )}
 
-        {/* 3. (2x1) Col1: "Context" Header 2 | Col2: paragraph + placeholder image */}
-        <div ref={s2Ref} data-section="s2" className="cx-section">        <div className="cx-block">
+        {/* 3. (2x1) Col1: "Context" | Col2: paragraph + placeholder image – same format as Problem Solved */}
+        <div ref={s2Ref} data-section="s2" className="cx-section validus-preview-context">        <div className="cx-block">
           <div className="cx-block__col1">
             <h2 className="header-2">Context</h2>
           </div>
@@ -278,6 +278,206 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           </div>
         </div>
         </div>
+
+        {/* PREVIEW MODAL ONLY: additional photos + text sections from project page */}
+        {embedded && (
+        <div className="validus-preview-extra">
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Analyzing current dashboard usage data</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                Pendo feature usage showed us that users spent the vast majority of their time operating in the bottom-left and upper-right quadrants in the original dashboard. This is where our users go to work their alerts. An alert is created when the system detects potential manipulation. The bottom-left quadrant groups alerts by manipulation type (&quot;procedures&quot;), and the upper-right quadrant shows the individual alerts within the selected procedure.
+              </p>
+              <div className="cx-full-width">
+                <img src={`${VALIDUS_IMAGES}/8.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} />
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Comparing usage data to platform CTR&apos;s</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                I mapped the typical Compliance Officer workflow against click-rate data to identify wasted space in the interface. Surprisingly, the Market Overview page—the first page users see—was almost always skipped, making the Alert Overview page the de facto dashboard. This CTR map now guides how I structure the navigation for the solution.
+              </p>
+              <div className="cx-full-width">
+                <img src={`${VALIDUS_IMAGES}/9-ctr.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} />
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Emotional-Social Mapping</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                With usage data enlightening us on what pages to prioritize, I looked at our qualitative research to guide how we should design those pages. I leveraged our Jobs-to-be-done user interviews to get an understanding of what Compliance Officers feel during each step of their total job. Our research found that any compliance officers job - agnostic of any particular tool - can be categorized in 5 distinct phases: Design (Designing the algorithms to catch what they&apos;re looking for), Investigate (Filtering through false positives), Evaluate (Proving if positive hits are malicious), Respond (Raising to organizations & financial regulatory institutions), Educate (Advising members of organization how to avoid such activity). Validus is directly involved in the first 3 steps in the Compliance Officer&apos;s job. So, I looked at how they felt during these stages and found that the core issues they felt are: 1. Fear of missing crucial information 2. Dread of high-volume workflows
+              </p>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-full-width">
+            <img src={`${VALIDUS_IMAGES}/social-mapping.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} />
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Addressing the fear of the unknown</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                The reality is that Validus cannot ever do the job that a Compliance Officer does, but we can do more to help point users in the right direction through:
+              </p>
+              <p className="paragraph-text">
+                1. (New) For You Section: Champions team-flagged alerts in dashboard.<br />
+                2. (New) High Alert Accounts: Shows accounts with abnormal activity which provides a new perspective of reviewing alerts.<br />
+                3. (New) Progress bar: Helps gamify the alert review workflow & provides a point of reference for High Alert Accounts<br />
+                4. (Updated) Procedures: section expanded as this is always the first step users take when starting their workflow.
+              </p>
+              <div className="cx-full-width">
+                <img src={`${VALIDUS_IMAGES}/15-features.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} />
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Addressing high volume workloads</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                In the original dashboard, the alert-overview dashboard took up less than 25% of the allocated real estate of the page but absorbed 90% of user clicks. So, we gave that quadrant its own page and powered it up with a new feature: Bulk Actions.
+              </p>
+              <p className="paragraph-text">
+                Often, a string of alerts are related to each other, which creates tedious and duplicative workflows. Bulk Actions enables users to work on a multiple alerts simultaneously.
+              </p>
+              <div className="cx-full-width">
+                <img src={`${VALIDUS_IMAGES}/16-bulk-actions.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} />
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Streamlining Workflows</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                Originally, when users found an alert, they had to copy its ID and hunt it down again in other tools. This forced them into multiple tabs, extra searches, and unnecessary workflow friction. To fix this, we introduced the Alert Bar—a streamlined way for users to &quot;carry&quot; an alert with them throughout the controller as they evaluate it. This eliminates redundant steps and saves an immeasurable number of clicks.
+              </p>
+              <div className="cx-full-width">
+                <img src={`${VALIDUS_IMAGES}/17-alert-bar.gif`} alt="" />
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-full-width">
+            <img src={`${VALIDUS_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} />
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Problem Validation:</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                Q: How well did these designs address the original (problem) statement that we talked about in the beginning of the session?
+              </p>
+              <p className="paragraph-text">
+                <strong>Problem Statement:</strong> as a compliance officer conducting my daily review of the previous day&apos;s activity finding / honing in on what needs further investigation can be challenging, which makes me uneasy about missing a potential issue.
+              </p>
+              <div className="cx-full-width">
+                <img src={`${VALIDUS_IMAGES}/22-problem-validation.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} />
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Testing Satisfaction</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                Q: If you had to use this dashboard and design flow for the next six months instead of the dashboard you have now, how would you feel?
+              </p>
+              <div className="cx-full-width">
+                <img src={`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} />
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Task Completion Metrics</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                Accompanied with the user interviews were two usability tests to analyze usability of the new workflow features, Bulk Actions & the Alert Bar System. We found a massive success in mitigating redundancies in the Compliance Officer workflow.
+              </p>
+              <div className="cx-stat-cards cx-stat-cards--section9-headers">
+                <div className="cx-stat-card">
+                  <div className="cx-stat-card__line1">
+                    <span className="header-2" style={{ marginBottom: 0 }}>6.5 / 7</span>
+                    <img src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
+                  </div>
+                  <span style={{ fontWeight: 600 }}>In ease of operating bulk actions</span>
+                  <div className="cx-stat-card-divider" aria-hidden />
+                  <p className="paragraph-text">This tool was met with the most amount of excitement amongst new users.</p>
+                </div>
+                <div className="cx-stat-card">
+                  <div className="cx-stat-card__line1">
+                    <span className="header-2" style={{ marginBottom: 0 }}>5.37 out of 7</span>
+                    <img src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
+                  </div>
+                  <span style={{ fontWeight: 600 }}>In ease & comprehension of Alert Bar</span>
+                  <div className="cx-stat-card-divider" aria-hidden />
+                  <p className="paragraph-text">This feature had initial comprehension hurdles but quickly grew on users once figured out.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">User Quote</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                &ldquo;I will make one comment that this interface right here is 100 times easier to use than the one that&rsquo;s currently in there....&rdquo; &ldquo;... This is the type of thing I would like to see going forward&rdquo;
+              </p>
+              <div className="cx-quote-attribution">
+                <div className="cx-quote-attribution__row1">
+                  <img src={`${VALIDUS_IMAGES}/account_circle_24dp.svg`} alt="" width={24} height={24} aria-hidden />
+                  <span style={{ fontWeight: 600 }}>Robert L.</span>
+                </div>
+                <div className="cx-quote-attribution__role">Chief Compliance Officer, Legal Counsel</div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-full-width">
+            <img src={`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} />
+          </div>
+          </div>
+        </div>
+        )}
 
         {/* 5. (2x1) Has top divider. Col1: "My Role" H2 | Col2: role/team/timeline blocks + paragraph – hidden in preview (redundant with modal meta) */}
         {!embedded && (
@@ -349,6 +549,17 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 <p className="paragraph-text">Measured by exit interviews comparing proposed designs to current platform.</p>
               </div>
             </div>
+          </div>
+        </div>
+        </div>
+        )}
+
+        {/* XL header: "User Research" – col1 empty, col2 XL text only */}
+        {!embedded && (
+        <div className="cx-section cx-header-xl-section">        <div className="cx-block">
+          <div className="cx-block__col1" />
+          <div className="cx-block__col2">
+            <h2 className="header-xl">User Research</h2>
           </div>
         </div>
         </div>
@@ -433,6 +644,15 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         </div>
         </div>
 
+        {/* XL header: "Design" – col1 empty, col2 XL text only */}
+        <div className="cx-section cx-header-xl-section">        <div className="cx-block">
+          <div className="cx-block__col1" />
+          <div className="cx-block__col2">
+            <h2 className="header-xl">Design</h2>
+          </div>
+        </div>
+        </div>
+
         {/* 13. Header section: Icon + "Post Launch Design Initatives" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
           <div className="cx-block__col1" />
@@ -508,6 +728,17 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           </div>
         </div>
         </div>
+
+        {/* XL header: "Usability Testing" – col1 empty, col2 XL text only */}
+        {!embedded && (
+        <div className="cx-section cx-header-xl-section">        <div className="cx-block">
+          <div className="cx-block__col1" />
+          <div className="cx-block__col2">
+            <h2 className="header-xl">Usability Testing</h2>
+          </div>
+        </div>
+        </div>
+        )}
 
         {/* 19. Header section: Icon + "Validating Designs" + sub-header */}
         <div className="cx-section">        <div className="cx-block">
@@ -683,21 +914,6 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           </div>
           <div className={`cx-s28-phone ${s28InView ? 'cx-s28-phone--visible' : ''}`}>
             <img src={`${VALIDUS_IMAGES}/6924b82f0283ad193c127b32_mockmock.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b82f0283ad193c127b32_mockmock.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b82f0283ad193c127b32_mockmock.png`], 0)} />
-          </div>
-        </div>
-        </div>
-
-        {/* 29. (2x1) Col1: gif loop | Col2: gif loop */}
-        <div className="cx-section cx-section--s29">        <div className="cx-block cx-block--divider">
-          <div className="cx-block__col1">
-            <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/6924c0a3b71c1080835011d7_Beta-UI-Promo-2.gif`} alt="" style={{ width: '100%', display: 'block' }} />
-            </div>
-          </div>
-          <div className="cx-block__col2 cx-stack">
-            <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/6924c0ab9875ece72795d5df_Beta-UI-Promo.gif`} alt="" style={{ width: '100%', display: 'block' }} />
-            </div>
           </div>
         </div>
         </div>

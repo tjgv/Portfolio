@@ -38,6 +38,27 @@
   display: none;
 }
 
+/* Preview only: hide XL header sections (Context, Design, Impact, Projected Impact) */
+.cx-pro-page--embedded .cx-header-xl-section {
+  display: none !important;
+}
+
+/* XL header sections: 750px top padding */
+.cx-header-xl-section {
+  padding-top: 750px;
+}
+
+/* Projected Impact: unique 450px bottom padding */
+.cx-header-xl-section--projected-impact {
+  padding-bottom: 450px;
+}
+
+/* Context (Cosm): unique 500px top and bottom padding */
+.cx-header-xl-section--context {
+  padding-top: 500px;
+  padding-bottom: 500px;
+}
+
 /* Preview only: social-mapping / fullscreen image extends edge-to-edge of modal, full width visible */
 .cx-pro-page--embedded .cx-fullscreen-image {
   width: calc(100% + 64px);
@@ -314,8 +335,22 @@
 }
 
 /* Embedded preview: hide all sections after Problem Solved (no stray divider/content) */
+/* Note: validus-preview-extra is a sibling but not .cx-section, so it and its contents are not hidden */
 .cx-pro-page--embedded.validus-page .validus-preview-last ~ .cx-section {
   display: none;
+}
+
+/* Embedded preview: ensure Context and Problem Solved sections are visible */
+.cx-pro-page--embedded.validus-page .validus-preview-context,
+.cx-pro-page--embedded.validus-page .validus-preview-last {
+  display: block !important;
+}
+
+/* Embedded preview: validus-preview-extra contains additional photos + text for modal only */
+.cx-pro-page--embedded.validus-page .validus-preview-extra {
+  display: block !important;
+  visibility: visible !important;
+  margin-top: 32px;
 }
 
 /* S29: extra top padding */
@@ -344,6 +379,17 @@
   font-weight: 800;
   color: #000;
   margin-top: 42px; /* 15% reduction from 50px */
+  margin-bottom: 0;
+}
+
+/* Giant XL header (e.g. Validus Context) */
+.cx-pro-page .header-xl {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro', 'Figtree', sans-serif;
+  font-size: 96px; /* 64px + 50% */
+  line-height: 1.1;
+  font-weight: 800;
+  color: #000;
+  margin-top: 0;
   margin-bottom: 0;
 }
 
@@ -385,7 +431,7 @@
   margin-bottom: 0;
 }
 
-/* ----- 2x1 Grid block: title above content, both full width ----- */
+/* ----- 2x1 Grid block: single column (mobile & embedded), 2 columns (desktop project page) ----- */
 .cx-block {
   display: grid;
   grid-template-columns: 1fr;
@@ -393,6 +439,20 @@
   gap: 12px 0;
   align-items: stretch;
   padding: 0 0 27px; /* 15% reduction from 32px */
+}
+
+/* Desktop project page only: 2 columns – col1 headers, col2 content */
+@media (min-width: 1025px) {
+  .cx-pro-page:not(.cx-pro-page--embedded) .cx-block {
+    grid-template-columns: minmax(160px, 0.4fr) 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 32px;
+    align-items: start;
+  }
+  .cx-pro-page:not(.cx-pro-page--embedded) .cx-block__col1 {
+    position: sticky;
+    top: 24px;
+  }
 }
 
 .cx-block--divider {
@@ -1249,6 +1309,7 @@
 
 .cx-section-gray .header-1,
 .cx-section-gray .header-2,
+.cx-section-gray .header-xl,
 .cx-section-gray .paragraph-text,
 .cx-section-gray .cx-metric-value {
   color: #000;
