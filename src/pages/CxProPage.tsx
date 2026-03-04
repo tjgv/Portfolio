@@ -452,12 +452,14 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
               <>
                 <p className="paragraph-text">
                   <strong>Concept → V1.0 (Venue Launch)</strong><br /><br />
-                  <strong>Problem</strong><br />
-                  Six-month runway to launch. Engineering scope was fluid, and product assumptions didn&apos;t match how the system would actually function.<br /><br />
-                  <strong>Approach</strong><br />
-                  Aligned stakeholders on product goals, embedded with engineering to map system dependencies, and translated constraints into a flexible interaction model that could adapt as scope shifted.<br /><br />
-                  <strong>Outcome</strong><br />
-                  Delivered a viable MVP in time for venue launch.
+                  <strong>Problem:</strong><br />
+                  Six-month runway to launch. Engineering scope was in constant flux, and product assumptions didn&apos;t match how the system would actually function.<br /><br />
+                  <strong>Approach:</strong><br />
+                  Aligned stakeholders on product goals, worked with engineering to map system dependencies, and translated constraints into a flexible mockup that could adapt as scope shifted.<br /><br />
+                  <strong>Rationale:</strong><br />
+                  Because system capabilities were still emerging, I needed a tangible reference point between product and engineering to ground usability goals in the realities of the technology and keep MVP planning aligned with engineering expectations for venue launch.<br /><br />
+                  <strong>Outcome:</strong><br />
+                  Provided a stable model for product and engineering as system capabilities evolved, ultimately shaping the MVP controller used to build and run dome and hall experiences at venue launch.
                 </p>
                 <div className="cx-full-width">
                   <img src={`${CX_IMAGES}/Table.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/Table.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/Table.png`], 0)} />
