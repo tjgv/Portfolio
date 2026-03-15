@@ -401,20 +401,20 @@
 /* 2% larger when playing – smooth transition into enlarged state */
 .home-v2-card-wrap--playing {
   filter:
-    drop-shadow(0 0 12px rgba(255, 182, 193, 0.475))
-    drop-shadow(0 0 24px rgba(230, 200, 255, 0.45))
-    drop-shadow(0 0 36px rgba(200, 230, 255, 0.425))
-    drop-shadow(0 0 48px rgba(200, 255, 220, 0.375));
+    drop-shadow(0 0 12px rgba(255, 182, 193, 0.166))
+    drop-shadow(0 0 24px rgba(230, 200, 255, 0.158))
+    drop-shadow(0 0 36px rgba(200, 230, 255, 0.149))
+    drop-shadow(0 0 48px rgba(200, 255, 220, 0.131));
   transform: scale(1.02);
   transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .home-v2-card-wrap--playing:hover {
   filter:
-    drop-shadow(0 0 16px rgba(255, 182, 193, 0.5))
-    drop-shadow(0 0 28px rgba(230, 200, 255, 0.475))
-    drop-shadow(0 0 40px rgba(200, 230, 255, 0.45))
-    drop-shadow(0 0 52px rgba(200, 255, 220, 0.4));
+    drop-shadow(0 0 16px rgba(255, 182, 193, 0.175))
+    drop-shadow(0 0 28px rgba(230, 200, 255, 0.166))
+    drop-shadow(0 0 40px rgba(200, 230, 255, 0.158))
+    drop-shadow(0 0 52px rgba(200, 255, 220, 0.14));
 }
 
 .home-v2-card--playing {
@@ -748,7 +748,7 @@
 .home-v2-popup {
   position: relative;
   width: 100%;
-  max-width: min(960px, 67.5vw);
+  max-width: min(1056px, 74.25vw);
   max-height: 90vh;
   background: #ffffff;
   border-radius: 24px;

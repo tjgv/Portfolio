@@ -1,5 +1,6 @@
 import { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { ImgWithLoader, VideoWithLoader } from '../components/MediaLoader'
 import './CxProPage.css'
 
 const CX_IMAGES = '/cx-pro-images'
@@ -67,7 +68,7 @@ function CxLightbox({
         </>
       )}
       <div className="cx-lightbox-content" onClick={(e) => e.stopPropagation()}>
-        <img src={items[index]} alt="" className="cx-lightbox-img" />
+        <ImgWithLoader src={items[index]} alt="" className="cx-lightbox-img" />
       </div>
       {hasMultiple && (
         <div className="cx-lightbox-strip" onClick={(e) => e.stopPropagation()}>
@@ -79,7 +80,7 @@ function CxLightbox({
               onClick={() => setIndex(i)}
               aria-label={`View image ${i + 1}`}
             >
-              <img src={src} alt="" />
+              <ImgWithLoader src={src} alt="" />
             </button>
           ))}
         </div>
@@ -165,7 +166,7 @@ function CxCarousel({
             >
               <div className="cx-carousel-slide-inner">
                 {item.imageUrl ? (
-                  <img src={item.imageUrl} alt="" className="cx-carousel-card-img" />
+                  <ImgWithLoader src={item.imageUrl} alt="" className="cx-carousel-card-img" />
                 ) : (
                   <span className="cx-carousel-placeholder">Image {i + 1}</span>
                 )}
@@ -326,7 +327,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         {/* 1. Intro section – hero with logo, hero text, chips, arrow (hidden when embedded; popup has its own header) */}
         <section className={`cx-hero-intro${embedded ? ' cx-hero-intro--hidden' : ''}`} aria-label="Project intro">
           <div className="cx-hero-intro-body">
-            <img src="/cosm-logotype.png" alt="Cosm" className="cx-hero-logo" fetchPriority="high" />
+            <ImgWithLoader src="/cosm-logotype.png" alt="Cosm" className="cx-hero-logo" fetchPriority="high" />
             <p className="cx-hero-text">
               Leading the design of Cosm's immersive venue platform, evolving a 0→1 product into a scalable B2B2C flagship
             </p>
@@ -360,7 +361,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
               Cosm is a company formed by several teams uniting to reinvent how audiences experience content through <em>Shared Reality</em>. <strong>Think virtual reality - but shared experienced along side an audience.</strong> At the heart of this vision is the CX Display, a massive dome-like environment that <em>immerses</em> viewers, transforming the venue into anything imaginable.
             </p>
             <div className="cx-full-width">
-              <img src={`${CX_IMAGES}/3.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/3.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/3.png`], 0)} />
+              <ImgWithLoader src={`${CX_IMAGES}/3.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/3.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/3.png`], 0)} />
             </div>
           </div>
         </div>
@@ -462,10 +463,10 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
                   Provided a stable model for product and engineering as system capabilities evolved, ultimately shaping the MVP controller used to build and run dome and hall experiences at venue launch.
                 </p>
                 <div className="cx-full-width">
-                  <img src={`${CX_IMAGES}/Table.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/Table.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/Table.png`], 0)} />
+                  <ImgWithLoader src={`${CX_IMAGES}/Table.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/Table.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/Table.png`], 0)} />
                 </div>
                 <div className="cx-full-width">
-                  <img src={`${CX_IMAGES}/14.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/14.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/14.png`], 0)} />
+                  <ImgWithLoader src={`${CX_IMAGES}/14.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/14.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/14.png`], 0)} />
                 </div>
                 <p className="paragraph-text">
                   <strong>V1.0 → V2.0 (Operational Reality)</strong><br /><br />
@@ -473,14 +474,16 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
                   The system was built without real users. Once the venue launched, usability gaps surfaced across the entire workflow, with too many issues to tackle simultaneously.<br /><br />
                   <strong>Approach</strong><br />
                   Created a structured user-request intake, built an effort/impact prioritization model, and ran rapid UX cycles on the highest-leverage improvements.<br /><br />
+                  <strong>Rationale:</strong><br />
+                  Post-launch, the company&apos;s priority was stabilizing venue operations as quickly as possible. Because issues ranged from quick usability fixes to deeper workflow problems, separating requests into small- and large-scope work ensured low-effort improvements could ship immediately while more complex changes progressed in parallel.<br /><br />
                   <strong>Outcome</strong><br />
                   Reduced operator training time by 82% while supporting more complex shows.
                 </p>
                 <div className="cx-full-width">
-                  <img src={`${CX_IMAGES}/18.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/18.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/18.png`], 0)} />
+                  <ImgWithLoader src={`${CX_IMAGES}/18.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/18.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/18.png`], 0)} />
                 </div>
                 <div className="cx-full-width">
-                  <img src={`${CX_IMAGES}/30.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/30.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/30.png`], 0)} />
+                  <ImgWithLoader src={`${CX_IMAGES}/30.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/30.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/30.png`], 0)} />
                 </div>
                 <p className="paragraph-text">
                   <strong>V2.0 → V3.0 (Preparing for B2B Scale)</strong><br /><br />
@@ -500,13 +503,13 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
                   $X–XXM over 5 years.
                 </p>
                 <div className="cx-full-width">
-                  <img src={`${CX_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/37.png`], 0)} />
+                  <ImgWithLoader src={`${CX_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/37.png`], 0)} />
                 </div>
                 <div className="cx-full-width">
-                  <img src={`${CX_IMAGES}/38.1.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} />
+                  <ImgWithLoader src={`${CX_IMAGES}/38.1.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} />
                 </div>
                 <div className="cx-full-width">
-                  <img src={`${CX_IMAGES}/44.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/44.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/44.png`], 0)} />
+                  <ImgWithLoader src={`${CX_IMAGES}/44.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/44.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/44.png`], 0)} />
                 </div>
               </>
             ) : (
@@ -640,7 +643,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
 
         {/* 11. Full width image (Table - replaced Figma embed) */}
         <div className="cx-section">        <div className="cx-full-width">
-          <img src={`${CX_IMAGES}/Table.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/Table.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/Table.png`], 0)} />
+          <ImgWithLoader src={`${CX_IMAGES}/Table.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/Table.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/Table.png`], 0)} />
         </div>
         </div>
 
@@ -678,14 +681,14 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
 
         {/* 14. Full width image */}
         <div className="cx-section">        <div className="cx-full-width">
-          <img src={`${CX_IMAGES}/14.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/14.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/14.png`], 0)} />
+          <ImgWithLoader src={`${CX_IMAGES}/14.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/14.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/14.png`], 0)} />
         </div>
         </div>
 
         {/* 15. Full screen loop background video – hidden in preview */}
         {!embedded && (
         <div className="cx-section">        <div className="cx-full-screen cx-video-backdrop">
-          <video
+          <VideoWithLoader
             className="cx-video-backdrop__video"
             src="/cx-pro-images/15.mp4"
             autoPlay
@@ -740,7 +743,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
               After launch, our focus shifted to stabilizing the product and improving day-to-day workflows. The most important changes in the dynamic is: 1. We now have users to learn from 2. Design is now ahead of engineering, but not by much. Immediate goals post launch: 1. Fill engineering backlog to create a steady lead on engineering 2. Rectify usability pitfalls from the assumption-based phase of design. As CX Pro had been built at warp speed, Operators (our users) were dealing with bugs, system errors, and an unfamiliar workflow all at once. To address this, I created a shared system-request document to collect user insights and guide design initatives.
             </p>
             <div className="cx-full-width">
-              <img src={`${CX_IMAGES}/18.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/18.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/18.png`], 0)} />
+              <ImgWithLoader src={`${CX_IMAGES}/18.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/18.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/18.png`], 0)} />
             </div>
           </div>
         </div>
@@ -870,7 +873,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         {/* 26. Full width image – hidden in preview */}
         {!embedded && (
         <div className="cx-section">        <div className="cx-full-width">
-          <img src={`${CX_IMAGES}/26.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/26.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/26.png`], 0)} />
+          <ImgWithLoader src={`${CX_IMAGES}/26.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/26.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/26.png`], 0)} />
         </div>
         </div>
         )}
@@ -926,7 +929,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
 
         {/* 30. Full width image (stacks above grey overlap below) */}
         <div className="cx-section cx-section--above-gray-overlap">        <div className="cx-full-width">
-          <img src={`${CX_IMAGES}/30.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/30.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/30.png`], 0)} />
+          <ImgWithLoader src={`${CX_IMAGES}/30.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/30.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/30.png`], 0)} />
         </div>
         </div>
 
@@ -1030,7 +1033,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
 
         {/* 37. Full width image */}
         <div className="cx-section">        <div className="cx-full-width">
-          <img src={`${CX_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/37.png`], 0)} />
+          <ImgWithLoader src={`${CX_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/37.png`], 0)} />
         </div>
         </div>
 
@@ -1044,8 +1047,8 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
               From product investigations, we learned that our prosepctive clients were likely to be: Many will be from academic instutions. Mostly casual users. A sprinkle of advanced users. I hypothesized the best way to learn about casual users was to focus on the new user experience. So, I conducted user interviews with the newest members of our operator teams. <strong>What I found:</strong> Workflow usability was high, but the learning curve of CX Pro concepts was low.
             </p>
             <div className="cx-two-images cx-two-images--stacked">
-              <img src={`${CX_IMAGES}/38.1.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} />
-              <img src={`${CX_IMAGES}/38.2.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 1)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 1)} />
+              <ImgWithLoader src={`${CX_IMAGES}/38.1.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 0)} />
+              <ImgWithLoader src={`${CX_IMAGES}/38.2.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 1)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/38.1.png`, `${CX_IMAGES}/38.2.png`], 1)} />
             </div>
           </div>
         </div>
@@ -1081,7 +1084,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
               To set us up for success with a casual user base, we had to address the problem: <strong>Problem Statement:</strong> How can we conceptually simplify CX Pro workflows so that newer users can successfully run shows without much learning? <strong>Process: Blue-Sky Exploration → User Validation</strong> - Explored more familiar interfaces - Explored different ways to visualize CX Pro concepts (scenes, publishing, layers) - Break up workflows of building a show vs Running a Show - Do one thing at a time
             </p>
             <div className="cx-full-width">
-              <img src={`${CX_IMAGES}/40.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/40.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/40.png`], 0)} />
+              <ImgWithLoader src={`${CX_IMAGES}/40.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/40.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/40.png`], 0)} />
             </div>
           </div>
         </div>
@@ -1099,7 +1102,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
               The mock above, albeit not the prettiest, garned a huge postive reaction from our user base. "If you can only build one thing now, I would want this" — S.S., Lead Operator. While this raised eyebrows in the Product Team, we ultimately decided to walk before we run and integrate elements of a more visual tool into the current controller, with the plan to iterate towards a more split view of the controller.
             </p>
             <div className="cx-full-width">
-              <img src={`${CX_IMAGES}/41.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/41.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/41.png`], 0)} />
+              <ImgWithLoader src={`${CX_IMAGES}/41.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/41.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/41.png`], 0)} />
             </div>
           </div>
         </div>
@@ -1145,7 +1148,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
 
         {/* 44. Full width image (stacks above grey overlap below) */}
         <div className="cx-section cx-section--above-gray-overlap">          <div className="cx-full-width">
-            <img src={`${CX_IMAGES}/44.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/44.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/44.png`], 0)} />
+            <ImgWithLoader src={`${CX_IMAGES}/44.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/44.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/44.png`], 0)} />
           </div>
         </div>
 

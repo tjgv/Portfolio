@@ -3,6 +3,7 @@ import { Gamepad2, Maximize2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import type { FigPalFollowState, FigPalBuilderState } from '../components/FigPalCharacterBuilder'
 import { SvgOrImg } from '../components/FigPalCharacterBuilder'
+import { MediaLoader, ImgWithLoader } from '../components/MediaLoader'
 import CxProPage from './CxProPage'
 import Project2Page from './Project2Page'
 import './HomePageV2.css'
@@ -36,6 +37,10 @@ function MediaCycleCard({
   onVideoEnded: () => void
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [imgLoaded, setImgLoaded] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
+
+  const showLoader = showVideo ? !videoReady : !imgLoaded
 
   useEffect(() => {
     const video = videoRef.current
@@ -53,10 +58,12 @@ function MediaCycleCard({
       aria-label={`Open ${label} case study`}
     >
       <div className="home-v2-card-media">
+        <MediaLoader visible={showLoader} variant={visual === 'dark' ? 'dark' : 'default'} />
         <img
           src={imgSrc}
           alt=""
           className={`home-v2-card-img ${showVideo ? 'home-v2-card-img--hidden' : ''}`}
+          onLoad={() => setImgLoaded(true)}
         />
         <video
           ref={videoRef}
@@ -65,6 +72,8 @@ function MediaCycleCard({
           muted
           playsInline
           onEnded={onVideoEnded}
+          onLoadedData={() => setVideoReady(true)}
+          onCanPlay={() => setVideoReady(true)}
           aria-hidden
         />
       </div>
@@ -258,7 +267,7 @@ export default function HomePageV2() {
       <div className="home-v2-content-margin">
         <header className="home-v2-header" data-page="home-v2">
           <Link to="/" className="home-v2-logo" aria-label="Home">
-            <img src="/logo-personal.png" alt="" className="home-v2-logo-img" />
+            <ImgWithLoader src="/logo-personal.png" alt="" className="home-v2-logo-img" />
           </Link>
           <div className="home-v2-header-inner">
             <h1 className="home-v2-name"><span className="home-v2-name-initials">T.J.</span> Gomez-Vidal</h1>
@@ -399,7 +408,7 @@ export default function HomePageV2() {
             aria-label={popupCaseStudy !== 'project4' ? 'Click to park FigPal' : undefined}
           >
             <span className="figpal-sign-name">{figpalFollowState.displayName || 'FigPal'}</span>
-            <img
+            <ImgWithLoader
               src="/figpal/FigPalSign.svg"
               alt="FigPal"
               className="figpal-sign"

@@ -4,6 +4,8 @@
  */
 
 import { useEffect, useState } from 'react'
+import { MediaLoader } from '../MediaLoader'
+import '../MediaLoader/MediaLoader.css'
 
 interface SvgOrImgProps {
   src: string
@@ -27,16 +29,19 @@ export default function SvgOrImg({ src, className, alt = '' }: SvgOrImgProps) {
     height: '100%',
     pointerEvents: 'none',
     opacity: loaded ? 1 : 0,
-    transition: 'opacity 0.25s ease',
+    transition: 'opacity 0.35s ease',
   }
 
   return (
-    <img
-      src={encodedSrc}
-      alt={alt}
-      className={className}
-      style={style}
-      onLoad={() => setLoaded(true)}
-    />
+    <div className="media-with-loader-wrap" style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <MediaLoader visible={!loaded} />
+      <img
+        src={encodedSrc}
+        alt={alt}
+        className={className}
+        style={style}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
   )
 }

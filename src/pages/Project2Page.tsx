@@ -1,5 +1,6 @@
 import { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { ImgWithLoader } from '../components/MediaLoader'
 import './CxProPage.css'
 
 const VALIDUS_IMAGES = '/validus-images'
@@ -61,7 +62,7 @@ function CxLightbox({
         </>
       )}
       <div className="cx-lightbox-content" onClick={(e) => e.stopPropagation()}>
-        <img src={items[index]} alt="" className="cx-lightbox-img" />
+        <ImgWithLoader src={items[index]} alt="" className="cx-lightbox-img" />
       </div>
       {hasMultiple && (
         <div className="cx-lightbox-strip" onClick={(e) => e.stopPropagation()}>
@@ -73,7 +74,7 @@ function CxLightbox({
               onClick={() => setIndex(i)}
               aria-label={`View image ${i + 1}`}
             >
-              <img src={src} alt="" />
+              <ImgWithLoader src={src} alt="" />
             </button>
           ))}
         </div>
@@ -220,7 +221,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         {/* 1. Intro section – hero with logo, hero text, chips, arrow (hidden when embedded) */}
         <section className={`cx-hero-intro${embedded ? ' cx-hero-intro--hidden' : ''}`} aria-label="Project intro">
           <div className="cx-hero-intro-body">
-            <img src="/validus-logo.svg" alt="Validus" className="cx-hero-logo" fetchPriority="high" />
+            <ImgWithLoader src="/validus-logo.svg" alt="Validus" className="cx-hero-logo" fetchPriority="high" />
             <p className="cx-hero-text">
               How might we help officers trust that they're seeing every crucial signal, and not drowning in market data?
             </p>
@@ -234,7 +235,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
             </div>
           </div>
           <div className="validus-hero-bridge" aria-hidden>
-            <img src="/validus-images/hero-bridge.png" alt="" className="validus-hero-bridge-img" />
+            <ImgWithLoader src="/validus-images/hero-bridge.png" alt="" className="validus-hero-bridge-img" />
           </div>
         </section>
 
@@ -242,7 +243,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         {embedded && (
           <div className="cx-section">
             <div className="cx-full-width validus-preview-hero-img">
-              <img src="/validus-images/hero-bridge.png" alt="" className="validus-hero-bridge-img" />
+              <ImgWithLoader src="/validus-images/hero-bridge.png" alt="" className="validus-hero-bridge-img" />
             </div>
           </div>
         )}
@@ -285,7 +286,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 Pendo feature usage showed us that users spent the vast majority of their time operating in the bottom-left and upper-right quadrants in the original dashboard. This is where our users go to work their alerts. An alert is created when the system detects potential manipulation. The bottom-left quadrant groups alerts by manipulation type (&quot;procedures&quot;), and the upper-right quadrant shows the individual alerts within the selected procedure.
               </p>
               <div className="cx-full-width">
-                <img src={`${VALIDUS_IMAGES}/8.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/8.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} />
               </div>
             </div>
           </div>
@@ -300,7 +301,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 I mapped the typical Compliance Officer workflow against click-rate data to identify wasted space in the interface. Surprisingly, the Market Overview page—the first page users see—was almost always skipped, making the Alert Overview page the de facto dashboard. This CTR map now guides how I structure the navigation for the solution.
               </p>
               <div className="cx-full-width">
-                <img src={`${VALIDUS_IMAGES}/9-ctr.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/9-ctr.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} />
               </div>
             </div>
           </div>
@@ -319,7 +320,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           </div>
 
           <div className="cx-section">        <div className="cx-full-width">
-            <img src={`${VALIDUS_IMAGES}/social-mapping.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} />
+            <ImgWithLoader src={`${VALIDUS_IMAGES}/social-mapping.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} />
           </div>
           </div>
 
@@ -338,7 +339,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 4. (Updated) Procedures: section expanded as this is always the first step users take when starting their workflow.
               </p>
               <div className="cx-full-width">
-                <img src={`${VALIDUS_IMAGES}/15-features.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/15-features.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} />
               </div>
             </div>
           </div>
@@ -356,7 +357,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 Often, a string of alerts are related to each other, which creates tedious and duplicative workflows. Bulk Actions enables users to work on a multiple alerts simultaneously.
               </p>
               <div className="cx-full-width">
-                <img src={`${VALIDUS_IMAGES}/16-bulk-actions.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/16-bulk-actions.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} />
               </div>
             </div>
           </div>
@@ -371,14 +372,14 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 Originally, when users found an alert, they had to copy its ID and hunt it down again in other tools. This forced them into multiple tabs, extra searches, and unnecessary workflow friction. To fix this, we introduced the Alert Bar—a streamlined way for users to &quot;carry&quot; an alert with them throughout the controller as they evaluate it. This eliminates redundant steps and saves an immeasurable number of clicks.
               </p>
               <div className="cx-full-width">
-                <img src={`${VALIDUS_IMAGES}/17-alert-bar.gif`} alt="" />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/17-alert-bar.gif`} alt="" />
               </div>
             </div>
           </div>
           </div>
 
           <div className="cx-section">        <div className="cx-full-width">
-            <img src={`${VALIDUS_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} />
+            <ImgWithLoader src={`${VALIDUS_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} />
           </div>
           </div>
 
@@ -394,7 +395,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 <strong>Problem Statement:</strong> as a compliance officer conducting my daily review of the previous day&apos;s activity finding / honing in on what needs further investigation can be challenging, which makes me uneasy about missing a potential issue.
               </p>
               <div className="cx-full-width">
-                <img src={`${VALIDUS_IMAGES}/22-problem-validation.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/22-problem-validation.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} />
               </div>
             </div>
           </div>
@@ -409,7 +410,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 Q: If you had to use this dashboard and design flow for the next six months instead of the dashboard you have now, how would you feel?
               </p>
               <div className="cx-full-width">
-                <img src={`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} />
               </div>
             </div>
           </div>
@@ -427,7 +428,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 <div className="cx-stat-card">
                   <div className="cx-stat-card__line1">
                     <span className="header-2" style={{ marginBottom: 0 }}>6.5 / 7</span>
-                    <img src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
+                    <ImgWithLoader src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
                   </div>
                   <span style={{ fontWeight: 600 }}>In ease of operating bulk actions</span>
                   <div className="cx-stat-card-divider" aria-hidden />
@@ -436,7 +437,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 <div className="cx-stat-card">
                   <div className="cx-stat-card__line1">
                     <span className="header-2" style={{ marginBottom: 0 }}>5.37 out of 7</span>
-                    <img src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
+                    <ImgWithLoader src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
                   </div>
                   <span style={{ fontWeight: 600 }}>In ease & comprehension of Alert Bar</span>
                   <div className="cx-stat-card-divider" aria-hidden />
@@ -457,7 +458,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               </p>
               <div className="cx-quote-attribution">
                 <div className="cx-quote-attribution__row1">
-                  <img src={`${VALIDUS_IMAGES}/account_circle_24dp.svg`} alt="" width={24} height={24} aria-hidden />
+                  <ImgWithLoader src={`${VALIDUS_IMAGES}/account_circle_24dp.svg`} alt="" width={24} height={24} aria-hidden />
                   <span style={{ fontWeight: 600 }}>Robert L.</span>
                 </div>
                 <div className="cx-quote-attribution__role">Chief Compliance Officer, Legal Counsel</div>
@@ -467,7 +468,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           </div>
 
           <div className="cx-section">        <div className="cx-full-width">
-            <img src={`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} />
+            <ImgWithLoader src={`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} />
           </div>
           </div>
         </div>
@@ -596,7 +597,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         {/* 8. Full width image – hidden in preview */}
         {!embedded && (
         <div className="cx-section">        <div className="cx-full-width">
-          <img src={`${VALIDUS_IMAGES}/8.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} />
+          <ImgWithLoader src={`${VALIDUS_IMAGES}/8.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/8.png`], 0)} />
         </div>
         </div>
         )}
@@ -612,7 +613,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               I mapped the typical Compliance Officer workflow against click-rate data to identify wasted space in the interface. Surprisingly, the Market Overview page—the first page users see—was almost always skipped, making the Alert Overview page the de facto dashboard. This CTR map now guides how I structure the navigation for the solution.
             </p>
             <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/9-ctr.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} />
+              <ImgWithLoader src={`${VALIDUS_IMAGES}/9-ctr.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/9-ctr.png`], 0)} />
             </div>
           </div>
         </div>
@@ -634,7 +635,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
 
         {/* 11. Full viewport image (100vh, bypasses margins) */}
         <div className="cx-section">        <div className="cx-fullscreen-image">
-          <img src={`${VALIDUS_IMAGES}/social-mapping.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} />
+          <ImgWithLoader src={`${VALIDUS_IMAGES}/social-mapping.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/social-mapping.png`], 0)} />
         </div>
         </div>
 
@@ -682,7 +683,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               4. (Updated) Procedures: section expanded as this is always the first step users take when starting their workflow.
             </p>
             <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/15-features.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} />
+              <ImgWithLoader src={`${VALIDUS_IMAGES}/15-features.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/15-features.png`], 0)} />
             </div>
           </div>
         </div>
@@ -701,7 +702,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               Often, a string of alerts are related to each other, which creates tedious and duplicative workflows. Bulk Actions enables users to work on a multiple alerts simultaneously.
             </p>
             <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/16-bulk-actions.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} />
+              <ImgWithLoader src={`${VALIDUS_IMAGES}/16-bulk-actions.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} />
             </div>
           </div>
         </div>
@@ -717,7 +718,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               Originally, when users found an alert, they had to copy its ID and hunt it down again in other tools. This forced them into multiple tabs, extra searches, and unnecessary workflow friction. To fix this, we introduced the Alert Bar—a streamlined way for users to "carry" an alert with them throughout the controller as they evaluate it. This eliminates redundant steps and saves an immeasurable number of clicks.
             </p>
             <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/17-alert-bar.gif`} alt="" />
+              <ImgWithLoader src={`${VALIDUS_IMAGES}/17-alert-bar.gif`} alt="" />
             </div>
           </div>
         </div>
@@ -788,7 +789,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
 
         {/* 21. Full width image */}
         <div className="cx-section">        <div className="cx-full-width">
-          <img src={`${VALIDUS_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} />
+          <ImgWithLoader src={`${VALIDUS_IMAGES}/37.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/37.png`], 0)} />
         </div>
         </div>
 
@@ -805,7 +806,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               <strong>Problem Statement:</strong> as a compliance officer conducting my daily review of the previous day's activity finding / honing in on what needs further investigation can be challenging, which makes me uneasy about missing a potential issue.
             </p>
             <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/22-problem-validation.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} />
+              <ImgWithLoader src={`${VALIDUS_IMAGES}/22-problem-validation.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/22-problem-validation.png`], 0)} />
             </div>
           </div>
         </div>
@@ -821,7 +822,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               Q: If you had to use this dashboard and design flow for the next six months instead of the dashboard you have now, how would you feel?
             </p>
             <div className="cx-full-width">
-              <img src={`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} />
+              <ImgWithLoader src={`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} />
             </div>
           </div>
         </div>
@@ -840,7 +841,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               <div className="cx-stat-card">
                 <div className="cx-stat-card__line1">
                   <span className="header-2" style={{ marginBottom: 0 }}>6.5 / 7</span>
-                  <img src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
+                  <ImgWithLoader src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
                 </div>
                 <span style={{ fontWeight: 600 }}>In ease of operating bulk actions</span>
                 <div className="cx-stat-card-divider" aria-hidden />
@@ -849,7 +850,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               <div className="cx-stat-card">
                 <div className="cx-stat-card__line1">
                   <span className="header-2" style={{ marginBottom: 0 }}>5.37 out of 7</span>
-                  <img src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
+                  <ImgWithLoader src={`${VALIDUS_IMAGES}/speed_24dp.svg`} alt="" width={24} height={24} aria-hidden />
                 </div>
                 <span style={{ fontWeight: 600 }}>In ease & comprehension of Alert Bar</span>
                 <div className="cx-stat-card-divider" aria-hidden />
@@ -866,7 +867,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           <div className="cx-block__col2">
             <div className="cx-header-section">
               <div className="cx-header-section__icon">
-                <img src={`${VALIDUS_IMAGES}/done_all_24dp.svg`} alt="" className="cx-header-section__icon-svg" width={28} height={28} aria-hidden />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/done_all_24dp.svg`} alt="" className="cx-header-section__icon-svg" width={28} height={28} aria-hidden />
               </div>
               <div className="cx-header-section__title">
                 <h2 className="header-1">Validus Dashboard</h2>
@@ -891,7 +892,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
             </p>
             <div className="cx-quote-attribution">
               <div className="cx-quote-attribution__row1">
-                <img src={`${VALIDUS_IMAGES}/account_circle_24dp.svg`} alt="" width={24} height={24} aria-hidden />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/account_circle_24dp.svg`} alt="" width={24} height={24} aria-hidden />
                 <span style={{ fontWeight: 600 }}>Robert L.</span>
               </div>
               <div className="cx-quote-attribution__role">Chief Compliance Officer, Legal Counsel</div>
@@ -904,10 +905,10 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         {/* 28. Full width image + phone overlay (slides in from right when in view) */}
         <div className="cx-section">        <div ref={s28WrapRef} className="cx-s28-wrap">
           <div className="cx-full-width">
-            <img src={`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} />
+            <ImgWithLoader src={`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b8127adfc98991b18d6b_ccccc.png`], 0)} />
           </div>
           <div className={`cx-s28-phone ${s28InView ? 'cx-s28-phone--visible' : ''}`}>
-            <img src={`${VALIDUS_IMAGES}/6924b82f0283ad193c127b32_mockmock.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b82f0283ad193c127b32_mockmock.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b82f0283ad193c127b32_mockmock.png`], 0)} />
+            <ImgWithLoader src={`${VALIDUS_IMAGES}/6924b82f0283ad193c127b32_mockmock.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b82f0283ad193c127b32_mockmock.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b82f0283ad193c127b32_mockmock.png`], 0)} />
           </div>
         </div>
         </div>

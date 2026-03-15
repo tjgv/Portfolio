@@ -1,0 +1,64 @@
+/* Grey box with looping sheen – placeholder while images/videos load */
+
+.media-with-loader-wrap {
+  position: relative;
+  display: block;
+}
+
+.media-with-loader-wrap > img,
+.media-with-loader-wrap > video {
+  position: relative;
+  z-index: 0;
+  display: block;
+}
+
+.media-loader {
+  position: absolute;
+  inset: 0;
+  background: #d4d4d8;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.media-loader--hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.media-loader__sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: media-loader-sheen 1.8s ease-in-out infinite;
+}
+
+@keyframes media-loader-sheen {
+  0% { background-position: 150% 0; }
+  100% { background-position: -50% 0; }
+}
+
+/* Dark mode / dark cards – slightly lighter sheen on darker grey */
+.media-loader--dark {
+  background: #52525b;
+}
+
+.media-loader--dark .media-loader__sheen {
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+}
