@@ -26,6 +26,7 @@ function MediaCycleCard({
   visual,
   showVideo,
   onVideoEnded,
+  videoPreload,
 }: {
   onClick: () => void
   imgSrc: string
@@ -35,6 +36,7 @@ function MediaCycleCard({
   visual: 'apple' | 'dark'
   showVideo: boolean
   onVideoEnded: () => void
+  videoPreload?: 'auto' | 'metadata' | 'none'
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [imgLoaded, setImgLoaded] = useState(false)
@@ -68,6 +70,7 @@ function MediaCycleCard({
         <video
           ref={videoRef}
           src={videoSrc}
+          preload={videoPreload ?? 'metadata'}
           className={`home-v2-card-vid ${showVideo ? 'home-v2-card-vid--visible' : ''}`}
           muted
           playsInline
@@ -301,6 +304,7 @@ export default function HomePageV2() {
                     visual="apple"
                     showVideo={project1ShowVideo}
                     onVideoEnded={onProject1VideoEnded}
+                    videoPreload="auto"
                   />
                 ) : card.id === 'project2' ? (
                   <MediaCycleCard
@@ -312,6 +316,7 @@ export default function HomePageV2() {
                     visual="dark"
                     showVideo={project2ShowVideo}
                     onVideoEnded={onProject2VideoEnded}
+                    videoPreload="metadata"
                   />
                 ) : card.id === 'project4' ? (
                   <button
