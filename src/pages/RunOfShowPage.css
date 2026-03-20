@@ -1,0 +1,600 @@
+/* Run of Show – dark broadcast-style UI */
+
+.ros-page {
+  min-height: 100vh;
+  background: #0f0f12;
+  color: #e4e4e7;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Figtree', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top bar */
+.ros-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #18181b;
+  border-bottom: 1px solid #27272a;
+  flex-shrink: 0;
+}
+
+.ros-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ros-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #a1a1aa;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.ros-back:hover {
+  color: #fff;
+}
+
+.ros-back-icon {
+  transform: rotate(180deg);
+}
+
+.ros-breadcrumb {
+  font-size: 14px;
+  font-weight: 500;
+  color: #71717a;
+}
+
+.ros-topbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ros-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.ros-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ros-btn-secondary {
+  background: #27272a;
+  color: #e4e4e7;
+}
+
+.ros-btn-secondary:hover:not(:disabled) {
+  background: #3f3f46;
+}
+
+.ros-btn-primary {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.ros-btn-primary:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.ros-btn-icon {
+  padding: 8px;
+}
+
+.ros-btn-ghost {
+  background: transparent;
+  color: #71717a;
+}
+
+.ros-btn-ghost:hover:not(:disabled) {
+  background: #27272a;
+  color: #e4e4e7;
+}
+
+.ros-btn--active {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.ros-btn-play {
+  background: #22c55e;
+  color: #fff;
+}
+
+.ros-btn-play:hover:not(:disabled) {
+  background: #16a34a;
+}
+
+.ros-btn-sm {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+/* Layout */
+.ros-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Left sidebar – media library */
+.ros-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: #18181b;
+  border-right: 1px solid #27272a;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ros-sidebar-left {
+  padding: 16px 12px;
+  gap: 12px;
+}
+
+.ros-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ros-search-icon {
+  position: absolute;
+  left: 10px;
+  color: #71717a;
+  pointer-events: none;
+}
+
+.ros-search-input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  font-size: 13px;
+  background: #27272a;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  color: #e4e4e7;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ros-search-input::placeholder {
+  color: #71717a;
+}
+
+.ros-search-input:focus {
+  border-color: #3b82f6;
+}
+
+.ros-select {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  background: #27272a;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  color: #e4e4e7;
+  cursor: pointer;
+  outline: none;
+}
+
+.ros-add-video {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ros-input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 12px;
+  font-size: 13px;
+  background: #27272a;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  color: #e4e4e7;
+  outline: none;
+}
+
+.ros-input::placeholder {
+  color: #71717a;
+}
+
+.ros-media-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.ros-empty {
+  font-size: 13px;
+  color: #71717a;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.ros-media-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: #27272a;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.ros-media-item:hover {
+  background: #3f3f46;
+}
+
+.ros-media-item--in-playlist {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.ros-media-thumb {
+  width: 48px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #18181b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ros-media-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ros-media-thumb-placeholder {
+  color: #52525b;
+}
+
+.ros-media-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ros-media-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e4e4e7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ros-media-meta {
+  font-size: 11px;
+  color: #71717a;
+}
+
+.ros-media-actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* Main area */
+.ros-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Buckets – horizontal strips */
+.ros-buckets {
+  flex-shrink: 0;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid #27272a;
+  background: #18181b;
+}
+
+.ros-bucket {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ros-bucket-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ros-bucket-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ros-bucket-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  min-height: 80px;
+  align-items: center;
+}
+
+.ros-bucket-strip::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ros-bucket-strip::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 3px;
+}
+
+.ros-bucket-empty {
+  font-size: 13px;
+  color: #52525b;
+  padding: 16px 24px;
+  border: 1px dashed #3f3f46;
+  border-radius: 8px;
+}
+
+.ros-bucket-card {
+  flex-shrink: 0;
+  width: 140px;
+  padding: 10px;
+  background: #27272a;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.ros-bucket-card:hover {
+  background: #3f3f46;
+  border-color: #52525b;
+}
+
+.ros-bucket-card--active {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.ros-bucket-card-thumb {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+  background: #18181b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ros-bucket-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ros-bucket-card-thumb:not(:has(img)) {
+  color: #52525b;
+}
+
+.ros-bucket-card-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #e4e4e7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: center;
+}
+
+/* Canvas / preview */
+.ros-canvas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 20px;
+}
+
+.ros-preview {
+  flex: 1;
+  min-height: 200px;
+  background: #0a0a0c;
+  border-radius: 8px;
+  border: 1px solid #27272a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ros-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ros-preview-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #52525b;
+  font-size: 14px;
+}
+
+.ros-preview-empty-hint {
+  font-size: 12px;
+  color: #3f3f46;
+}
+
+/* Playback bar */
+.ros-playback-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: #18181b;
+  border-radius: 8px;
+  border: 1px solid #27272a;
+  margin-top: 12px;
+}
+
+.ros-playback-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ros-playback-time {
+  font-size: 13px;
+  color: #71717a;
+  font-variant-numeric: tabular-nums;
+}
+
+.ros-scrubber-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.ros-scrubber {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #3f3f46;
+  border-radius: 3px;
+  outline: none;
+}
+
+.ros-scrubber::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #3b82f6;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ros-scrubber::-webkit-slider-thumb:hover {
+  background: #2563eb;
+}
+
+.ros-scrubber::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Right sidebar – inspector */
+.ros-sidebar-right {
+  width: 260px;
+  border-left: 1px solid #27272a;
+  border-right: none;
+  padding: 16px;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.ros-panel {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ros-panel-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 14px;
+  margin: 0;
+  border-bottom: 1px solid #27272a;
+}
+
+.ros-layers {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ros-layer-item {
+  font-size: 13px;
+  padding: 8px 10px;
+  background: #27272a;
+  border-radius: 4px;
+  color: #e4e4e7;
+}
+
+.ros-inspector {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ros-inspector-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #71717a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.ros-inspector-value {
+  font-size: 13px;
+  color: #e4e4e7;
+  margin: 0;
+}
+
+.ros-inspector-empty {
+  font-size: 13px;
+  color: #71717a;
+  padding: 14px;
+  margin: 0;
+}

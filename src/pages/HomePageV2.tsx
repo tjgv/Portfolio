@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, useRef, lazy, Suspense } from 'react'
 import { Gamepad2, Maximize2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import type { FigPalFollowState, FigPalBuilderState } from '../components/FigPalCharacterBuilder'
-import { SvgOrImg } from '../components/FigPalCharacterBuilder'
+import FigPalSign from '../components/FigPalSign'
 import { MediaLoader, ImgWithLoader } from '../components/MediaLoader'
 import CxProPage from './CxProPage'
 import Project2Page from './Project2Page'
@@ -236,9 +236,21 @@ export default function HomePageV2() {
   })
   const [figpalBuilderState, setFigpalBuilderState] = useState<FigPalBuilderState | null>(null)
   const [figpalParked, setFigpalParked] = useState(false)
+  const justUnparkedRef = useRef(false)
 
   const openPopup = useCallback((id: CaseStudyId) => setPopupCaseStudy(id), [])
   const closePopup = useCallback(() => setPopupCaseStudy(null), [])
+
+  const handleUnpark = useCallback(() => {
+    setFigpalParked(false)
+    justUnparkedRef.current = true
+    setTimeout(() => { justUnparkedRef.current = false }, 300)
+  }, [])
+
+  const handlePark = useCallback(() => {
+    if (justUnparkedRef.current) return
+    setFigpalParked(true)
+  }, [])
 
   /* Ensure on page load: project 1 plays first, loop starts with project 1. */
   useEffect(() => {
@@ -379,18 +391,18 @@ export default function HomePageV2() {
       {figpalFollowState.enabled && figpalParked && popupCaseStudy !== 'project4' && (
         <div
           className="figpal-parked"
-          onClick={() => setFigpalParked(false)}
+          onClick={handleUnpark}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && setFigpalParked(false)}
+          onKeyDown={(e) => e.key === 'Enter' && handleUnpark()}
           aria-label="Click to unpark FigPal"
         >
           <span className="figpal-parked-name">{figpalFollowState.displayName || 'FigPal'}</span>
           <div className="figpal-parked-stage" style={{ backgroundImage: 'url(/figpal/Stage2.png)' }} />
           <div className="figpal-parked-char-wrap">
-            <SvgOrImg src={figpalFollowState.characterUrl} className="figpal-parked-char" />
+            <img src={figpalFollowState.characterUrl} alt="" className="figpal-parked-char" />
             {figpalFollowState.accessoryUrl && (
-              <SvgOrImg src={figpalFollowState.accessoryUrl} className="figpal-parked-acc" />
+              <img src={figpalFollowState.accessoryUrl} alt="" className="figpal-parked-acc" />
             )}
           </div>
         </div>
@@ -406,19 +418,13 @@ export default function HomePageV2() {
           </Suspense>
           <div
             className="figpal-sign-wrap figpal-sign-wrap--clickable"
-            onClick={popupCaseStudy !== 'project4' ? () => setFigpalParked(true) : undefined}
+            onClick={popupCaseStudy !== 'project4' ? handlePark : undefined}
             role={popupCaseStudy !== 'project4' ? 'button' : undefined}
             tabIndex={popupCaseStudy !== 'project4' ? 0 : undefined}
-            onKeyDown={popupCaseStudy !== 'project4' ? (e) => e.key === 'Enter' && setFigpalParked(true) : undefined}
+            onKeyDown={popupCaseStudy !== 'project4' ? (e) => e.key === 'Enter' && handlePark() : undefined}
             aria-label={popupCaseStudy !== 'project4' ? 'Click to park FigPal' : undefined}
           >
-            <span className="figpal-sign-name">{figpalFollowState.displayName || 'FigPal'}</span>
-            <ImgWithLoader
-              src="/figpal/FigPalSign.svg"
-              alt="FigPal"
-              className="figpal-sign"
-              aria-hidden
-            />
+            <FigPalSign name={figpalFollowState.displayName || 'FigPal'} />
           </div>
         </>
       )}

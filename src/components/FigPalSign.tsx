@@ -1,0 +1,73 @@
+/** Inline sign SVG with embedded name – avoids overlay/positioning artifacts */
+
+interface FigPalSignProps {
+  name: string
+  className?: string
+}
+
+function truncateName(name: string, maxLen = 10): string {
+  if (name.length <= maxLen) return name
+  return name.slice(0, maxLen - 1) + '…'
+}
+
+export default function FigPalSign({ name, className = '' }: FigPalSignProps) {
+  const displayName = truncateName(name || 'FigPal')
+  return (
+    <svg
+      className={`figpal-sign ${className}`}
+      viewBox="0 0 134 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <path d="M65.7615 97.9895L58.3296 3.04957L60.8069 1.9707L63.2842 2.51014H67.4131L69.0646 1.9707L75.6708 97.9895H65.7615Z" fill="#DBAB6C" stroke="#1A1A1A" strokeWidth="2.36471" strokeLinejoin="round"/>
+      <g clipPath="url(#clip0_9798_31683)">
+        <mask id="mask0_9798_31683" style={{ maskType: 'luminance' }} maskUnits="userSpaceOnUse" x={3} y={6} width={29} height={43}>
+          <path d="M31.5293 6.30591H3.15283V48.8706H31.5293V6.30591Z" fill="white"/>
+        </mask>
+        <g mask="url(#mask0_9798_31683)">
+          <path d="M7.88232 18.1358V7.88257H33.1059V45.7179H10.3187L7.88232 41.7705L22.7177 38.5112L7.88232 37.0534V22.8529L25.1902 19.5935L7.88232 18.1358Z" fill="#DBAB6C" stroke="#1A1A1A" strokeWidth="2.36471" strokeLinejoin="round"/>
+        </g>
+      </g>
+      <g clipPath="url(#clip1_9798_31683)">
+        {/* Minimal ~0.5 unit overlap seals seams without bleeding over adjacent black strokes */}
+        <path d="M31.0293 7.88257H106.123V45.7179H31.0293V7.88257Z" fill="#DBAB6C"/>
+        <path d="M31.5293 9.0649H105.623V6.7002H31.5293V9.0649ZM105.623 44.5355H31.5293V46.9002H105.623V44.5355Z" fill="#1A1A1A"/>
+        <text
+          x="67"
+          y="28"
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill="#1A1A1A"
+          stroke="none"
+          style={{ paintOrder: 'fill' }}
+          fontSize="14"
+          fontWeight="600"
+          fontFamily="Figtree, -apple-system, BlinkMacSystemFont, sans-serif"
+        >
+          {displayName}
+        </text>
+      </g>
+      <g clipPath="url(#clip2_9798_31683)">
+        <mask id="mask1_9798_31683" style={{ maskType: 'luminance' }} maskUnits="userSpaceOnUse" x={105} y={6} width={29} height={43}>
+          <path d="M134 6.30591H105.624V48.8706H134V6.30591Z" fill="white"/>
+        </mask>
+        <g mask="url(#mask1_9798_31683)">
+          <path d="M128.482 45.7179H104.047V7.88257H122.176L125.493 21.9546L116.075 26.5959L125.493 28.5082L128.482 45.7179Z" fill="#DBAB6C" stroke="#1A1A1A" strokeWidth="2.36471" strokeLinejoin="round"/>
+        </g>
+      </g>
+      <defs>
+        <clipPath id="clip0_9798_31683">
+          <rect width="28.3765" height="42.5647" fill="white" transform="translate(3.15283 6.30591)"/>
+        </clipPath>
+        <clipPath id="clip1_9798_31683">
+          {/* Minimal ~0.5 unit overlap eliminates seams without covering adjacent strokes */}
+          <rect width="75.0941" height="42.5647" fill="white" transform="translate(31.0293 6.30591)"/>
+        </clipPath>
+        <clipPath id="clip2_9798_31683">
+          <rect width="28.3765" height="42.5647" fill="white" transform="translate(105.624 6.30591)"/>
+        </clipPath>
+      </defs>
+    </svg>
+  )
+}

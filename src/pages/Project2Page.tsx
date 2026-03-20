@@ -221,7 +221,9 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         {/* 1. Intro section – hero with logo, hero text, chips, arrow (hidden when embedded) */}
         <section className={`cx-hero-intro${embedded ? ' cx-hero-intro--hidden' : ''}`} aria-label="Project intro">
           <div className="cx-hero-intro-body">
-            <ImgWithLoader src="/validus-logo.svg" alt="Validus" className="cx-hero-logo" fetchPriority="high" />
+            <div className="validus-hero-logo-wrap">
+              <ImgWithLoader src="/validus-logo.svg" alt="Validus" className="cx-hero-logo" fetchPriority="high" />
+            </div>
             <p className="cx-hero-text">
               How might we help officers trust that they're seeing every crucial signal, and not drowning in market data?
             </p>

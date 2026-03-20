@@ -200,8 +200,10 @@
 
 .cx-hero-logo {
   display: block;
-  max-width: 20%;
+  max-width: 30%;
+  width: auto;
   height: auto;
+  margin: 0 auto;
   object-fit: contain;
   animation: cx-hero-logo-fade-in 700ms ease-in-out forwards;
 }
@@ -281,7 +283,13 @@
   50% { opacity: 1; transform: translateY(4px); }
 }
 
-/* Validus: bridge image between hero and section 2 */
+/* Validus: 50% smaller hero logo, bridge image between hero and section 2 */
+.validus-page .validus-hero-logo-wrap {
+  display: inline-block;
+  transform: scale(0.5);
+  transform-origin: center top;
+}
+
 .validus-page .cx-hero-intro {
   padding-bottom: 0;
   overflow: visible;

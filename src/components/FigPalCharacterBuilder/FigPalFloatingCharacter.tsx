@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
-import SvgOrImg from './SvgOrImg'
 
 interface FigPalFloatingCharacterProps {
   enabled: boolean
@@ -103,9 +102,9 @@ export default function FigPalFloatingCharacter({
       }
       aria-hidden
     >
-      <SvgOrImg src={characterUrl} className="figpal-floating-char" />
+      <img src={characterUrl} alt="" className="figpal-floating-char" />
       {accessoryUrl && (
-        <SvgOrImg src={accessoryUrl} className="figpal-floating-acc" />
+        <img src={accessoryUrl} alt="" className="figpal-floating-acc" />
       )}
     </div>
   )

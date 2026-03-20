@@ -19,11 +19,14 @@
   to { opacity: 1; }
 }
 
-.figpal-builder-name-and-pal {
+/* Light grey container: figpal + arrows only */
+.figpal-builder-pal-container {
+  background: #e8e8ec;
+  border-radius: 20px;
+  padding: 48px 36px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0;
+  justify-content: center;
 }
 
 .figpal-builder-title {
@@ -35,9 +38,17 @@
   text-transform: capitalize;
 }
 
+/* Name row: left arrow | input | right arrow */
+.figpal-builder-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
 .figpal-builder-name-input {
   width: 100%;
-  max-width: 200px;
+  max-width: 180px;
   padding: 8px 12px;
   font-size: 1.25rem;
   font-weight: 600;
@@ -45,9 +56,13 @@
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 10px;
-  background: #fff;
+  background: #d4d4d8;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.figpal-builder-name-input--saved {
+  background: #fff;
 }
 
 .figpal-builder-name-input:focus {
@@ -57,6 +72,10 @@
 
 .figpal-builder-name-input::placeholder {
   color: #999;
+}
+
+.figpal-builder-arrow--name {
+  flex-shrink: 0;
 }
 
 .figpal-builder-close {
@@ -88,18 +107,17 @@
 /* Pal section: arrows left | character | arrows right */
 .figpal-builder-pal-section {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  gap: calc(12px + 5vw);
+  gap: calc(6px + 2.5vw);
   width: 100%;
 }
 
 .figpal-builder-arrows {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 15% 4px 15%;
-  gap: 50px;
+  justify-content: center;
+  gap: 72px;
 }
 
 .figpal-builder-arrows--left {
@@ -116,10 +134,6 @@
 
 .figpal-builder-arrow--middle {
   align-self: center;
-}
-
-.figpal-builder-arrow--bottom {
-  align-self: flex-end;
 }
 
 .figpal-builder-arrow {
@@ -181,9 +195,6 @@
   min-width: 240px;
   min-height: 276px;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 1;
 }
 
@@ -327,26 +338,19 @@
   width: 120px;
   pointer-events: none;
   z-index: 9998;
-}
-
-.figpal-sign-name {
-  position: absolute;
-  bottom: calc(32px + 30%);
-  left: 0;
-  right: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  text-align: center;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .figpal-sign {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.figpal-sign text {
+  stroke: none;
+  -webkit-text-stroke: none;
+  -webkit-text-stroke-width: 0;
 }
 
 .figpal-sign-wrap--clickable {
