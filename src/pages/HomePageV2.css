@@ -160,6 +160,13 @@
   border-bottom: 1px solid #efefef;
 }
 
+@media (max-width: 639px) {
+  .home-v2-header-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 @media (max-width: 767px) {
   .home-v2-header-bottom {
     padding-bottom: 24px;
@@ -229,7 +236,7 @@
   color: #1a1a1a;
 }
 
-/* Nav: Work, A.I., About – Liquid Glass style, right-aligned, top-aligned with tagline */
+/* Nav: Work, A.I., About – Liquid Glass style, right-aligned on desktop, left-aligned under sub-header on mobile */
 .home-v2-nav {
   position: relative;
   z-index: 1;
@@ -239,6 +246,15 @@
   align-items: center;
   flex-shrink: 0;
   margin-left: auto;
+}
+
+@media (max-width: 639px) {
+  .home-v2-nav {
+    margin-left: 0;
+    margin-top: 4px;
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 767px) {
