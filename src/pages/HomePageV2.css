@@ -1527,6 +1527,8 @@ button.home-v2-popup-xp-caption:active {
     /* Inset controls so they sit centered in the frame art (was edge-to-edge) */
     padding: clamp(12px, 3vw, 20px) clamp(18px, 6vw, 36px);
     align-items: center;
+    /* Vertically center name row + preview + colors in the frame (default was flex-start) */
+    justify-content: center;
   }
 
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--side {
