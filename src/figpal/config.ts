@@ -151,7 +151,10 @@ export function getCharacterImageUrl(spec: CharacterSpec): string {
     return `${FIGPAL_BASE}/Characters/${posFolder}/${file}`
   }
   if (FLAT_PATH_CHARACTERS.has(charName)) {
-    return `${SVG_CHARACTERS_BASE}/${posFolder}/${charName}/${color}/XL.svg`
+    // Onigiri etc.: variants are XL.svg, XL-1.svg … XL-7.svg in the color folder (no /expr/ subfolder)
+    const v = (expr - 1) % 8
+    const file = v === 0 ? 'XL.svg' : `XL-${v}.svg`
+    return `${SVG_CHARACTERS_BASE}/${posFolder}/${charName}/${color}/${file}`
   }
   return `${SVG_CHARACTERS_BASE}/${posFolder}/${charName}/${color}/${expr}/XL.svg`
 }

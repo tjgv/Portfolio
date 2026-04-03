@@ -1,5 +1,6 @@
 import './FigPalCharacterBuilder.css'
 export { default as FigPalCharacterBuilder } from './FigPalCharacterBuilder'
-export type { FigPalFollowState, FigPalBuilderState } from './FigPalCharacterBuilder'
+export { FigPalFollowMeToggle } from './FigPalCharacterBuilder'
+export type { FigPalFollowState, FigPalBuilderState, FigPalSidebarContext } from './FigPalCharacterBuilder'
 export { default as FigPalFloatingCharacter } from './FigPalFloatingCharacter'
 export { default as SvgOrImg } from './SvgOrImg'

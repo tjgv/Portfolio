@@ -890,25 +890,431 @@
   height: 16px;
 }
 
-/* FigPal popup variants */
-.home-v2-popup--figpal .home-v2-popup-nav {
-  justify-content: flex-end;
+/* FigPal — same dimmed overlay as other previews; Windows XP shell; scene + UI inside client area */
+.home-v2-popup-backdrop--figpal {
+  background: rgba(0, 0, 0, 0.4);
 }
 
-.home-v2-popup-figpal-title {
-  position: absolute;
-  left: 20px;
-  font-size: 18px;
-  font-weight: 700;
-  color: #1a1a1a;
+@media (max-width: 767px) {
+  .home-v2-popup-backdrop--figpal {
+    align-items: center;
+  }
 }
 
-.home-v2-popup-scroll--figpal {
+/* FigPal only — Windows XP Luna-style title bar; client area holds Figpal scene + builder */
+.home-v2-popup--figpal {
+  --fp-modal-max-h: calc(min(100vh, calc(min(1200px, 96vh) * 1.25)) * 0.75 * 1.1);
+  --fp-xp-titlebar-h: 34px;
+  max-width: calc(min(1200px, 96vw) * 0.85 * 1.07);
+  max-height: var(--fp-modal-max-h);
+  position: relative;
+  display: flex;
+  flex-direction: column;
   padding: 0;
-  overflow: visible;
+  overflow: hidden;
+  border-radius: 9px 9px 6px 6px;
+  background: #ffffff;
+  border: none;
+  box-shadow:
+    0 0 0 1px #001686,
+    0 0 0 2px #0831d9,
+    0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
-.home-v2-popup-scroll--figpal .figpal-builder {
+@media (max-width: 767px) {
+  .home-v2-popup--figpal:not(.home-v2-popup--figpal-maximized) {
+    border-radius: 10px 10px 0 0;
+  }
+}
+
+@keyframes figpal-window-minimize {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(46vh) scale(0.18);
+    opacity: 0;
+  }
+}
+
+.home-v2-popup-backdrop--figpal.home-v2-popup-backdrop--figpal-maximized {
+  padding: 0;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.home-v2-popup-backdrop--figpal.home-v2-popup-backdrop--figpal-minimizing {
+  pointer-events: none;
+}
+
+.home-v2-popup--figpal.home-v2-popup--figpal-maximized {
+  --fp-modal-max-h: 100vh;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
+}
+
+.home-v2-popup--figpal.home-v2-popup--figpal-maximized .home-v2-popup-scroll.home-v2-popup-scroll--figpal {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--fp-xp-titlebar-h));
+  max-height: calc(100vh - var(--fp-xp-titlebar-h));
+}
+
+/* Vertically center the builder when shorter than the viewport; scroll when taller */
+.home-v2-popup--figpal.home-v2-popup--figpal-maximized
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal
+  > .figpal-builder {
+  width: 100%;
+  flex: 0 0 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.home-v2-popup--figpal.home-v2-popup--figpal-maximized .home-v2-popup-xp-titlebar {
+  border-radius: 0;
+}
+
+@media (max-width: 767px) {
+  .home-v2-popup-backdrop--figpal.home-v2-popup-backdrop--figpal-maximized {
+    align-items: stretch;
+  }
+}
+
+.home-v2-popup--figpal.home-v2-popup--figpal-minimizing {
+  animation: figpal-window-minimize 0.48s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+  transform-origin: center bottom;
+  pointer-events: none;
+}
+
+.home-v2-popup-xp-titlebar {
+  flex-shrink: 0;
+  height: var(--fp-xp-titlebar-h);
+  min-height: var(--fp-xp-titlebar-h);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 8px 0 10px;
+  gap: 0;
+  background: linear-gradient(
+    180deg,
+    #0997ff 0%,
+    #2c8ff4 12%,
+    #1d6fee 38%,
+    #1168e8 55%,
+    #0c59d8 78%,
+    #063caf 100%
+  );
+  border-bottom: 1px solid #0c3d91;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  border-radius: 8px 8px 0 0;
+}
+
+@media (max-width: 767px) {
+  .home-v2-popup--figpal:not(.home-v2-popup--figpal-maximized) .home-v2-popup-xp-titlebar {
+    border-radius: 9px 9px 0 0;
+  }
+}
+
+.home-v2-popup-xp-titlebar-text {
+  flex: 1;
+  min-width: 0;
+  font-family: Tahoma, 'MS Sans Serif', 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Minimize | Maximize | Close — equal spacing */
+.home-v2-popup-xp-window-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+button.home-v2-popup-xp-caption {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 21px;
+  height: 21px;
+  padding: 0;
+  margin: 0;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #38a6ff 0%, #1e7ce8 42%, #0f5dcc 100%);
+  border: 1px solid #08367a;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.15);
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+button.home-v2-popup-xp-caption:hover {
+  filter: brightness(1.06);
+}
+
+button.home-v2-popup-xp-caption:active {
+  filter: brightness(0.94);
+}
+
+.home-v2-popup-xp-caption--min::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 50%;
+  margin-top: 1px;
+  height: 2px;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.home-v2-popup-xp-caption--max::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 4px;
+  width: 13px;
+  height: 10px;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
+  box-sizing: border-box;
+}
+
+/* Restored / windowed icon — overlapping squares */
+.home-v2-popup-xp-caption--max.home-v2-popup-xp-caption--restore::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 5px;
+  top: 6px;
+  width: 8px;
+  height: 6px;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.home-v2-popup-xp-caption--max.home-v2-popup-xp-caption--restore::after {
+  left: 7px;
+  top: 4px;
+  width: 8px;
+  height: 6px;
+  border: 2px solid #fff;
+  background: transparent;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.home-v2-popup-xp-close {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  margin-left: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #9c0000;
+  border-radius: 3px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #f08088 0%, #e04048 40%, #c01828 72%, #900818 100%);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.22);
+  color: #fff;
+}
+
+.home-v2-popup-xp-close:hover {
+  background: linear-gradient(180deg, #ff989c 0%, #e85058 40%, #d02838 72%, #a01828 100%);
+}
+
+.home-v2-popup-xp-close:active {
+  background: linear-gradient(180deg, #c03848 0%, #901020 100%);
+}
+
+.home-v2-popup-xp-close svg {
+  width: 10px;
+  height: 10px;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal {
+  flex: 1;
+  min-height: 0;
+  padding: 22px 52px 48px;
+  max-height: calc(var(--fp-modal-max-h) - var(--fp-xp-titlebar-h));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.5) 100%),
+    url(/figpal/figpal-modal-bg.png) center / cover no-repeat;
+  border-top: 1px solid #e8ecf0;
+  box-shadow: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Logo row — Follow Me sits below the glass copy block */
+.home-v2-popup-figpal-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.home-v2-popup-figpal-side .home-v2-popup-figpal-wordmark {
+  display: block;
+  width: min(98px, 18.85vw);
+  max-width: 55%;
+  height: auto;
+  margin: 0;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+@media (max-width: 767px) {
+  .home-v2-popup-figpal-top {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .home-v2-popup-figpal-side .home-v2-popup-figpal-wordmark {
+    width: min(81px, 25.35vw);
+    max-width: 50%;
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal {
+    padding: 18px 24px 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder.figpal-builder--split {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+    gap: clamp(24px, 4vw, 48px);
+  }
+
+  /* Right column narrower than original 46%, but eased ~10% from the 25% cut (0.75→0.825) */
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--customize {
+    flex: 1 1 calc(50% + 46% * 0.175);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--side {
+    flex: 1 1 calc(46% * 0.825);
+  }
+}
+
+.home-v2-popup-figpal-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0;
+  flex: 1;
+  min-height: min(474px, calc(62vh * 1.25 * 0.75 * 1.1));
+}
+
+.home-v2-popup-figpal-glass {
+  flex: 0 1 auto;
+  align-self: stretch;
+  width: 100%;
+  min-height: 0;
+  margin-bottom: 0;
+  border-radius: 20px;
+  background: rgba(186, 228, 255, 0.42);
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 8px 32px rgba(20, 60, 100, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 14px 18px 16px;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.home-v2-popup-figpal-heading {
+  margin: 0 0 12px;
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: calc(1.05rem * 1.15 * 0.85);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: #0c233a;
+}
+
+.home-v2-popup-figpal-text {
+  margin: 0 0 12px;
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: calc(14px * 1.15 * 0.85);
+  line-height: 1.55;
+  color: rgba(12, 35, 58, 0.92);
+}
+
+.home-v2-popup-figpal-text:last-of-type {
+  margin-bottom: 0;
+}
+
+.home-v2-popup-figpal-text strong {
+  font-weight: 700;
+  color: #0c233a;
+}
+
+/* Under glass copy — full width row, control group right-aligned */
+.home-v2-popup-figpal-follow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  align-self: stretch;
+  width: 100%;
+  margin: 12px 0 0;
+  padding: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.home-v2-popup-figpal-follow .figpal-builder-toggle-wrap {
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+  padding-top: 0;
+}
+
+.home-v2-popup-figpal-follow .figpal-builder-toggle-label {
+  font-size: calc(19.5px * 1.15);
+  font-weight: 800;
+  color: rgba(12, 35, 58, 0.92);
+  text-shadow: none;
+}
+
+.home-v2-popup-figpal-follow .figpal-builder-toggle-img {
+  width: 125px;
+  height: 74px;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder {
   position: relative;
   inset: auto;
   padding: 0;
@@ -916,12 +1322,169 @@
   box-shadow: none;
 }
 
-.home-v2-popup-scroll--figpal .figpal-builder-inner {
+/* Left column — frame PNG; creator UI shares one centered column aligned with the art */
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--customize {
+  --figpal-creator-inner-w: min(100%, 560px);
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  gap: 12px;
+  min-height: min(420px, 58vh);
+  padding: clamp(22px, 5.5vw, 36px);
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  background-image: url(/figpal/figpal-creator-frame.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
   box-shadow: none;
 }
 
-.home-v2-popup-scroll--figpal .figpal-builder-container {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+/* Name, preview, and colors share the same max width and stay centered on the frame */
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal
+  .figpal-builder-col--customize
+  > .figpal-builder-name-row--modal,
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal
+  .figpal-builder-col--customize
+  > .figpal-builder-pal-container {
+  width: var(--figpal-creator-inner-w);
+  max-width: 100%;
+  align-self: center;
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal
+  .figpal-builder-col--customize
+  > .figpal-builder-colors {
+  align-self: center;
+  margin-inline: auto;
+  max-width: var(--figpal-creator-inner-w);
+  box-sizing: border-box;
+}
+
+/* Name row: symmetric 1fr | input | 1fr — input center matches character column + color strip */
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 8px;
+  padding: 8px;
+  border-radius: 14px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal .figpal-builder-name-input {
+  grid-column: 2;
+  justify-self: center;
+  width: 100%;
+  max-width: min(34.5vw, 180px);
+  min-width: 0;
+  flex: unset;
+  border-radius: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal .figpal-builder-arrow--name {
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal
+  .figpal-builder-name-row--modal
+  .figpal-builder-arrow--name.figpal-builder-arrow--randomize {
+  width: calc(42px * 0.85);
+  height: calc(42px * 0.85);
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal > button:nth-of-type(1) {
+  grid-column: 1;
+  justify-self: end;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal .figpal-builder-name-row-trailing {
+  grid-column: 3;
+  justify-self: start;
+  gap: 8px;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-pal-section {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: clamp(6px, 2.5vw, 24px);
+  width: 100%;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-arrows--left {
+  justify-self: end;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-center {
+  grid-column: 2;
+  justify-self: center;
+}
+
+/* Creation preview — character + stage 15% smaller than default builder */
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-character-wrap {
+  width: calc(240px * 0.85);
+  height: calc(276px * 0.85);
+  min-width: calc(240px * 0.85);
+  min-height: calc(276px * 0.85);
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-stage {
+  max-width: calc(168px * 0.85);
+  height: calc(48px * 0.85);
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-arrows--right {
+  grid-column: 3;
+  justify-self: start;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-pal-container {
+  background: transparent;
+  border-radius: 18px;
+  padding: 16px 16px 18px;
+  box-shadow: none;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-arrow {
+  width: 46px;
+  height: 46px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-colors {
+  gap: 8px;
+  padding: 12px;
+  margin: -20px auto 0;
+  width: fit-content;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-color-dot {
+  width: 28px;
+  height: 28px;
+  border-width: 3px;
+}
+
+@media (max-width: 767px) {
+  .home-v2-popup-figpal-side {
+    min-height: auto;
+  }
 }
 
 @keyframes home-v2-popup-scale-in {

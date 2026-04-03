@@ -16,6 +16,8 @@ const FigPalFloatingCharacter = lazy(() =>
 
 type CaseStudyId = 'project1' | 'project2' | 'project4' | null
 
+const FIGPAL_PARK_HINT_SESSION_KEY = 'figpal-park-hint-shown'
+
 /* Card with image/video – controlled by parent for alternating sync */
 function MediaCycleCard({
   onClick,
@@ -27,6 +29,7 @@ function MediaCycleCard({
   showVideo,
   onVideoEnded,
   videoPreload,
+  onImageLoaded,
 }: {
   onClick: () => void
   imgSrc: string
@@ -37,6 +40,7 @@ function MediaCycleCard({
   showVideo: boolean
   onVideoEnded: () => void
   videoPreload?: 'auto' | 'metadata' | 'none'
+  onImageLoaded?: () => void
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [imgLoaded, setImgLoaded] = useState(false)
@@ -65,7 +69,10 @@ function MediaCycleCard({
           src={imgSrc}
           alt=""
           className={`home-v2-card-img ${showVideo ? 'home-v2-card-img--hidden' : ''}`}
-          onLoad={() => setImgLoaded(true)}
+          onLoad={() => {
+            setImgLoaded(true)
+            onImageLoaded?.()
+          }}
         />
         <video
           ref={videoRef}
@@ -226,8 +233,10 @@ const WORK_CARDS = [
 
 export default function HomePageV2() {
   const [popupCaseStudy, setPopupCaseStudy] = useState<CaseStudyId>(null)
-  const [project1ShowVideo, setProject1ShowVideo] = useState(true)
+  const [project1ShowVideo, setProject1ShowVideo] = useState(false)
   const [project2ShowVideo, setProject2ShowVideo] = useState(false)
+  const [project1ImageLoaded, setProject1ImageLoaded] = useState(false)
+  const [project1InitialVideoStarted, setProject1InitialVideoStarted] = useState(false)
   const [figpalFollowState, setFigpalFollowState] = useState<FigPalFollowState>({
     enabled: false,
     characterUrl: '',
@@ -236,10 +245,32 @@ export default function HomePageV2() {
   })
   const [figpalBuilderState, setFigpalBuilderState] = useState<FigPalBuilderState | null>(null)
   const [figpalParked, setFigpalParked] = useState(false)
+  const [figpalParkHintOpen, setFigpalParkHintOpen] = useState(false)
   const justUnparkedRef = useRef(false)
 
   const openPopup = useCallback((id: CaseStudyId) => setPopupCaseStudy(id), [])
   const closePopup = useCallback(() => setPopupCaseStudy(null), [])
+
+  const handleFigPalClose = useCallback(() => {
+    try {
+      if (
+        figpalFollowState.enabled &&
+        !sessionStorage.getItem(FIGPAL_PARK_HINT_SESSION_KEY)
+      ) {
+        sessionStorage.setItem(FIGPAL_PARK_HINT_SESSION_KEY, '1')
+        setFigpalParkHintOpen(true)
+      }
+    } catch {
+      /* sessionStorage unavailable */
+    }
+    setPopupCaseStudy(null)
+  }, [figpalFollowState.enabled])
+
+  useEffect(() => {
+    if (!figpalParkHintOpen) return
+    const id = window.setTimeout(() => setFigpalParkHintOpen(false), 8000)
+    return () => window.clearTimeout(id)
+  }, [figpalParkHintOpen])
 
   const handleUnpark = useCallback(() => {
     setFigpalParked(false)
@@ -249,14 +280,24 @@ export default function HomePageV2() {
 
   const handlePark = useCallback(() => {
     if (justUnparkedRef.current) return
+    setFigpalParkHintOpen(false)
     setFigpalParked(true)
   }, [])
 
-  /* Ensure on page load: project 1 plays first, loop starts with project 1. */
+  /* Ensure on page load: project 1 image shows first, then video starts and loop begins. */
   useEffect(() => {
-    setProject1ShowVideo(true)
+    setProject1ShowVideo(false)
     setProject2ShowVideo(false)
   }, [])
+
+  useEffect(() => {
+    if (!project1ImageLoaded || project1InitialVideoStarted) return
+    const delayId = setTimeout(() => {
+      setProject1ShowVideo(true)
+      setProject1InitialVideoStarted(true)
+    }, 2000)
+    return () => clearTimeout(delayId)
+  }, [project1ImageLoaded, project1InitialVideoStarted])
 
   const switchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -317,6 +358,7 @@ export default function HomePageV2() {
                     showVideo={project1ShowVideo}
                     onVideoEnded={onProject1VideoEnded}
                     videoPreload="auto"
+                    onImageLoaded={() => setProject1ImageLoaded(true)}
                   />
                 ) : card.id === 'project2' ? (
                   <MediaCycleCard
@@ -379,7 +421,7 @@ export default function HomePageV2() {
       {popupCaseStudy === 'project4' ? (
         <Suspense fallback={null}>
           <FigPalPopup
-            onClose={closePopup}
+            onClose={handleFigPalClose}
             onFollowMouseChange={setFigpalFollowState}
             initialState={figpalBuilderState}
             onStateChange={setFigpalBuilderState}
@@ -416,15 +458,32 @@ export default function HomePageV2() {
               accessoryUrl={figpalFollowState.accessoryUrl}
             />
           </Suspense>
-          <div
-            className="figpal-sign-wrap figpal-sign-wrap--clickable"
-            onClick={popupCaseStudy !== 'project4' ? handlePark : undefined}
-            role={popupCaseStudy !== 'project4' ? 'button' : undefined}
-            tabIndex={popupCaseStudy !== 'project4' ? 0 : undefined}
-            onKeyDown={popupCaseStudy !== 'project4' ? (e) => e.key === 'Enter' && handlePark() : undefined}
-            aria-label={popupCaseStudy !== 'project4' ? 'Click to park FigPal' : undefined}
-          >
-            <FigPalSign name={figpalFollowState.displayName || 'FigPal'} />
+          <div className="figpal-sign-stack">
+            {figpalParkHintOpen && (
+              <div className="figpal-park-hint" role="status">
+                <button
+                  type="button"
+                  className="figpal-park-hint__close"
+                  onClick={() => setFigpalParkHintOpen(false)}
+                  aria-label="Dismiss message"
+                >
+                  ×
+                </button>
+                <p className="figpal-park-hint__text">
+                  You can park your FigPal by clicking the sign below!
+                </p>
+              </div>
+            )}
+            <div
+              className="figpal-sign-wrap figpal-sign-wrap--clickable"
+              onClick={popupCaseStudy !== 'project4' ? handlePark : undefined}
+              role={popupCaseStudy !== 'project4' ? 'button' : undefined}
+              tabIndex={popupCaseStudy !== 'project4' ? 0 : undefined}
+              onKeyDown={popupCaseStudy !== 'project4' ? (e) => e.key === 'Enter' && handlePark() : undefined}
+              aria-label={popupCaseStudy !== 'project4' ? 'Click to park FigPal' : undefined}
+            >
+              <FigPalSign name={figpalFollowState.displayName || 'FigPal'} />
+            </div>
           </div>
         </>
       )}

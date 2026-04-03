@@ -1,4 +1,4 @@
-/* FigPal character builder modal */
+/* FigPal character builder (embedded in modal or legacy full-screen) */
 .figpal-builder {
   position: fixed;
   inset: 0;
@@ -14,19 +14,62 @@
   gap: 20px;
 }
 
+.figpal-builder--split {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: stretch;
+  gap: clamp(20px, 4vw, 40px);
+  padding: 0;
+  background: transparent;
+  overflow: visible;
+  width: 100%;
+}
+
+.figpal-builder-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.figpal-builder-col--customize {
+  flex: 1 1 52%;
+  gap: 16px;
+}
+
+.figpal-builder:not(.figpal-builder--split) .figpal-builder-col--customize {
+  align-items: center;
+  width: 100%;
+}
+
+.figpal-builder:not(.figpal-builder--split) .figpal-builder-pal-container {
+  width: auto;
+  max-width: 100%;
+}
+
+.figpal-builder-col--side {
+  flex: 1 1 44%;
+  justify-content: space-between;
+}
+
 @keyframes figpal-builder-fade {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* Light grey container: figpal + arrows only */
+/* Light grey panel – character preview only (color dots sit below) */
 .figpal-builder-pal-container {
   background: #e8e8ec;
   border-radius: 20px;
-  padding: 48px 36px;
+  padding: 20px 28px 28px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
 }
 
 .figpal-builder-title {
@@ -46,36 +89,80 @@
   gap: 12px;
 }
 
+.figpal-builder-name-row--modal {
+  gap: 8px;
+}
+
+/* Forward + dice grouped so modal grid can stay 1fr | input | 1fr (symmetric center) */
+.figpal-builder-name-row-trailing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Recessed bar — white 50% fill, thick white rim, inset depth */
 .figpal-builder-name-input {
+  box-sizing: border-box;
   width: 100%;
   max-width: 180px;
-  padding: 8px 12px;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1a1a1a;
+  min-height: 38px;
+  padding: 7px 14px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #262626;
   text-align: center;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  background: #d4d4d8;
+  text-transform: uppercase;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
   outline: none;
-  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.65),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.figpal-builder-name-row--modal .figpal-builder-name-input {
+  flex: 0 1 34.5%;
+  width: 34.5%;
+  max-width: 34.5%;
+  min-width: 0;
+  min-height: 38px;
+  padding: 7px 16px;
+  font-size: 1.05rem;
 }
 
 .figpal-builder-name-input--saved {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.55);
 }
 
 .figpal-builder-name-input:focus {
-  border-color: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.7),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1),
+    0 0 0 3px rgba(255, 255, 255, 0.45);
 }
 
 .figpal-builder-name-input::placeholder {
-  color: #999;
+  color: rgba(0, 0, 0, 0.38);
 }
 
 .figpal-builder-arrow--name {
   flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+}
+
+.figpal-builder-name-row--modal .figpal-builder-arrow--name {
+  width: 44px;
+  height: 44px;
+}
+
+.figpal-builder-arrow--name.figpal-builder-arrow--randomize {
+  width: calc(44px * 0.85);
+  height: calc(44px * 0.85);
 }
 
 .figpal-builder-close {
@@ -114,6 +201,8 @@
 }
 
 .figpal-builder-arrows {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -137,35 +226,70 @@
 }
 
 .figpal-builder-arrow {
-  width: 40px;
-  height: 40px;
+  position: relative;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
   border: none;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.06);
-  color: #1a1a1a;
+  border-radius: 0;
+  background: transparent;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, transform 0.2s;
+  display: block;
+  transition: transform 0.15s ease;
 }
 
-.figpal-builder-arrow:hover {
-  background: rgba(0, 0, 0, 0.1);
+.figpal-builder-arrow:hover,
+.figpal-builder-arrow:focus-visible {
+  background: transparent;
 }
 
 .figpal-builder-arrow:active {
   transform: scale(0.96);
 }
 
-.figpal-builder-arrow svg {
-  width: 20px;
-  height: 20px;
+.figpal-builder-arrow:focus-visible {
+  outline: 2px solid rgba(30, 74, 124, 0.45);
+  outline-offset: 2px;
+}
+
+.figpal-builder-arrow--randomize {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.figpal-builder-arrow-img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.figpal-builder-dice-svg {
+  overflow: visible;
+}
+
+.figpal-builder-arrow-img--hover {
+  opacity: 0;
+}
+
+.figpal-builder-arrow:hover .figpal-builder-arrow-img--default,
+.figpal-builder-arrow:focus-visible .figpal-builder-arrow-img--default {
+  opacity: 0;
+}
+
+.figpal-builder-arrow:hover .figpal-builder-arrow-img--hover,
+.figpal-builder-arrow:focus-visible .figpal-builder-arrow-img--hover {
+  opacity: 1;
 }
 
 /* Center: character above stage (60% of original = 40% reduction), shifted up 5vh */
 .figpal-builder-center {
   position: relative;
+  z-index: 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -195,7 +319,7 @@
   min-width: 240px;
   min-height: 276px;
   flex-shrink: 0;
-  z-index: 1;
+  z-index: 0;
 }
 
 .figpal-builder-character,
@@ -213,22 +337,27 @@
   z-index: 1;
 }
 
-/* Color dots */
+/* Color dots — shrink-wrap; parent column centers the strip */
 .figpal-builder-colors {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  padding-top: 8px;
+  gap: clamp(8px, 2vw, 12px);
+  padding: 0;
+  width: fit-content;
+  max-width: 100%;
+  align-self: center;
+  box-sizing: border-box;
 }
 
 .figpal-builder-color-dot {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   border: 3px solid transparent;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
 }
 
 .figpal-builder-color-dot:hover {
@@ -244,53 +373,52 @@
 .figpal-builder-toggle-wrap {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 16px;
   padding-top: 8px;
+  width: 100%;
 }
 
 .figpal-builder-toggle-label {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 700;
   color: #1a1a1a;
 }
 
+/* ~1.5× prior CSS toggle (56×32 → 84×48); SVG art scales in modal via HomePageV2 */
 .figpal-builder-toggle {
-  width: 48px;
-  height: 26px;
-  border: none;
-  border-radius: 13px;
-  background: rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-  padding: 2px;
-  position: relative;
-  transition: background 0.2s;
-}
-
-.figpal-builder-toggle--on {
-  background: #6366f1;
-}
-
-.figpal-builder-toggle-track {
   display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 11px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+  flex-shrink: 0;
 }
 
-.figpal-builder-toggle-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 22px;
-  height: 22px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease;
+.figpal-builder-toggle:focus-visible {
+  outline: 2px solid rgba(30, 74, 124, 0.45);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
-.figpal-builder-toggle--on .figpal-builder-toggle-thumb {
-  transform: translateX(22px);
+.figpal-builder-toggle-img {
+  display: block;
+  width: 84px;
+  height: 48px;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .figpal-builder--split {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .figpal-builder-col--side {
+    padding-top: 8px;
+  }
 }
 
 /* Floating character (follow cursor on desktop; parked bottom-right on mobile) */
@@ -331,14 +459,75 @@
 }
 
 /* FigPal Sign – fixed at bottom right when Follow Me is on */
-.figpal-sign-wrap {
+.figpal-sign-stack {
   position: fixed;
   bottom: 0;
   right: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  max-width: min(260px, 92vw);
+  padding: 0 4px 4px 12px;
+  pointer-events: none;
+}
+
+.figpal-park-hint {
+  position: relative;
+  padding: 12px 28px 12px 14px;
+  border-radius: 18px;
+  background: linear-gradient(165deg, rgba(255, 252, 248, 0.98) 0%, rgba(255, 236, 245, 0.97) 100%);
+  border: 2px solid rgba(255, 182, 193, 0.85);
+  box-shadow:
+    0 4px 20px rgba(180, 100, 140, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  pointer-events: auto;
+}
+
+.figpal-park-hint__text {
+  margin: 0;
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: rgba(90, 40, 70, 0.95);
+}
+
+.figpal-park-hint__close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 182, 193, 0.35);
+  color: rgba(90, 40, 70, 0.85);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.figpal-park-hint__close:hover {
+  background: rgba(255, 182, 193, 0.55);
+}
+
+.figpal-sign-wrap {
+  position: relative;
+  bottom: auto;
+  right: auto;
   width: 120px;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 0;
   overflow: hidden;
+}
+
+.figpal-sign-stack > .figpal-sign-wrap {
+  align-self: flex-end;
 }
 
 .figpal-sign {

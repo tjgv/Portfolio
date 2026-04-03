@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import {
   CHARACTER_CATALOG,
   COLOR_HEX,
@@ -11,6 +11,73 @@ import {
   type ColorType,
 } from '../../figpal/config'
 import './FigPalCharacterBuilder.css'
+
+const FIGPAL_ARROW_ASSETS = {
+  back: {
+    default: '/figpal/arrows/back-default.svg',
+    hover: '/figpal/arrows/back-hover.svg',
+  },
+  forward: {
+    default: '/figpal/arrows/forward-default.svg',
+    hover: '/figpal/arrows/forward-hover.svg',
+  },
+} as const
+
+function FigPalArrowMark({ direction }: { direction: 'back' | 'forward' }) {
+  const a = FIGPAL_ARROW_ASSETS[direction]
+  return (
+    <>
+      <img
+        src={a.default}
+        alt=""
+        className="figpal-builder-arrow-img figpal-builder-arrow-img--default"
+        draggable={false}
+      />
+      <img
+        src={a.hover}
+        alt=""
+        className="figpal-builder-arrow-img figpal-builder-arrow-img--hover"
+        draggable={false}
+      />
+    </>
+  )
+}
+
+/** Dice — outer hit area matches arrow buttons; inner die scaled like arrow glyph; #313A5A 35% / 100% */
+function FigPalDiceMark() {
+  const pips = (
+    <g className="figpal-builder-dice-face">
+      <rect x="14" y="14" width="20" height="20" rx="3.5" fill="rgba(255, 255, 255, 0.92)" />
+      <circle cx="18.5" cy="18.5" r="1.75" fill="#313A5A" />
+      <circle cx="29.5" cy="18.5" r="1.75" fill="#313A5A" />
+      <circle cx="24" cy="24" r="1.75" fill="#313A5A" />
+      <circle cx="18.5" cy="29.5" r="1.75" fill="#313A5A" />
+      <circle cx="29.5" cy="29.5" r="1.75" fill="#313A5A" />
+    </g>
+  )
+  return (
+    <>
+      <svg
+        className="figpal-builder-arrow-img figpal-builder-arrow-img--default figpal-builder-dice-svg"
+        viewBox="0 0 48 48"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden
+      >
+        <circle cx="24" cy="24" r="24" fill="rgba(49, 58, 90, 0.35)" />
+        {pips}
+      </svg>
+      <svg
+        className="figpal-builder-arrow-img figpal-builder-arrow-img--hover figpal-builder-dice-svg"
+        viewBox="0 0 48 48"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden
+      >
+        <circle cx="24" cy="24" r="24" fill="#313A5A" />
+        {pips}
+      </svg>
+    </>
+  )
+}
 
 export interface FigPalFollowState {
   enabled: boolean
@@ -30,11 +97,51 @@ export interface FigPalBuilderState {
   followMouse: boolean
 }
 
+export interface FigPalSidebarContext {
+  followMouse: boolean
+  setFollowMouse: (value: boolean) => void
+}
+
 interface FigPalCharacterBuilderProps {
   onClose: () => void
   onFollowMouseChange?: (state: FigPalFollowState) => void
   initialState?: FigPalBuilderState | null
   onStateChange?: (state: FigPalBuilderState) => void
+  /** Two-column modal: customizer left, this panel right (e.g. title + Follow Me). */
+  renderSidebar?: (ctx: FigPalSidebarContext) => ReactNode
+}
+
+const FIGPAL_TOGGLE_OFF = '/figpal/toggle-off.svg'
+const FIGPAL_TOGGLE_ON = '/figpal/toggle-on.svg'
+
+export function FigPalFollowMeToggle({
+  followMouse,
+  onToggle,
+  label = 'Follow Me!',
+}: {
+  followMouse: boolean
+  onToggle: () => void
+  label?: string
+}) {
+  return (
+    <div className="figpal-builder-toggle-wrap">
+      <span className="figpal-builder-toggle-label">{label}</span>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={followMouse}
+        className="figpal-builder-toggle"
+        onClick={onToggle}
+      >
+        <img
+          src={followMouse ? FIGPAL_TOGGLE_ON : FIGPAL_TOGGLE_OFF}
+          alt=""
+          className="figpal-builder-toggle-img"
+          draggable={false}
+        />
+      </button>
+    </div>
+  )
 }
 
 function getInitialState(): FigPalBuilderState {
@@ -57,6 +164,7 @@ export default function FigPalCharacterBuilder({
   onFollowMouseChange,
   initialState,
   onStateChange,
+  renderSidebar,
 }: FigPalCharacterBuilderProps) {
   const [characterIndex, setCharacterIndex] = useState(initialState?.characterIndex ?? 0)
   const [color, setColor] = useState<ColorType>(initialState?.color ?? 'red')
@@ -182,134 +290,150 @@ export default function FigPalCharacterBuilder({
     }
   }, [displayName])
 
-  const ArrowSvgLeft = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M15 18l-6-6 6-6" />
-    </svg>
-  )
-  const ArrowSvgRight = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M9 18l6-6-6-6" />
-    </svg>
+  const randomizeSelections = useCallback(() => {
+    const charIndex = Math.floor(Math.random() * CHARACTER_CATALOG.length)
+    const [position, _characterName] = CHARACTER_CATALOG[charIndex]
+    const colors = getColorsForCharacterSafe(position, _characterName)
+    const newColor = colors[Math.floor(Math.random() * colors.length)]
+    const newExpression = Math.floor(Math.random() * 9) + 1
+    const accOpts = getAccessoryOptions(position)
+    const accIdx = Math.floor(Math.random() * accOpts.length)
+    const name = getRandomCuteName()
+    setCharacterIndex(charIndex)
+    setColor(newColor)
+    setExpression(newExpression)
+    setAccessoryIndex(accIdx)
+    setDisplayName(name)
+    setLastSavedName(name)
+    setUserHasSavedName(false)
+  }, [])
+
+  const colorPicker = (
+    <div className="figpal-builder-colors">
+      {availableColors.map((c) => (
+        <button
+          key={c}
+          type="button"
+          className={`figpal-builder-color-dot ${color === c ? 'figpal-builder-color-dot--active' : ''}`}
+          style={{ backgroundColor: COLOR_HEX[c] }}
+          onClick={() => selectColor(c)}
+          aria-label={`Select ${c} color`}
+          aria-pressed={color === c}
+        />
+      ))}
+    </div>
   )
 
-  return (
-    <div className="figpal-builder" role="dialog" aria-modal="true" aria-label="FigPal character builder">
-      {/* Name row: left char arrow | input | right char arrow */}
-      <div className="figpal-builder-name-row">
+  const palSection = (
+    <div className="figpal-builder-pal-section">
+      <div className="figpal-builder-arrows figpal-builder-arrows--left">
         <button
           type="button"
-          className="figpal-builder-arrow figpal-builder-arrow--name"
-          onClick={() => cycleCharacter(-1)}
-          aria-label="Previous character"
+          className="figpal-builder-arrow figpal-builder-arrow--top"
+          onClick={() => cycleAccessory(-1)}
+          aria-label="Previous accessory"
         >
-          <ArrowSvgLeft />
+          <FigPalArrowMark direction="back" />
         </button>
-        <input
-          type="text"
-          className={`figpal-builder-name-input ${userHasSavedName ? 'figpal-builder-name-input--saved' : ''}`}
-          value={displayName}
-          onChange={handleNameChange}
-          onBlur={handleNameBlur}
-          maxLength={15}
-          aria-label="Character name"
-          placeholder="Name"
-        />
+        <button
+          type="button"
+          className="figpal-builder-arrow figpal-builder-arrow--middle"
+          onClick={() => cycleExpression(-1)}
+          aria-label="Previous expression"
+        >
+          <FigPalArrowMark direction="back" />
+        </button>
+      </div>
+      <div className="figpal-builder-center">
+        <div className="figpal-builder-stage" style={{ backgroundImage: 'url(/figpal/Stage2.png)' }} />
+        <div className="figpal-builder-character-wrap">
+          <img src={characterUrl} alt="" className="figpal-builder-character" />
+          {accessoryUrl && <img src={accessoryUrl} alt="" className="figpal-builder-accessory" />}
+        </div>
+      </div>
+      <div className="figpal-builder-arrows figpal-builder-arrows--right">
+        <button
+          type="button"
+          className="figpal-builder-arrow figpal-builder-arrow--top"
+          onClick={() => cycleAccessory(1)}
+          aria-label="Next accessory"
+        >
+          <FigPalArrowMark direction="forward" />
+        </button>
+        <button
+          type="button"
+          className="figpal-builder-arrow figpal-builder-arrow--middle"
+          onClick={() => cycleExpression(1)}
+          aria-label="Next expression"
+        >
+          <FigPalArrowMark direction="forward" />
+        </button>
+      </div>
+    </div>
+  )
+
+  const nameRow = (
+    <div className={`figpal-builder-name-row ${renderSidebar ? 'figpal-builder-name-row--modal' : ''}`}>
+      <button
+        type="button"
+        className="figpal-builder-arrow figpal-builder-arrow--name"
+        onClick={() => cycleCharacter(-1)}
+        aria-label="Previous character"
+      >
+        <FigPalArrowMark direction="back" />
+      </button>
+      <input
+        type="text"
+        className={`figpal-builder-name-input ${userHasSavedName ? 'figpal-builder-name-input--saved' : ''}`}
+        value={displayName}
+        onChange={handleNameChange}
+        onBlur={handleNameBlur}
+        maxLength={15}
+        aria-label="Character name"
+        placeholder="Name"
+      />
+      <div className="figpal-builder-name-row-trailing">
         <button
           type="button"
           className="figpal-builder-arrow figpal-builder-arrow--name"
           onClick={() => cycleCharacter(1)}
           aria-label="Next character"
         >
-          <ArrowSvgRight />
+          <FigPalArrowMark direction="forward" />
         </button>
-      </div>
-
-      {/* Light grey container: figpal + arrows only (no colors, no name) */}
-      <div className="figpal-builder-pal-container">
-        <div className="figpal-builder-pal-section">
-          {/* Left arrows: accessory top, expression middle (no character) */}
-          <div className="figpal-builder-arrows figpal-builder-arrows--left">
-            <button
-              type="button"
-              className="figpal-builder-arrow figpal-builder-arrow--top"
-              onClick={() => cycleAccessory(-1)}
-              aria-label="Previous accessory"
-            >
-              <ArrowSvgLeft />
-            </button>
-            <button
-              type="button"
-              className="figpal-builder-arrow figpal-builder-arrow--middle"
-              onClick={() => cycleExpression(-1)}
-              aria-label="Previous expression"
-            >
-              <ArrowSvgLeft />
-            </button>
-          </div>
-
-          {/* Center: character above stage */}
-          <div className="figpal-builder-center">
-            <div className="figpal-builder-stage" style={{ backgroundImage: 'url(/figpal/Stage2.png)' }} />
-            <div className="figpal-builder-character-wrap">
-              <img src={characterUrl} alt="" className="figpal-builder-character" />
-              {accessoryUrl && (
-                <img src={accessoryUrl} alt="" className="figpal-builder-accessory" />
-              )}
-            </div>
-          </div>
-
-          {/* Right arrows: accessory top, expression middle */}
-          <div className="figpal-builder-arrows figpal-builder-arrows--right">
-            <button
-              type="button"
-              className="figpal-builder-arrow figpal-builder-arrow--top"
-              onClick={() => cycleAccessory(1)}
-              aria-label="Next accessory"
-            >
-              <ArrowSvgRight />
-            </button>
-            <button
-              type="button"
-              className="figpal-builder-arrow figpal-builder-arrow--middle"
-              onClick={() => cycleExpression(1)}
-              aria-label="Next expression"
-            >
-              <ArrowSvgRight />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Colors – below grey container */}
-      <div className="figpal-builder-colors">
-        {availableColors.map((c) => (
-          <button
-            key={c}
-            type="button"
-            className={`figpal-builder-color-dot ${color === c ? 'figpal-builder-color-dot--active' : ''}`}
-            style={{ backgroundColor: COLOR_HEX[c] }}
-            onClick={() => selectColor(c)}
-            aria-label={`Select ${c} color`}
-            aria-pressed={color === c}
-          />
-        ))}
-      </div>
-
-      {/* Follow mouse toggle */}
-      <div className="figpal-builder-toggle-wrap">
-        <span className="figpal-builder-toggle-label">Follow Me</span>
         <button
           type="button"
-          role="switch"
-          aria-checked={followMouse}
-          className={`figpal-builder-toggle ${followMouse ? 'figpal-builder-toggle--on' : ''}`}
-          onClick={() => setFollowMouse((v) => !v)}
+          className="figpal-builder-arrow figpal-builder-arrow--name figpal-builder-arrow--randomize"
+          onClick={randomizeSelections}
+          aria-label="Randomize FigPal"
         >
-          <span className="figpal-builder-toggle-track" />
-          <span className="figpal-builder-toggle-thumb" />
+          <FigPalDiceMark />
         </button>
       </div>
+    </div>
+  )
+
+  const sidebarCtx: FigPalSidebarContext = {
+    followMouse,
+    setFollowMouse,
+  }
+
+  return (
+    <div
+      className={`figpal-builder${renderSidebar ? ' figpal-builder--split' : ''}`}
+      aria-label="FigPal character builder"
+    >
+      <div className="figpal-builder-col figpal-builder-col--customize">
+        {nameRow}
+        <div className="figpal-builder-pal-container">{palSection}</div>
+        {colorPicker}
+        {!renderSidebar && (
+          <FigPalFollowMeToggle followMouse={followMouse} onToggle={() => setFollowMouse((v) => !v)} label="Follow Me" />
+        )}
+      </div>
+      {renderSidebar && (
+        <div className="figpal-builder-col figpal-builder-col--side">{renderSidebar(sidebarCtx)}</div>
+      )}
     </div>
   )
 }
