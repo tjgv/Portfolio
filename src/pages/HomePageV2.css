@@ -1524,7 +1524,9 @@ button.home-v2-popup-xp-caption:active {
     --figpal-creator-inner-w: 100%;
     /* ~25% taller frame background than desktop base min-height */
     min-height: calc(min(420px, 58vh) * 1.25);
-    padding: clamp(12px, 3vw, 20px) 0;
+    /* Inset controls so they sit centered in the frame art (was edge-to-edge) */
+    padding: clamp(12px, 3vw, 20px) clamp(18px, 6vw, 36px);
+    align-items: center;
   }
 
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--side {
@@ -1583,20 +1585,21 @@ button.home-v2-popup-xp-caption:active {
     height: calc(48px * 0.85 * 0.75);
   }
 
-  /* Color strip: 25% smaller; two rows of five, centered */
+  /* Color strip: shrink-wrap (no full-bleed panel); 5×2 grid, rows share same width */
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-colors {
     display: grid;
     grid-template-columns: repeat(5, auto);
-    grid-template-rows: repeat(2, auto);
+    grid-auto-rows: auto;
     column-gap: calc(8px * 0.75);
     row-gap: calc(8px * 0.75);
     padding: calc(12px * 0.75);
     margin: calc(-20px * 0.75) auto 0;
     border-radius: calc(12px * 0.75);
-    width: 100%;
-    max-width: var(--figpal-creator-inner-w);
+    width: fit-content;
+    max-width: 100%;
     justify-content: center;
     justify-items: center;
+    align-content: center;
     box-sizing: border-box;
   }
 
