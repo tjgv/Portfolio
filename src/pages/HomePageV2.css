@@ -1201,10 +1201,6 @@ button.home-v2-popup-xp-caption:active {
     width: min(81px, 25.35vw);
     max-width: 50%;
   }
-
-  .home-v2-popup-scroll.home-v2-popup-scroll--figpal {
-    padding: 18px 24px 40px;
-  }
 }
 
 @media (min-width: 768px) {
@@ -1220,10 +1216,15 @@ button.home-v2-popup-xp-caption:active {
   /* Right column narrower than original 46%, but eased ~10% from the 25% cut (0.75→0.825) */
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--customize {
     flex: 1 1 calc(50% + 46% * 0.175);
+    justify-content: center;
   }
 
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--side {
     flex: 1 1 calc(46% * 0.825);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
   }
 }
 
@@ -1481,9 +1482,137 @@ button.home-v2-popup-xp-caption:active {
   border-width: 3px;
 }
 
+/* FigPal modal — mobile-only layout + sizing (creation mode) */
 @media (max-width: 767px) {
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal {
+    padding: 16px 6px 28px;
+    box-sizing: border-box;
+  }
+
   .home-v2-popup-figpal-side {
     min-height: auto;
+  }
+
+  /* Toggle below character column, copy block last; sidebar column uses display:contents */
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder.figpal-builder--split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'figpal-customize'
+      'figpal-follow'
+      'figpal-copy';
+    gap: 14px;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--customize {
+    grid-area: figpal-customize;
+    --figpal-creator-inner-w: 100%;
+    min-height: 0;
+    padding: clamp(12px, 3vw, 20px) 0;
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--side {
+    display: contents;
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .home-v2-popup-figpal-follow {
+    grid-area: figpal-follow;
+    justify-content: center;
+    margin: 0;
+    width: 100%;
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .home-v2-popup-figpal-follow .figpal-builder-toggle-wrap {
+    justify-content: center;
+    gap: calc(18px * 0.88);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .home-v2-popup-figpal-follow .figpal-builder-toggle-label {
+    font-size: calc(19.5px * 1.15 * 0.88);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .home-v2-popup-figpal-follow .figpal-builder-toggle-img {
+    width: calc(125px * 0.88);
+    height: calc(74px * 0.88);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .home-v2-popup-figpal-side--copy {
+    grid-area: figpal-copy;
+  }
+
+  /* Character + stage: 25% smaller than modal base (0.85 scale × 0.75) */
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-character-wrap {
+    width: calc(240px * 0.85 * 0.75);
+    height: calc(276px * 0.85 * 0.75);
+    min-width: calc(240px * 0.85 * 0.75);
+    min-height: calc(276px * 0.85 * 0.75);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-stage {
+    max-width: calc(168px * 0.85 * 0.75);
+    height: calc(48px * 0.85 * 0.75);
+  }
+
+  /* Color strip: 25% smaller */
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-colors {
+    gap: calc(8px * 0.75);
+    padding: calc(12px * 0.75);
+    margin: calc(-20px * 0.75) auto 0;
+    border-radius: calc(12px * 0.75);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-color-dot {
+    width: calc(28px * 0.75);
+    height: calc(28px * 0.75);
+    border-width: calc(3px * 0.75);
+  }
+
+  /* Name row, arrows, dice, pal controls, inputs: 12% smaller */
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal {
+    column-gap: calc(8px * 0.88);
+    padding: calc(8px * 0.88);
+    border-radius: calc(14px * 0.88);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal .figpal-builder-name-input {
+    max-width: min(calc(34.5vw * 0.88), calc(180px * 0.88));
+    min-height: calc(38px * 0.88);
+    padding: calc(7px * 0.88) calc(16px * 0.88);
+    border-radius: calc(10px * 0.88);
+    border-width: calc(4px * 0.88);
+    font-size: calc(1.05rem * 0.88);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal .figpal-builder-arrow--name {
+    width: calc(42px * 0.88);
+    height: calc(42px * 0.88);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal
+    .figpal-builder-name-row--modal
+    .figpal-builder-arrow--name.figpal-builder-arrow--randomize {
+    width: calc(42px * 0.85 * 0.88);
+    height: calc(42px * 0.85 * 0.88);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-pal-section {
+    column-gap: calc(0.88 * clamp(6px, 2.5vw, 24px));
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-arrow {
+    width: calc(46px * 0.88);
+    height: calc(46px * 0.88);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal .figpal-builder-name-row-trailing {
+    gap: calc(8px * 0.88);
+  }
+
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-pal-container {
+    padding: calc(16px * 0.88) calc(16px * 0.88) calc(18px * 0.88);
+    border-radius: calc(18px * 0.88);
   }
 }
 
@@ -1686,4 +1815,11 @@ button.home-v2-popup-xp-caption:active {
 .home-v2-popup-read-more:hover {
   background: #1a1a1a;
   color: #fff;
+}
+
+/* Mobile: FigPal stays in parked presentation only — no sign / follow UI */
+@media (max-width: 767px) {
+  .figpal-parked--mobile {
+    cursor: default;
+  }
 }

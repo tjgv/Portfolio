@@ -17,6 +17,19 @@ const FigPalFloatingCharacter = lazy(() =>
 type CaseStudyId = 'project1' | 'project2' | 'project4' | null
 
 const FIGPAL_PARK_HINT_SESSION_KEY = 'figpal-park-hint-shown'
+const FIGPAL_MOBILE_MAX_WIDTH = 767
+
+function useFigpalMobileViewport() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${FIGPAL_MOBILE_MAX_WIDTH}px)`)
+    const sync = () => setIsMobile(mql.matches)
+    sync()
+    mql.addEventListener('change', sync)
+    return () => mql.removeEventListener('change', sync)
+  }, [])
+  return isMobile
+}
 
 /* Card with image/video – controlled by parent for alternating sync */
 function MediaCycleCard({
@@ -247,6 +260,7 @@ export default function HomePageV2() {
   const [figpalParked, setFigpalParked] = useState(false)
   const [figpalParkHintOpen, setFigpalParkHintOpen] = useState(false)
   const justUnparkedRef = useRef(false)
+  const isFigpalMobile = useFigpalMobileViewport()
 
   const openPopup = useCallback((id: CaseStudyId) => setPopupCaseStudy(id), [])
   const closePopup = useCallback(() => setPopupCaseStudy(null), [])
@@ -255,6 +269,7 @@ export default function HomePageV2() {
     try {
       if (
         figpalFollowState.enabled &&
+        !isFigpalMobile &&
         !sessionStorage.getItem(FIGPAL_PARK_HINT_SESSION_KEY)
       ) {
         sessionStorage.setItem(FIGPAL_PARK_HINT_SESSION_KEY, '1')
@@ -264,13 +279,17 @@ export default function HomePageV2() {
       /* sessionStorage unavailable */
     }
     setPopupCaseStudy(null)
-  }, [figpalFollowState.enabled])
+  }, [figpalFollowState.enabled, isFigpalMobile])
 
   useEffect(() => {
     if (!figpalParkHintOpen) return
     const id = window.setTimeout(() => setFigpalParkHintOpen(false), 8000)
     return () => window.clearTimeout(id)
   }, [figpalParkHintOpen])
+
+  useEffect(() => {
+    if (isFigpalMobile) setFigpalParkHintOpen(false)
+  }, [isFigpalMobile])
 
   const handleUnpark = useCallback(() => {
     setFigpalParked(false)
@@ -430,14 +449,18 @@ export default function HomePageV2() {
       ) : popupCaseStudy ? (
         <CaseStudyPopup caseStudyId={popupCaseStudy} onClose={closePopup} />
       ) : null}
-      {figpalFollowState.enabled && figpalParked && popupCaseStudy !== 'project4' && (
+      {figpalFollowState.enabled &&
+        (figpalParked || isFigpalMobile) &&
+        popupCaseStudy !== 'project4' && (
         <div
-          className="figpal-parked"
-          onClick={handleUnpark}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && handleUnpark()}
-          aria-label="Click to unpark FigPal"
+          className={`figpal-parked${isFigpalMobile ? ' figpal-parked--mobile' : ''}`}
+          onClick={isFigpalMobile ? undefined : handleUnpark}
+          role={isFigpalMobile ? undefined : 'button'}
+          tabIndex={isFigpalMobile ? undefined : 0}
+          onKeyDown={
+            isFigpalMobile ? undefined : (e) => e.key === 'Enter' && handleUnpark()
+          }
+          aria-label={isFigpalMobile ? 'FigPal' : 'Click to unpark FigPal'}
         >
           <span className="figpal-parked-name">{figpalFollowState.displayName || 'FigPal'}</span>
           <div className="figpal-parked-stage" style={{ backgroundImage: 'url(/figpal/Stage2.png)' }} />
@@ -449,7 +472,7 @@ export default function HomePageV2() {
           </div>
         </div>
       )}
-      {figpalFollowState.enabled && !figpalParked && (
+      {figpalFollowState.enabled && !figpalParked && !isFigpalMobile && (
         <>
           <Suspense fallback={null}>
             <FigPalFloatingCharacter

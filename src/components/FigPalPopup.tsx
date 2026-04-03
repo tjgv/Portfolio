@@ -128,36 +128,38 @@ export default function FigPalPopup({
             initialState={initialState}
             onStateChange={onStateChange}
             renderSidebar={({ followMouse, setFollowMouse }: FigPalSidebarContext) => (
-              <div className="home-v2-popup-figpal-side">
-                <div className="home-v2-popup-figpal-top">
-                  <img
-                    className="home-v2-popup-figpal-wordmark"
-                    src="/figpal-forever-logo.png"
-                    alt=""
-                    width={743}
-                    height={487}
-                    decoding="async"
-                  />
-                </div>
-                <div className="home-v2-popup-figpal-glass">
-                  <div className="home-v2-popup-figpal-copy">
-                    <h2 className="home-v2-popup-figpal-heading">
-                      &quot;But why are you doing this?&quot;
-                    </h2>
-                    <p className="home-v2-popup-figpal-text">
-                      Well, partly because I&apos;d like to showcase how A.I. development tools can push
-                      creativity... but also because now I&apos;m enabled to bring back the best April Fools
-                      feature Figma ever released: FigPals.
-                    </p>
-                    <p className="home-v2-popup-figpal-text">
-                      Non-stop A.I. discourse can be exhausting, but the results are clear as day. Will A.I.
-                      take over the world some day? Maybe, but somewhere in that process, creativity is
-                      unleashed. Ironically, A.I. can enable a more human element in every day experiences.
-                    </p>
-                    <p className="home-v2-popup-figpal-text">
-                      Try making your own FigPal and have it follow you around so you can balance out that
-                      ~seriousness~ of B2B work.
-                    </p>
+              <>
+                <div className="home-v2-popup-figpal-side home-v2-popup-figpal-side--copy">
+                  <div className="home-v2-popup-figpal-top">
+                    <img
+                      className="home-v2-popup-figpal-wordmark"
+                      src="/figpal-forever-logo.png"
+                      alt=""
+                      width={743}
+                      height={487}
+                      decoding="async"
+                    />
+                  </div>
+                  <div className="home-v2-popup-figpal-glass">
+                    <div className="home-v2-popup-figpal-copy">
+                      <h2 className="home-v2-popup-figpal-heading">
+                        &quot;But why are you doing this?&quot;
+                      </h2>
+                      <p className="home-v2-popup-figpal-text">
+                        Well, partly because I&apos;d like to showcase how A.I. development tools can push
+                        creativity... but also because now I&apos;m enabled to bring back the best April Fools
+                        feature Figma ever released: FigPals.
+                      </p>
+                      <p className="home-v2-popup-figpal-text">
+                        Non-stop A.I. discourse can be exhausting, but the results are clear as day. Will A.I.
+                        take over the world some day? Maybe, but somewhere in that process, creativity is
+                        unleashed. Ironically, A.I. can enable a more human element in every day experiences.
+                      </p>
+                      <p className="home-v2-popup-figpal-text">
+                        Try making your own FigPal and have it follow you around so you can balance out that
+                        ~seriousness~ of B2B work.
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div className="home-v2-popup-figpal-follow">
@@ -166,7 +168,7 @@ export default function FigPalPopup({
                     onToggle={() => setFollowMouse(!followMouse)}
                   />
                 </div>
-              </div>
+              </>
             )}
           />
         </div>
