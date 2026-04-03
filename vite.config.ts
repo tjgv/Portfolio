@@ -33,6 +33,8 @@ export default defineConfig({
     },
   ],
   server: {
+    // Listen on all interfaces so you can open the dev URL from a phone on the same Wi‑Fi
+    host: true,
     port: 5177,
     strictPort: true, // fail if 5177 is taken — close other dev server tabs/terminals first
     proxy: {
@@ -41,5 +43,11 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+  // Production build preview (`npm run build && npm run preview`) — same LAN access as dev
+  preview: {
+    host: true,
+    port: 4177,
+    strictPort: true,
   },
 })

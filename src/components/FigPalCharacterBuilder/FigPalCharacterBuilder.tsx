@@ -137,6 +137,8 @@ export function FigPalFollowMeToggle({
           src={followMouse ? FIGPAL_TOGGLE_ON : FIGPAL_TOGGLE_OFF}
           alt=""
           className="figpal-builder-toggle-img"
+          width={125}
+          height={74}
           draggable={false}
         />
       </button>

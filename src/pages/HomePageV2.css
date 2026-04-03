@@ -1223,6 +1223,9 @@ button.home-v2-popup-xp-caption:active {
     flex: 1 1 calc(46% * 0.825);
     display: flex;
     flex-direction: column;
+    /* Override builder default space-between — that pinned the toggle to the column bottom */
+    justify-content: flex-start;
+    align-items: stretch;
     gap: 0;
     min-width: 0;
   }
@@ -1235,6 +1238,16 @@ button.home-v2-popup-xp-caption:active {
   gap: 0;
   flex: 1;
   min-height: min(474px, calc(62vh * 1.25 * 0.75 * 1.1));
+}
+
+/* Desktop FigPal: don’t stretch the copy column — otherwise flex:1 pulls the toggle to the
+   bottom of the sidebar and margin-top on .home-v2-popup-figpal-follow never reads as “below the glass”. */
+@media (min-width: 768px) {
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal
+    .home-v2-popup-figpal-side.home-v2-popup-figpal-side--copy {
+    flex: 0 0 auto;
+    min-height: auto;
+  }
 }
 
 .home-v2-popup-figpal-glass {
@@ -1290,7 +1303,7 @@ button.home-v2-popup-xp-caption:active {
   align-items: center;
   align-self: stretch;
   width: 100%;
-  margin: 12px 0 0;
+  margin: 24px 0 0;
   padding: 0;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -1509,7 +1522,8 @@ button.home-v2-popup-xp-caption:active {
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-col--customize {
     grid-area: figpal-customize;
     --figpal-creator-inner-w: 100%;
-    min-height: 0;
+    /* ~25% taller frame background than desktop base min-height */
+    min-height: calc(min(420px, 58vh) * 1.25);
     padding: clamp(12px, 3vw, 20px) 0;
   }
 
@@ -1533,9 +1547,23 @@ button.home-v2-popup-xp-caption:active {
     font-size: calc(19.5px * 1.15 * 0.88);
   }
 
+  /* Reserve aspect + box so toggle-off SVG is not squished before decode (matches on/off art) */
+  .home-v2-popup-scroll.home-v2-popup-scroll--figpal .home-v2-popup-figpal-follow .figpal-builder-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(125px * 0.88);
+    min-height: calc(74px * 0.88);
+  }
+
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .home-v2-popup-figpal-follow .figpal-builder-toggle-img {
     width: calc(125px * 0.88);
     height: calc(74px * 0.88);
+    min-width: calc(125px * 0.88);
+    min-height: calc(74px * 0.88);
+    aspect-ratio: 125 / 74;
+    object-fit: contain;
+    flex-shrink: 0;
   }
 
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .home-v2-popup-figpal-side--copy {
@@ -1555,12 +1583,21 @@ button.home-v2-popup-xp-caption:active {
     height: calc(48px * 0.85 * 0.75);
   }
 
-  /* Color strip: 25% smaller */
+  /* Color strip: 25% smaller; two rows of five, centered */
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-colors {
-    gap: calc(8px * 0.75);
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: repeat(2, auto);
+    column-gap: calc(8px * 0.75);
+    row-gap: calc(8px * 0.75);
     padding: calc(12px * 0.75);
     margin: calc(-20px * 0.75) auto 0;
     border-radius: calc(12px * 0.75);
+    width: 100%;
+    max-width: var(--figpal-creator-inner-w);
+    justify-content: center;
+    justify-items: center;
+    box-sizing: border-box;
   }
 
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-color-dot {
@@ -1571,6 +1608,7 @@ button.home-v2-popup-xp-caption:active {
 
   /* Name row, arrows, dice, pal controls, inputs: 12% smaller */
   .home-v2-popup-scroll.home-v2-popup-scroll--figpal .figpal-builder-name-row--modal {
+    margin-top: 12px;
     column-gap: calc(8px * 0.88);
     padding: calc(8px * 0.88);
     border-radius: calc(14px * 0.88);
