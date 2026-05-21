@@ -1,0 +1,31 @@
+.big-board__scroll--team-view .big-board__cell-inner {
+  position: relative;
+  min-height: 1.35rem;
+}
+
+.big-board__scroll--team-view .big-board__td--has-logo .big-board__cell-inner {
+  padding-right: 1.65rem;
+}
+
+.big-board__scroll--team-view .big-board__cell-logo {
+  position: absolute;
+  top: 50%;
+  right: 0.2rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  max-height: calc(100% - 0.25rem);
+  object-fit: contain;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.big-board__scroll--team-view .big-board__th--team-view {
+  color: #fff;
+}
+
+.big-board__scroll--team-view .big-board__td--selected-team-logo .big-board__name,
+.big-board__scroll--team-view .big-board__td--selected-team-logo .big-board__name--muted,
+.big-board__scroll--team-view .big-board__td--selected-team-logo .big-board__name--bold {
+  color: var(--bb-team-color, var(--iq-nfl-blue, #013369));
+  font-weight: 800;
+}

@@ -1,0 +1,21 @@
+[
+  { "player": "Brenen Thompson",    "position": "WR", "school": "MSST", "year": 2026, "top_speed_mph": 24.07, "forty_time": 4.26 },
+  { "player": "Barion Brown",       "position": "WR", "school": "LSU",  "year": 2026, "top_speed_mph": 23.74, "forty_time": 4.40 },
+  { "player": "Demond Claiborne",   "position": "RB", "school": "WAKE", "year": 2026, "top_speed_mph": 23.71, "forty_time": 4.37 },
+  { "player": "Zavion Thomas",      "position": "WR", "school": "LSU",  "year": 2026, "top_speed_mph": 23.57, "forty_time": 4.28 },
+  { "player": "Mike Washington Jr.","position": "RB", "school": "ARK",  "year": 2026, "top_speed_mph": 23.52, "forty_time": 4.33 },
+  { "player": "Toriano Pride Jr.",  "position": "CB", "school": "MIZZ", "year": 2026, "top_speed_mph": 23.50, "forty_time": 4.32 },
+  { "player": "Lorenzo Styles Jr.", "position": "S",  "school": "OSU",  "year": 2026, "top_speed_mph": 23.48, "forty_time": 4.27 },
+  { "player": "Malik Benson",       "position": "WR", "school": "ORE",  "year": 2026, "top_speed_mph": 23.46, "forty_time": 4.37 },
+  { "player": "Eric Rivers",        "position": "WR", "school": "GT",   "year": 2026, "top_speed_mph": 23.41, "forty_time": 4.35 },
+  { "player": "Taylen Green",       "position": "QB", "school": "ARK",  "year": 2026, "top_speed_mph": 23.40, "forty_time": 4.36 },
+  { "player": "Dillon Thieneman",   "position": "S",  "school": "ORE",  "year": 2026, "top_speed_mph": 23.36, "forty_time": 4.35 },
+  { "player": "Caleb Douglas",      "position": "WR", "school": "TTU",  "year": 2026, "top_speed_mph": 23.36, "forty_time": 4.39 },
+  { "player": "Treydan Stukes",     "position": "S",  "school": "ARIZ", "year": 2026, "top_speed_mph": 23.33, "forty_time": 4.33 },
+  { "player": "Daylen Everette",    "position": "CB", "school": "UGA",  "year": 2026, "top_speed_mph": 23.28, "forty_time": 4.38 },
+  { "player": "Chris Hilton Jr.",   "position": "WR", "school": "LSU",  "year": 2026, "top_speed_mph": 23.24, "forty_time": 4.41 },
+  { "player": "Kenyon Sadiq",       "position": "TE", "school": "ORE",  "year": 2026, "top_speed_mph": 23.24, "forty_time": 4.39 },
+  { "player": "Domani Jackson",     "position": "CB", "school": "ALA",  "year": 2026, "top_speed_mph": 23.24, "forty_time": 4.41 },
+  { "player": "Tacario Davis",      "position": "CB", "school": "WASH", "year": 2026, "top_speed_mph": 23.23, "forty_time": 4.41 },
+  { "player": "Ted Hurst",          "position": "WR", "school": "GAST", "year": 2026, "top_speed_mph": 23.23, "forty_time": 4.42 }
+]

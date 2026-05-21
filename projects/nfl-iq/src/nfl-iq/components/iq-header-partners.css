@@ -1,0 +1,48 @@
+.iq-header-partners {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.iq-header-partners__marks {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.iq-header-partners__logo {
+  height: 18px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.iq-header-partners__logo--quick {
+  height: 16.5px;
+}
+
+.iq-header-partners__divider {
+  width: 1px;
+  height: 18px;
+  background: #c4c4c4;
+  flex-shrink: 0;
+}
+
+.iq-header-partners__learn {
+  margin: 0;
+  font-family: Inter, Roboto, system-ui, sans-serif;
+  font-size: 11.2px;
+  line-height: 1.4;
+  color: #212121;
+  text-align: center;
+}
+
+.iq-header-partners__learn a {
+  color: #212121;
+  text-decoration: underline;
+}
+
+.iq-header-partners__learn a:hover {
+  color: var(--iq-nfl-blue);
+}

@@ -1,0 +1,15 @@
+/* Option A — division team filter (Free Agency + Draft Central) */
+.option-a-team-filter-strip {
+  width: 100%;
+  background: var(--iq-surface-muted, #eef3f3);
+  border-bottom: 1px solid var(--iq-border, #d8e0e2);
+}
+
+.option-a-team-filter-strip__inner {
+  display: block;
+  padding-block: 0;
+}
+
+.option-a-team-filter-strip .fa-team-filter {
+  border: none;
+}

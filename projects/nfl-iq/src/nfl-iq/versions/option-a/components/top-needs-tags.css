@@ -1,0 +1,55 @@
+.fa-spending__needs-tags-wrap {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.fa-spending__needs-tags--measure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  max-width: none;
+  gap: 0.35rem;
+}
+
+.fa-spending__needs-tags--full {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.fa-spending__needs-tags--full .fa-spending__need-tag {
+  flex: 0 1 auto;
+  white-space: nowrap;
+}
+
+.fa-spending__needs-tags--abbrev {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.fa-spending__needs-tags--abbrev .fa-spending__need-tag {
+  flex: 1 1 0;
+  justify-content: center;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.fa-spending__need-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fa-spending__needs-tags--abbrev .fa-spending__need-label {
+  overflow: visible;
+  text-overflow: clip;
+}

@@ -1,0 +1,443 @@
+.team-central-charts {
+  --tc-navy: #1a2b4b;
+  --tc-card-border: #d9d9d9;
+  --tc-bg-stripe: #f7f8f9;
+  --tc-text: #212121;
+  --tc-text-soft: #6b7280;
+  --tc-divider: #d1d5db;
+  --tc-row-accent: #0ea5e9;
+
+  margin-top: 1.25rem;
+  padding-bottom: 0.5rem;
+}
+
+.team-central-charts__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+/* Match Free Agency: wide main (draft) left, roster sidebar right */
+.team-central-charts__grid--fa-layout {
+  --tc-charts-height: min(28rem, 58vh);
+
+  grid-template-columns: minmax(0, 3.1fr) minmax(310px, 1.125fr);
+  gap: 1.15rem;
+  align-items: stretch;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--main,
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar {
+  min-height: var(--tc-charts-height);
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--draft {
+  max-height: none;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar {
+  min-height: 0;
+  max-height: var(--tc-charts-height);
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile-toolbar--sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.65rem 0.75rem 0.5rem;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tabs--sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile-logo--sidebar-end {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tab {
+  padding: 0.28rem 0.5rem;
+  font-size: 0.56rem;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__table-scroll {
+  overflow-x: hidden;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table {
+  min-width: 0;
+  width: 100%;
+  table-layout: fixed;
+  font-size: 0.56rem;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th {
+  padding: 0.28rem 0.2rem;
+  font-size: 0.5rem;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td,
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tfoot td {
+  padding: 0.3rem 0.2rem;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(1),
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(1) {
+  width: 14%;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(2),
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(2) {
+  width: 34%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(3),
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(3) {
+  width: 12%;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(4),
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(4) {
+  width: 16%;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(5),
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(5) {
+  width: 14%;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(6),
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(6) {
+  width: 10%;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__aav {
+  font-size: 0.52rem;
+  padding: 0.08rem 0.22rem;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__status {
+  font-size: 0.62rem;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__legend {
+  font-size: 0.48rem;
+  padding: 0.4rem 0.55rem 0.5rem;
+}
+
+.team-central-charts__tile {
+  --tc-navy: #1a2b4b;
+  --tc-card-border: #d9d9d9;
+  --tc-bg-stripe: #f7f8f9;
+  --tc-text: #212121;
+  --tc-text-soft: #6b7280;
+  --tc-divider: #d1d5db;
+  --tc-row-accent: #0ea5e9;
+  --tc-team-tab-bg: var(--tc-navy);
+  --tc-team-tab-text: #fff;
+  --tc-roster-scroll-max: min(22rem, 52vh);
+
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: #fff;
+  border: 1px solid var(--tc-card-border);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.team-central-charts__tile--roster {
+  min-height: 0;
+  max-height: var(--tc-roster-scroll-max);
+}
+
+.team-central-charts__tile-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1rem 0.5rem;
+}
+
+.team-central-charts__tile-head--draft {
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.35rem;
+}
+
+.team-central-charts__tile-head-main {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.team-central-charts__tile-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.team-central-charts__tile-title {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--tc-text);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+.team-central-charts__draft-badge {
+  flex-shrink: 0;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--tc-divider);
+  border-radius: 4px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--tc-navy);
+  background: #fafafa;
+}
+
+.team-central-charts__draft-note {
+  margin: 0;
+  padding: 0 1rem 0.5rem;
+  font-size: 0.65rem;
+  font-style: italic;
+  color: var(--tc-text-soft);
+  line-height: 1.35;
+}
+
+.team-central-charts__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0 0.75rem 0.65rem;
+}
+
+.team-central-charts__tab {
+  margin: 0;
+  padding: 0.38rem 0.85rem;
+  border: none;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: #374151;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.team-central-charts__tab:hover {
+  background: #e5e7eb;
+  color: var(--tc-navy);
+}
+
+.team-central-charts__tab--active {
+  background: var(--tc-team-tab-bg, var(--tc-navy));
+  color: var(--tc-team-tab-text, #fff);
+}
+
+.team-central-charts__tab--active:hover {
+  background: var(--tc-team-tab-bg, var(--tc-navy));
+  color: var(--tc-team-tab-text, #fff);
+}
+
+.team-central-charts__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  background: #fafafa;
+  border-top: 1px solid var(--tc-card-border);
+}
+
+.team-central-charts__tile--roster .team-central-charts__body {
+  flex: 1 1 0;
+}
+
+.team-central-charts__table-scroll {
+  overflow: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.team-central-charts__tile--roster .team-central-charts__table-scroll {
+  flex: 1 1 0;
+}
+
+.team-central-charts__table {
+  width: 100%;
+  min-width: 420px;
+  border-collapse: collapse;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.68rem;
+  color: var(--tc-text);
+}
+
+.team-central-charts__table--draft {
+  min-width: 520px;
+}
+
+.team-central-charts__table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0.45rem 0.5rem;
+  text-align: left;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tc-text-soft);
+  background: #fff;
+  border-bottom: 1px solid var(--tc-card-border);
+  white-space: nowrap;
+}
+
+.team-central-charts__table tbody td,
+.team-central-charts__table tfoot td {
+  padding: 0.42rem 0.5rem;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.team-central-charts__table tbody tr:nth-child(even) {
+  background: var(--tc-bg-stripe);
+}
+
+.team-central-charts__table tbody tr:nth-child(odd) {
+  background: #fff;
+}
+
+.team-central-charts__tr--highlight {
+  box-shadow: inset 4px 0 0 0 var(--tc-row-accent);
+}
+
+.team-central-charts__age--accent {
+  color: #6d28d9;
+  font-weight: 800;
+}
+
+.team-central-charts__yrs {
+  font-family: ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  color: #4b5563;
+}
+
+.team-central-charts__aav {
+  display: inline-block;
+  padding: 0.12rem 0.35rem;
+  background: #e8eef5;
+  border: 1px solid #c5d4e4;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 0.65rem;
+}
+
+.team-central-charts__status {
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.team-central-charts__tfoot-sum td {
+  font-weight: 800;
+  background: #f3f4f6 !important;
+  border-bottom: none;
+}
+
+.team-central-charts__tile-head,
+.team-central-charts__tabs,
+.team-central-charts__tile-toolbar {
+  flex-shrink: 0;
+}
+
+.team-central-charts__legend {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.5rem 0.75rem 0.65rem;
+  font-size: 0.55rem;
+  line-height: 1.4;
+  color: var(--tc-text-soft);
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+.team-central-charts__ovr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.65rem;
+  height: 1.65rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.team-central-charts__ovr--high {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.team-central-charts__ovr--mid {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+.team-central-charts__ovr--low {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.team-central-charts__draft-credit {
+  margin: 0;
+  padding: 0.45rem 0.75rem 0.65rem;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--tc-text-soft);
+  text-align: right;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+@media (max-width: 900px) {
+  .team-central-charts__grid,
+  .team-central-charts__grid--fa-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .team-central-charts__grid--fa-layout .team-central-charts__tile--main,
+  .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar {
+    min-height: 0;
+    max-height: none;
+  }
+}

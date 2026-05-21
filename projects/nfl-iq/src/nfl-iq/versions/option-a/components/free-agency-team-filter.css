@@ -1,0 +1,107 @@
+/* Option A team bar — division groups + double-ring team selection */
+.fa-team-filter {
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 0;
+  background: var(--iq-surface-muted, #eef3f3);
+  border: 1px solid var(--iq-border, #d8e0e2);
+  border-radius: 0;
+}
+
+.fa-team-filter__scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.15rem;
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 0.35rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.fa-team-filter__division {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.3rem;
+  border-radius: 8px;
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.fa-team-filter__division--highlight {
+  padding-left: calc(0.3rem + 4px);
+  padding-right: calc(0.3rem + 4px);
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--iq-nfl-blue, #013369) 15%, transparent);
+  box-shadow: none;
+}
+
+.fa-team-filter__division + .fa-team-filter__division {
+  margin-left: 0.15rem;
+}
+
+.fa-team-filter__team {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.fa-team-filter__team:hover .fa-team-filter__logo {
+  opacity: 1;
+}
+
+.fa-team-filter__team-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.fa-team-filter__team-ring--selected {
+  padding: 2px;
+  border: 2px solid var(--iq-nfl-blue, #013369);
+}
+
+.fa-team-filter__team-core {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.fa-team-filter__team-core--selected {
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.fa-team-filter__logo {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.fa-team-filter__team--selected .fa-team-filter__logo {
+  width: 24px;
+  height: 24px;
+  opacity: 1;
+}

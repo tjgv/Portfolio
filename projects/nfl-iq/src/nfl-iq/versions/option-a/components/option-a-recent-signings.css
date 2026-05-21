@@ -1,0 +1,205 @@
+/* Option A — Recent signings table */
+.free-agency-page--option-a .free-agency-signings {
+  margin-top: 1.25rem;
+  padding: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--option-a-divider, #eef2f4);
+  border-radius: 12px;
+  box-shadow: var(--iq-shadow, 0 1px 3px rgba(11, 22, 42, 0.08));
+}
+
+.free-agency-page--option-a .free-agency-signings__head {
+  margin: 0;
+  padding: 0.65rem var(--option-a-content-pad, 0.65rem);
+  border-bottom: 1px solid var(--option-a-divider, #eef2f4);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #111827;
+}
+
+.free-agency-page--option-a .fa-signings__scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.free-agency-page--option-a .fa-signings__table {
+  width: 100%;
+  min-width: 40rem;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: #212121;
+}
+
+.free-agency-page--option-a .fa-signings__table thead th {
+  padding: 0;
+  background: #fff;
+  border-bottom: 1px solid var(--option-a-divider, #eef2f4);
+  vertical-align: middle;
+}
+
+.free-agency-page--option-a .fa-signings__table thead th .iq-table-col-cell,
+.free-agency-page--option-a .fa-signings__table thead th .fa-table-sort {
+  padding: 0.5rem 0.65rem;
+}
+
+.free-agency-page--option-a .fa-signings__th--player {
+  width: 38%;
+}
+
+.free-agency-page--option-a .fa-signings__th--team {
+  width: 12%;
+  text-align: center;
+}
+
+.free-agency-page--option-a .fa-signings__th--type {
+  width: 18%;
+}
+
+.free-agency-page--option-a .fa-signings__th--price {
+  width: 22%;
+}
+
+.free-agency-page--option-a .fa-signings__td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.free-agency-page--option-a .fa-signings__table tbody tr:nth-child(even) td {
+  background: #f7f8f9;
+}
+
+.free-agency-page--option-a .fa-signings__table tbody tr:hover td {
+  background: #f0f4f8;
+}
+
+.free-agency-page--option-a .fa-signings__td--team {
+  text-align: center;
+}
+
+.free-agency-page--option-a .fa-signings__player {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.free-agency-page--option-a .fa-signings__portrait {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e8eef5 0%, #d1dce8 100%);
+  border: 1px solid #c5d4e4;
+}
+
+.free-agency-page--option-a .fa-signings__portrait-initials {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #1a2b4b;
+  line-height: 1;
+}
+
+.free-agency-page--option-a .fa-signings__player-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.free-agency-page--option-a .fa-signings__player-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #111827;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.free-agency-page--option-a .fa-signings__player-pos {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.free-agency-page--option-a .fa-signings__team-logo {
+  display: inline-block;
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+}
+
+.free-agency-page--option-a .fa-signings__type {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.free-agency-page--option-a .fa-signings__type-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.free-agency-page--option-a .fa-signings__type--sold {
+  color: #b45309;
+}
+
+.free-agency-page--option-a .fa-signings__type--resigned {
+  color: #1d4ed8;
+}
+
+.free-agency-page--option-a .fa-signings__type-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.free-agency-page--option-a .fa-signings__deal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.free-agency-page--option-a .fa-signings__deal-value {
+  display: inline-block;
+  padding: 0.14rem 0.4rem;
+  background: #e8eef5;
+  border: 1px solid #c5d4e4;
+  border-radius: 3px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #1a2b4b;
+  line-height: 1.2;
+}
+
+.free-agency-page--option-a .fa-signings__deal-years {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.free-agency-page--option-a .fa-signings__th--team .iq-table-col-cell,
+.free-agency-page--option-a .fa-signings__th--team .fa-table-sort {
+  justify-content: center;
+}
+
+.free-agency-page--option-a .fa-signings__th--team .fa-table-sort {
+  width: 100%;
+}

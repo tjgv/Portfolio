@@ -1,0 +1,351 @@
+/* Option A spending panel — typography aligned with NFL IQ / reference mock */
+.fa-board__card--sidebar .fa-spending {
+  --fa-spending-font-title: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  --fa-spending-font-label: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  --fa-spending-font-value: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  --fa-spending-font-rank: Roboto, Inter, system-ui, sans-serif;
+  --fa-spending-ink: #111111;
+  --fa-spending-muted: #6b7280;
+  --fa-spending-navy: #1a2b4b;
+  --fa-spending-row-h: 3.35rem;
+  --fa-spending-logo-size: 28px;
+}
+
+.fa-spending {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.45rem 0.6rem 0.7rem;
+  min-height: 100%;
+}
+
+.fa-spending__table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.fa-spending__row {
+  display: grid;
+  grid-template-columns: 45% 10% 45%;
+  align-items: stretch;
+  min-height: var(--fa-spending-row-h);
+  width: 100%;
+}
+
+.fa-spending__team-col {
+  min-width: 0;
+}
+
+.fa-spending__row-gap {
+  min-width: 0;
+}
+
+.fa-spending__rivals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Logo header — isolated from metric row min-heights */
+.fa-spending__head {
+  display: grid;
+  grid-template-columns: 45% 10% 45%;
+  align-items: center;
+  width: 100%;
+  min-height: var(--fa-spending-logo-size);
+  margin: 0;
+  padding: 0 0 0.45rem;
+  border-bottom: 1px solid #e5e7eb;
+  box-sizing: content-box;
+}
+
+.fa-spending__head-team,
+.fa-spending__head-rival {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--fa-spending-logo-size);
+}
+
+.fa-spending__head-team {
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.fa-spending__head-title {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--fa-spending-logo-size);
+  font-family: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1a2b4b;
+  white-space: nowrap;
+}
+
+.fa-spending__head-gap {
+  min-width: 0;
+}
+
+.fa-spending__head-rivals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  min-height: var(--fa-spending-logo-size);
+  min-width: 0;
+}
+
+.fa-spending__head-rival {
+  justify-content: center;
+  min-width: 0;
+}
+
+.fa-spending__team-col .fa-spending__metric-cell {
+  width: 100%;
+}
+
+.fa-spending__metric-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.fa-spending__metric-cell--with-meter {
+  min-height: var(--fa-spending-row-h);
+}
+
+.fa-spending__metric-body {
+  display: flex;
+  align-items: stretch;
+  gap: 0.45rem;
+  height: 100%;
+  min-height: var(--fa-spending-row-h);
+}
+
+.fa-spending__metric-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: var(--fa-spending-row-h);
+}
+
+.fa-spending__meter {
+  flex-shrink: 0;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-end;
+  padding-bottom: 0.12rem;
+}
+
+.fa-spending__meter-track {
+  width: 8px;
+  height: 100%;
+  min-height: calc(var(--fa-spending-row-h) - 0.15rem);
+  background: #e8ecef;
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: inset 0 0 0 1px rgba(11, 22, 42, 0.06);
+}
+
+.fa-spending__meter-fill {
+  width: 100%;
+  min-height: 0.35rem;
+  background: linear-gradient(180deg, #4ade80 0%, #16a34a 55%, #15803d 100%);
+  border-radius: 999px;
+  transition: height 0.25s ease;
+}
+
+.fa-spending__meter--spacer {
+  width: 8px;
+  flex-shrink: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.fa-spending__rival-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  min-height: var(--fa-spending-row-h);
+  padding-bottom: 0.1rem;
+}
+
+.fa-spending__header-logo {
+  display: block;
+  width: var(--fa-spending-logo-size);
+  height: var(--fa-spending-logo-size);
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  object-fit: contain;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* Metric labels — compact top of row */
+.fa-spending__metric-label {
+  flex-shrink: 0;
+  margin: 0 0 4px;
+  font-family: var(--fa-spending-font-label);
+  font-size: clamp(0.58rem, 1.8vw, 0.65rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fa-spending-muted);
+}
+
+.fa-spending__metric-row {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+  flex: 0 0 auto;
+  min-height: 0;
+  margin-right: 0;
+}
+
+/* Dollar values — dominant in row */
+.fa-spending__metric-value {
+  font-family: var(--fa-spending-font-value);
+  font-size: clamp(1.05rem, 4.2vw, 1.35rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  color: var(--fa-spending-ink);
+}
+
+/* Rank chips beside values */
+.fa-spending__rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  padding: 0.18rem 0.32rem;
+  border-radius: 3px;
+  font-family: var(--fa-spending-font-rank);
+  font-size: clamp(0.58rem, 1.6vw, 0.65rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--fa-spending-ink);
+  transform: translateY(-0.06rem);
+}
+
+.fa-spending__rank-badge--gold {
+  background: #fef3c7;
+  color: #78350f;
+}
+
+.fa-spending__rank-badge--green {
+  background: #dcfce7;
+  color: #14532d;
+}
+
+.fa-spending__rank-badge--mint {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+/* Rival division ranks — match scale of dollar values in row */
+.fa-spending__division-rank {
+  display: block;
+  width: 100%;
+  font-family: var(--fa-spending-font-value);
+  font-size: clamp(1rem, 4vw, 1.28rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  color: var(--fa-spending-ink);
+  text-align: center;
+}
+
+/* Top needs */
+.fa-spending__needs {
+  margin-top: auto;
+  padding-top: 0.55rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.fa-spending__needs-label {
+  margin: 0 0 0.35rem;
+  font-family: Roboto, Inter, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--fa-spending-muted);
+}
+
+.fa-spending__needs-tags {
+  gap: 0.3rem;
+}
+
+.fa-spending__need-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.22rem 0.4rem;
+  border-radius: 3px;
+  font-family: var(--fa-spending-font-title);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fa-spending__need-tag--done {
+  background: #dcfce7;
+  color: #14532d;
+}
+
+.fa-spending__need-tag--partial {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.fa-spending__need-tag--need {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.fa-spending__need-tag--critical {
+  background: #fecaca;
+  color: #7f1d1d;
+}
+
+.fa-spending__need-icon {
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.fa-spending__need-label {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}

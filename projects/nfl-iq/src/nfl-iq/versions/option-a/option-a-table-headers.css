@@ -1,0 +1,75 @@
+/* Option A — all table column titles: ALL CAPS, vertically centered, one text color */
+
+.nfl-iq[data-mock-version='option-a'] table thead th,
+.nfl-iq[data-mock-version='option-a'] .draft-board__th,
+.nfl-iq[data-mock-version='option-a'] .ng-rankings__th {
+  text-transform: uppercase;
+  vertical-align: middle;
+  color: var(--option-a-col-header-color);
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-board__th--combine {
+  color: var(--option-a-col-header-color) !important;
+}
+
+.nfl-iq[data-mock-version='option-a'] table thead th .iq-table-col-cell {
+  align-items: center;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.nfl-iq[data-mock-version='option-a'] table thead th .fa-table-sort,
+.nfl-iq[data-mock-version='option-a'] table thead th .fa-table-sort__label,
+.nfl-iq[data-mock-version='option-a'] table thead th .fa-table-filter-trigger {
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-board__table thead th,
+.nfl-iq[data-mock-version='option-a'] .ng-rankings__table thead th {
+  vertical-align: middle;
+}
+
+.nfl-iq[data-mock-version='option-a'] .iq-table thead th {
+  vertical-align: middle;
+  color: var(--option-a-col-header-color);
+}
+
+/* Sort / filter triggers — same color in default, hover, active, and open states */
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort:hover,
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort--active,
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-trigger:hover,
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-trigger--open,
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-th--active .fa-table-filter-trigger {
+  color: inherit;
+}

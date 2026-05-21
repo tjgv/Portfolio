@@ -1,0 +1,40 @@
+.draft-board--option-a .draft-board__th--got,
+.draft-board--option-a .draft-board__th--rivals {
+  text-align: center;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  max-width: 2.75rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  box-sizing: border-box;
+}
+
+.draft-board--option-a .draft-board__table th.draft-board__th--got,
+.draft-board--option-a .draft-board__table th.draft-board__th--rivals {
+  text-align: center;
+}
+
+.draft-board--option-a .draft-board__td--got,
+.draft-board--option-a .draft-board__td--rivals {
+  text-align: center;
+  text-transform: none;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  max-width: 2.75rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  box-sizing: border-box;
+}
+
+.draft-board__team-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.draft-board__team-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}

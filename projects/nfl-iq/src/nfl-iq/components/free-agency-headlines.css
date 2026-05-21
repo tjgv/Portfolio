@@ -1,0 +1,116 @@
+.fa-headlines-wrap {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.fa-headlines {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.85fr) repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  background: #fff;
+  border: 1px solid #e2e6e8;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(11, 22, 42, 0.06);
+  overflow: hidden;
+}
+
+.fa-headlines__brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0.85rem;
+  border-right: 1px solid #e5e7eb;
+}
+
+.fa-headlines__logos {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.fa-headlines__nfl-logo {
+  display: block;
+  object-fit: contain;
+}
+
+.fa-headlines__iq-logo {
+  display: block;
+  width: auto;
+  max-width: 72px;
+  object-fit: contain;
+}
+
+.fa-headlines__title {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #111827;
+}
+
+.fa-headlines__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.85rem 0.75rem;
+  border-left: 3px solid var(--fa-headline-accent, #d1d5db);
+}
+
+.fa-headlines__team-logo {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.fa-headlines__text {
+  margin: 0;
+  font-family: Roboto, Inter, system-ui, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #374151;
+}
+
+.fa-headlines__text strong {
+  font-weight: 700;
+  color: #111827;
+}
+
+.fa-headlines__attribution {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  margin: 0.45rem 0 0;
+  padding-right: 0.15rem;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #9ca3af;
+}
+
+.fa-headlines__attribution img {
+  display: block;
+  object-fit: contain;
+}
+
+@media (max-width: 1000px) {
+  .fa-headlines {
+    grid-template-columns: 1fr;
+  }
+
+  .fa-headlines__brand {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .fa-headlines__item {
+    border-left-width: 3px;
+    border-top: none;
+  }
+}

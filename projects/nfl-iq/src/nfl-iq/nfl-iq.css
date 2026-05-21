@@ -1,0 +1,900 @@
+/* NFL IQ — visual system aligned with nfl.com/iq light theme */
+
+.nfl-iq {
+  --iq-bg: #f4f8f8;
+  --iq-surface: #ffffff;
+  --iq-surface-muted: #eef3f3;
+  --iq-border: #d8e0e2;
+  --iq-text: #0b162a;
+  --iq-text-muted: #5c6578;
+  --iq-nfl-blue: #013369;
+  --iq-accent: #ff9900;
+  --iq-accent-dark: #e88b00;
+  --iq-success: #1a7f4b;
+  --iq-danger: #c41e3a;
+  --iq-high: #c41e3a;
+  --iq-medium: #e88b00;
+  --iq-low: #5c6578;
+  --iq-shadow: 0 4px 24px rgba(11, 22, 42, 0.08);
+  --iq-radius: 12px;
+  --iq-header-h: 56px;
+  --iq-bottom-nav-h: 64px;
+  --iq-chat-w: 380px;
+  --iq-page-max: 1280px;
+  --iq-page-gutter: 1rem;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--iq-bg);
+  color: var(--iq-text);
+  font-family: 'All-Pro', 'All Pro', Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.nfl-iq *,
+.nfl-iq *::before,
+.nfl-iq *::after {
+  box-sizing: border-box;
+}
+
+.nfl-iq a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Shared horizontal alignment with site nav (max width + gutters) */
+.iq-page-inner {
+  width: 100%;
+  max-width: var(--iq-page-max);
+  margin-inline: auto;
+  padding-inline: var(--iq-page-gutter);
+}
+
+/* —— Skip link —— */
+.iq-skip {
+  position: absolute;
+  left: -9999px;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  color: var(--iq-nfl-blue);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.iq-skip:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+.mock-showcase {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-showcase > .nfl-iq {
+  flex: 1 1 auto;
+}
+
+/* —— Score strip —— */
+.iq-score-strip {
+  display: flex;
+  align-items: stretch;
+  background: var(--iq-surface);
+  border-bottom: 1px solid var(--iq-border);
+  overflow: hidden;
+}
+
+.iq-score-strip__btn {
+  flex: 0 0 28px;
+  border: none;
+  background: var(--iq-surface);
+  color: var(--iq-text-muted);
+  cursor: pointer;
+  border-right: 1px solid var(--iq-border);
+}
+
+.iq-score-strip__btn:last-of-type {
+  border-right: none;
+  border-left: 1px solid var(--iq-border);
+}
+
+.iq-score-strip__track {
+  display: flex;
+  flex: 1;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.iq-score-strip__track::-webkit-scrollbar {
+  display: none;
+}
+
+.iq-score-card {
+  flex: 0 0 108px;
+  scroll-snap-align: start;
+  border-right: 1px solid var(--iq-border);
+  padding: 0.35rem 0.5rem;
+  background: var(--iq-surface);
+  transition: background 0.15s;
+}
+
+.iq-score-card:hover {
+  background: #fafcfc;
+}
+
+.iq-score-card__row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-style: italic;
+  padding: 0.15rem 0;
+}
+
+.iq-score-card__logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.iq-score-card__network {
+  font-size: 0.55rem;
+  color: var(--iq-text-muted);
+  text-align: center;
+  padding-top: 0.2rem;
+  border-top: 1px solid var(--iq-border);
+  margin-top: 0.2rem;
+}
+
+/* —— Main header —— */
+.iq-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--iq-surface);
+  border-bottom: 1px solid var(--iq-border);
+}
+
+.iq-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.65rem 1rem;
+  min-height: var(--iq-header-h);
+}
+
+.iq-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.iq-header__nfl-logo {
+  width: 36px;
+  height: 36px;
+}
+
+.iq-header__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.iq-header__title-main {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--iq-nfl-blue);
+  line-height: 1.1;
+}
+
+.iq-header__title-sub {
+  font-size: 0.65rem;
+  color: var(--iq-text-muted);
+  font-weight: 600;
+}
+
+.iq-header__title-sub strong {
+  color: #232f3e;
+}
+
+.iq-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iq-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.iq-btn:active {
+  transform: scale(0.98);
+}
+
+.iq-btn--primary {
+  background: var(--iq-nfl-blue);
+  color: #fff;
+  padding: 0.5rem 0.9rem;
+}
+
+.iq-btn--primary:hover {
+  background: #002654;
+}
+
+.iq-btn--accent {
+  background: linear-gradient(180deg, #ffad33 0%, var(--iq-accent) 100%);
+  color: #1a1200;
+  padding: 0.5rem 0.9rem;
+  box-shadow: 0 2px 8px rgba(255, 153, 0, 0.35);
+}
+
+.iq-btn--ghost {
+  background: transparent;
+  color: var(--iq-nfl-blue);
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--iq-border);
+}
+
+.iq-btn--icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: var(--iq-surface-muted);
+  color: var(--iq-nfl-blue);
+}
+
+/* —— Hub nav tabs (desktop) —— */
+.iq-hub-nav {
+  display: none;
+  border-bottom: 1px solid var(--iq-border);
+  background: var(--iq-surface);
+}
+
+@media (min-width: 900px) {
+  .iq-hub-nav {
+    display: block;
+  }
+}
+
+.iq-hub-nav__inner {
+  max-width: var(--iq-page-max);
+  margin: 0 auto;
+  display: flex;
+  gap: 0.25rem;
+  padding: 0 var(--iq-page-gutter);
+}
+
+.iq-hub-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--iq-text-muted);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.iq-hub-nav__link:hover {
+  color: var(--iq-nfl-blue);
+}
+
+.iq-hub-nav__link--active {
+  color: var(--iq-nfl-blue);
+  border-bottom-color: var(--iq-nfl-blue);
+}
+
+/* —— Layout —— */
+.iq-layout {
+  display: flex;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: calc(100vh - 120px);
+  min-height: calc(100dvh - 120px);
+}
+
+.iq-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--iq-page-max);
+  margin-inline: auto;
+  padding: calc(1.25rem - 12px) var(--iq-page-gutter) 5.5rem;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .iq-main {
+    padding: calc(1.5rem - 12px) var(--iq-page-gutter) 2rem;
+  }
+}
+
+/* —— Hero —— */
+.iq-hero {
+  background: linear-gradient(135deg, var(--iq-nfl-blue) 0%, #1a4480 55%, #013369 100%);
+  border-radius: var(--iq-radius);
+  padding: 1.75rem 1.5rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.iq-hero::after {
+  content: '';
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 153, 0, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.iq-hero__eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin: 0 0 0.5rem;
+}
+
+.iq-hero__title {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+  line-height: 1.1;
+  position: relative;
+  z-index: 1;
+}
+
+.iq-hero__desc {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  opacity: 0.92;
+  max-width: 52ch;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.iq-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  padding: 0.35rem 0.65rem;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+/* —— Hub cards —— */
+.iq-hub-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .iq-hub-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .iq-hub-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.iq-hub-card {
+  background: var(--iq-surface);
+  border: 1px solid var(--iq-border);
+  border-radius: var(--iq-radius);
+  padding: 1.25rem;
+  box-shadow: var(--iq-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.iq-hub-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(11, 22, 42, 0.12);
+}
+
+.iq-hub-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--iq-surface-muted);
+  color: var(--iq-nfl-blue);
+}
+
+.iq-hub-card__icon--fa {
+  background: #e8f4ec;
+  color: var(--iq-success);
+}
+
+.iq-hub-card__icon--draft {
+  background: #eef0ff;
+  color: #3b4cca;
+}
+
+.iq-hub-card__title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--iq-nfl-blue);
+}
+
+.iq-hub-card__desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--iq-text-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.iq-hub-card__cta {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--iq-nfl-blue);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* —— Section headers —— */
+.iq-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.iq-section-head h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--iq-nfl-blue);
+  margin: 0;
+}
+
+.iq-section-head p {
+  margin: 0.35rem 0 0;
+  color: var(--iq-text-muted);
+  font-size: 0.9rem;
+}
+
+/* —— Team picker —— */
+.iq-team-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.iq-team-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--iq-border);
+  background: var(--iq-surface);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.iq-team-chip:hover {
+  border-color: var(--iq-nfl-blue);
+}
+
+.iq-team-chip--active {
+  background: var(--iq-nfl-blue);
+  border-color: var(--iq-nfl-blue);
+  color: #fff;
+}
+
+.iq-team-chip img {
+  width: 20px;
+  height: 20px;
+}
+
+/* —— Stats row —— */
+.iq-stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .iq-stats-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.iq-stat-card {
+  background: var(--iq-surface);
+  border: 1px solid var(--iq-border);
+  border-radius: var(--iq-radius);
+  padding: 1rem;
+}
+
+.iq-stat-card__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--iq-text-muted);
+  margin: 0 0 0.35rem;
+}
+
+.iq-stat-card__value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--iq-nfl-blue);
+  margin: 0;
+}
+
+/* —— Panels & tables —— */
+.iq-panel {
+  background: var(--iq-surface);
+  border: 1px solid var(--iq-border);
+  border-radius: var(--iq-radius);
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--iq-shadow);
+}
+
+.iq-panel__head {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--iq-border);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--iq-nfl-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.iq-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.iq-table th {
+  text-align: left;
+  padding: 0.65rem 1rem;
+  background: var(--iq-surface-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--iq-text-muted);
+}
+
+.iq-table td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--iq-border);
+}
+
+.iq-table tr:hover td {
+  background: #fafcfc;
+}
+
+.iq-priority {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.iq-priority--high {
+  background: #fde8ec;
+  color: var(--iq-high);
+}
+
+.iq-priority--medium {
+  background: #fff4e0;
+  color: var(--iq-medium);
+}
+
+.iq-priority--low {
+  background: #eef0f3;
+  color: var(--iq-low);
+}
+
+.iq-status {
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.iq-status--signed {
+  color: var(--iq-success);
+}
+
+.iq-status--available {
+  color: var(--iq-nfl-blue);
+}
+
+.iq-ngs-score {
+  font-weight: 800;
+  color: var(--iq-nfl-blue);
+}
+
+/* —— Depth chart —— */
+.iq-depth-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .iq-depth-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.iq-depth-unit {
+  padding: 1rem;
+}
+
+.iq-depth-unit h3 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--iq-text-muted);
+  margin: 0 0 0.65rem;
+}
+
+.iq-depth-unit ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.iq-depth-unit li {
+  font-size: 0.85rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--iq-border);
+}
+
+.iq-depth-unit li:last-child {
+  border-bottom: none;
+}
+
+/* —— Chat panel —— */
+.iq-chat {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: min(var(--iq-chat-w), 100vw);
+  background: var(--iq-surface);
+  border-left: 1px solid var(--iq-border);
+  box-shadow: -8px 0 32px rgba(11, 22, 42, 0.12);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+}
+
+.iq-chat--open {
+  transform: translateX(0);
+}
+
+.iq-chat__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid var(--iq-border);
+  background: linear-gradient(180deg, #f8fafb 0%, #fff 100%);
+}
+
+.iq-chat__head h2 {
+  font-size: 1rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--iq-nfl-blue);
+}
+
+.iq-chat__head p {
+  font-size: 0.7rem;
+  color: var(--iq-text-muted);
+  margin: 0.15rem 0 0;
+}
+
+.iq-chat__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.iq-chat__bubble {
+  max-width: 92%;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.iq-chat__bubble--user {
+  align-self: flex-end;
+  background: var(--iq-nfl-blue);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.iq-chat__bubble--bot {
+  align-self: flex-start;
+  background: var(--iq-surface-muted);
+  color: var(--iq-text);
+  border-bottom-left-radius: 4px;
+}
+
+.iq-chat__suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0 1rem 0.75rem;
+}
+
+.iq-chat__suggestion {
+  font-size: 0.7rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--iq-border);
+  background: var(--iq-surface);
+  color: var(--iq-nfl-blue);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.iq-chat__suggestion:hover {
+  border-color: var(--iq-nfl-blue);
+}
+
+.iq-chat__input-row {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 1rem;
+  border-top: 1px solid var(--iq-border);
+}
+
+.iq-chat__input {
+  flex: 1;
+  border: 1px solid var(--iq-border);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.iq-chat__input:focus {
+  outline: 2px solid var(--iq-nfl-blue);
+  outline-offset: 0;
+}
+
+.iq-chat-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 22, 42, 0.4);
+  z-index: 55;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.iq-chat-backdrop--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* —— Bottom nav (mobile) —— */
+.iq-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 45;
+  display: flex;
+  background: var(--iq-surface);
+  border-top: 1px solid var(--iq-border);
+  padding: 0.35rem 0.25rem calc(0.35rem + env(safe-area-inset-bottom));
+  min-height: var(--iq-bottom-nav-h);
+}
+
+@media (min-width: 900px) {
+  .iq-bottom-nav {
+    display: none;
+  }
+}
+
+.iq-bottom-nav__link {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--iq-text-muted);
+  padding: 0.25rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.iq-bottom-nav__link--active {
+  color: var(--iq-nfl-blue);
+}
+
+.iq-bottom-nav__link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* —— Placeholder pages —— */
+.iq-placeholder {
+  background: var(--iq-surface);
+  border: 1px dashed var(--iq-border);
+  border-radius: var(--iq-radius);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--iq-text-muted);
+}
+
+.iq-placeholder h2 {
+  color: var(--iq-nfl-blue);
+  margin: 0 0 0.5rem;
+}
+
+.iq-loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--iq-text-muted);
+}

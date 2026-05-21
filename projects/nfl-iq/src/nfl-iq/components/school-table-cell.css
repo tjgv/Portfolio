@@ -1,0 +1,31 @@
+.school-table-cell__wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.school-table-cell__logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.fa-board__school-cell.school-table-cell .school-table-cell__logo {
+  width: 22px;
+  height: 22px;
+}
+
+.school-table-cell__fallback {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: var(--iq-nfl-blue, #013369);
+  color: #fff;
+  font-size: 0.48rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

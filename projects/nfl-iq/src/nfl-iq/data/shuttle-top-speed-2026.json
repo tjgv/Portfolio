@@ -1,0 +1,21 @@
+[
+  { "player": "Sonny Styles",           "position": "LB", "school": "OSU",  "year": 2026, "shuttle_top_speed_mph": 14.39, "shuttle_time": 4.26 },
+  { "player": "Vinny Anthony II",       "position": "WR", "school": "WIS",  "year": 2026, "shuttle_top_speed_mph": 14.11, "shuttle_time": 4.07 },
+  { "player": "Denzel Boston",          "position": "WR", "school": "WASH", "year": 2026, "shuttle_top_speed_mph": 13.94, "shuttle_time": 4.28 },
+  { "player": "Latrell McCutchin",      "position": "CB", "school": "HOU",  "year": 2026, "shuttle_top_speed_mph": 13.93, "shuttle_time": 4.18 },
+  { "player": "Robert Henry Jr.",       "position": "RB", "school": "UTSA", "year": 2026, "shuttle_top_speed_mph": 13.89, "shuttle_time": 4.31 },
+  { "player": "Emmett Johnson",         "position": "RB", "school": "NEB",  "year": 2026, "shuttle_top_speed_mph": 13.87, "shuttle_time": 4.29 },
+  { "player": "Adam Randall",           "position": "RB", "school": "CLEM", "year": 2026, "shuttle_top_speed_mph": 13.69, "shuttle_time": 4.53 },
+  { "player": "Jake Golday",            "position": "LB", "school": "CIN",  "year": 2026, "shuttle_top_speed_mph": 13.63, "shuttle_time": 4.34 },
+  { "player": "Jacob Rodriguez",        "position": "LB", "school": "TTU",  "year": 2026, "shuttle_top_speed_mph": 13.61, "shuttle_time": 4.19 },
+  { "player": "Germie Bernard",         "position": "WR", "school": "ALA",  "year": 2026, "shuttle_top_speed_mph": 13.49, "shuttle_time": 4.31 },
+  { "player": "Seth McGowan",           "position": "RB", "school": "UK",   "year": 2026, "shuttle_top_speed_mph": 13.42, "shuttle_time": 4.50 },
+  { "player": "Robert Spears-Jennings", "position": "S",  "school": "OKLA", "year": 2026, "shuttle_top_speed_mph": 13.37, "shuttle_time": 4.43 },
+  { "player": "Bryce Lance",            "position": "WR", "school": "NDSU", "year": 2026, "shuttle_top_speed_mph": 13.33, "shuttle_time": 4.15 },
+  { "player": "Julian Neal",            "position": "CB", "school": "ARK",  "year": 2026, "shuttle_top_speed_mph": 13.29, "shuttle_time": 4.20 },
+  { "player": "Khalil Dinkins",         "position": "TE", "school": "PSU",  "year": 2026, "shuttle_top_speed_mph": 13.23, "shuttle_time": 4.33 },
+  { "player": "Namdi Obiazor",          "position": "LB", "school": "TCU",  "year": 2026, "shuttle_top_speed_mph": 13.19, "shuttle_time": 4.36 },
+  { "player": "Xavian Sorey Jr.",       "position": "LB", "school": "ARK",  "year": 2026, "shuttle_top_speed_mph": 13.12, "shuttle_time": 4.42 },
+  { "player": "Kaleb Elarms-Orr",       "position": "LB", "school": "TCU",  "year": 2026, "shuttle_top_speed_mph": 13.10, "shuttle_time": 4.41 },
+  { "player": "Jack Kelly",             "position": "LB", "school": "BYU",  "year": 2026, "shuttle_top_speed_mph": 13.05, "shuttle_time": 4.19 }
+]

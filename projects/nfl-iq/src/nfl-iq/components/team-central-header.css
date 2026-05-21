@@ -1,0 +1,180 @@
+.team-central-header {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  width: 100%;
+  padding: 0.85rem 0;
+  background: #f4f8f8;
+}
+
+.team-central-header__left {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.85rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.team-central-header__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.team-central-header__logo-wrap {
+  flex-shrink: 0;
+  width: 88px;
+  margin-top: -4px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.team-central-header__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.team-central-header__name {
+  margin: 0;
+  font-family: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.5%;
+  text-transform: uppercase;
+}
+
+.team-central-header__info-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* 12px between the five stat columns; column-gap only */
+.team-central-header__info {
+  display: grid;
+  grid-template-columns: 193.5px repeat(4, 153px);
+  column-gap: 12px;
+  row-gap: 0;
+  align-items: start;
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 100%;
+}
+
+.team-central-header__col {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding-bottom: 0.5rem;
+}
+
+.team-central-header__col-title {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  min-height: 12px;
+  margin: 0;
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 1px;
+  color: rgb(107, 114, 128);
+  text-transform: uppercase;
+}
+
+.team-central-header__col-value {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: rgb(17, 17, 17);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-central-header__col--record {
+  width: 193.5px;
+  min-width: 193.5px;
+}
+
+.team-central-header__col--staff {
+  width: 153px;
+  min-width: 153px;
+}
+
+.team-central-header__partners {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  /* Vertically center with the team name + info column on the left */
+  align-self: center;
+  min-width: 0;
+}
+
+/* Larger partner marks in Team Central header only (8px gap marks → learn comes from .iq-header-partners) */
+.team-central-header__partners .iq-header-partners__logo {
+  height: 30px;
+}
+
+.team-central-header__partners .iq-header-partners__logo--quick {
+  height: 28px;
+}
+
+.team-central-header__partners .iq-header-partners__divider {
+  height: 30px;
+}
+
+@media (max-width: 1100px) {
+  .team-central-header {
+    flex-wrap: wrap;
+  }
+
+  .team-central-header__partners {
+    flex-basis: 100%;
+    align-items: flex-start;
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 900px) {
+  .team-central-header__name {
+    font-size: clamp(1.25rem, 4vw, 34px);
+  }
+}
+
+@media (max-width: 560px) {
+  .team-central-header__left {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .team-central-header__logo-wrap {
+    width: 100%;
+    height: 72px;
+    align-self: center;
+    max-width: 120px;
+  }
+}

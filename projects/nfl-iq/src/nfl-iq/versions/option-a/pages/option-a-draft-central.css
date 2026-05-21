@@ -1,0 +1,10 @@
+/* Option A — Draft Central prospect board (layout handles bleed + width) */
+.draft-central-page--option-a .draft-board--option-a {
+  margin-top: 0.85rem;
+}
+
+.draft-central-page--option-a
+  .draft-central-section--prospect-board
+  .draft-board__primary-card {
+  overflow: visible;
+}

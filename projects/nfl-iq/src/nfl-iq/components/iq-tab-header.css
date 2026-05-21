@@ -1,0 +1,94 @@
+/* QuickSight canvas sizes, scaled for nfl.com column, then −25% for live match */
+.iq-tab-header {
+  --iq-header-title: 25.2px;
+  --iq-header-subtitle: 11.4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 0.75rem 0;
+  background: #f4f8f8;
+}
+
+.iq-tab-header__left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.iq-tab-header__draft-logo {
+  flex-shrink: 0;
+  width: 48px;
+  height: auto;
+  object-fit: contain;
+}
+
+.iq-tab-header__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.iq-tab-header__title {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: var(--iq-header-title);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #212121;
+  text-transform: uppercase;
+}
+
+.iq-tab-header__subtitle {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: var(--iq-header-subtitle);
+  font-weight: 700;
+  line-height: 1.25;
+  color: rgb(1, 51, 105);
+  text-transform: uppercase;
+}
+
+.iq-tab-header__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .iq-tab-header {
+    --iq-header-title: clamp(1.03rem, 3.75vw, 25.2px);
+    --iq-header-subtitle: clamp(0.56rem, 1.69vw, 11.4px);
+  }
+
+  .iq-tab-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .iq-tab-header__right {
+    align-items: flex-start;
+  }
+
+  .iq-tab-header__right .iq-header-partners__learn {
+    text-align: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .iq-tab-header__left {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .iq-tab-header__draft-logo {
+    width: 42px;
+  }
+}

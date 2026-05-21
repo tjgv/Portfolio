@@ -1,0 +1,182 @@
+/* Option A — sortable table column headers */
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: left;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  th:has(.fa-table-sort) {
+  text-align: left;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort__gutter {
+  flex: 0 0 14px;
+  width: 14px;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort__content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort__icon-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort:hover,
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort--active {
+  color: inherit;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort__label {
+  flex-shrink: 0;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort__icon {
+  display: block;
+  width: 12px;
+  height: 12px;
+  color: #1a2b4b;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort__icon--desc {
+  transform: scaleY(-1);
+}
+
+/* Centered header — balance sort icon slot so label sits on column centerline */
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  th.fa-table-sort-th--center {
+  text-align: center;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  th.fa-table-sort-th--center:has(.fa-table-sort) {
+  text-align: center;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort--center {
+  justify-content: center;
+  text-align: center;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort--center .fa-table-sort__content {
+  justify-content: center;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-sort--center .fa-table-sort__content::before {
+  content: '';
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+}

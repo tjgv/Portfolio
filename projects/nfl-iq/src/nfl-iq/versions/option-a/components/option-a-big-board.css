@@ -1,0 +1,125 @@
+/* Option A — Big Board: larger cells, +15% table width, 50px gap above footer */
+.draft-board--option-a {
+  --bb-cell-v-scale: 1.5;
+  --bb-width-scale: 1.15;
+}
+
+/* Full table height (through 6th–7th / round 7); page scrolls, not clipped by footer */
+[data-mock-version='option-a'] .iq-layout:has(.draft-central-section--big-board) {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+[data-mock-version='option-a'] .iq-main:has(.draft-central-section--big-board) {
+  --bb-footer-gap: 50px;
+  padding-bottom: var(--bb-footer-gap);
+}
+
+.draft-central-page--option-a:has(.draft-central-section--big-board) {
+  padding-bottom: 0;
+}
+
+/* Big board section padding/overflow — see option-a-layout.css */
+.draft-central-page--option-a .draft-central-section--big-board {
+  margin-top: 8px;
+}
+
+.draft-central-section--big-board .draft-board--option-a {
+  overflow: visible;
+}
+
+.draft-central-section--big-board .draft-board--option-a .draft-board__primary-wrap--big-board {
+  margin-bottom: 0;
+}
+
+.draft-central-section--big-board .draft-board--option-a .draft-board__primary-card--big-board {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  border: 1px solid var(--iq-border, #d8e0e2);
+  border-radius: var(--iq-radius, 12px);
+  box-shadow: var(--iq-shadow, 0 1px 3px rgba(11, 22, 42, 0.08));
+  background: var(--iq-surface, #fff);
+}
+
+.draft-central-section--big-board .draft-board--option-a .big-board__scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Width scale on table; board shell width from option-a-layout.css */
+.draft-central-section--big-board .draft-board--option-a .big-board__table {
+  min-width: calc(52rem * var(--bb-width-scale));
+}
+
+.draft-board--option-a .big-board__th,
+.nfl-iq[data-mock-version='option-a'] .big-board__table thead .big-board__th {
+  color: #fff;
+  padding-top: calc(0.45rem * var(--bb-cell-v-scale));
+  padding-bottom: calc(0.45rem * var(--bb-cell-v-scale));
+  font-size: calc(0.7rem * var(--bb-cell-v-scale) / 1.25);
+}
+
+.draft-board--option-a .big-board__tier,
+.draft-board--option-a .big-board__td {
+  min-height: calc(1.65rem * var(--bb-cell-v-scale));
+}
+
+.draft-board--option-a .big-board__tier {
+  padding-top: calc(0.35rem * var(--bb-cell-v-scale));
+  padding-bottom: calc(0.35rem * var(--bb-cell-v-scale));
+  line-height: calc(1.25 * var(--bb-cell-v-scale));
+  font-size: calc(0.62rem * var(--bb-cell-v-scale) / 1.25);
+}
+
+.draft-board--option-a .big-board__td {
+  overflow: hidden;
+  max-width: 1px;
+  padding-top: calc(0.3rem * var(--bb-cell-v-scale));
+  padding-bottom: calc(0.3rem * var(--bb-cell-v-scale));
+  line-height: calc(1.35 * var(--bb-cell-v-scale));
+  font-size: calc(0.62rem * var(--bb-cell-v-scale) / 1.25);
+}
+
+.draft-board--option-a .big-board__cell-inner {
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.draft-board--option-a .big-board__names {
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  gap: calc(0.15rem * var(--bb-cell-v-scale));
+}
+
+.draft-board--option-a .big-board__name {
+  display: inline-flex;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.draft-board--option-a .big-board__name-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .draft-board--option-a .big-board__tier,
+  .draft-board--option-a .big-board__td {
+    line-height: calc(1.35 * var(--bb-cell-v-scale));
+  }
+}

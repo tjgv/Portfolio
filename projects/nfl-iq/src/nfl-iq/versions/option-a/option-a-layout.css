@@ -1,0 +1,201 @@
+/* Option A — reduced horizontal gutter; chrome + boards share one column */
+.nfl-iq[data-mock-version='option-a'],
+.mock-showcase:has(.nfl-iq[data-mock-version='option-a']) {
+  --option-a-side-inset-reduction: 0.125;
+  --iq-page-gutter: calc(1rem * (1 - var(--option-a-side-inset-reduction)));
+  --option-a-content-pad: 0.65rem;
+  --option-a-table-inset-left: var(--option-a-content-pad);
+  --option-a-divider: #eef2f4;
+  --option-a-col-header-color: var(--iq-text-muted, #5c6578);
+}
+
+/* —— Option A: full-bleed dividers, padded content —— */
+
+.nfl-iq[data-mock-version='option-a'] .option-a-content-pad {
+  padding-inline: var(--option-a-content-pad);
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .option-a-section-divider--bottom {
+  border-bottom: 1px solid var(--option-a-divider);
+}
+
+.nfl-iq[data-mock-version='option-a'] .option-a-section-divider--top {
+  border-top: 1px solid var(--option-a-divider);
+}
+
+/* Card / panel shells — no horizontal padding (dividers span edge to edge) */
+.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__card {
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Free Agency — headers & scroll regions */
+.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__card-head,
+.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__market-head {
+  padding: 0.65rem var(--option-a-content-pad) 0.5rem;
+  border-bottom: 1px solid var(--option-a-divider);
+}
+
+.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__scroll,
+.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__card--sidebar .team-central-charts__table-scroll {
+  padding-inline: var(--option-a-content-pad);
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__card--team-roster .team-central-charts__tile-toolbar--sidebar {
+  padding: 0.45rem var(--option-a-content-pad) 0.35rem;
+  border-bottom: 1px solid var(--option-a-divider);
+}
+
+.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__card--team-roster .team-central-charts__legend {
+  padding: 0.32rem var(--option-a-content-pad) 0.4rem;
+  border-top: 1px solid var(--option-a-divider);
+}
+
+.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__card--team-roster .fa-spending__needs {
+  padding: 0.4rem var(--option-a-content-pad) 0.5rem;
+  border-top: 1px solid var(--option-a-divider);
+}
+
+.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__legend {
+  padding: 0.35rem var(--option-a-content-pad);
+}
+
+/* Draft boards */
+.nfl-iq[data-mock-version='option-a'] .draft-board--option-a .draft-board__primary-body {
+  padding: 0 0 8px;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-board--option-a .draft-board__scroll--primary,
+.nfl-iq[data-mock-version='option-a'] .draft-board--option-a .draft-board__scroll--secondary {
+  padding-inline: var(--option-a-content-pad);
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-board--option-a .draft-board__legend--primary {
+  padding: 0.35rem var(--option-a-content-pad);
+  border-top: 1px solid var(--option-a-divider);
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-board--option-a .draft-board__bottom-chart {
+  padding-inline: var(--option-a-content-pad);
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--big-board .big-board__scroll {
+  padding-inline: var(--option-a-content-pad);
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-board--combine-tracking .combine-tracking__filters {
+  padding: 0.35rem var(--option-a-content-pad);
+  border-bottom: 1px solid var(--option-a-divider);
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-board--combine-tracking .combine-tracking__panel {
+  padding: 0.65rem var(--option-a-content-pad) 0.5rem;
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-board--combine-tracking .combine-tracking__footnote {
+  padding-inline: var(--option-a-content-pad);
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-board__primary-card--cheat-sheet .cheat-sheet__grid {
+  padding-inline: var(--option-a-content-pad);
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .free-agency-page--option-a .free-agency-signings {
+  padding-inline: var(--option-a-content-pad);
+  box-sizing: border-box;
+}
+
+/* Shared column shell — max width + gutter, no width scaling (prevents viewport overflow) */
+.nfl-iq[data-mock-version='option-a'] .site-nav__container,
+.nfl-iq[data-mock-version='option-a'] .quicksuite-toolbar__inner,
+.nfl-iq[data-mock-version='option-a'] .option-a-team-filter-strip__inner,
+.nfl-iq[data-mock-version='option-a'] .draft-subnav__inner,
+.nfl-iq[data-mock-version='option-a'] .iq-site-footer__inner {
+  width: 100%;
+  max-width: var(--iq-page-max);
+  margin-inline: auto;
+  padding-inline: var(--iq-page-gutter);
+  box-sizing: border-box;
+}
+
+/* Page titles live inside padded iq-main — no second column shell */
+.nfl-iq[data-mock-version='option-a'] .free-agency-page--option-a > .iq-tab-header,
+.nfl-iq[data-mock-version='option-a'] .draft-central-page--option-a > .iq-tab-header {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+  box-sizing: border-box;
+}
+
+/* Full-bleed board sections cancel main horizontal padding */
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--board,
+.nfl-iq[data-mock-version='option-a'] .free-agency-board-section,
+.nfl-iq[data-mock-version='option-a'] .iq-draft-analytics-section,
+.nfl-iq[data-mock-version='option-a'] .combine-tracking__panels-wrap,
+.nfl-iq[data-mock-version='option-a'] .iq-draft-widget-section {
+  margin-inline: calc(-1 * var(--iq-page-gutter));
+}
+
+/* Board sections — vertical padding only */
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--prospect-board {
+  padding: 0.75rem 0 2.5rem;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--cheat-sheet,
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--combine-tracking {
+  padding-inline: 0;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--big-board {
+  padding-inline: 0;
+  overflow-x: visible;
+}
+
+.nfl-iq[data-mock-version='option-a'] .free-agency-board-section {
+  padding: 1.15rem 0 1.5rem;
+  background: transparent;
+}
+
+/* Hide QuickSight-style muted canvas behind Option A table boards */
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--board {
+  background: transparent;
+}
+
+.nfl-iq[data-mock-version='option-a'] .iq-draft-widget-section,
+.nfl-iq[data-mock-version='option-a'] .iq-draft-analytics-section,
+.nfl-iq[data-mock-version='option-a'] .combine-tracking__panels-wrap {
+  padding-inline: 0;
+}
+
+/* Primary boards fill the full-bleed column (no 115% breakout) */
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--board > .draft-board,
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--board > .draft-board--option-a,
+.nfl-iq[data-mock-version='option-a'] .free-agency-board-section > .fa-board--option-a {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  box-sizing: border-box;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--board > .draft-board .draft-board__primary-wrap,
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--board > .draft-board .draft-board__primary-card,
+.nfl-iq[data-mock-version='option-a'] .free-agency-board-section > .fa-board--option-a .fa-board__grid {
+  width: 100%;
+  max-width: none;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--board > .draft-board .draft-board__scroll--primary,
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--board > .draft-board .draft-board__table {
+  width: 100%;
+  min-width: 100%;
+}

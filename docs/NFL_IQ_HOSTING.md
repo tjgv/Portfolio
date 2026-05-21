@@ -23,6 +23,11 @@ Open `http://localhost:4177/giq`
 
 1. Project root = **MAIN PORTFOLIO**
 2. `npm run build` (bundles NFL IQ into `public/giq`, then builds the site)
-3. For CI: include NFL IQ source via `projects/nfl-iq` submodule or set `NFL_IQ_PROJECT_PATH`
+3. NFL IQ source is vendored at `projects/nfl-iq/` (used by Vercel). To refresh from your Desktop project:
 
-Sibling folder `../Genius-Take-Home-Assignment` works on your Mac only, not on Vercel unless that repo is part of the deploy.
+   ```bash
+   rsync -a --delete --exclude node_modules --exclude dist \
+     ../Genius-Take-Home-Assignment/ projects/nfl-iq/
+   ```
+
+   Override path with `NFL_IQ_PROJECT_PATH` if needed.

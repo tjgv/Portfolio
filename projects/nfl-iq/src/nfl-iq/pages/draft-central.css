@@ -1,0 +1,49 @@
+.draft-central-page {
+  padding: 0 0 2rem;
+}
+
+.draft-central-section {
+  margin-top: 1.5rem;
+}
+
+/* Full-bleed muted canvas so the draft board matches NFL.com QuickSight framing */
+.draft-central-section--board {
+  margin-top: 0;
+  margin-inline: calc(-1 * var(--iq-page-gutter, 1rem));
+  padding: 0.75rem var(--iq-page-gutter, 1rem) 2.5rem;
+  background: var(--iq-surface-muted, #eef3f3);
+}
+
+.draft-central-section--cheat-sheet,
+.draft-central-section--big-board,
+.draft-central-section--combine-tracking {
+  margin-top: 8px;
+  padding-top: 0;
+  background: #fff;
+}
+
+
+.draft-subview-placeholder {
+  margin-top: 1.5rem;
+  padding: 1.75rem 1.25rem;
+  background: var(--iq-surface);
+  border: 1px solid var(--iq-border);
+  border-radius: var(--iq-radius);
+  box-shadow: var(--iq-shadow);
+}
+
+.draft-subview-placeholder__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--iq-nfl-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.draft-subview-placeholder__desc {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--iq-text-muted);
+  line-height: 1.45;
+}

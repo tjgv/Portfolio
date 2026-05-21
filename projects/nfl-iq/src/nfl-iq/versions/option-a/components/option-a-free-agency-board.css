@@ -1,0 +1,378 @@
+/* Option A — wider agents table, tighter sidebar */
+.fa-board--option-a .fa-board__card--agents .fa-board__search {
+  flex: 0 1 13rem;
+  max-width: 13rem;
+}
+
+.fa-board--option-a {
+  --fa-board-card-height: 483px; /* 420px + 15% */
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.fa-board--option-a .fa-board__card {
+  height: var(--fa-board-card-height);
+  max-height: var(--fa-board-card-height);
+}
+
+.fa-board--option-a .fa-board__grid {
+  grid-template-columns: minmax(0, 3.1fr) minmax(310px, 1.125fr);
+  gap: 1.15rem;
+  align-items: stretch;
+}
+
+.fa-board--option-a .fa-board__card--agents {
+  min-width: 0;
+}
+
+.fa-board--option-a .fa-board__card--agents .fa-board__scroll {
+  overflow: auto;
+  min-height: 0;
+}
+
+.fa-board--option-a .fa-board__table--agents {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 55rem;
+  border-collapse: collapse;
+}
+
+/* Column widths — extra room for Snaps/G, Alignment, Top Speed */
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--rank {
+  width: 3.25rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--pos {
+  width: 3rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--player {
+  width: 8.75rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--need {
+  width: 3rem;
+}
+
+/* Pos + Need — equal width, center aligned, even spacing before Player */
+.fa-board--option-a .fa-board__table--agents .fa-board__col--pos,
+.fa-board--option-a .fa-board__table--agents thead th.fa-board__col--pos,
+.fa-board--option-a .fa-board__table--agents .fa-board__th--need,
+.fa-board--option-a .fa-board__table--agents .fa-board__td--need {
+  text-align: center;
+}
+
+.fa-board--option-a .fa-board__table--agents thead th.fa-board__col--pos .iq-table-col-cell,
+.fa-board--option-a .fa-board__table--agents thead th.fa-board__col--pos .fa-table-filter-trigger,
+.fa-board--option-a .fa-board__table--agents .fa-board__th--need .iq-table-col-cell,
+.fa-board--option-a .fa-board__table--agents .fa-board__td--need .iq-table-col-cell {
+  justify-content: center;
+  text-align: center;
+}
+
+.fa-board--option-a .fa-board__table--agents thead th.fa-board__col--pos .fa-table-filter-trigger {
+  justify-content: center;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__th--player-col .fa-table-sort__gutter {
+  display: none;
+  width: 0;
+  flex: 0 0 0;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__player-leading:empty {
+  display: none;
+  width: 0;
+  margin: 0;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--team {
+  width: 3.5rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--num {
+  width: 3rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--snaps {
+  width: 4rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--snaps-pg {
+  width: 6.25rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--alignment {
+  width: 8.5rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__col-w--top-speed {
+  width: 5.75rem;
+}
+
+/* Even horizontal padding across all agent table cells */
+.fa-board--option-a .fa-board__table--agents thead th,
+.fa-board--option-a .fa-board__table--agents tbody td {
+  padding: 0.4rem 0.55rem;
+}
+
+.fa-board--option-a .fa-board__table--agents thead th.fa-table-filter-th,
+.fa-board--option-a .fa-board__table--agents thead th:has(.iq-table-col-cell) {
+  padding: 0;
+}
+
+.fa-board--option-a .fa-board__table--agents thead th .iq-table-col-cell {
+  padding: 0.4rem 0.55rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__player {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__alignment {
+  max-width: none;
+  white-space: normal;
+  line-height: 1.3;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__bar-cell {
+  padding-left: 0.55rem;
+  padding-right: 0.55rem;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__bar-track {
+  inset: 0.28rem 0.55rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar {
+  max-width: 400px;
+  justify-self: end;
+  width: 100%;
+}
+
+.fa-board--option-a .fa-board__card--team-roster {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .team-central-charts__tile {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  min-height: 0;
+  max-height: none;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .team-central-charts__body {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .team-central-charts__table-scroll {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .fa-spending__needs--fa-roster {
+  flex-shrink: 0;
+}
+
+/* Top Needs footer — see option-a-fa-top-needs.css */
+
+/* Sidebar — compact layout to avoid horizontal scroll */
+.fa-board--option-a .fa-board__card--sidebar .fa-board__scroll,
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table-scroll {
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .team-central-charts__tile-toolbar--sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .team-central-charts__tabs--sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .team-central-charts__tile-logo--sidebar-end {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__tab {
+  padding: 0.28rem 0.5rem;
+  font-size: 0.56rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table {
+  min-width: 0;
+  width: 100%;
+  table-layout: fixed;
+  font-size: 0.56rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table thead th {
+  padding: 0.28rem 0.2rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tbody td,
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tfoot td {
+  padding: 0.26rem 0.2rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table thead th:nth-child(1),
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tbody td:nth-child(1) {
+  width: 11%;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table thead th:nth-child(2),
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tbody td:nth-child(2) {
+  width: 30%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table thead th:nth-child(3),
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tbody td:nth-child(3) {
+  width: 11%;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table thead th:nth-child(4),
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tbody td:nth-child(4) {
+  width: 17%;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table thead th:nth-child(5),
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tbody td:nth-child(5) {
+  width: 14%;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table thead th:nth-child(6),
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tbody td:nth-child(6) {
+  width: 17%;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__aav {
+  padding: 0.08rem 0.18rem;
+  font-size: 0.52rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__status {
+  font-size: 0.62rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__legend {
+  font-size: 0.48rem;
+  line-height: 1.3;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__market-head {
+  padding-block: 0.45rem 0.35rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__tab {
+  padding: 0.3rem 0.35rem;
+  font-size: 0.56rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__table {
+  min-width: 0;
+  width: 100%;
+  font-size: 0.56rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__table--draft {
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__table thead th,
+.fa-board--option-a .fa-board__card--sidebar .fa-board__table tbody td {
+  padding: 0.28rem 0.2rem;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__th--player-col {
+  min-width: 0;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__player-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__draft-note {
+  padding: 0 0.5rem 0.35rem;
+  font-size: 0.52rem;
+}
+
+.fa-board--option-a .fa-board__legend {
+  margin-top: 0.15rem;
+}
+
+/* Vertically center column text in all Free Agency tables */
+.fa-board--option-a .fa-board__table thead th,
+.fa-board--option-a .fa-board__table tbody td,
+.fa-board--option-a .fa-board__table tfoot td {
+  vertical-align: middle;
+}
+
+.fa-board--option-a .fa-board__table thead th.fa-table-filter-th,
+.fa-board--option-a .fa-board__table thead th:has(.iq-table-col-cell) {
+  padding: 0;
+  vertical-align: middle;
+}
+
+.fa-board--option-a .fa-board__table thead th .iq-table-col-cell {
+  align-items: center;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .team-central-charts__table thead th {
+  vertical-align: middle;
+}
+
+@media (max-width: 1100px) {
+  .fa-board--option-a .fa-board__grid {
+    grid-template-columns: minmax(0, 2.5fr) minmax(275px, 1.25fr);
+  }
+}
+
+@media (max-width: 1000px) {
+  .fa-board--option-a .fa-board__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fa-board--option-a .fa-board__card--sidebar {
+    max-width: none;
+    justify-self: stretch;
+  }
+}

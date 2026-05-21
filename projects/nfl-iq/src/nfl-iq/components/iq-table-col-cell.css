@@ -1,0 +1,67 @@
+/* Full-height column shell (header top → row border below; body fills row) */
+.draft-board__table thead th,
+.ng-rankings__table thead th {
+  padding: 0;
+  vertical-align: top;
+}
+
+.draft-board__table thead .iq-table-col-cell {
+  background-color: #fff;
+}
+
+.draft-board__table thead th.draft-board__th--combine .iq-table-col-cell {
+  background-color: #ebeef1;
+}
+
+.draft-board__table tbody td.school-table-cell,
+.draft-board__table tbody td.draft-board__td--got,
+.draft-board__table tbody td.draft-board__td--rivals {
+  padding: 0;
+  vertical-align: top;
+}
+
+.iq-table-col-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 2.125rem;
+  box-sizing: border-box;
+  padding: 0.4rem 0.35rem;
+}
+
+.draft-board__table tbody .iq-table-col-cell {
+  min-height: 0;
+  padding: 0.35rem 0.25rem;
+}
+
+.iq-table-col-cell--center {
+  justify-content: center;
+  text-align: center;
+}
+
+.iq-table-col-cell > .fa-table-sort,
+.iq-table-col-cell > .fa-table-filter-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: inherit;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.iq-table-col-cell > .fa-table-sort--group-center {
+  width: auto;
+}
+
+.iq-table-col-cell--center > .fa-table-sort:not(.fa-table-sort--group-center) {
+  justify-content: center;
+}
+
+.iq-table-col-cell--center > .fa-table-sort--group-center {
+  justify-content: flex-start;
+}

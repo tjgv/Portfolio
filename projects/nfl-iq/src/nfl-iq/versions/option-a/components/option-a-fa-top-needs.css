@@ -1,0 +1,132 @@
+/* Option A — Top Needs footer in FA roster sidebar (team filter selected) */
+
+.fa-board--option-a .fa-board__card--team-roster .fa-spending__needs--fa-roster {
+  flex-shrink: 0;
+  margin-top: 0;
+  padding: 0.6rem var(--option-a-content-pad, 0.65rem) 0.65rem;
+  border-top: 1px solid var(--option-a-divider, #eef2f4);
+  background: linear-gradient(180deg, #f9fafb 0%, #f1f5f9 100%);
+}
+
+.fa-board--option-a .fa-board__card--team-roster .fa-spending__needs--fa-roster .fa-spending__needs-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.45rem;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .fa-spending__needs--fa-roster .fa-spending__needs-header::before {
+  content: '';
+  flex-shrink: 0;
+  width: 3px;
+  height: 0.85rem;
+  border-radius: 2px;
+  background: #1a2b4b;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .fa-spending__needs--fa-roster .fa-spending__needs-label {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.58rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1a2b4b;
+}
+
+.fa-board--option-a
+  .fa-board__card--team-roster
+  .fa-spending__needs--fa-roster
+  .fa-spending__needs-tags--full,
+.fa-board--option-a
+  .fa-board__card--team-roster
+  .fa-spending__needs--fa-roster
+  .fa-spending__needs-tags--abbrev {
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.fa-board--option-a .fa-board__card--team-roster .fa-spending__needs--fa-roster .fa-spending__need-tag {
+  padding: 0.3rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-family: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.15;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.fa-board--option-a
+  .fa-board__card--team-roster
+  .fa-spending__needs--fa-roster
+  .fa-spending__need-tag--done {
+  background: #ecfdf5;
+  border-color: #86efac;
+  color: #047857;
+}
+
+.fa-board--option-a
+  .fa-board__card--team-roster
+  .fa-spending__needs--fa-roster
+  .fa-spending__need-tag--partial {
+  background: #fffbeb;
+  border-color: #fcd34d;
+  color: #b45309;
+}
+
+.fa-board--option-a
+  .fa-board__card--team-roster
+  .fa-spending__needs--fa-roster
+  .fa-spending__need-tag--need {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.fa-board--option-a
+  .fa-board__card--team-roster
+  .fa-spending__needs--fa-roster
+  .fa-spending__need-tag--critical {
+  background: #fff1f2;
+  border-color: #f87171;
+  color: #9f1239;
+  box-shadow:
+    0 0 0 1px rgba(220, 38, 38, 0.1),
+    0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.fa-board--option-a
+  .fa-board__card--team-roster
+  .fa-spending__needs--fa-roster
+  .fa-spending__need-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  font-size: 0.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.fa-board--option-a
+  .fa-board__card--team-roster
+  .fa-spending__needs--fa-roster
+  .fa-spending__need-tag--done
+  .fa-spending__need-icon {
+  background: #bbf7d0;
+  color: #14532d;
+}
+
+.fa-board--option-a
+  .fa-board__card--team-roster
+  .fa-spending__needs--fa-roster
+  .fa-spending__need-tag--partial
+  .fa-spending__need-icon {
+  background: #fde68a;
+  color: #92400e;
+}

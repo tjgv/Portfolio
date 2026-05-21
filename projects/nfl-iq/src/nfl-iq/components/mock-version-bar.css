@@ -1,0 +1,96 @@
+.mock-version-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.5rem var(--iq-page-gutter, 1rem);
+  background: #0b162a;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mock-version-bar__label {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  white-space: nowrap;
+}
+
+.mock-version-bar__options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.mock-version-bar__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.mock-version-bar__option:hover:not(.mock-version-bar__option--active) {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mock-version-bar__option--active {
+  border-color: #ff9900;
+  background: #ff9900;
+  color: #0b162a;
+}
+
+.mock-version-bar__option-label {
+  line-height: 1.2;
+}
+
+.mock-version-bar__badge {
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  background: rgba(11, 22, 42, 0.18);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.mock-version-bar__option--active .mock-version-bar__badge {
+  background: rgba(11, 22, 42, 0.14);
+}
+
+@media (max-width: 640px) {
+  .mock-version-bar {
+    justify-content: center;
+  }
+
+  .mock-version-bar__label {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mock-version-bar__options {
+    margin-left: 0;
+    justify-content: center;
+  }
+}

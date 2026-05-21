@@ -1,0 +1,235 @@
+/* NFL IQ quicksuite toolbar + team picker (below site nav) */
+
+.quicksuite-toolbar {
+  background: var(--iq-surface);
+  border-bottom: 1px solid var(--iq-border);
+}
+
+.quicksuite-toolbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 52px;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.quicksuite-toolbar .nfl-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0.35rem 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.quicksuite-toolbar .nfl-logo {
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition:
+    border-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.quicksuite-toolbar .nfl-logo:hover {
+  opacity: 0.9;
+}
+
+.quicksuite-toolbar .nfl-logo.iq-home-active {
+  border-bottom-color: var(--iq-nfl-blue);
+}
+
+.quicksuite-toolbar .nfl-logo img {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+.quicksuite-toolbar .main-nav {
+  display: flex;
+  align-items: stretch;
+  gap: 0.25rem;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.quicksuite-toolbar .main-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.quicksuite-toolbar .nav-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.quicksuite-toolbar .nav-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  align-self: stretch;
+  padding: 0.85rem 1rem;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--iq-text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  box-sizing: border-box;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.quicksuite-toolbar .nav-tab:hover {
+  color: var(--iq-nfl-blue);
+}
+
+.quicksuite-toolbar .nav-item.active .nav-tab,
+.quicksuite-toolbar .nav-tab.active {
+  color: var(--iq-nfl-blue);
+  border-bottom-color: var(--iq-nfl-blue);
+}
+
+.quicksuite-toolbar .nav-team-logo {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Team picker strip */
+.quicksuite-team-picker {
+  background: var(--iq-surface-muted);
+  border-bottom: 1px solid var(--iq-border);
+}
+
+.quicksuite-team-picker__inner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.5rem;
+}
+
+.team-picker-scroll {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 0.15rem 0;
+  scrollbar-width: thin;
+}
+
+.team-picker-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0.35rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+
+.team-picker-item:hover {
+  border-color: var(--iq-border);
+  box-shadow: 0 2px 8px rgba(11, 22, 42, 0.08);
+}
+
+.team-picker-item.active {
+  border-color: var(--iq-nfl-blue);
+  box-shadow: 0 0 0 1px var(--iq-nfl-blue);
+}
+
+.team-picker-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.team-picker-item.active .team-picker-logo,
+.team-picker-logo.loaded {
+  opacity: 1;
+}
+
+.team-sort-toggle {
+  display: flex;
+  flex-shrink: 0;
+  border: 1px solid var(--iq-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--iq-surface);
+}
+
+.team-sort-toggle .sort-btn {
+  padding: 0.4rem 0.65rem;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--iq-text-muted);
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.team-sort-toggle .sort-btn + .sort-btn {
+  border-left: 1px solid var(--iq-border);
+}
+
+.team-sort-toggle .sort-btn.active {
+  background: var(--iq-nfl-blue);
+  color: #fff;
+}
+
+.team-sort-toggle .sort-btn:hover:not(.active) {
+  color: var(--iq-nfl-blue);
+}
+
+@media (max-width: 640px) {
+  .quicksuite-toolbar .nav-tab {
+    padding: 0.75rem 0.65rem;
+    font-size: 0.8rem;
+  }
+
+  .team-picker-item {
+    width: 36px;
+    height: 36px;
+  }
+
+  .team-picker-logo {
+    width: 24px;
+    height: 24px;
+  }
+}

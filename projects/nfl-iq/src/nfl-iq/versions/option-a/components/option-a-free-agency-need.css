@@ -1,0 +1,68 @@
+.fa-board--option-a .fa-board__th--need {
+  box-sizing: border-box;
+}
+
+/* Label + sort icon as one unit, centered in column; icon 4px after text */
+.fa-board--option-a .fa-board__th--need .fa-table-sort--group-center {
+  width: auto;
+  max-width: 100%;
+  justify-content: flex-start;
+}
+
+.fa-board--option-a .fa-board__th--need .fa-table-sort--group-center .fa-table-sort__content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.fa-board--option-a
+  .fa-board__th--need
+  .fa-table-sort--group-center
+  .fa-table-sort__content::before {
+  display: none;
+  content: none;
+}
+
+.fa-board--option-a
+  .fa-board__th--need
+  .fa-table-sort--group-center:not(.fa-table-sort--active)
+  .fa-table-sort__icon-slot {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.fa-board--option-a
+  .fa-board__th--need
+  .fa-table-sort--group-center.fa-table-sort--active
+  .fa-table-sort__icon-slot {
+  width: 12px;
+  height: 12px;
+}
+
+.fa-board--option-a .fa-board__table--agents .fa-board__td--need,
+.fa-board--option-a .fa-board__td--need {
+  text-transform: none;
+  box-sizing: border-box;
+}
+
+.fa-board--option-a .fa-board__need-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #1a7a3c;
+}
+
+.fa-board--option-a .fa-board__need-star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: #c9a227;
+  text-shadow: 0 0 1px rgba(180, 140, 20, 0.35);
+}

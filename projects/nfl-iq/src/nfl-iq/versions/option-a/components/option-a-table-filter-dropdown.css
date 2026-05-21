@@ -1,0 +1,191 @@
+/* Option A — Pos column filter dropdowns */
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-th {
+  padding: 0;
+  vertical-align: middle;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-trigger:hover,
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-trigger--open,
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-th--active .fa-table-filter-trigger {
+  color: inherit;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-menu {
+  z-index: 200;
+  min-width: 7.5rem;
+  max-height: 14rem;
+  overflow: auto;
+  padding: 0.35rem 0;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(11, 22, 42, 0.12);
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-menu__banner {
+  padding: 0.35rem 0.55rem 0.4rem;
+  border-bottom: 1px solid #eef2f4;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-menu__note {
+  display: block;
+  font-family: Roboto, Inter, system-ui, sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
+  font-style: italic;
+  color: #6b7280;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-menu__show-all {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: Roboto, Inter, system-ui, sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #013369;
+  text-transform: lowercase;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-menu__show-all:hover {
+  text-decoration: underline;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-menu__list {
+  margin: 0;
+  padding: 0.2rem 0;
+  list-style: none;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-menu__option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.55rem;
+  font-family: Roboto, Inter, system-ui, sans-serif;
+  font-size: 0.58rem;
+  font-weight: 500;
+  color: #374151;
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-menu__option:hover {
+  background: #f3f4f6;
+}
+
+:is(
+    .fa-board--option-a,
+    .draft-board--option-a,
+    .draft-central-page--option-a,
+    .free-agency-page--option-a
+  )
+  .fa-table-filter-menu__option input {
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: #013369;
+}
