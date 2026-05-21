@@ -46,8 +46,13 @@
     color 0.15s ease;
 }
 
-.iq-draft-round-tabs__tab:hover:not(.iq-draft-round-tabs__tab--active) {
+.iq-draft-round-tabs__tab:hover:not(.iq-draft-round-tabs__tab--active):not(:disabled) {
   color: var(--iq-nfl-blue, #013369);
+}
+
+.iq-draft-round-tabs__tab:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .iq-draft-round-tabs__tab--active {
@@ -56,8 +61,14 @@
 }
 
 .iq-draft-round-card {
+  --iq-draft-round-rows: 8;
+  --iq-draft-round-row-h: 2.5rem;
+  --iq-draft-round-grid-min-h: calc(
+    var(--iq-draft-round-rows) * var(--iq-draft-round-row-h)
+  );
+
   width: 100%;
-  min-height: 280px;
+  min-height: var(--iq-draft-round-grid-min-h);
   background: #fff;
   border: 1px solid var(--iq-border, #d8e0e2);
   border-radius: 12px;
@@ -65,11 +76,18 @@
   overflow: hidden;
 }
 
+.iq-draft-round-card--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .iq-draft-round-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   width: 100%;
+  min-height: var(--iq-draft-round-grid-min-h);
 }
 
 .iq-draft-round-col {
@@ -86,8 +104,10 @@
   grid-template-columns: 1.75rem 1.75rem 1fr;
   align-items: center;
   gap: 0.35rem;
+  min-height: var(--iq-draft-round-row-h, 2.5rem);
   padding: 0.4rem 0.65rem;
   border-bottom: 1px solid #eef2f4;
+  box-sizing: border-box;
   font-family: Roboto, Inter, system-ui, sans-serif;
   font-size: 0.72rem;
   line-height: 1.35;
@@ -132,7 +152,7 @@
 
 .iq-draft-round-empty {
   margin: 0;
-  padding: 3rem 1.5rem;
+  padding: 1.5rem;
   text-align: center;
   font-family: Inter, system-ui, sans-serif;
   font-size: 0.85rem;

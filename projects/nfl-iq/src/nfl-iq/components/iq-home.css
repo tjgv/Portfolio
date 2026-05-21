@@ -1,0 +1,672 @@
+/* NFL IQ home — Figma Genius Sports draft results */
+
+.iq-home {
+  --iq-home-hero-h: 310px;
+  --iq-home-section-gap: 4.5rem;
+  --iq-home-header-hero-gap: calc(var(--iq-home-section-gap) / 2);
+  --iq-home-display: clamp(2.5rem, 5.5vw, 4.35rem);
+  --iq-home-section-title: clamp(2rem, 4vw, 3.5rem);
+  --iq-home-green: #217c01;
+  --iq-home-green-text: #48c91a;
+  --iq-home-link: #4ca1ff;
+  --iq-home-card-bg: #eee;
+  --iq-home-card-border: rgba(99, 99, 99, 0.18);
+
+  padding-bottom: 2.5rem;
+}
+
+.iq-home > .iq-tab-header {
+  margin-bottom: var(--iq-home-header-hero-gap);
+}
+
+.iq-home-display {
+  font-family: 'Instrument Sans', Inter, system-ui, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  font-stretch: 75%;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: #222;
+  margin: 0;
+}
+
+/* Hero — fixed 310px; Raiders watermark backdrop (right) */
+.iq-home-hero {
+  position: relative;
+  height: var(--iq-home-hero-h);
+  min-height: var(--iq-home-hero-h);
+  max-height: var(--iq-home-hero-h);
+  margin-bottom: var(--iq-home-section-gap);
+  border-radius: 24px;
+  overflow: hidden;
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right center;
+  cursor: default;
+}
+
+.iq-home-hero:hover {
+  cursor: pointer;
+}
+
+.iq-home-hero__title {
+  position: absolute;
+  z-index: 2;
+  top: 44px;
+  left: 32px;
+  margin: 0;
+  max-width: 58%;
+  font-family: 'Instrument Sans', Inter, system-ui, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  font-stretch: 82%;
+  font-size: 63.25px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+  white-space: pre-wrap;
+}
+
+.iq-home-hero__cutout {
+  position: absolute;
+  right: 40px;
+  bottom: 0;
+  z-index: 1;
+  height: 100%;
+  max-width: min(65%, 525px);
+  width: auto;
+  object-fit: contain;
+  object-position: right bottom;
+  transform: scale(1.0625);
+  transform-origin: right bottom;
+  pointer-events: none;
+}
+
+.iq-home-hero__branding {
+  position: absolute;
+  left: 32px;
+  bottom: 24px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 72%;
+}
+
+.iq-home-hero__team-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.iq-home-hero__close {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.iq-home-hero__player-name {
+  margin: 0;
+  font-family: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 36.8px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.iq-home-hero__footer {
+  position: absolute;
+  right: 32px;
+  bottom: 24px;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.iq-home-stat-cta {
+  font-family: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.iq-home-hero__cta {
+  font-size: 15px;
+  letter-spacing: calc(2px - 1.5%);
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
+  color: #000;
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.25s ease, background 0.15s ease;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.iq-home-hero:hover .iq-home-hero__cta {
+  transform: scale(1.06);
+}
+
+.iq-home-hero:focus-visible {
+  outline: 2px solid #4ca1ff;
+  outline-offset: 3px;
+}
+
+/* Value picks */
+.iq-home-value {
+  margin-bottom: var(--iq-home-section-gap);
+}
+
+.iq-home-value__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.iq-home-value__title {
+  font-size: clamp(1.25rem, 2.2vw, 2.25rem);
+  line-height: 1.55;
+}
+
+.iq-home-value__tabs {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  flex-shrink: 0;
+}
+
+.iq-home-value__tab {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: 'Instrument Sans', Inter, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.0625rem, 1.87vw, 1.9125rem);
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  color: #acacac;
+  cursor: pointer;
+}
+
+.iq-home-value__tab--active {
+  color: #090909;
+}
+
+.iq-home-value__grid {
+  width: 100%;
+}
+
+.iq-home-value__panel {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.iq-home-value__panel[hidden] {
+  display: none;
+}
+
+.iq-home-value-card-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+}
+
+.iq-home-value-card__hit {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: inherit;
+  font: inherit;
+}
+
+.iq-home-value-card__hit:focus-visible {
+  outline: 2px solid #4ca1ff;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.iq-home-value-card__hover-cta {
+  font-size: 13px;
+  letter-spacing: 2px;
+  position: absolute;
+  top: calc(18% - 12px);
+  right: 0;
+  left: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.iq-home-value-card-wrap:hover .iq-home-value-card__hover-cta,
+.iq-home-value-card__hit:focus-visible .iq-home-value-card__hover-cta {
+  opacity: 1;
+}
+
+.iq-home-value-card {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  min-height: 15.5rem;
+  padding: 0.65rem 0.65rem 0;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: transparent;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.iq-home-value-card__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  background-color: var(--iq-value-card-team, #013369);
+  transition: opacity 500ms ease-out;
+}
+
+.iq-home-value-card__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.iq-home-value-card__backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 35%),
+    rgb(255 255 255 / 15%)
+  );
+}
+
+.iq-home-value-card-wrap:hover .iq-home-value-card__backdrop {
+  opacity: 1;
+}
+
+.iq-home-value-card-wrap:hover .iq-home-value-card__score,
+.iq-home-value-card-wrap:hover .iq-home-value-card__value,
+.iq-home-value-card-wrap:hover .iq-home-value-card__overall-label,
+.iq-home-value-card-wrap:hover .iq-home-value-card__pick-label {
+  color: #fff;
+}
+
+.iq-home-value-card-wrap:hover .iq-home-value-card__caption {
+  color: #000;
+}
+
+.iq-home-value-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0;
+}
+
+.iq-home-value-card__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.iq-home-value-card__score {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.2rem;
+  margin: 0;
+  line-height: 1;
+  color: #000;
+}
+
+.iq-home-value-card__value {
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.iq-home-value-card__overall-label {
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: #393939;
+  padding-bottom: 0.12em;
+}
+
+.iq-home-value-card__pick-label {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #393939;
+}
+
+.iq-home-value-card__logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.iq-home-value-card__photo-wrap {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 168px;
+  min-height: 168px;
+  flex-shrink: 0;
+  margin: 0;
+  margin-top: auto;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.iq-home-value-card__photo {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+.iq-home-value-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  padding: 0 0.15rem;
+}
+
+.iq-home-value-card__caption {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #acacac;
+  min-width: 0;
+}
+
+.iq-home-value-card__school-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Round recap — reuses iq-draft-round-board widget */
+.iq-home-round-recap {
+  margin-top: var(--iq-home-section-gap);
+  padding-bottom: 0;
+}
+
+.iq-home-round-recap__title {
+  margin: 0 0 2rem;
+  font-size: clamp(1.25rem, 2.2vw, 2.25rem);
+  line-height: 1.55;
+}
+
+/* Biggest winners */
+.iq-home-winners {
+  --iq-home-winner-visible-rows: 4;
+  --iq-home-winner-row-h: 3.625rem;
+}
+
+.iq-home-winners__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.iq-home-winners__title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.2vw, 2.25rem);
+  line-height: 1.55;
+}
+
+.iq-home a.iq-home-winners__find-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  color: #4ca1ff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.iq-home a.iq-home-winners__find-team:hover {
+  color: #4ca1ff;
+  opacity: 0.8;
+}
+
+.iq-home-winners__chevron {
+  display: block;
+  flex-shrink: 0;
+}
+
+.iq-home-winners__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.iq-home-winner-card {
+  background: var(--iq-home-card-bg);
+  border: 1px solid var(--iq-home-card-border);
+  border-radius: 12px;
+  padding: 1.15rem;
+  min-width: 0;
+}
+
+.iq-home-winner-card__head {
+  padding: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.iq-home-winner-card__name {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  color: #090909;
+}
+
+.iq-home-winner-card__rows {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(var(--iq-home-winner-visible-rows) * var(--iq-home-winner-row-h));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 99, 99, 0.35) transparent;
+}
+
+.iq-home-winner-card__rows::-webkit-scrollbar {
+  width: 6px;
+}
+
+.iq-home-winner-card__rows::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(99, 99, 99, 0.35);
+}
+
+.iq-home-winner-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem 0;
+  border: none;
+  border-bottom: 1px solid rgba(99, 99, 99, 0.13);
+  background: transparent;
+  cursor: pointer;
+  text-align: inherit;
+  font: inherit;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+.iq-home-winner-row:hover .iq-home-winner-row__team {
+  color: var(--iq-home-link, #4ca1ff);
+}
+
+.iq-home-winner-row:focus-visible {
+  outline: 2px solid var(--iq-home-link, #4ca1ff);
+  outline-offset: 2px;
+}
+
+.iq-home-winner-row:last-child {
+  border-bottom: none;
+}
+
+.iq-home-winner-row__left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.iq-home-winner-row__rank {
+  width: 2rem;
+  text-align: center;
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #393939;
+  flex-shrink: 0;
+}
+
+.iq-home-winner-row__logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.iq-home-winner-row__team {
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #393939;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.iq-home-winner-row__score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.5rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+.iq-home-winner-row__score--filled {
+  background: var(--iq-home-green);
+  color: #fff;
+}
+
+.iq-home-winner-row__score--outline {
+  color: var(--iq-home-green-text);
+}
+
+@media (max-width: 1100px) {
+  .iq-home-value__panel {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .iq-home-winners__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 720px) {
+  .iq-home-hero__title {
+    max-width: 70%;
+    top: 44px;
+    font-size: clamp(2.21375rem, 10.12vw, 63.25px);
+  }
+
+  .iq-home-hero__cutout {
+    right: 24px;
+    max-width: 72%;
+  }
+
+  .iq-home-hero__player-name {
+    font-size: clamp(1.4375rem, 6.9vw, 36.8px);
+  }
+
+  .iq-home-value__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .iq-home-value__panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .iq-home-value__panel {
+    grid-template-columns: 1fr;
+  }
+}

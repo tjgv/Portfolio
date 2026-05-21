@@ -1,6 +1,9 @@
 import { useMemo } from 'react'
 import { ngsTeamLogoUrl } from '../constants'
-import { getTeamDraftClassRows } from '../data/team-draft-class.mock'
+import {
+  getTeamDraftClassLevel,
+  getTeamDraftClassRows,
+} from '../data/team-draft-class.mock'
 import './team-central-charts.css'
 
 type TeamCentralDraftClassTileProps = {
@@ -14,6 +17,7 @@ export function TeamCentralDraftClassTile({
 }: TeamCentralDraftClassTileProps) {
   const logoUrl = ngsTeamLogoUrl(teamId)
   const draftRows = useMemo(() => getTeamDraftClassRows(teamId), [teamId])
+  const draftClassLevel = useMemo(() => getTeamDraftClassLevel(teamId), [teamId])
 
   return (
     <article
@@ -31,9 +35,16 @@ export function TeamCentralDraftClassTile({
             2026 NFL Draft Class
           </h2>
         </div>
-        <span className="team-central-charts__draft-badge" aria-hidden>
-          NFL Draft
-        </span>
+        <div className="team-central-charts__draft-class-level">
+          <span className="team-central-charts__draft-class-level-label">
+            Draft Class Level:
+          </span>
+          <span
+            className={`team-central-charts__ovr team-central-charts__ovr--${draftClassLevel.grade}`}
+          >
+            {draftClassLevel.level}
+          </span>
+        </div>
       </div>
       <p className="team-central-charts__draft-note">
         Illustrative board · connect live mocks when the API is wired.

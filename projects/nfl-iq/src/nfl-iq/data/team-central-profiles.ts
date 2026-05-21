@@ -74,6 +74,15 @@ const TEAM_PROFILES: Partial<Record<string, TeamCentralProfile>> = {
       { roleLabel: 'DEF. COORDINATOR (SINCE 2022)', name: 'NICK SORENSEN' },
     ],
   },
+  ARI: {
+    recordLine: '2025 RECORD 14-3, 1ST IN NFC WEST (WON SUPER BOWL)',
+    staff: [
+      { roleLabel: 'GENERAL MANAGER (SINCE 2010)', name: 'JOHN SCHNEIDER' },
+      { roleLabel: 'HEAD COACH (SINCE 2024)', name: 'JONATHAN GANNON' },
+      { roleLabel: 'OFF. COORDINATOR (SINCE 2024)', name: 'DREW PETZING' },
+      { roleLabel: 'DEF. COORDINATOR (SINCE 2024)', name: 'NICK RALLIS' },
+    ],
+  },
 }
 
 function defaultStaff(teamName: string): TeamStaffColumn[] {
@@ -101,4 +110,15 @@ export function getTeamCentralProfile(
     recordLine: formatRecord(team),
     staff: defaultStaff(team.name),
   }
+}
+
+/** Short standing line for the summary strip (drops the "2025 RECORD" prefix). */
+export function getTeamCentralSummaryRecordLine(
+  teamId: string,
+  team: Team,
+): string {
+  return getTeamCentralProfile(teamId, team).recordLine.replace(
+    /^2025 RECORD\s+/i,
+    '',
+  )
 }

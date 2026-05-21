@@ -76,3 +76,20 @@ export function getTeamDraftClassRows(teamId: string): TeamDraftClassRow[] {
 
   return rows
 }
+
+export type TeamDraftClassLevel = {
+  level: number
+  grade: 'high' | 'mid' | 'low'
+}
+
+function ovrGradeForLevel(level: number): TeamDraftClassLevel['grade'] {
+  if (level >= 82) return 'high'
+  if (level >= 75) return 'mid'
+  return 'low'
+}
+
+/** Stable draft class level (68–90) per team for the header badge. */
+export function getTeamDraftClassLevel(teamId: string): TeamDraftClassLevel {
+  const level = 68 + (hashSeed(`draft-class-level:${teamId}`) % 23)
+  return { level, grade: ovrGradeForLevel(level) }
+}

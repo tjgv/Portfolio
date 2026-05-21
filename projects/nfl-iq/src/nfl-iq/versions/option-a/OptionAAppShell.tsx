@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+
+function DraftTestRedirect() {
+  const { search, hash } = useLocation()
+  return <Navigate to={`/draft${search}${hash}`} replace />
+}
 import { AskIqChat } from '../../components/AskIqChat'
 import { IqBottomNav } from '../../components/IqBottomNav'
 import { IqSiteFooter } from '../../components/IqSiteFooter'
@@ -13,6 +18,7 @@ import { OptionAFreeAgencyPage } from './pages/OptionAFreeAgencyPage'
 import { HomePage } from '../../pages/HomePage'
 import { PlaceholderPage } from '../../pages/PlaceholderPage'
 import { TeamCentralPage } from '../../pages/TeamCentralPage'
+import { IqScrollToTop } from '../../components/IqScrollToTop'
 import { OptionASiteNav } from './OptionASiteNav'
 import '../../nfl-iq.css'
 import './option-a-layout.css'
@@ -35,6 +41,7 @@ export function OptionAAppShell() {
         <OptionATeamFilterStrip />
         <TeamPicker />
 
+        <IqScrollToTop />
         <div className="iq-layout">
           <main id="main-content" className="iq-main">
             <Routes>
@@ -42,6 +49,7 @@ export function OptionAAppShell() {
               <Route path="/teams" element={<TeamCentralPage />} />
               <Route path="/free-agency" element={<OptionAFreeAgencyPage />} />
               <Route path="/draft" element={<OptionADraftCentralPage />} />
+              <Route path="/draft-test" element={<DraftTestRedirect />} />
               <Route
                 path="/news"
                 element={

@@ -12,6 +12,7 @@ import { FreeAgencyPage } from '../../pages/FreeAgencyPage'
 import { HomePage } from '../../pages/HomePage'
 import { PlaceholderPage } from '../../pages/PlaceholderPage'
 import { TeamCentralPage } from '../../pages/TeamCentralPage'
+import { IqScrollToTop } from '../../components/IqScrollToTop'
 import { OptionBSiteNav } from './OptionBSiteNav'
 import '../../nfl-iq.css'
 
@@ -31,6 +32,7 @@ export function OptionBAppShell() {
         {showDraftSubnav ? <DraftSubnav /> : null}
         <TeamPicker />
 
+        <IqScrollToTop />
         <div className="iq-layout">
           <main id="main-content" className="iq-main">
             <Routes>

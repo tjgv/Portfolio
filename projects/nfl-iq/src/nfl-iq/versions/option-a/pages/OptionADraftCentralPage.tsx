@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { fetchDraft } from '../../../api'
 import { CheatSheetBoard } from '../../../components/CheatSheetBoard'
@@ -8,9 +8,15 @@ import { IqTabHeader } from '../../../components/IqTabHeader'
 import { DRAFT_BOARD_MOCK } from '../../../data/draft-board'
 import type { DraftBoardProspect } from '../../../types'
 import { OptionABigBoardBoard } from '../components/OptionABigBoardBoard'
-import { OptionADraftCentralBoard } from '../components/OptionADraftCentralBoard'
+import { OptionADraftCentralTestBoard } from '../draft-central-test/OptionADraftCentralTestBoard'
+import { OptionADraftProspectDetail } from '../draft-central-test/OptionADraftProspectDetail'
+import {
+  DRAFT_PROSPECT_QUERY,
+  findProspectByKey,
+} from '../draft-central-test/draft-prospect-nav'
 import '../../../pages/draft-central.css'
-import './option-a-draft-central.css'
+import '../draft-central-test/option-a-draft-central-test.css'
+import '../draft-central-test/option-a-draft-prospect-detail.css'
 
 const HEADER_COPY: Record<
   DraftSubView,
@@ -39,7 +45,7 @@ const HEADER_COPY: Record<
 }
 
 export function OptionADraftCentralPage() {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const subView = useMemo(
     () => parseDraftSubView(searchParams),
     [searchParams],
@@ -47,6 +53,36 @@ export function OptionADraftCentralPage() {
   const [prospects, setProspects] =
     useState<DraftBoardProspect[]>(() => [...DRAFT_BOARD_MOCK])
   const [loading, setLoading] = useState(true)
+  const prospectKey = searchParams.get(DRAFT_PROSPECT_QUERY)
+  const prospectDetail = useMemo(() => {
+    if (subView !== 'draft-central' || !prospectKey) return null
+    return findProspectByKey(prospects, prospectKey) ?? null
+  }, [subView, prospectKey, prospects])
+
+  const openProspectDetail = useCallback(
+    (key: string) => {
+      setSearchParams(
+        (prev) => {
+          const next = new URLSearchParams(prev)
+          next.set(DRAFT_PROSPECT_QUERY, key)
+          return next
+        },
+        { replace: false },
+      )
+    },
+    [setSearchParams],
+  )
+
+  const closeProspectDetail = useCallback(() => {
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev)
+        next.delete(DRAFT_PROSPECT_QUERY)
+        return next
+      },
+      { replace: false },
+    )
+  }, [setSearchParams])
 
   useEffect(() => {
     if (subView !== 'draft-central') {
@@ -66,19 +102,34 @@ export function OptionADraftCentralPage() {
   }, [subView])
 
   const header = HEADER_COPY[subView]
+  const showProspectDetail = subView === 'draft-central' && prospectDetail != null
 
   return (
-    <div className="draft-central-page draft-central-page--option-a">
-      <IqTabHeader title={header.title} subtitle={header.subtitle} />
+    <div
+      className={
+        subView === 'draft-central'
+          ? `draft-central-page draft-central-page--option-a draft-central-page--draft-test${showProspectDetail ? ' draft-central-page--prospect-detail' : ''}`
+          : 'draft-central-page draft-central-page--option-a'
+      }
+    >
+      {showProspectDetail ? null : (
+        <IqTabHeader title={header.title} subtitle={header.subtitle} />
+      )}
 
-      {subView === 'draft-central' ? (
+      {showProspectDetail ? (
+        <OptionADraftProspectDetail
+          prospect={prospectDetail}
+          onBack={closeProspectDetail}
+        />
+      ) : subView === 'draft-central' ? (
         <section
           className="draft-central-section draft-central-section--board draft-central-section--prospect-board"
           aria-label="Prospect draft board"
         >
-          <OptionADraftCentralBoard
+          <OptionADraftCentralTestBoard
             rows={prospects}
             loading={loading && prospects.length === 0}
+            onOpenProspect={openProspectDetail}
           />
         </section>
       ) : subView === 'cheat-sheet' ? (

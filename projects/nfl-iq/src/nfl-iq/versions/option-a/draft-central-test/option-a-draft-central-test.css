@@ -1,0 +1,700 @@
+/* Draft Central — silo layout & interactions */
+
+.draft-central-page--draft-test .draft-board--draft-test {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.85rem;
+}
+
+/* —— Unified explorer: library table | scatter —— */
+.draft-test__explorer-wrap {
+  min-width: 0;
+}
+
+.draft-board--draft-test .draft-test__explorer.draft-board__primary-card {
+  overflow: visible;
+}
+
+.draft-test__explorer {
+  --draft-test-explorer-split: minmax(320px, 42%);
+  position: relative;
+  height: 420px;
+  max-height: 420px;
+  display: grid;
+  grid-template-columns: var(--draft-test-explorer-split) 1fr;
+  grid-template-rows: auto 1fr;
+  align-items: stretch;
+  min-width: 0;
+  min-height: 0;
+}
+
+.draft-test__explorer-head,
+.draft-test__explorer-body {
+  display: contents;
+}
+
+.draft-test__explorer-head-table {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.5rem 0.35rem 0.5rem 12px;
+  border-right: 1px solid #d9d9d9;
+  border-bottom: 1px solid #eef2f4;
+  box-sizing: border-box;
+}
+
+.draft-test__explorer-head-table .draft-test__table-title {
+  flex-shrink: 0;
+}
+
+.draft-test__explorer-head-table .fa-board__search {
+  flex: 0 1 11.5rem;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.draft-test__explorer-head-chart {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 44px;
+  max-height: 44px;
+  padding: 0.5rem 8px;
+  border-bottom: 1px solid #eef2f4;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.draft-test__explorer-head-chart:has(.draft-test__portraits) {
+  padding-right: 5.75rem;
+}
+
+/* —— Chart comparison title menu —— */
+.draft-test__chart-menu {
+  position: relative;
+  min-width: 0;
+}
+
+.draft-test__chart-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  max-width: 100%;
+}
+
+.draft-test__chart-menu-chevron {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  color: #111827;
+  transition: transform 0.15s ease;
+}
+
+.draft-test__chart-menu-chevron--open {
+  transform: rotate(180deg);
+}
+
+.draft-test__chart-menu-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 20;
+  min-width: 100%;
+  max-width: min(320px, 90vw);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #d1d5db;
+  border-radius: 0 0 6px 6px;
+  background: #f3f4f6;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.draft-test__chart-menu-option {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.45rem 0.65rem;
+  border: none;
+  background: transparent;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
+  color: #111827;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.draft-test__chart-menu-option:hover,
+.draft-test__chart-menu-option--selected {
+  background: #6b7280;
+  color: #fff;
+}
+
+.draft-test__explorer-table-pane {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding-left: 0;
+  border-right: 1px solid #d9d9d9;
+  overflow: hidden;
+}
+
+.draft-test__explorer-chart-pane {
+  grid-column: 2 / -1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding: 0 8px 8px 8px;
+  overflow: hidden;
+}
+
+.draft-test__library-scroll {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* —— Table title + search (bottom scorecard) —— */
+.draft-test__table-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.5rem 12px 0.55rem;
+  border-bottom: 1px solid #eef2f4;
+  box-sizing: border-box;
+}
+
+.draft-test__table-title {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #111827;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.draft-test__table-head .fa-board__search {
+  flex: 0 1 11.5rem;
+}
+
+.draft-board--draft-test .draft-test__library-table,
+.draft-board--draft-test .draft-test__scorecard-table {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.draft-board--draft-test .draft-test__library-scroll .draft-test__library-table {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.draft-test__library-col--dj {
+  width: 10%;
+}
+
+.draft-test__library-col--pos {
+  width: 9%;
+}
+
+.draft-test__library-col--player {
+  width: 24%;
+}
+
+.draft-test__library-col--school {
+  width: 11%;
+}
+
+.draft-test__library-col--metric {
+  width: 14%;
+}
+
+.draft-test__library-col--actions {
+  width: 6%;
+}
+
+.draft-test__library-table .draft-board__th:first-child,
+.draft-test__library-table .draft-board__td:first-child {
+  padding-left: 12px;
+}
+
+.draft-test__library-table .draft-board__th--school,
+.draft-test__library-table .draft-board__td--school {
+  width: auto;
+  min-width: 0;
+  max-width: none;
+}
+
+.draft-test__library-table .draft-board__th--ngs-metric,
+.draft-test__library-table .draft-board__td--ngs-metric {
+  width: auto;
+  min-width: 0;
+  max-width: none;
+}
+
+.draft-test__library-table .draft-board__th,
+.draft-test__library-table .draft-board__td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.draft-test__library-table .draft-board__th--ngs-metric .fa-table-sort__content,
+.draft-test__library-table .fa-table-filter-th .fa-table-filter-trigger {
+  font-size: 0.48rem;
+  letter-spacing: 0.03em;
+}
+
+.draft-test__library-table .draft-board__td--player {
+  max-width: none;
+  white-space: nowrap;
+}
+
+.draft-test__library-table .draft-board__ngs-wrap {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.draft-test__library-table .draft-board__ngs-num {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.draft-test__library-th--actions,
+.draft-test__library-td--actions {
+  width: 1.75rem;
+  min-width: 1.75rem;
+  max-width: 1.75rem;
+  padding: 0 2px 0 0 !important;
+  text-align: center;
+  vertical-align: middle;
+  overflow: visible;
+}
+
+.draft-test__library-row-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+
+.draft-test__library-row-menu--visible,
+.draft-test__library-row:hover .draft-test__library-row-menu,
+.draft-test__library-row--focused .draft-test__library-row-menu {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.draft-test__library-row-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.draft-test__library-row-menu-trigger:hover,
+.draft-test__library-row-menu-trigger:focus-visible {
+  background: rgba(17, 24, 39, 0.08);
+  color: #111827;
+}
+
+.draft-test__library-row--focused .draft-test__library-row-menu-trigger {
+  color: #60a5fa;
+}
+
+.draft-test__library-row--focused .draft-test__library-row-menu-trigger:hover,
+.draft-test__library-row--focused .draft-test__library-row-menu-trigger:focus-visible {
+  background: rgba(96, 165, 250, 0.2);
+  color: #38bdf8;
+}
+
+.draft-test__library-row-menu-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.draft-test__library-row-menu-icon--forward {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.draft-test__library-row-menu-list {
+  z-index: 30;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #f3f4f6;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.draft-test__library-row-menu-option {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.45rem 0.65rem;
+  border: none;
+  background: transparent;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
+  color: #111827;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.draft-test__library-row-menu-option:hover {
+  background: #6b7280;
+  color: #fff;
+}
+
+.draft-test__empty-dash {
+  opacity: 0.5;
+}
+
+.draft-board--draft-test .draft-board__td--ngs-metric {
+  text-align: center;
+}
+
+.draft-board--draft-test .draft-board__th--ngs-metric {
+  text-align: center;
+}
+
+/* Metric / empty / highlight cells — match row striping, no tinted fills */
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(even) td.draft-board__td--ngs-metric,
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(even) td.draft-board__td--combine-empty,
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(even) td.draft-board__td--raw-ath-empty,
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(even) td.draft-board__td--raw-ath-high,
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(even) td.draft-board__td--raw-ath-muted {
+  background: #fafbfc !important;
+}
+
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(odd) td.draft-board__td--ngs-metric,
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(odd) td.draft-board__td--combine-empty,
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(odd) td.draft-board__td--raw-ath-empty,
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(odd) td.draft-board__td--raw-ath-high,
+.draft-board--draft-test .draft-board__table tbody tr:nth-child(odd) td.draft-board__td--raw-ath-muted {
+  background: #fff !important;
+}
+
+.draft-test__library-row,
+.draft-test__scorecard-row {
+  cursor: pointer;
+}
+
+/* Row highlight on <tr> so specialty cell backgrounds do not break the fill */
+.draft-board--draft-test .draft-board__table tbody tr.draft-test__library-row--focused,
+.draft-board--draft-test .draft-board__table tbody tr.draft-test__scorecard-row--focused {
+  background-color: rgba(59, 130, 246, 0.12);
+}
+
+.draft-board--draft-test .draft-board__table tbody tr.draft-test__library-row--focused:nth-child(even) > td,
+.draft-board--draft-test .draft-board__table tbody tr.draft-test__library-row--focused:nth-child(odd) > td,
+.draft-board--draft-test .draft-board__table tbody tr.draft-test__scorecard-row--focused:nth-child(even) > td,
+.draft-board--draft-test .draft-board__table tbody tr.draft-test__scorecard-row--focused:nth-child(odd) > td {
+  background: transparent !important;
+}
+
+.draft-board--draft-test
+  .draft-board__table
+  tbody
+  tr.draft-test__library-row:focus-visible:not(.draft-test__library-row--focused),
+.draft-board--draft-test
+  .draft-board__table
+  tbody
+  tr.draft-test__scorecard-row:focus-visible:not(.draft-test__scorecard-row--focused) {
+  background-color: rgba(59, 130, 246, 0.1875);
+}
+
+.draft-board--draft-test
+  .draft-board__table
+  tbody
+  tr.draft-test__library-row:focus-visible:not(.draft-test__library-row--focused):nth-child(even)
+  > td,
+.draft-board--draft-test
+  .draft-board__table
+  tbody
+  tr.draft-test__library-row:focus-visible:not(.draft-test__library-row--focused):nth-child(odd)
+  > td,
+.draft-board--draft-test
+  .draft-board__table
+  tbody
+  tr.draft-test__scorecard-row:focus-visible:not(.draft-test__scorecard-row--focused):nth-child(even)
+  > td,
+.draft-board--draft-test
+  .draft-board__table
+  tbody
+  tr.draft-test__scorecard-row:focus-visible:not(.draft-test__scorecard-row--focused):nth-child(odd)
+  > td {
+  background: transparent !important;
+}
+
+/* —— Scatter (embedded in explorer) —— */
+.draft-test__explorer-chart-pane .draft-test__scatter {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.draft-test__scatter-plot-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.draft-test__explorer-chart-pane .draft-test__scatter {
+  width: 100%;
+}
+
+.draft-test__explorer-chart-pane .ng-scatter__plot--hc {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  flex: 1 1 auto;
+}
+
+.draft-test__explorer-chart-pane .ng-scatter__svg--hc {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.draft-test__scatter-axis-title {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.draft-test__portraits {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  transform: translateY(-50%);
+  overflow: visible;
+  pointer-events: auto;
+  background: var(--iq-surface, #fff);
+}
+
+.draft-test__portrait-card {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  overflow: visible;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+  background: #e5e7eb;
+}
+
+.draft-test__portrait-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.draft-test__portrait-card--slot-0 {
+  border-color: #14b8a6;
+}
+
+.draft-test__portrait-card--slot-1 {
+  border-color: #9333ea;
+}
+
+.draft-test__portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.draft-test__portrait-dismiss {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  z-index: 3;
+  width: 16px;
+  height: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #dc2626;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.draft-test__portrait-card:hover .draft-test__portrait-dismiss,
+.draft-test__portrait-card:focus-within .draft-test__portrait-dismiss {
+  opacity: 1;
+}
+
+.draft-test__portrait-dismiss:hover {
+  background: #b91c1c;
+}
+
+.ng-scatter__bubble--focus-slot-0 .ng-scatter__bubble-dot {
+  filter: drop-shadow(0 0 4px rgba(20, 184, 166, 0.55));
+}
+
+.ng-scatter__bubble--focus-slot-1 .ng-scatter__bubble-dot {
+  filter: drop-shadow(0 0 4px rgba(147, 51, 234, 0.55));
+}
+
+/* —— Bottom: full combine scorecard —— */
+.draft-test__detail-wrap {
+  margin-top: 0;
+}
+
+.draft-central-page--draft-test .draft-test__detail-wrap .draft-board__scroll--primary {
+  padding-inline: 0;
+  box-sizing: border-box;
+}
+
+.draft-central-page--draft-test .draft-test__detail-wrap .draft-board__legend--primary {
+  padding-inline: 12px;
+  box-sizing: border-box;
+}
+
+/* Scorecard — row backgrounds edge-to-edge; cell content inset 12px */
+.draft-test__scorecard-table {
+  width: 100%;
+}
+
+.draft-test__scorecard-table .draft-board__th:first-child,
+.draft-test__scorecard-table .draft-board__td:first-child {
+  padding-left: 12px;
+}
+
+.draft-test__scorecard-table .draft-board__th:last-child,
+.draft-test__scorecard-table .draft-board__td:last-child {
+  padding-right: 12px;
+}
+
+.draft-central-page--draft-test
+  .draft-test__detail-wrap
+  .draft-board__primary-card {
+  overflow: visible;
+}
+
+@media (max-width: 1100px) {
+  .draft-test__explorer {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: none;
+  }
+
+  .draft-test__explorer-head,
+  .draft-test__explorer-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .draft-test__explorer-head-table,
+  .draft-test__explorer-head-chart,
+  .draft-test__explorer-table-pane,
+  .draft-test__explorer-chart-pane {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .draft-test__explorer-head-chart {
+    max-height: none;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding-right: 8px;
+  }
+
+  .draft-test__explorer-head-chart:has(.draft-test__portraits) {
+    padding-right: 8px;
+  }
+
+  .draft-test__portraits {
+    position: static;
+    transform: none;
+    margin-left: auto;
+  }
+
+  .draft-test__explorer-head-table {
+    border-right: none;
+    border-bottom: 1px solid #d9d9d9;
+    padding-right: 12px;
+  }
+
+  .draft-test__explorer-head-chart {
+    border-bottom: 1px solid #d9d9d9;
+  }
+
+  .draft-test__explorer-table-pane {
+    border-right: none;
+    border-bottom: 1px solid #d9d9d9;
+    max-height: 280px;
+  }
+}

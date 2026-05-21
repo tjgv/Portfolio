@@ -1,43 +1,53 @@
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import './draft-subnav.css'
 
 export const DRAFT_SUBVIEWS = [
-  { id: 'draft-central', label: 'Draft Central' },
-  { id: 'cheat-sheet', label: 'Cheat Sheet' },
-  { id: 'big-board', label: 'Big Board' },
-  { id: 'combine-tracking', label: 'Combine Tracking' },
+  { id: 'draft-central', label: 'Draft Central', path: '/draft' as const },
+  {
+    id: 'cheat-sheet',
+    label: 'Cheat Sheet',
+    path: '/draft' as const,
+    view: 'cheat-sheet' as const,
+  },
+  {
+    id: 'big-board',
+    label: 'Big Board',
+    path: '/draft' as const,
+    view: 'big-board' as const,
+  },
+  {
+    id: 'combine-tracking',
+    label: 'Combine Tracking',
+    path: '/draft' as const,
+    view: 'combine-tracking' as const,
+  },
 ] as const
 
 export type DraftSubView = (typeof DRAFT_SUBVIEWS)[number]['id']
 
 export function parseDraftSubView(search: URLSearchParams): DraftSubView {
   const raw = search.get('view')
-  if (
-    raw &&
-    DRAFT_SUBVIEWS.some((v) => v.id === raw)
-  ) {
+  if (raw && DRAFT_SUBVIEWS.some((v) => v.id === raw)) {
     return raw as DraftSubView
   }
   return 'draft-central'
 }
 
 export function DraftSubnav() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const active = parseDraftSubView(searchParams)
 
   const select = (id: DraftSubView) => {
-    setSearchParams(
-      (prev) => {
-        const next = new URLSearchParams(prev)
-        if (id === 'draft-central') {
-          next.delete('view')
-        } else {
-          next.set('view', id)
-        }
-        return next
-      },
-      { replace: true },
-    )
+    const item = DRAFT_SUBVIEWS.find((v) => v.id === id)
+    if (!item) return
+
+    if ('view' in item && item.view) {
+      navigate(`/draft?view=${item.view}`)
+      return
+    }
+
+    navigate('/draft', { replace: false })
   }
 
   return (

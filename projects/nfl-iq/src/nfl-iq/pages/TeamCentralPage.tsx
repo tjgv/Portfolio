@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { fetchTeam } from '../api'
 import { TeamCentralCharts } from '../components/TeamCentralCharts'
-import { TeamCentralHeader } from '../components/TeamCentralHeader'
+import { TeamCentralSummaryPanel } from '../components/TeamCentralSummaryPanel'
+import type { TeamNeed } from '../types'
 import { buildFallbackTeam } from '../data/team-fallback'
 import { useIqTeam } from '../context/useIqTeam'
 import type { Team } from '../types'
@@ -12,6 +13,7 @@ export function TeamCentralPage() {
   const { pathname } = useLocation()
   const { selectedTeamId, teamCentralActivated, activateTeamCentral } = useIqTeam()
   const [team, setTeam] = useState<Team | null>(null)
+  const [needs, setNeeds] = useState<TeamNeed[]>([])
 
   useEffect(() => {
     if (pathname.startsWith('/teams')) {
@@ -22,13 +24,16 @@ export function TeamCentralPage() {
   useEffect(() => {
     if (!selectedTeamId) return
     setTeam(null)
+    setNeeds([])
 
     void fetchTeam(selectedTeamId)
       .then((data) => {
         setTeam(data.team)
+        setNeeds(data.needs)
       })
       .catch(() => {
         setTeam(buildFallbackTeam(selectedTeamId))
+        setNeeds([])
       })
   }, [selectedTeamId])
 
@@ -49,7 +54,11 @@ export function TeamCentralPage() {
   return (
     <div className="team-central-page">
       {displayTeam && (
-        <TeamCentralHeader teamId={selectedTeamId} team={displayTeam} />
+        <TeamCentralSummaryPanel
+          teamId={selectedTeamId}
+          team={displayTeam}
+          needs={needs}
+        />
       )}
 
       {displayTeam && <TeamCentralCharts teamId={selectedTeamId} />}

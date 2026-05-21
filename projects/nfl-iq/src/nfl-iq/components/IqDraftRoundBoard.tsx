@@ -51,7 +51,7 @@ export function IqDraftRoundBoard() {
   }, [activeRound])
 
   return (
-    <section className="iq-draft-widget" aria-label="Draft round tracker">
+    <div className="iq-draft-widget">
       <div className="iq-draft-round-tabs" role="tablist" aria-label="Draft round">
         {ROUNDS.map((round, index) => (
           <Fragment key={round}>
@@ -62,6 +62,7 @@ export function IqDraftRoundBoard() {
               type="button"
               role="tab"
               aria-selected={activeRound === round}
+              disabled={round > 1}
               className={
                 activeRound === round
                   ? 'iq-draft-round-tabs__tab iq-draft-round-tabs__tab--active'
@@ -75,7 +76,13 @@ export function IqDraftRoundBoard() {
         ))}
       </div>
 
-      <div className="iq-draft-round-card">
+      <div
+        className={
+          picksForRound.length > 0
+            ? 'iq-draft-round-card'
+            : 'iq-draft-round-card iq-draft-round-card--empty'
+        }
+      >
         {picksForRound.length > 0 ? (
           <div className="iq-draft-round-grid">
             {COLUMN_RANGES.map((range) => {
@@ -100,6 +107,6 @@ export function IqDraftRoundBoard() {
           </p>
         )}
       </div>
-    </section>
+    </div>
   )
 }

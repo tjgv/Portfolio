@@ -20,25 +20,42 @@
 
 /* Match Free Agency: wide main (draft) left, roster sidebar right */
 .team-central-charts__grid--fa-layout {
-  --tc-charts-height: min(28rem, 58vh);
-
   grid-template-columns: minmax(0, 3.1fr) minmax(310px, 1.125fr);
   gap: 1.15rem;
-  align-items: stretch;
+  align-items: start;
 }
 
-.team-central-charts__grid--fa-layout .team-central-charts__tile--main,
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar {
-  min-height: var(--tc-charts-height);
+.team-central-charts__draft-anchor {
+  min-width: 0;
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__tile--draft {
   max-height: none;
 }
 
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar {
+/* Height locked to draft panel via --tc-draft-panel-h (set in TeamCentralCharts) */
+.team-central-charts__grid--fa-layout .team-central-charts__tile--roster.team-central-charts__tile--sidebar {
+  box-sizing: border-box;
   min-height: 0;
-  max-height: var(--tc-charts-height);
+  height: var(--tc-draft-panel-h, auto);
+  max-height: var(--tc-draft-panel-h, none);
+  overflow: hidden;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__legend {
+  flex-shrink: 0;
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__tile-toolbar--sidebar {
@@ -47,6 +64,7 @@
   justify-content: space-between;
   gap: 0.5rem;
   padding: 0.65rem 0.75rem 0.5rem;
+  flex-shrink: 0;
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__tabs--sidebar {
@@ -206,16 +224,21 @@
   line-height: 1.15;
 }
 
-.team-central-charts__draft-badge {
+.team-central-charts__draft-class-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   flex-shrink: 0;
-  padding: 0.2rem 0.5rem;
-  border: 1px solid var(--tc-divider);
-  border-radius: 4px;
+}
+
+.team-central-charts__draft-class-level-label {
+  font-family: Inter, system-ui, sans-serif;
   font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.06em;
-  color: var(--tc-navy);
-  background: #fafafa;
+  text-transform: uppercase;
+  color: var(--tc-text-soft);
+  white-space: nowrap;
 }
 
 .team-central-charts__draft-note {
@@ -435,9 +458,8 @@
     grid-template-columns: 1fr;
   }
 
-  .team-central-charts__grid--fa-layout .team-central-charts__tile--main,
-  .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar {
-    min-height: 0;
+  .team-central-charts__grid--fa-layout .team-central-charts__tile--roster.team-central-charts__tile--sidebar {
+    height: auto;
     max-height: none;
   }
 }

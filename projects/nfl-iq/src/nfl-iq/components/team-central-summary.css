@@ -1,0 +1,542 @@
+/* Team Central — top summary strip */
+
+.tc-summary {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.tc-summary__shell {
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.tc-summary__nav {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px 12px;
+  background: var(--tc-summary-team-color, #013369);
+}
+
+.tc-summary__nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.tc-summary__nav-tab {
+  margin: 0;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--tc-summary-nav-text, #fff);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.tc-summary__nav-tab:hover:not(.tc-summary__nav-tab--active) {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.tc-summary__nav-tab--active {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.tc-summary__surface {
+  background: #fff;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 16px 16px;
+}
+
+/* Brand | finance | peers — 3 rows aligned across middle + right */
+.tc-summary__grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) minmax(0, 362px) max-content;
+  grid-template-rows: repeat(3, minmax(0, auto));
+  align-items: stretch;
+  min-width: min(100%, 720px);
+  width: 100%;
+  min-height: 200px;
+}
+
+.tc-summary__cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 16px;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.tc-summary__cell--brand {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  padding: 0;
+  border-right: 1px solid #ececec;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.tc-summary__cell--finance {
+  grid-column: 2;
+  border-right: 1px solid #ececec;
+}
+
+.tc-summary__cell--finance.tc-summary__cell--row-1 {
+  grid-row: 1;
+}
+
+.tc-summary__cell--finance.tc-summary__cell--row-2 {
+  grid-row: 2;
+}
+
+.tc-summary__cell--finance.tc-summary__cell--row-3 {
+  grid-row: 3;
+}
+
+.tc-summary__cell--peer {
+  grid-column: 3;
+}
+
+.tc-summary__cell--peer.tc-summary__cell--row-1 {
+  grid-row: 1;
+}
+
+.tc-summary__cell--peer.tc-summary__cell--row-2 {
+  grid-row: 2;
+}
+
+.tc-summary__cell--peer.tc-summary__cell--row-3 {
+  grid-row: 3;
+}
+
+.tc-summary__cell--row-1,
+.tc-summary__cell--row-2 {
+  border-bottom: 1px solid #ececec;
+}
+
+/* —— Brand (logo + record, 2×2 staff grid) —— */
+.tc-summary__brand-stack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.tc-summary__brand-head {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid #ececec;
+}
+
+.tc-summary__brand-logo {
+  width: 72px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.tc-summary__brand-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.tc-summary__team-name {
+  margin: 0;
+  font-family: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.tc-summary__record-line {
+  margin: 0;
+  font-family: 'Barlow Condensed', Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #1a2b4b;
+}
+
+.tc-summary__staff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0 16px 16px;
+  gap: 1px;
+  background: #ececec;
+}
+
+.tc-summary__staff-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 16px;
+  min-width: 0;
+  background: #fff;
+}
+
+.tc-summary__staff-name {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a2b4b;
+}
+
+/* —— Team needs (official pill style) —— */
+.tc-summary__need-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.tc-summary__need-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.625rem;
+  padding: 0.275rem 0.625rem;
+  border-radius: 4px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.tc-summary__need-pill--done {
+  border: 1px solid #15803d;
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.tc-summary__need-pill--addressed {
+  border: 1px solid #ca8a04;
+  background: #fefce8;
+  color: #a16207;
+}
+
+.tc-summary__need-pill--need {
+  border: 1px solid #ef4444;
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* —— Finance cells (middle column, per row) —— */
+.tc-summary__cell.tc-summary__finance-section {
+  padding: 16px;
+}
+
+.tc-summary__finance-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.tc-summary__finance-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.tc-summary__finance-section .tc-summary__need-pills {
+  justify-content: center;
+}
+
+.tc-summary__finance-section--draft-class,
+.tc-summary__finance-section--capital {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.tc-summary__finance-section--draft-class .tc-summary__finance-section-head {
+  justify-content: flex-start;
+}
+
+.tc-summary__finance-section--draft-class .tc-summary__need-pills {
+  justify-content: flex-start;
+}
+
+/* Shared section titles (finance headings, cap labels, peer metrics) */
+.tc-summary__title {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.tc-summary__finance-heading {
+  display: block;
+}
+
+.tc-summary__trend-up {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #16a34a;
+}
+
+.tc-summary__finance-section--cap {
+  width: 100%;
+  justify-content: center;
+}
+
+.tc-summary__cap-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr) minmax(0, 0.85fr);
+  column-gap: 12px;
+  row-gap: 8px;
+  width: 100%;
+}
+
+.tc-summary__cap-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  text-align: center;
+}
+
+.tc-summary__cap-cell .tc-summary__title {
+  text-align: center;
+}
+
+.tc-summary__cap-value {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #16a34a;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.tc-summary__finance-section--capital {
+  gap: 8px;
+}
+
+.tc-summary__capital-picks {
+  margin: 0;
+  width: 100%;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #1e293b;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.tc-summary__rank-pill {
+  padding: 0.08rem 0.35rem;
+  border-radius: 3px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.56rem;
+  font-weight: 800;
+  background: #e5e7eb;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.tc-summary__draft-metric {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.tc-summary__ovr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.58rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.tc-summary__ovr--high {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.tc-summary__ovr--mid {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+.tc-summary__ovr--low {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+/* —— Division peers (right column, per row) —— */
+.tc-summary__cell.tc-summary__peer-row {
+  padding: 16px;
+}
+
+.tc-summary__peer-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.tc-summary__peer-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+}
+
+.tc-summary__peer-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tc-summary__peer-logo {
+  width: auto;
+  height: auto;
+  max-height: 40px;
+  max-width: 36px;
+  object-fit: contain;
+  display: block;
+}
+
+.tc-summary__peer-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.tc-summary__peer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.tc-summary__peer-metrics {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.3rem 0.45rem;
+  width: 100%;
+}
+
+.tc-summary__peer-row .tc-summary__draft-metric {
+  justify-content: flex-start;
+  gap: 0.2rem;
+}
+
+.tc-summary__peer-row .tc-summary__rank-pill {
+  font-size: 10px;
+}
+
+.tc-summary__peer-row .tc-summary__ovr,
+.tc-summary__peer-row .tc-summary__ovr--high,
+.tc-summary__peer-row .tc-summary__ovr--mid,
+.tc-summary__peer-row .tc-summary__ovr--low {
+  min-width: auto;
+  height: auto;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.tc-summary__peer-row .tc-summary__ovr--high {
+  color: #065f46;
+}
+
+.tc-summary__peer-row .tc-summary__ovr--mid {
+  color: #92400e;
+}
+
+.tc-summary__peer-row .tc-summary__ovr--low {
+  color: #991b1b;
+}
+
+.tc-summary__peer-info .tc-summary__need-pills {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+/* Narrow viewports: horizontal scroll, not vertical stack */
+@media (max-width: 900px) {
+  .tc-summary__surface {
+    -webkit-overflow-scrolling: touch;
+  }
+}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useLocation, useSearchParams } from 'react-router-dom'
 import { parseDraftSubView } from '../../../components/DraftSubnav'
+import { DRAFT_PROSPECT_QUERY } from '../draft-central-test/draft-prospect-nav'
 import { useIqTeam } from '../../../context/useIqTeam'
 import { FreeAgencyTeamFilterBar } from './FreeAgencyTeamFilterBar'
 import './option-a-team-filter-strip.css'
@@ -25,8 +26,13 @@ export function OptionATeamFilterStrip() {
     () => (onDraft ? parseDraftSubView(searchParams) : null),
     [onDraft, searchParams],
   )
+  const onProspectDetail =
+    onDraft &&
+    draftSubView === 'draft-central' &&
+    searchParams.get(DRAFT_PROSPECT_QUERY) != null
   const hideTeamFilter =
-    draftSubView != null && DRAFT_VIEWS_WITHOUT_TEAM_FILTER.has(draftSubView)
+    onProspectDetail ||
+    (draftSubView != null && DRAFT_VIEWS_WITHOUT_TEAM_FILTER.has(draftSubView))
   const show = onFreeAgency || (onDraft && !hideTeamFilter)
 
   useEffect(() => {

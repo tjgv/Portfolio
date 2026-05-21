@@ -26,10 +26,8 @@ import {
 } from '../utils/free-agency-filters'
 import { FreeAgencyNeedCell } from './FreeAgencyNeedCell'
 import { FaBoardTableSearch } from '../../../components/FaBoardTableSearch'
-import { FreeAgencyHeadlines } from '../../../components/FreeAgencyHeadlines'
 import '../../../components/fa-board-table-search.css'
 import '../../../components/free-agency-board.css'
-import '../../../components/free-agency-headlines.css'
 import '../../../components/team-central-charts.css'
 import './option-a-free-agency-board.css'
 import './option-a-free-agency-need.css'
@@ -430,8 +428,6 @@ export function OptionAFreeAgencyBoard() {
       </div>
 
       <FreeAgencyLegend />
-
-      <FreeAgencyHeadlines />
     </div>
   )
 }

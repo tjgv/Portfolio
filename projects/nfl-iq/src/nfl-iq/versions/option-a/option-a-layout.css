@@ -142,7 +142,8 @@
 .nfl-iq[data-mock-version='option-a'] .free-agency-board-section,
 .nfl-iq[data-mock-version='option-a'] .iq-draft-analytics-section,
 .nfl-iq[data-mock-version='option-a'] .combine-tracking__panels-wrap,
-.nfl-iq[data-mock-version='option-a'] .iq-draft-widget-section {
+.nfl-iq[data-mock-version='option-a'] .iq-draft-widget-section,
+.nfl-iq[data-mock-version='option-a'] .iq-home .iq-draft-widget-section {
   margin-inline: calc(-1 * var(--iq-page-gutter));
 }
 
@@ -172,6 +173,7 @@
 }
 
 .nfl-iq[data-mock-version='option-a'] .iq-draft-widget-section,
+.nfl-iq[data-mock-version='option-a'] .iq-home .iq-draft-widget-section,
 .nfl-iq[data-mock-version='option-a'] .iq-draft-analytics-section,
 .nfl-iq[data-mock-version='option-a'] .combine-tracking__panels-wrap {
   padding-inline: 0;
@@ -198,4 +200,12 @@
 .nfl-iq[data-mock-version='option-a'] .draft-central-section--board > .draft-board .draft-board__table {
   width: 100%;
   min-width: 100%;
+}
+
+.nfl-iq[data-mock-version='option-a']
+  .draft-board--draft-test
+  .draft-test__library-scroll
+  .draft-test__library-table {
+  width: 100%;
+  min-width: 0;
 }

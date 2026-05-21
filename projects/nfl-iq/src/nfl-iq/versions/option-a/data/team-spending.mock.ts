@@ -56,6 +56,33 @@ const DEFAULT_NE: TeamSpendingProfile = {
 
 const PROFILES: Record<string, TeamSpendingProfile> = {
   NE: DEFAULT_NE,
+  SEA: {
+    teamId: 'SEA',
+    capSpace: {
+      label: 'CAP SPACE',
+      value: '$32.6M',
+      rank: 6,
+      rankTone: 'gold',
+      divisionRanks: [8, 10, 9],
+      meterLevel: 72,
+    },
+    activeCapSpending: {
+      label: 'ACTIVE CAP SPENDING',
+      value: '$281.0M',
+      rank: 6,
+      rankTone: 'green',
+      divisionRanks: [5, 7, 6],
+      meterLevel: 68,
+    },
+    deadMoney: {
+      label: 'DEAD MONEY',
+      value: '$0.5M',
+      rank: 1,
+      rankTone: 'mint',
+      divisionRanks: [2, 3, 4],
+    },
+    topNeeds: [],
+  },
   BUF: {
     teamId: 'BUF',
     capSpace: {

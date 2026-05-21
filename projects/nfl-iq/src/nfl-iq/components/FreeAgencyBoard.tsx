@@ -9,11 +9,9 @@ import type { FreeAgencyAvailableAgent } from '../types/free-agency-board'
 import type { DraftBoardProspect } from '../types'
 import { publicAsset } from '../lib/app-paths'
 import { FaBoardTableSearch } from './FaBoardTableSearch'
-import { FreeAgencyHeadlines } from './FreeAgencyHeadlines'
 import { SchoolTableCell } from './SchoolTableCell'
 import './fa-board-table-search.css'
 import './free-agency-board.css'
-import './free-agency-headlines.css'
 
 const SNAPS_PG_MAX = 70
 const TOP_SPEED_MAX = 22
@@ -382,8 +380,6 @@ export function FreeAgencyBoard() {
       </div>
 
       <FreeAgencyLegend />
-
-      <FreeAgencyHeadlines />
     </div>
   )
 }
