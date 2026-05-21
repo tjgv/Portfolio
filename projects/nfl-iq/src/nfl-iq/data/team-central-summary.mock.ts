@@ -57,7 +57,7 @@ export function getTeamCentralDivisionPeers(teamId: string): TeamCentralPeerRow[
     .filter((id) => id !== teamId)
     .slice(0, 3)
     .map((peerId) => ({
-      teamId: peerId,
-      needTags: generateTeamTopNeeds(peerId).slice(0, 5),
-    }))
+    teamId: peerId,
+    needTags: generateTeamTopNeeds(peerId).slice(0, 5),
+  }))
 }

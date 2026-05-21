@@ -49,6 +49,11 @@ export function FreeAgencyTeamFilterBar({
                         ? 'fa-team-filter__team fa-team-filter__team--selected'
                         : 'fa-team-filter__team'
                     }
+                    {...(teamId === 'TEN'
+                      ? { 'data-solution-tour': 'team-filter-ten' }
+                      : teamId === 'IND'
+                        ? { 'data-solution-tour': 'team-filter-ind' }
+                        : {})}
                     aria-pressed={isSelected}
                     aria-label={team?.name ?? teamId}
                     title={team?.name ?? teamId}

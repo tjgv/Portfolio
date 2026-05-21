@@ -320,7 +320,12 @@ function PeerRow({
       className={`tc-summary__cell tc-summary__cell--peer tc-summary__cell--row-${row} tc-summary__peer-row`}
     >
       <div className="tc-summary__peer-group">
-        <div className="tc-summary__peer-logo-wrap">
+        <div
+          className="tc-summary__peer-logo-wrap"
+          {...(peerTeamId === 'IND'
+            ? { 'data-solution-tour': 'team-summary-peer-ind' }
+            : {})}
+        >
           <img
             className="tc-summary__peer-logo"
             src={ngsTeamLogoUrl(peerTeamId)}
@@ -365,7 +370,11 @@ export function TeamCentralSummaryPanel({
   const [activeTab, setActiveTab] = useState<SummaryTabId>('summary')
 
   return (
-    <section className="tc-summary" aria-label="Team overview">
+    <section
+      className="tc-summary"
+      data-solution-tour="team-central-summary"
+      aria-label="Team overview"
+    >
       <div className="tc-summary__shell">
         <SummaryNav
           teamId={teamId}

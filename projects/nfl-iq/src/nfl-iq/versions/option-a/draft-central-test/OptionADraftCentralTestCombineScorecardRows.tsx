@@ -1,12 +1,17 @@
+import { useMemo } from 'react'
 import type { DraftBoardProspect } from '../../../types'
 import { prospectStableKey } from '../../../utils/draft-ng-ranks'
 import { SchoolTableCell } from '../../../components/SchoolTableCell'
 import { tierFromNgsScore } from '../../../utils/draft-score-tier'
 import type { DraftCentralTeamNeedsLayout } from '../data/draft-central-team-needs'
-import { draftCentralProspectKey } from '../data/draft-central-team-needs'
+import {
+  draftCentralProspectKey,
+  findFirstGotOrRivalsLogo,
+} from '../data/draft-central-team-needs'
 import { DraftCentralTestGotCell } from './DraftCentralTestGotCell'
 import { DraftCentralTestRivalsCell } from './DraftCentralTestRivalsCell'
 import { DraftTestEmptyDash } from './DraftTestEmptyDash'
+import { DRAFT_HOVER_PREVIEW_PLAYER_NAME } from './draft-hover-preview'
 
 function NgsScoreCell({ score }: { score: number }) {
   const tier = tierFromNgsScore(score)
@@ -55,6 +60,10 @@ export function OptionADraftCentralTestCombineScorecardRows({
   onSelectProspect,
 }: OptionADraftCentralTestCombineScorecardRowsProps) {
   const focusedSet = new Set(focusedKeys)
+  const firstNeedLogo = useMemo(
+    () => findFirstGotOrRivalsLogo(rows, teamNeedsLayout),
+    [rows, teamNeedsLayout],
+  )
 
   return (
     <>
@@ -66,6 +75,9 @@ export function OptionADraftCentralTestCombineScorecardRows({
           teamNeedsLayout?.gotTeamIdByProspectKey.get(prospectKey) ?? null
         const rivalTeamId =
           teamNeedsLayout?.rivalTeamIdByProspectKey.get(prospectKey) ?? null
+        const isNeedLogoTourAnchor =
+          firstNeedLogo?.prospectKey === prospectKey
+        const isHoverPreviewRow = p.name === DRAFT_HOVER_PREVIEW_PLAYER_NAME
 
         return (
           <tr
@@ -75,6 +87,9 @@ export function OptionADraftCentralTestCombineScorecardRows({
                 ? 'draft-test__scorecard-row draft-test__scorecard-row--focused'
                 : 'draft-test__scorecard-row'
             }
+            {...(isHoverPreviewRow
+              ? { 'data-solution-tour': 'draft-scorecard-hover-row' }
+              : {})}
             tabIndex={0}
             aria-selected={isFocused}
             onClick={(e) => onSelectProspect(rowKey, e.shiftKey)}
@@ -90,8 +105,18 @@ export function OptionADraftCentralTestCombineScorecardRows({
             </td>
             <td className="draft-board__td">{p.position}</td>
             <td className="draft-board__td draft-board__td--player">{p.name}</td>
-            <DraftCentralTestGotCell teamId={gotTeamId} />
-            <DraftCentralTestRivalsCell teamId={rivalTeamId} />
+            <DraftCentralTestGotCell
+              teamId={gotTeamId}
+              tourAnchor={
+                isNeedLogoTourAnchor && firstNeedLogo?.column === 'got'
+              }
+            />
+            <DraftCentralTestRivalsCell
+              teamId={rivalTeamId}
+              tourAnchor={
+                isNeedLogoTourAnchor && firstNeedLogo?.column === 'rivals'
+              }
+            />
             <SchoolTableCell
               className="draft-board__td draft-board__td--school"
               schoolAbbr={p.schoolAbbr || p.school}

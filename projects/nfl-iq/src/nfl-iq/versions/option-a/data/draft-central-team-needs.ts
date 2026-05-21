@@ -18,6 +18,30 @@ export function draftCentralProspectKey(p: DraftBoardProspect): string {
   return `${p.name}\u001f${String(p.djRank ?? '')}\u001f${p.position}`
 }
 
+export type DraftCentralFirstNeedLogo = {
+  column: 'got' | 'rivals'
+  prospectKey: string
+}
+
+/** First row (in display order) with a logo in the Got or Rivals column. */
+export function findFirstGotOrRivalsLogo(
+  rows: DraftBoardProspect[],
+  layout: DraftCentralTeamNeedsLayout | null,
+): DraftCentralFirstNeedLogo | null {
+  if (!layout) return null
+
+  for (const p of rows) {
+    const prospectKey = draftCentralProspectKey(p)
+    if (layout.gotTeamIdByProspectKey.get(prospectKey)) {
+      return { column: 'got', prospectKey }
+    }
+    if (layout.rivalTeamIdByProspectKey.get(prospectKey)) {
+      return { column: 'rivals', prospectKey }
+    }
+  }
+  return null
+}
+
 function computePositionStarProspects(
   seedKey: string,
   prospects: DraftBoardProspect[],

@@ -1,5 +1,9 @@
 /* Team Central — top summary strip */
 
+.tc-summary[data-solution-tour='team-central-summary'] {
+  scroll-margin-top: 1rem;
+}
+
 .tc-summary {
   margin-top: 0;
   margin-bottom: 1.25rem;

@@ -19,6 +19,7 @@ import { HomePage } from '../../pages/HomePage'
 import { PlaceholderPage } from '../../pages/PlaceholderPage'
 import { TeamCentralPage } from '../../pages/TeamCentralPage'
 import { IqScrollToTop } from '../../components/IqScrollToTop'
+import { SolutionTourTeamPrepare } from '../../solution-showcase/SolutionTourTeamPrepare'
 import { OptionASiteNav } from './OptionASiteNav'
 import '../../nfl-iq.css'
 import './option-a-layout.css'
@@ -31,6 +32,7 @@ export function OptionAAppShell() {
 
   return (
     <IqTeamProvider>
+      <SolutionTourTeamPrepare />
       <div className="nfl-iq" data-mock-version="option-a">
         <a className="iq-skip" href="#main-content">
           Skip to main content

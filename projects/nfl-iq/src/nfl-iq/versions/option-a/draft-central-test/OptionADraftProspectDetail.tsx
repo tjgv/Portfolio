@@ -5,6 +5,7 @@ import { prospectStableKey } from '../../../utils/draft-ng-ranks'
 import { prospectPortraitUrl } from './prospect-portrait'
 import { DraftProspectArchetypeChart } from './DraftProspectArchetypeChart'
 import { DraftProspectPlayStyleComps } from './DraftProspectPlayStyleComps'
+import { DraftProspectPlayStyleHomePanel } from './DraftProspectPlayStyleHomePanel'
 import { buildProspectPlayStyleProfile } from './prospect-play-style-data'
 import { buildProspectPageMeta } from './prospect-profile-data'
 import {
@@ -67,6 +68,7 @@ export function OptionADraftProspectDetail({
         <button
           type="button"
           className="draft-prospect-detail__back"
+          data-solution-tour="draft-prospect-back"
           onClick={onBack}
         >
           <svg
@@ -213,13 +215,24 @@ export function OptionADraftProspectDetail({
           </div>
         </section>
 
-        <section
-          className="draft-prospect-detail__card draft-prospect-detail__card--archetype"
-          aria-label="Archetype percentiles"
-        >
-          <h2 className="draft-prospect-detail__card-title">Archetype Percentiles</h2>
-          <DraftProspectArchetypeChart slices={playStyle.archetypes} />
-        </section>
+        <div className="draft-prospect-detail__play-style-row">
+          <section
+            className="draft-prospect-detail__card draft-prospect-detail__card--archetype"
+            data-solution-tour="prospect-archetype-percentiles"
+            aria-label="Archetype percentiles"
+          >
+            <h2 className="draft-prospect-detail__card-title">Archetype Percentiles</h2>
+            <DraftProspectArchetypeChart slices={playStyle.archetypes} />
+          </section>
+
+          <section
+            className="draft-prospect-detail__card draft-prospect-detail__card--play-style-home"
+            data-solution-tour="prospect-play-style-home"
+            aria-label="Play style comparison"
+          >
+            <DraftProspectPlayStyleHomePanel />
+          </section>
+        </div>
 
         <section
           className="draft-prospect-detail__card draft-prospect-detail__card--comps"

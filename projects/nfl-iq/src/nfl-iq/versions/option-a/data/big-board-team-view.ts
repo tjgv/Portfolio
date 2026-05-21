@@ -82,6 +82,25 @@ export function shuffle<T>(items: T[], rng: () => number): T[] {
   return next
 }
 
+/** First grid cell (top-to-bottom, left-to-right) that shows a given team logo in team view. */
+export function findFirstTeamLogoCell(
+  viewingTeamId: string,
+  logoTeamId: string,
+): BigBoardCellCoord | null {
+  const layout = computeBigBoardTeamViewLayout(viewingTeamId)
+  const target = logoTeamId.toUpperCase()
+
+  for (let rowIndex = 0; rowIndex < BIG_BOARD_ROWS.length; rowIndex++) {
+    for (const col of BIG_BOARD_COLUMNS) {
+      const key = bigBoardCellKey(rowIndex, col)
+      if (layout.logosByCell.get(key)?.toUpperCase() === target) {
+        return { rowIndex, col }
+      }
+    }
+  }
+  return null
+}
+
 export function computeBigBoardTeamViewLayout(
   teamId: string,
 ): BigBoardTeamViewLayout {

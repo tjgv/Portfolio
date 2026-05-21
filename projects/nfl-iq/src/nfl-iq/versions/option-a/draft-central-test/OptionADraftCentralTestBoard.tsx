@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { useSolutionShowcase } from '../../../context/useSolutionShowcase'
+import { getSolutionDefinition } from '../../../solution-showcase/solution-definitions'
 import type { DraftBoardProspect } from '../../../types'
 import { prospectStableKey } from '../../../utils/draft-ng-ranks'
 import '../../../components/draft-central-board.css'
@@ -16,6 +18,7 @@ import {
   DRAFT_TEST_FOCUS_QUERY,
   findProspectByDisplayName,
 } from './draft-test-focus-nav'
+import { SolutionTourHoverPreview } from '../../../solution-showcase/SolutionTourHoverPreview'
 import './option-a-draft-central-test.css'
 import '../../../components/fa-board-table-search.css'
 
@@ -37,7 +40,31 @@ export function OptionADraftCentralTestBoard({
   )
   const [chartComparison, setChartComparison] =
     useState<ChartComparisonId>('ath-prod')
+  const { activeSolutionId, stepIndex } = useSolutionShowcase()
   const [searchParams, setSearchParams] = useSearchParams()
+
+  useLayoutEffect(() => {
+    if (!activeSolutionId || stepIndex < 0) return
+    const step = getSolutionDefinition(activeSolutionId).steps[stepIndex]
+    if (step.chartComparison) setChartComparison(step.chartComparison)
+    if (step.clearFocus) {
+      setFocusedKeys([])
+      return
+    }
+    if (!loading && rows.length > 0 && step.focusProspects?.length) {
+      const keys = step.focusProspects
+        .map((name) => findProspectByDisplayName(rows, name))
+        .filter((p): p is DraftBoardProspect => p != null)
+        .map((p) => prospectStableKey(p))
+        .slice(0, 2)
+      if (keys.length > 0) setFocusedKeys(keys)
+      return
+    }
+    if (!loading && rows.length > 0 && step.focusProspect) {
+      const prospect = findProspectByDisplayName(rows, step.focusProspect)
+      if (prospect) setFocusedKeys([prospectStableKey(prospect)])
+    }
+  }, [activeSolutionId, stepIndex, loading, rows])
 
   useEffect(() => {
     const focusName = searchParams.get(DRAFT_TEST_FOCUS_QUERY)
@@ -78,6 +105,7 @@ export function OptionADraftCentralTestBoard({
 
   return (
     <div className="draft-board draft-board--option-a draft-board--draft-test">
+      <SolutionTourHoverPreview />
       {loading ? (
         <div className="draft-board__primary-wrap">
           <div className="draft-board__primary-card">
@@ -89,6 +117,7 @@ export function OptionADraftCentralTestBoard({
           <div className="draft-board__primary-wrap draft-test__explorer-wrap">
             <section
               className="draft-board__primary-card draft-test__explorer"
+              data-solution-tour="draft-library"
               aria-label="Top 150 library and athleticism versus production scatter"
             >
               <header className="draft-test__explorer-head">
@@ -132,7 +161,10 @@ export function OptionADraftCentralTestBoard({
                     )}
                   </div>
                 </div>
-                <div className="draft-test__explorer-chart-pane">
+                <div
+                  className="draft-test__explorer-chart-pane"
+                  data-solution-tour="draft-scatter"
+                >
                   <DraftCentralTestAthProdScatter
                     prospects={rows}
                     comparisonId={chartComparison}
@@ -146,6 +178,7 @@ export function OptionADraftCentralTestBoard({
           <div className="draft-board__primary-wrap draft-test__detail-wrap">
             <section
               className="draft-board__primary-card"
+              data-solution-tour="combine-scorecard"
               aria-label="Full scouting combine scorecard"
             >
               <div className="draft-board__primary-body">

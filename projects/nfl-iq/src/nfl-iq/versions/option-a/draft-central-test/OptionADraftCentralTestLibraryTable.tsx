@@ -143,6 +143,9 @@ export function OptionADraftCentralTestLibraryTable({
                   ? 'draft-test__library-row draft-test__library-row--focused'
                   : 'draft-test__library-row'
               }
+              {...(p.name === 'Sonny Styles'
+                ? { 'data-solution-tour': 'draft-library-sonny-styles' }
+                : {})}
               tabIndex={0}
               aria-selected={isFocused}
               onClick={(e) => onSelectProspect(key, e.shiftKey)}

@@ -12,6 +12,9 @@ export function DraftCentralTestLibraryRowMenu({
       <button
         type="button"
         className="draft-test__library-row-menu-trigger"
+        {...(prospectName === 'Sonny Styles'
+          ? { 'data-solution-tour': 'draft-library-sonny-row-arrow' }
+          : {})}
         aria-label={`View ${prospectName} prospect profile`}
         onClick={(e) => {
           e.stopPropagation()

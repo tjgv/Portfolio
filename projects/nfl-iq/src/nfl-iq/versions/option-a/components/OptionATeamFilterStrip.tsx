@@ -3,6 +3,7 @@ import { useLocation, useSearchParams } from 'react-router-dom'
 import { parseDraftSubView } from '../../../components/DraftSubnav'
 import { DRAFT_PROSPECT_QUERY } from '../draft-central-test/draft-prospect-nav'
 import { useIqTeam } from '../../../context/useIqTeam'
+import { TEAM_TOUR_QUERY } from '../../../solution-showcase/team-tour-nav'
 import { FreeAgencyTeamFilterBar } from './FreeAgencyTeamFilterBar'
 import './option-a-team-filter-strip.css'
 
@@ -16,7 +17,7 @@ const DRAFT_VIEWS_WITHOUT_TEAM_FILTER = new Set([
 
 export function OptionATeamFilterStrip() {
   const { pathname } = useLocation()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const { selectedTeamId, setSelectedTeam } = useIqTeam()
   const didInitDraft = useRef(false)
 
@@ -45,6 +46,25 @@ export function OptionATeamFilterStrip() {
       if (!selectedTeamId) setSelectedTeam(DEFAULT_TEAM_ID)
     }
   }, [onDraft, selectedTeamId, setSelectedTeam])
+
+  useEffect(() => {
+    const teamId = searchParams.get(TEAM_TOUR_QUERY)
+    if (!teamId || !show) return
+
+    setSelectedTeam(teamId)
+    const timer = window.setTimeout(() => {
+      setSearchParams(
+        (prev) => {
+          if (!prev.get(TEAM_TOUR_QUERY)) return prev
+          const next = new URLSearchParams(prev)
+          next.delete(TEAM_TOUR_QUERY)
+          return next
+        },
+        { replace: true },
+      )
+    }, 0)
+    return () => window.clearTimeout(timer)
+  }, [searchParams, show, setSelectedTeam, setSearchParams])
 
   if (!show) return null
 

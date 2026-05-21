@@ -38,7 +38,11 @@ export function DraftCentralTestChartComparisonMenu({
   }, [open])
 
   return (
-    <div ref={rootRef} className="draft-test__chart-menu">
+    <div
+      ref={rootRef}
+      className="draft-test__chart-menu"
+      data-solution-tour="chart-comparison"
+    >
       <button
         type="button"
         className="draft-test__chart-menu-trigger"
@@ -47,7 +51,14 @@ export function DraftCentralTestChartComparisonMenu({
         aria-controls={listId}
         onClick={() => setOpen((prev) => !prev)}
       >
-        <span className="draft-test__table-title">{selected.label}</span>
+        <span
+          className="draft-test__table-title"
+          {...(value === 'ath-prod'
+            ? { 'data-solution-tour': 'chart-comparison-ath-prod-label' }
+            : {})}
+        >
+          {selected.label}
+        </span>
         <svg
           className={`draft-test__chart-menu-chevron${open ? ' draft-test__chart-menu-chevron--open' : ''}`}
           viewBox="0 0 12 12"

@@ -180,6 +180,10 @@
   line-height: 1.55;
 }
 
+.iq-home-value__head {
+  scroll-margin-top: 1rem;
+}
+
 .iq-home-value__tabs {
   display: flex;
   align-items: center;
@@ -448,6 +452,7 @@
   margin: 0 0 2rem;
   font-size: clamp(1.25rem, 2.2vw, 2.25rem);
   line-height: 1.55;
+  text-align: center;
 }
 
 /* Biggest winners */
@@ -506,6 +511,11 @@
   border-radius: 12px;
   padding: 1.15rem;
   min-width: 0;
+}
+
+.iq-home-winner-card[data-solution-tour='home-athleticism-boost'] {
+  scroll-margin-top: 6rem;
+  scroll-margin-bottom: 1rem;
 }
 
 .iq-home-winner-card__head {

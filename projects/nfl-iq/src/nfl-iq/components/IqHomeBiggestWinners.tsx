@@ -96,7 +96,11 @@ export function IqHomeBiggestWinners() {
   }
 
   return (
-    <section className="iq-home-winners" aria-label="Biggest winners">
+    <section
+      className="iq-home-winners"
+      data-solution-tour="home-biggest-winners"
+      aria-label="Biggest winners"
+    >
       <div className="iq-home-winners__head">
         <h2 className="iq-home-display iq-home-winners__title">BIGGEST WINNERS</h2>
         <a className="iq-home-winners__find-team" href={appRoute('/teams')}>
@@ -106,7 +110,13 @@ export function IqHomeBiggestWinners() {
       </div>
       <div className="iq-home-winners__grid">
         {WINNER_CARDS.map((card) => (
-          <article key={card.title} className="iq-home-winner-card">
+          <article
+            key={card.title}
+            className="iq-home-winner-card"
+            {...(card.title === 'Top Boosts in Athleticism'
+              ? { 'data-solution-tour': 'home-athleticism-boost' }
+              : {})}
+          >
             <header className="iq-home-winner-card__head">
               <h3 className="iq-home-winner-card__name">{card.title}</h3>
             </header>

@@ -8,10 +8,14 @@ const HOME_PLAYER_NAME_ALIASES: Record<string, string> = {
   'E. McNeil-Warren': 'Emmanuel McNeil-Warren',
 }
 
-export function draftTestFocusPath(playerName: string): string {
+export function draftTestFocusSearch(playerName: string): string {
   const params = new URLSearchParams()
   params.set(DRAFT_TEST_FOCUS_QUERY, playerName)
-  return `/draft?${params.toString()}`
+  return `?${params.toString()}`
+}
+
+export function draftTestFocusPath(playerName: string): string {
+  return `/draft${draftTestFocusSearch(playerName)}`
 }
 
 export function findProspectByDisplayName(

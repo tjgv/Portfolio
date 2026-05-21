@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { DraftBoardProspect } from '../../../types'
 import {
   type ChartComparisonId,
@@ -83,6 +83,16 @@ const SCORE_Y_TICKS = [50, 60, 70, 80, 90]
 const BUBBLE_R = 5
 const FOCUS_BUBBLE_R = 7.2
 const FOCUS_BUBBLE_RING_PAD = 4.5
+const FOCUS_POP_SCALE = 1.22
+const ACTIVE_BUBBLE_R = 7
+
+/** Inset for bubble centers so halos, pop scale, and glow stay inside the plot area */
+function bubbleCenterInsetPx(): number {
+  const focusOuter = (FOCUS_BUBBLE_R + FOCUS_BUBBLE_RING_PAD + 3) * FOCUS_POP_SCALE + 5
+  const activeOuter = ACTIVE_BUBBLE_R + 5 + 3
+  const outer = Math.max(focusOuter, activeOuter, BUBBLE_R + 2)
+  return Math.ceil(outer) + 4
+}
 
 function padRange(minV: number, maxV: number, padRatio: number) {
   const span = maxV - minV || 1
@@ -121,9 +131,12 @@ export function DraftCentralTestAthProdScatter({
   )
   const focusedSet = useMemo(() => new Set(focusedKeys), [focusedKeys])
   const hasFocus = focusedKeys.length > 0
+  const prevFocusedKeysRef = useRef<string[]>([])
+  const [poppingKeys, setPoppingKeys] = useState<ReadonlySet<string>>(() => new Set())
 
   const scale = useMemo(() => {
     if (comparison.useScoreScale) {
+      const pad = (SCORE_MAX - SCORE_MIN) * 0.035
       return {
         minX: SCORE_MIN,
         maxX: SCORE_MAX,
@@ -132,6 +145,11 @@ export function DraftCentralTestAthProdScatter({
         xTicks: SCORE_X_TICKS,
         yTicks: SCORE_Y_TICKS,
         showRef75: true,
+        /** Inset extremes so 50/95 scores don't sit on the clip edge */
+        plotMinX: SCORE_MIN + pad,
+        plotMaxX: SCORE_MAX - pad,
+        plotMinY: SCORE_MIN + pad,
+        plotMaxY: SCORE_MAX - pad,
       }
     }
     let minX = Infinity
@@ -153,10 +171,14 @@ export function DraftCentralTestAthProdScatter({
         xTicks: [0, 1],
         yTicks: [0, 1],
         showRef75: false,
+        plotMinX: 0,
+        plotMaxX: 1,
+        plotMinY: 0,
+        plotMaxY: 1,
       }
     }
-    const xr = padRange(minX, maxX, 0.08)
-    const yr = padRange(minY, maxY, 0.08)
+    const xr = padRange(minX, maxX, 0.1)
+    const yr = padRange(minY, maxY, 0.1)
     return {
       minX: xr.min,
       maxX: xr.max,
@@ -165,10 +187,13 @@ export function DraftCentralTestAthProdScatter({
       xTicks: buildTicks(xr.min, xr.max, 6),
       yTicks: buildTicks(yr.min, yr.max, 5),
       showRef75: false,
+      plotMinX: xr.min,
+      plotMaxX: xr.max,
+      plotMinY: yr.min,
+      plotMaxY: yr.max,
     }
   }, [bubbles, comparison.useScoreScale])
 
-  const clipId = useId()
   const plotRef = useRef<HTMLDivElement>(null)
   const [plotLayout, setPlotLayout] = useState<PlotLayout | null>(null)
   const [hoverKey, setHoverKey] = useState<string | null>(null)
@@ -191,25 +216,52 @@ export function DraftCentralTestAthProdScatter({
     return () => ro.disconnect()
   }, [])
 
+  useEffect(() => {
+    const prevKeys = prevFocusedKeysRef.current
+    const newlyFocused = focusedKeys.filter((k) => !prevKeys.includes(k))
+
+    if (newlyFocused.length === 0) {
+      prevFocusedKeysRef.current = focusedKeys
+      return
+    }
+
+    // Wait until the plot has dimensions (e.g. after navigating from IQ home).
+    if (!plotLayout) return
+
+    setPoppingKeys(new Set(newlyFocused))
+    const timer = window.setTimeout(() => {
+      setPoppingKeys(new Set())
+      prevFocusedKeysRef.current = focusedKeys
+    }, 220)
+    return () => window.clearTimeout(timer)
+  }, [focusedKeys, plotLayout])
+
+  const plotMinX = scale.plotMinX ?? scale.minX
+  const plotMaxX = scale.plotMaxX ?? scale.maxX
+  const plotMinY = scale.plotMinY ?? scale.minY
+  const plotMaxY = scale.plotMaxY ?? scale.maxY
+
   const sx = useCallback(
     (xv: number) => {
       if (!plotLayout) return 0
-      return (
-        plotLayout.padL +
-        ((xv - scale.minX) / (scale.maxX - scale.minX || 1)) * plotLayout.innerW
-      )
+      const inset = bubbleCenterInsetPx()
+      const span = plotMaxX - plotMinX || 1
+      const plotW = Math.max(plotLayout.innerW - 2 * inset, 1)
+      const t = Math.min(1, Math.max(0, (xv - plotMinX) / span))
+      return plotLayout.padL + inset + t * plotW
     },
-    [plotLayout, scale.maxX, scale.minX],
+    [plotLayout, plotMaxX, plotMinX],
   )
   const sy = useCallback(
     (yv: number) => {
       if (!plotLayout) return 0
-      return (
-        plotLayout.padT +
-        (1 - (yv - scale.minY) / (scale.maxY - scale.minY || 1)) * plotLayout.innerH
-      )
+      const inset = bubbleCenterInsetPx()
+      const span = plotMaxY - plotMinY || 1
+      const plotH = Math.max(plotLayout.innerH - 2 * inset, 1)
+      const t = Math.min(1, Math.max(0, (yv - plotMinY) / span))
+      return plotLayout.padT + inset + (1 - t) * plotH
     },
-    [plotLayout, scale.maxY, scale.minY],
+    [plotLayout, plotMaxY, plotMinY],
   )
 
   const hovered = hoverKey ? bubbles.find((b) => b.key === hoverKey) : null
@@ -265,17 +317,6 @@ export function DraftCentralTestAthProdScatter({
           role="img"
           aria-label={`Scatter of ${comparison.xAxisTitle} versus ${comparison.yAxisTitle}`}
         >
-          <defs>
-            <clipPath id={clipId}>
-              <rect
-                x={layout.padL}
-                y={layout.padT}
-                width={layout.innerW}
-                height={layout.innerH}
-              />
-            </clipPath>
-          </defs>
-
           {scale.xTicks.map((v) => {
             const x = sx(v)
             return (
@@ -337,7 +378,7 @@ export function DraftCentralTestAthProdScatter({
             </>
           ) : null}
 
-          <g clipPath={`url(#${clipId})`}>
+          <g>
             {paintOrder.map((pt) => {
               const { fill, stroke } = bubbleStyle(pt.overall)
               const focusSlot = draftTestFocusSlotIndex(pt.key, focusedKeys)
@@ -353,9 +394,18 @@ export function DraftCentralTestAthProdScatter({
               const r = isFocused ? FOCUS_BUBBLE_R : active ? 7 : BUBBLE_R
               const ringPad = isFocused ? FOCUS_BUBBLE_RING_PAD : 5
               const ringStroke = focusColor ?? stroke
+              const isPopping = isFocused && poppingKeys.has(pt.key)
+              const isPrimaryFocus =
+                isFocused && focusedKeys[0] != null && pt.key === focusedKeys[0]
               return (
                 <g
                   key={pt.key}
+                  transform={`translate(${cx} ${cy})`}
+                  {...(pt.name === 'Sonny Styles'
+                    ? { 'data-solution-tour': 'draft-scatter-sonny-styles' }
+                    : isPrimaryFocus
+                      ? { 'data-solution-tour': 'draft-scatter-focused-bubble' }
+                      : {})}
                   className={
                     isFocused
                       ? `ng-scatter__bubble ng-scatter__bubble--focused ng-scatter__bubble--focus-slot-${focusSlot}`
@@ -370,25 +420,31 @@ export function DraftCentralTestAthProdScatter({
                   role="button"
                   aria-label={`${pt.name}, overall ${pt.overall}`}
                 >
-                  {active ? (
+                  <g
+                    className={
+                      isPopping ? 'ng-scatter__bubble__inner ng-scatter__bubble--focus-pop' : 'ng-scatter__bubble__inner'
+                    }
+                  >
+                    {active ? (
+                      <circle
+                        cx={0}
+                        cy={0}
+                        r={r + ringPad}
+                        fill={ringStroke}
+                        fillOpacity={isFocused ? 0.35 : 0.25}
+                        pointerEvents="none"
+                      />
+                    ) : null}
                     <circle
-                      cx={cx}
-                      cy={cy}
-                      r={r + ringPad}
-                      fill={ringStroke}
-                      fillOpacity={isFocused ? 0.35 : 0.25}
-                      pointerEvents="none"
+                      cx={0}
+                      cy={0}
+                      r={r}
+                      fill={fill}
+                      stroke={ringStroke}
+                      strokeWidth={isFocused ? 2.7 : active ? 2 : 1}
+                      className="ng-scatter__bubble-dot"
                     />
-                  ) : null}
-                  <circle
-                    cx={cx}
-                    cy={cy}
-                    r={r}
-                    fill={fill}
-                    stroke={ringStroke}
-                    strokeWidth={isFocused ? 2.7 : active ? 2 : 1}
-                    className="ng-scatter__bubble-dot"
-                  />
+                  </g>
                 </g>
               )
             })}

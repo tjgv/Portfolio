@@ -10,6 +10,7 @@ import { teamPrimaryColor } from '../../../data/team-colors'
 import {
   bigBoardCellKey,
   computeBigBoardTeamViewLayout,
+  findFirstTeamLogoCell,
   teamColorFill5,
 } from '../data/big-board-team-view'
 import '../../../components/big-board.css'
@@ -73,6 +74,14 @@ export function OptionABigBoardTable({
     [teamViewActive, teamId],
   )
 
+  const topOwnLogoCell = useMemo(
+    () =>
+      teamViewActive
+        ? findFirstTeamLogoCell(teamId, teamId)
+        : null,
+    [teamViewActive, teamId],
+  )
+
   return (
     <div
       className={`big-board__scroll${teamViewActive ? ' big-board__scroll--team-view' : ''}`}
@@ -117,6 +126,10 @@ export function OptionABigBoardTable({
                 const hasLogo = Boolean(logoTeamId)
                 const isSelectedTeamLogo =
                   hasLogo && logoTeamId?.toUpperCase() === teamId.toUpperCase()
+                const isTopOwnLogoCell =
+                  isSelectedTeamLogo &&
+                  topOwnLogoCell?.rowIndex === rowIndex &&
+                  topOwnLogoCell.col === col
 
                 const cellStyle: CSSProperties | undefined =
                   isHighlight || isSelectedTeamLogo
@@ -133,6 +146,9 @@ export function OptionABigBoardTable({
                 return (
                   <td
                     key={col}
+                    {...(isTopOwnLogoCell
+                      ? { 'data-solution-tour': 'big-board-ten-top-cell' }
+                      : {})}
                     className={[
                       'big-board__td',
                       isHighlight ? 'big-board__td--team-view-col' : '',

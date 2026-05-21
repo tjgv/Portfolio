@@ -1,21 +1,16 @@
-import { MockVersionBar } from './components/MockVersionBar'
-import { MockVersionProvider } from './context/MockVersionProvider'
-import { useMockVersion } from './context/useMockVersion'
-import { MOCK_VERSION_APPS } from './versions'
-
-function MockVersionApp() {
-  const { version } = useMockVersion()
-  const App = MOCK_VERSION_APPS[version]
-  return <App key={version} />
-}
+import { SolutionShowcaseBar } from './components/SolutionShowcaseBar'
+import { SolutionTourOverlay } from './components/SolutionTourOverlay'
+import { SolutionShowcaseProvider } from './context/SolutionShowcaseProvider'
+import { NflIqAppOptionA } from './versions'
 
 export function NflIqApp() {
   return (
-    <MockVersionProvider>
+    <SolutionShowcaseProvider>
       <div className="mock-showcase">
-        <MockVersionBar />
-        <MockVersionApp />
+        <SolutionShowcaseBar />
+        <NflIqAppOptionA />
+        <SolutionTourOverlay />
       </div>
-    </MockVersionProvider>
+    </SolutionShowcaseProvider>
   )
 }

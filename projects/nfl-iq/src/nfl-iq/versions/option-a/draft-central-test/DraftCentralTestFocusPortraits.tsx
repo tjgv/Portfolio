@@ -34,7 +34,11 @@ export function DraftCentralTestFocusPortraits({
   if (focusedKeys.length === 0) return null
 
   return (
-    <div className="draft-test__portraits" aria-label="Focused players">
+    <div
+      className="draft-test__portraits"
+      data-solution-tour="draft-focus-portraits"
+      aria-label="Focused players"
+    >
       {focusedPlayers.map((player, slotIndex) => (
         <div
           key={player.key}

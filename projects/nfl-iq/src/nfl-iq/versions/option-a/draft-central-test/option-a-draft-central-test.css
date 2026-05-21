@@ -169,7 +169,7 @@
   min-width: 0;
   min-height: 0;
   padding: 0 8px 8px 8px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .draft-test__library-scroll {
@@ -502,12 +502,14 @@
   min-height: 0;
   max-height: none;
   flex: 1 1 auto;
+  overflow: visible;
 }
 
 .draft-test__explorer-chart-pane .ng-scatter__svg--hc {
   display: block;
   width: 100%;
   height: 100%;
+  overflow: visible;
 }
 
 .draft-test__scatter-axis-title {
@@ -605,6 +607,31 @@
 
 .ng-scatter__bubble--focus-slot-1 .ng-scatter__bubble-dot {
   filter: drop-shadow(0 0 4px rgba(147, 51, 234, 0.55));
+}
+
+@keyframes draft-test-bubble-focus-pop {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.22);
+  }
+}
+
+/* Scale at (0,0) after translate(cx,cy) — pop does not shift data position */
+.ng-scatter__bubble__inner {
+  transform-box: fill-box;
+  transform-origin: 0 0;
+}
+
+.ng-scatter__bubble--focus-pop {
+  animation: draft-test-bubble-focus-pop 200ms ease-in-out;
+}
+
+.ng-scatter__bubble--focus-pop .ng-scatter__bubble-dot {
+  transition: none;
 }
 
 /* —— Bottom: full combine scorecard —— */

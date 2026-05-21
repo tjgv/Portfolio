@@ -5,6 +5,7 @@ export function IqHomeRoundRecap() {
   return (
     <section
       className="iq-home-round-recap iq-draft-widget-section"
+      data-solution-tour="home-round-recap"
       aria-label="Round recap"
     >
       <h2 className="iq-home-display iq-home-round-recap__title">ROUND RECAP</h2>

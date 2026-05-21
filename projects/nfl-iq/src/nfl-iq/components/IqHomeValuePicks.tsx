@@ -15,7 +15,12 @@ function ValuePickCard({ pick }: { pick: IqHomeValuePick }) {
   const teamColor = teamPrimaryColor(pick.teamId)
 
   return (
-    <div className="iq-home-value-card-wrap">
+    <div
+      className="iq-home-value-card-wrap"
+      {...(pick.playerName === 'Sonny Styles'
+        ? { 'data-solution-tour': 'value-pick-sonny-styles' }
+        : {})}
+    >
       <button
         type="button"
         className="iq-home-value-card__hit"

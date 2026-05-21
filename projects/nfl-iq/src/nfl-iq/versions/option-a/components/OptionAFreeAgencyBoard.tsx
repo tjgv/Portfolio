@@ -418,7 +418,10 @@ export function OptionAFreeAgencyBoard() {
       <div className="fa-board__grid">
         <AvailableAgentsCard selectedTeamId={selectedTeamId} />
         {selectedTeamId ? (
-          <section className="fa-board__card fa-board__card--sidebar fa-board__card--team-roster">
+          <section
+            className="fa-board__card fa-board__card--sidebar fa-board__card--team-roster"
+            data-solution-tour="free-agency-roster-panel"
+          >
             <TeamCentralRosterTile teamId={selectedTeamId} headerLayout="sidebar" />
             <FreeAgencyTopNeedsSection teamId={selectedTeamId} />
           </section>
