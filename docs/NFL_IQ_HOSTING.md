@@ -4,7 +4,7 @@
 
 ## Hidden URL
 
-**`https://your-domain.com/giq`**
+**`https://tjgomezvidal.com/giq`**
 
 Not linked from the homepage or nav — only people with this URL can open it.
 
