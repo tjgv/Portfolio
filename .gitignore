@@ -9,7 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
-public/giq
+# public/giq is committed so Vercel always has /giq static files; build:nfl-iq refreshes it
 dist-ssr
 *.local
 .env

@@ -6,7 +6,7 @@
     { "source": "/giq/assets/:path*", "destination": "/giq/assets/:path*" },
     { "source": "/giq/images/:path*", "destination": "/giq/images/:path*" },
     { "source": "/giq/:path*", "destination": "/giq/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!giq(?:/|$)).*)", "destination": "/index.html" }
   ],
   "cleanUrls": false,
   "trailingSlash": false

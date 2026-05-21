@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { copyFileSync } from 'fs'
+import { copyFileSync, cpSync, existsSync, rmSync } from 'fs'
 import { resolve } from 'path'
 const root = process.cwd()
 
@@ -58,6 +58,19 @@ export default defineConfig({
       },
       configurePreviewServer(server) {
         server.middlewares.use(giqOrPortfolioSpaFallback)
+      },
+    },
+    // Build: ensure NFL IQ bundle is in dist (Vercel serves dist/giq as static files)
+    {
+      name: 'copy-giq-to-dist',
+      closeBundle() {
+        const src = resolve(root, 'public/giq')
+        const dest = resolve(root, 'dist/giq')
+        if (!existsSync(resolve(src, 'index.html'))) {
+          throw new Error('[copy-giq] public/giq/index.html missing — run build:nfl-iq first')
+        }
+        rmSync(dest, { recursive: true, force: true })
+        cpSync(src, dest, { recursive: true })
       },
     },
     // Build: copy index.html to 404.html so hosts (e.g. GitHub Pages) serve the SPA on unknown paths
