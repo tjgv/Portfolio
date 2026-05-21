@@ -248,7 +248,6 @@
 
 .fa-board--option-a .fa-board__card--sidebar .team-central-charts__aav {
   padding: 0.08rem 0.18rem;
-  font-size: 0.52rem;
 }
 
 .fa-board--option-a .fa-board__card--sidebar .fa-board__market-head {
@@ -257,23 +256,17 @@
 
 .fa-board--option-a .fa-board__card--sidebar .fa-board__tab {
   padding: 0.3rem 0.35rem;
-  font-size: 0.56rem;
+  font-size: 10px;
 }
 
 .fa-board--option-a .fa-board__card--sidebar .fa-board__table {
   min-width: 0;
   width: 100%;
-  font-size: 0.56rem;
 }
 
 .fa-board--option-a .fa-board__card--sidebar .fa-board__table--draft {
   min-width: 0;
   table-layout: fixed;
-}
-
-.fa-board--option-a .fa-board__card--sidebar .fa-board__table thead th,
-.fa-board--option-a .fa-board__card--sidebar .fa-board__table tbody td {
-  padding: 0.28rem 0.2rem;
 }
 
 .fa-board--option-a .fa-board__card--sidebar .fa-board__th--player-col {
@@ -286,8 +279,7 @@
 }
 
 .fa-board--option-a .fa-board__card--sidebar .fa-board__draft-note {
-  padding: 0 0.5rem 0.35rem;
-  font-size: 0.52rem;
+  padding: 0 var(--iq-table-cell-pad-x) var(--iq-table-cell-pad-y);
 }
 
 .fa-board--option-a .fa-board__legend {

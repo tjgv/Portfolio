@@ -70,7 +70,39 @@
   margin-top: 0.85rem;
 }
 
-.solution-tour__prev,
+.solution-tour__prev {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  padding: 0.2rem 0.15rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #4ca1ff;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.solution-tour__prev:hover:not(:disabled) {
+  color: #3a8ee6;
+  text-decoration: underline;
+}
+
+.solution-tour__prev:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 .solution-tour__next {
   display: inline-flex;
   align-items: center;
@@ -92,22 +124,9 @@
     opacity 0.15s ease;
 }
 
-.solution-tour__prev:hover:not(:disabled),
 .solution-tour__next:hover {
   background: #e68a00;
-}
-
-.solution-tour__prev:hover:not(:disabled) {
-  transform: translateX(-2px);
-}
-
-.solution-tour__next:hover {
   transform: translateX(2px);
-}
-
-.solution-tour__prev:disabled {
-  opacity: 0.35;
-  cursor: default;
 }
 
 .solution-tour__card--context,

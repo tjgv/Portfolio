@@ -62,7 +62,7 @@ export type SolutionTourStep = {
   requiresClick?: boolean
   clickTarget?: string
   clickHint?: string
-  /** Footer action label instead of → (e.g. Done on the final step). */
+  /** Footer action label instead of Next (e.g. Done on the final step). */
   nextButtonLabel?: string
   /** Set global team filter when this step becomes active (e.g. deselect for unbiased view). */
   teamPrepare?: 'deselect' | { select: string }
@@ -107,7 +107,7 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
       {
         route: '/',
         target: '.iq-home-hero',
-        placement: 'anchored-below',
+        placement: 'anchored-above',
         scrollMode: 'page-top',
         title: 'Users are motivated by news',
         body:
@@ -139,7 +139,6 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
         anchorTarget: '[data-solution-tour="team-central-summary"] .tc-summary__nav',
         placement: 'anchored-below',
         scrollMode: 'page-top',
-        nextButtonLabel: 'Done',
         title: 'Team / User Identity',
         body:
           'One of the core motivators for the fans is their connection to their favorite teams. The Team Central page had powerful context that was tucked away. I chose to hero that context because I believe it will provide users a more engaging baseline to frame the rest of their experience.',

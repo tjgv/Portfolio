@@ -31,8 +31,6 @@
   min-width: 40rem;
   border-collapse: collapse;
   table-layout: fixed;
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 0.72rem;
   color: #212121;
 }
 
@@ -41,11 +39,6 @@
   background: #fff;
   border-bottom: 1px solid var(--option-a-divider, #eef2f4);
   vertical-align: middle;
-}
-
-.free-agency-page--option-a .fa-signings__table thead th .iq-table-col-cell,
-.free-agency-page--option-a .fa-signings__table thead th .fa-table-sort {
-  padding: 0.5rem 0.65rem;
 }
 
 .free-agency-page--option-a .fa-signings__th--player {
@@ -66,7 +59,6 @@
 }
 
 .free-agency-page--option-a .fa-signings__td {
-  padding: 0.55rem 0.65rem;
   border-bottom: 1px solid #eee;
   vertical-align: middle;
 }
@@ -103,8 +95,6 @@
 }
 
 .free-agency-page--option-a .fa-signings__portrait-initials {
-  font-size: 0.68rem;
-  font-weight: 800;
   letter-spacing: 0.04em;
   color: #1a2b4b;
   line-height: 1;
@@ -118,8 +108,6 @@
 }
 
 .free-agency-page--option-a .fa-signings__player-name {
-  font-size: 0.75rem;
-  font-weight: 700;
   color: #111827;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -127,8 +115,6 @@
 }
 
 .free-agency-page--option-a .fa-signings__player-pos {
-  font-size: 0.58rem;
-  font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #6b7280;
@@ -162,8 +148,6 @@
 }
 
 .free-agency-page--option-a .fa-signings__type-label {
-  font-size: 0.68rem;
-  font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
@@ -181,15 +165,11 @@
   background: #e8eef5;
   border: 1px solid #c5d4e4;
   border-radius: 3px;
-  font-size: 0.68rem;
-  font-weight: 700;
   color: #1a2b4b;
   line-height: 1.2;
 }
 
 .free-agency-page--option-a .fa-signings__deal-years {
-  font-size: 0.62rem;
-  font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #6b7280;

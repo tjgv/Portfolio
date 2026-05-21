@@ -167,10 +167,10 @@ function SolutionContextOutroCard({
         <button
           type="button"
           className="solution-tour__prev"
-          aria-label="Previous feature"
+          aria-label="Back"
           onClick={onPrev}
         >
-          ←
+          Back
         </button>
         <button
           type="button"
@@ -340,11 +340,11 @@ function SolutionTourStepCard({
         <button
           type="button"
           className="solution-tour__prev"
-          aria-label="Previous feature"
+          aria-label="Back"
           disabled={isFirstStep}
           onClick={onPrev}
         >
-          ←
+          Back
         </button>
         {requiresClick ? (
           <p className="solution-tour__click-hint">{clickHint ?? 'Click to continue'}</p>
@@ -360,11 +360,11 @@ function SolutionTourStepCard({
         ) : (
           <button
             type="button"
-            className="solution-tour__next"
-            aria-label={isLastStep ? 'Finish walkthrough' : 'Next feature'}
+            className="solution-tour__next solution-tour__next--cta"
+            aria-label="Next"
             onClick={onNext}
           >
-            →
+            Next
           </button>
         )}
       </div>
