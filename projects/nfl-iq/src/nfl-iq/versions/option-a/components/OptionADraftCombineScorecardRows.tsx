@@ -78,7 +78,6 @@ export function OptionADraftCombineScorecardRows({
             <CombCell>{p.vert}</CombCell>
             <CombCell>{p.shuttle}</CombCell>
             <CombCell>{p.cone}</CombCell>
-            <CombCell>{p.bench}</CombCell>
             <td className={rawAthCellClass(p.rawAth)}>
               {p.rawAth != null ? p.rawAth.toFixed(1) : '—'}
             </td>

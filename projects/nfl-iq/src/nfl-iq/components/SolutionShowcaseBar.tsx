@@ -1,9 +1,12 @@
+import { useRef } from 'react'
 import { SOLUTION_DEFINITIONS } from '../solution-showcase/solution-definitions'
 import { useSolutionShowcase } from '../context/useSolutionShowcase'
+import { SolutionShowcaseLandingHint } from './SolutionShowcaseLandingHint'
 import './solution-showcase-bar.css'
 
 export function SolutionShowcaseBar() {
   const { activeSolutionId, startSolution, stopSolution } = useSolutionShowcase()
+  const firstSolutionRef = useRef<HTMLButtonElement>(null)
 
   return (
     <div className="solution-showcase-bar" role="region" aria-label="Solution walkthroughs">
@@ -19,6 +22,7 @@ export function SolutionShowcaseBar() {
           return (
             <button
               key={solution.id}
+              ref={index === 0 ? firstSolutionRef : undefined}
               type="button"
               className={
                 active
@@ -52,6 +56,7 @@ export function SolutionShowcaseBar() {
           )
         })}
       </div>
+      <SolutionShowcaseLandingHint anchorRef={firstSolutionRef} />
     </div>
   )
 }

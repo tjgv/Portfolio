@@ -1,8 +1,3 @@
-.draft-scorecard-hover-row--preview-active > td {
-  background: #fff8eb !important;
-  box-shadow: inset 0 0 0 2px #ff9900;
-}
-
 .draft-hover-preview {
   position: fixed;
   z-index: 9995;
@@ -21,11 +16,6 @@
   background: #fff;
   cursor: zoom-in;
   overflow: hidden;
-}
-
-.draft-hover-preview__shot:focus-visible {
-  outline: 2px solid #ff9900;
-  outline-offset: 3px;
 }
 
 .draft-hover-preview__img {

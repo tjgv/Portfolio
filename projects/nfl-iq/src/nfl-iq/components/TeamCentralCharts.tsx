@@ -53,6 +53,7 @@ export function TeamCentralCharts({ teamId }: TeamCentralChartsProps) {
         <TeamCentralRosterTile
           teamId={teamId}
           headerLayout="sidebar"
+          cornerLogo="nfl-draft"
           className="team-central-charts__tile--sidebar"
         />
       </div>

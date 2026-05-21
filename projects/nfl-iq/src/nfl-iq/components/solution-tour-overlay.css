@@ -3,7 +3,7 @@
   right: 1.25rem;
   bottom: 1.25rem;
   z-index: 10000;
-  width: min(22rem, calc(100vw - 2.5rem));
+  width: min(25.3rem, calc(100vw - 2.5rem));
   padding: 0.85rem 1rem 1rem;
   border-radius: 10px;
   background: #fff;
@@ -41,11 +41,12 @@
   font-size: 0.72rem;
   font-weight: 600;
   color: #5c6578;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
+  font-variant-numeric: tabular-nums;
 }
 
 .solution-tour__title {
-  margin: 0 0 0.4rem;
+  margin: 0 0 calc(0.4rem + 12px);
   font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.25;
@@ -120,18 +121,26 @@
   overflow-y: auto;
 }
 
+.solution-tour__body-quote {
+  margin: 1em 0 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #9ca3af;
+}
+
 .solution-tour__card--context {
-  width: min(40rem, calc(100vw - 2.5rem));
+  width: min(46rem, calc(100vw - 2.5rem));
   padding: 1.1rem 1.35rem 1.15rem;
 }
 
-.solution-tour__card--centered {
-  width: min(28rem, calc(100vw - 2.5rem));
+.solution-tour__card--centered,
+.solution-tour__card--outro {
+  width: min(32.2rem, calc(100vw - 2.5rem));
   padding: 0.95rem 1.1rem 1.05rem;
 }
 
 .solution-tour__context-heading {
-  margin: 0.85rem 0 0.35rem;
+  margin: 0.85rem 0 calc(0.35rem + 12px);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -140,6 +149,14 @@
 }
 
 .solution-tour__context-heading:first-of-type {
+  margin-top: 0;
+}
+
+.solution-tour__users-block .solution-tour__context-heading {
+  margin-bottom: 0.15rem;
+}
+
+.solution-tour__users-block .solution-tour__body--users {
   margin-top: 0;
 }
 
@@ -161,9 +178,7 @@
 }
 
 .solution-tour__note {
-  margin: 0.9rem 0 0;
-  padding-top: 0.75rem;
-  border-top: 1px solid #eef2f4;
+  margin: 0;
   font-size: 0.72rem;
   line-height: 1.45;
   color: #5c6578;
@@ -173,8 +188,26 @@
   font-style: italic;
 }
 
-.solution-tour__card-footer--intro {
-  justify-content: flex-end;
+.solution-tour__card-footer--intro,
+.solution-tour__card-footer--outro {
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.15rem;
+}
+
+.solution-tour__card-footer--outro .solution-tour__next--cta {
+  margin-left: auto;
+}
+
+.solution-tour__card-footer--intro .solution-tour__note {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+}
+
+.solution-tour__card-footer--intro .solution-tour__next--cta {
+  flex-shrink: 0;
 }
 
 .solution-tour__next--cta {

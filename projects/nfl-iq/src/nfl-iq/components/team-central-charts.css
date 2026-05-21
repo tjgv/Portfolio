@@ -6,6 +6,12 @@
   --tc-text-soft: #6b7280;
   --tc-divider: #d1d5db;
   --tc-row-accent: #0ea5e9;
+  --tc-table-font: var(--iq-table-font, Inter, system-ui, sans-serif);
+  --tc-table-size: var(--iq-table-size, 10px);
+  --tc-table-weight: var(--iq-table-weight, 500);
+  --tc-table-head-weight: var(--iq-table-head-weight, 700);
+  --tc-table-detail-size: var(--iq-table-detail-size, 10px);
+  --tc-table-detail-weight: var(--iq-table-detail-weight, 500);
 
   margin-top: 1.25rem;
   padding-bottom: 0.5rem;
@@ -54,10 +60,6 @@
   overflow: auto;
 }
 
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__legend {
-  flex-shrink: 0;
-}
-
 .team-central-charts__grid--fa-layout .team-central-charts__tile-toolbar--sidebar {
   display: flex;
   align-items: center;
@@ -86,9 +88,38 @@
   object-fit: contain;
 }
 
-.team-central-charts__grid--fa-layout .team-central-charts__tab {
-  padding: 0.28rem 0.5rem;
-  font-size: 0.56rem;
+.team-central-charts__grid--fa-layout .team-central-charts__tile-logo--sidebar-nfl {
+  width: auto;
+  max-width: 3.25rem;
+  height: 26px;
+}
+
+/* Sidebar roster tabs — Team Central + Free Agency roster panel */
+.team-central-charts__tabs--sidebar .team-central-charts__tab {
+  margin: 0;
+  padding: 0.35rem 0.55rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #374151;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.team-central-charts__tabs--sidebar
+  .team-central-charts__tab:hover:not(.team-central-charts__tab--active) {
+  background: transparent;
+  color: var(--tc-navy);
+}
+
+.team-central-charts__tabs--sidebar .team-central-charts__tab--active,
+.team-central-charts__tabs--sidebar
+  .team-central-charts__tab--active:hover {
+  background: var(--tc-team-tab-bg, var(--tc-navy));
+  color: var(--tc-team-tab-text, #fff);
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__table-scroll {
@@ -99,63 +130,42 @@
   min-width: 0;
   width: 100%;
   table-layout: fixed;
-  font-size: 0.56rem;
 }
 
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th {
-  padding: 0.28rem 0.2rem;
-  font-size: 0.5rem;
-}
-
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td,
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tfoot td {
-  padding: 0.3rem 0.2rem;
+.team-central-charts__tile--roster {
+  --tc-roster-cell-pad-y: var(--iq-table-cell-pad-y, 0.35rem);
+  --tc-roster-cell-pad-x: var(--iq-table-cell-pad-x, 0.5rem);
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(1),
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(1) {
-  width: 14%;
+  width: 13%;
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(2),
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(2) {
-  width: 34%;
+  width: 38%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(3),
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(3) {
-  width: 12%;
+  width: 11%;
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(4),
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(4) {
-  width: 16%;
+  width: 19%;
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(5),
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(5) {
-  width: 14%;
-}
-
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table thead th:nth-child(6),
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__table tbody td:nth-child(6) {
-  width: 10%;
+  width: 19%;
 }
 
 .team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__aav {
-  font-size: 0.52rem;
   padding: 0.08rem 0.22rem;
-}
-
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__status {
-  font-size: 0.62rem;
-}
-
-.team-central-charts__grid--fa-layout .team-central-charts__tile--sidebar .team-central-charts__legend {
-  font-size: 0.48rem;
-  padding: 0.4rem 0.55rem 0.5rem;
 }
 
 .team-central-charts__tile {
@@ -232,9 +242,9 @@
 }
 
 .team-central-charts__draft-class-level-label {
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 0.58rem;
-  font-weight: 800;
+  font-family: var(--tc-table-font);
+  font-size: var(--tc-table-size);
+  font-weight: var(--tc-table-head-weight);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--tc-text-soft);
@@ -244,10 +254,12 @@
 .team-central-charts__draft-note {
   margin: 0;
   padding: 0 1rem 0.5rem;
-  font-size: 0.65rem;
+  font-family: var(--tc-table-font);
+  font-size: var(--tc-table-detail-size);
+  font-weight: var(--tc-table-detail-weight);
   font-style: italic;
   color: var(--tc-text-soft);
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .team-central-charts__tabs {
@@ -316,23 +328,68 @@
   width: 100%;
   min-width: 420px;
   border-collapse: collapse;
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 0.68rem;
+  font-family: var(--tc-table-font);
+  font-size: var(--tc-table-size);
+  font-weight: var(--tc-table-weight);
   color: var(--tc-text);
 }
 
 .team-central-charts__table--draft {
-  min-width: 520px;
+  min-width: 560px;
+}
+
+.team-central-charts__table--draft thead th,
+.team-central-charts__table--draft tbody td {
+  padding: 0.45rem 0.65rem;
+}
+
+.team-central-charts__table--draft .team-central-charts__col--pk {
+  text-align: left;
+}
+
+.team-central-charts__table--draft .team-central-charts__col--ovr {
+  text-align: right;
+}
+
+.team-central-charts__table--draft .team-central-charts__col--ovr .team-central-charts__ovr {
+  margin-inline-start: auto;
+}
+
+.team-central-charts__player-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.team-central-charts__player-portrait {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  object-fit: cover;
+  object-position: top center;
+  background: #e8eef5;
+}
+
+.team-central-charts__player-name {
+  font-weight: var(--tc-table-weight);
+  color: var(--tc-text);
+}
+
+.team-central-charts__table--draft .team-central-charts__col--pos {
+  font-weight: var(--tc-table-weight);
+  color: #4b5563;
 }
 
 .team-central-charts__table thead th {
   position: sticky;
   top: 0;
   z-index: 1;
-  padding: 0.45rem 0.5rem;
   text-align: left;
-  font-size: 0.58rem;
-  font-weight: 800;
+  font-family: var(--tc-table-font);
+  font-size: var(--tc-table-size);
+  font-weight: var(--tc-table-head-weight);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--tc-text-soft);
@@ -343,10 +400,26 @@
 
 .team-central-charts__table tbody td,
 .team-central-charts__table tfoot td {
-  padding: 0.42rem 0.5rem;
+  font-family: var(--tc-table-font);
+  font-size: var(--tc-table-size);
+  font-weight: var(--tc-table-weight);
   border-bottom: 1px solid #eee;
   vertical-align: middle;
   white-space: nowrap;
+}
+
+.team-central-charts__tile--roster .team-central-charts__table thead th,
+.team-central-charts__tile--roster .team-central-charts__table tbody td,
+.team-central-charts__tile--roster .team-central-charts__table tfoot td {
+  padding: var(--tc-roster-cell-pad-y) var(--tc-roster-cell-pad-x);
+}
+
+.team-central-charts__tile--roster .team-central-charts__col--player {
+  padding-inline-end: calc(var(--tc-roster-cell-pad-x) - 4px);
+}
+
+.team-central-charts__tile--roster .team-central-charts__col--age {
+  padding-inline-start: calc(var(--tc-roster-cell-pad-x) - 4px);
 }
 
 .team-central-charts__table tbody tr:nth-child(even) {
@@ -363,12 +436,14 @@
 
 .team-central-charts__age--accent {
   color: #6d28d9;
-  font-weight: 800;
+  font-weight: var(--tc-table-head-weight);
 }
 
 .team-central-charts__yrs {
   font-family: ui-monospace, monospace;
-  letter-spacing: 0.12em;
+  font-size: var(--tc-table-size);
+  font-weight: var(--tc-table-weight);
+  letter-spacing: 0.08em;
   color: #4b5563;
 }
 
@@ -378,17 +453,13 @@
   background: #e8eef5;
   border: 1px solid #c5d4e4;
   border-radius: 3px;
-  font-weight: 700;
-  font-size: 0.65rem;
-}
-
-.team-central-charts__status {
-  text-align: center;
-  font-size: 0.75rem;
+  font-family: var(--tc-table-font);
+  font-size: var(--tc-table-size);
+  font-weight: var(--tc-table-weight);
 }
 
 .team-central-charts__tfoot-sum td {
-  font-weight: 800;
+  font-weight: var(--tc-table-head-weight);
   background: #f3f4f6 !important;
   border-bottom: none;
 }
@@ -399,15 +470,23 @@
   flex-shrink: 0;
 }
 
-.team-central-charts__legend {
+.team-central-charts__legend,
+.team-central-charts__draft-credit {
   flex-shrink: 0;
   margin: 0;
   padding: 0.5rem 0.75rem 0.65rem;
-  font-size: 0.55rem;
+  font-family: var(--tc-table-font);
+  font-size: var(--tc-table-detail-size);
+  font-weight: var(--tc-table-detail-weight);
   line-height: 1.4;
   color: var(--tc-text-soft);
   border-top: 1px solid #eee;
   background: #fff;
+}
+
+.team-central-charts__draft-credit {
+  text-align: right;
+  letter-spacing: 0.03em;
 }
 
 .team-central-charts__ovr {
@@ -418,8 +497,9 @@
   height: 1.65rem;
   padding: 0 0.25rem;
   border-radius: 999px;
-  font-size: 0.62rem;
-  font-weight: 800;
+  font-family: var(--tc-table-font);
+  font-size: var(--tc-table-size);
+  font-weight: var(--tc-table-head-weight);
 }
 
 .team-central-charts__ovr--high {
@@ -438,18 +518,6 @@
   background: #fee2e2;
   color: #991b1b;
   border: 1px solid #fca5a5;
-}
-
-.team-central-charts__draft-credit {
-  margin: 0;
-  padding: 0.45rem 0.75rem 0.65rem;
-  font-size: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  color: var(--tc-text-soft);
-  text-align: right;
-  border-top: 1px solid #eee;
-  background: #fff;
 }
 
 @media (max-width: 900px) {

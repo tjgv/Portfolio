@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { fetchDraft } from '../../../api'
 import { CheatSheetBoard } from '../../../components/CheatSheetBoard'
-import { OptionACombineTrackingBoard } from '../components/OptionACombineTrackingBoard'
+import { CombineTrackingOutOfScopePanel } from '../../../components/CombineTrackingOutOfScopePanel'
 import { type DraftSubView, parseDraftSubView } from '../../../components/DraftSubnav'
 import { IqTabHeader } from '../../../components/IqTabHeader'
 import { DRAFT_BOARD_MOCK } from '../../../data/draft-board'
@@ -154,16 +154,10 @@ export function OptionADraftCentralPage() {
         </section>
       ) : subView === 'combine-tracking' ? (
         <section
-          className="draft-central-section draft-central-section--board draft-central-section--combine-tracking"
-          aria-label="Combine tracking metrics"
+          className="draft-central-section draft-central-section--combine-tracking-oos"
+          aria-label="Combine tracking"
         >
-          <div className="draft-board draft-board--option-a draft-board--combine-tracking">
-            <div className="draft-board__primary-wrap draft-board__primary-wrap--combine-tracking">
-              <div className="draft-board__primary-card draft-board__primary-card--combine-tracking">
-                <OptionACombineTrackingBoard />
-              </div>
-            </div>
-          </div>
+          <CombineTrackingOutOfScopePanel />
         </section>
       ) : null}
     </div>

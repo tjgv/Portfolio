@@ -664,6 +664,14 @@
   padding-right: 12px;
 }
 
+.draft-test__scorecard-table .draft-board__th--player-col,
+.draft-test__scorecard-table .draft-board__td--player {
+  max-width: none;
+  min-width: 11rem;
+  width: 11rem;
+  white-space: nowrap;
+}
+
 .draft-central-page--draft-test
   .draft-test__detail-wrap
   .draft-board__primary-card {

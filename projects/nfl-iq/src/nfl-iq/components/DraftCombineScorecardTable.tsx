@@ -55,7 +55,6 @@ export function DraftCombineScorecardRows({ rows }: DraftCombineScorecardTablePr
           <CombCell>{p.vert}</CombCell>
           <CombCell>{p.shuttle}</CombCell>
           <CombCell>{p.cone}</CombCell>
-          <CombCell>{p.bench}</CombCell>
           <td className={rawAthCellClass(p.rawAth)}>
             {p.rawAth != null ? p.rawAth.toFixed(1) : '—'}
           </td>
@@ -112,9 +111,6 @@ export function DraftCombineScorecardTable({ rows }: DraftCombineScorecardTableP
           </th>
           <th scope="col" className="draft-board__th draft-board__th--combine">
             <TableColCell as="span">Cone</TableColCell>
-          </th>
-          <th scope="col" className="draft-board__th draft-board__th--combine">
-            <TableColCell as="span">Bench</TableColCell>
           </th>
           <th scope="col" className="draft-board__th draft-board__th--combine">
             <TableColCell as="span">Raw Ath</TableColCell>

@@ -17,10 +17,12 @@ export type SolutionContextIntro = {
   route?: string
   problemLabel?: string
   problem: string
-  users: string
-  audience: string
+  users?: string
+  audience?: string
   userGoalLabel?: string
   userGoal: string
+  /** Final recap modal — how the walkthrough addresses the goal. */
+  goalResolution?: string
   note: string
 }
 
@@ -47,7 +49,9 @@ export type SolutionTourStep = {
   /** Optional separate element to anchor the modal against. */
   anchorTarget?: string
   title: string
-  body: string
+  body?: string
+  /** Optional light-grey quote shown below body (one line of spacing). */
+  bodyQuote?: string
   /** Optional search string (e.g. ?focus=Player) */
   search?: string
   /** Pin modal above/below target with a pointer toward the feature. */
@@ -87,6 +91,8 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
         'This solution is geared for users who are already on the casual fan to super fan engagement pipeline. It assumes that the user already knows what happened in draft, and they want to know more about the implications.',
       userGoal:
         'I am a pretty big fan of the Tennessee Titans, and I heard we had a decent draft. I want to learn more about how my team is going to perform.',
+      goalResolution:
+        'This solution recenters the value proposition (the data offering) around a more precise assessment of stories users care about.',
       note: 'UI is not final. Mocks are intended to demonstrate general direction with a conservative amount of dev resources in mind.',
     },
     steps: [
@@ -109,10 +115,11 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
       },
       {
         route: '/',
-        target: '.iq-home-value__title',
-        anchorTarget: '.iq-home-value__head',
+        target: '[data-solution-tour="value-pick-sonny-styles"]',
+        anchorTarget:
+          '[data-solution-tour="value-pick-sonny-styles"] .iq-home-value-card__photo-wrap',
         placement: 'anchored-below',
-        scrollMode: 'target-start',
+        scrollMode: 'target-center',
         title: 'Emphasizing the tools focus: Rookies',
         body:
           'I chose to place the value picks as the secondary option to reinforce the tools focus on rookie players and statistical outliers. I debated on prioritizing winning and losing teams as the secondary focus because I believe fans have an innate connection to teams, not rookies. However, I settled on keeping the focus on the players, and using interaction design in the hover to maintain some fandom hype.',
@@ -129,12 +136,15 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
       {
         route: '/teams',
         target: '[data-solution-tour="team-central-summary"]',
+        anchorTarget: '[data-solution-tour="team-central-summary"] .tc-summary__nav',
         placement: 'anchored-below',
-        scrollMode: 'target-start',
+        scrollMode: 'page-top',
         nextButtonLabel: 'Done',
         title: 'Team / User Identity',
         body:
-          'I am assuming that one of the core motivators for the fan class (Super fans, casual fans) is their connection to their favorite teams. The Team Central page had powerful context that was tucked away. I chose to hero that context because I believe it will provide users the ground work to frame the rest of their experience off of. "My team needs these players, my rival division teams are performing better than us right now, what can we pick? Are we doomed? Is there hope?"',
+          'One of the core motivators for the fans is their connection to their favorite teams. The Team Central page had powerful context that was tucked away. I chose to hero that context because I believe it will provide users a more engaging baseline to frame the rest of their experience.',
+        bodyQuote:
+          '"My team needs these players, my rival division teams are performing better than us right now, what can we pick? Are we doomed? Is there hope?"',
       },
     ],
   },
@@ -152,6 +162,8 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
       userGoalLabel: 'Use Case',
       userGoal:
         'I am a Super Fan who is looking to find a sleeper pick to place bets on. I am browsing NFL IQ to find leads on such a player.',
+      goalResolution:
+        'This solution directly addresses the problem by adding navigable elements to the pieces of insight that users have deemed interesting, thus creating a route to funnel user engagement.',
       note: 'UI is not final. Mocks are intended to demonstrate general direction with a conservative amount of dev resources in mind.',
     },
     steps: [
@@ -174,7 +186,7 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
         target: '[data-solution-tour="draft-scatter-sonny-styles"]',
         anchorTarget: '[data-solution-tour="draft-scatter-sonny-styles"]',
         placement: 'anchored-below',
-        scrollMode: 'target-nearest',
+        scrollMode: 'page-top',
         title: 'Straight to the chase',
         body:
           'Clicking Sonny has taken you straight to the context in the most approachable and engaging way - through the data visualisation. The insight is immediate, and I am wagering it will encourage users to dive a little deeper.',
@@ -190,8 +202,6 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
         clickTarget: '[data-solution-tour="draft-library-sonny-row-arrow"]',
         clickHint: 'You must click the row arrow!',
         title: 'Continue down the rabit hole!',
-        body:
-          'I added a symbol permanently showing implying there is more to look at. I can totally see this being visually redundant, but for the sake of demonstration I think its fine.',
       },
       {
         route: '/draft',
@@ -200,10 +210,9 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
         anchorTarget: '[data-solution-tour="draft-prospect-back"]',
         placement: 'anchored-below',
         scrollMode: 'page-top',
-        nextButtonLabel: 'Done',
         title: 'The rabit hole goes on (but not really):',
         body:
-          'Theoretically, this page is finished and beautiful and theres data that would continue the rabit hole... but, the point of this solution is to demonstrate that there is tons of value in opening up routes where users find curiosity. It speeds up workflows and gets users to where they want to go.',
+          "Theoretically, this page is finished and there's more rabit holes to follow.\n\nThe real point I'm trying to illustrate is that to get users using the tool, the tool needs to encourage inquisitive navigation.\n\nAn interesting data point, player, or teams should take you somewhere.",
       },
     ],
   },
@@ -221,6 +230,8 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
       userGoalLabel: 'User Goal',
       userGoal:
         'As a super fan of the Tennessee Titans, I want to view the 2026 draft from the lens of my favorite team so that I can discuss it with my friends.',
+      goalResolution:
+        'This solution indirectly addresses the problem by expanding the scope of relevant data to users. It is the inverse of landing a bullseye with a dart. Instead, this solution adds more bullseyes to the wall.',
       note: 'UI is not final. Mocks are intended to demonstrate general direction with a conservative amount of dev resources in mind.',
     },
     steps: [
@@ -231,7 +242,7 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
         anchorTarget: '[data-solution-tour="team-filter-ten"]',
         placement: 'anchored-below',
         scrollMode: 'page-top',
-        title: 'Rivals Selection',
+        title: 'Division Context',
         body:
           "One of the core value props of this tool is that it gives users an expectation/preview for the upcoming season.\n\nIn that sense, I'm not only concerned with the context of my team - but the context of my rivals who might get in the way of my team getting into playoffs.",
       },
@@ -250,8 +261,8 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
         route: '/teams',
         search: teamTourSearch('TEN'),
         target: '[data-solution-tour="team-central-summary"]',
-        anchorTarget: '[data-solution-tour="team-summary-peer-ind"]',
-        placement: 'anchored-left',
+        anchorTarget: '[data-solution-tour="team-summary-peer-jax"]',
+        placement: 'anchored-below',
         scrollMode: 'page-top',
         title: 'Keep an eye on the enemies',
         body:
@@ -309,10 +320,9 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
         placement: 'centered',
         scrollMode: 'page-top',
         teamPrepare: { select: 'DEN' },
-        nextButtonLabel: 'Done',
         title: 'Pros and Cons',
         body:
-          'While the inherent utilities of this feature are not very high, I do believe there is merit in building an engaging experience by leaning into fandom.\n\nAdditionally, it is lightweight as it utilizes existing assets and modules to transform the data into something more personable.',
+          'While I am unsure of the exact value these integrations offer, I do believe there is merit in building an engaging experience by leaning into fandom.\n\nAdditionally, it is lightweight as it utilizes existing assets and modules to transform the data into something more personable.',
       },
     ],
   },
@@ -325,24 +335,14 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
       problemLabel: 'Core Problem',
       problem:
         "Product usability isn't anchored to actual workflows. The data feels raw.",
-      users: 'Media & Analysts',
-      audience:
-        'Analysts need to move from headline picks to defensible comparisons quickly. Head-to-head views should mirror how they research—not as disconnected tables, but as a workflow for spotting underrated parallels.',
       userGoalLabel: 'Use Case',
       userGoal:
         'I am a Media analyst for underrated talent to report on. I want to find talent that is comparable to the popular picks.',
+      goalResolution:
+        'This solution is a best guess at what an actual user flow looks like for a Media & Analyst. Given the comparative nature of the tool, I can easily imagine this being a workflow that technical analysts do often.\n\nI included this as an example to illustrate what I mean by tailoring a workflow to the data usability.',
       note: 'UI is not final. Mocks are intended to demonstrate general direction with a conservative amount of dev resources in mind.',
     },
     steps: [
-      {
-        route: '/draft',
-        target: '[data-solution-tour="chart-comparison"]',
-        placement: 'corner',
-        scrollMode: 'page-top',
-        title: 'Feature exploration',
-        body:
-          'I was wrapping my head around the redundancy of data across Draft Central tool and the Combine Tracker. So, I focused in on the key aspects of the Draft Central.',
-      },
       {
         route: '/draft',
         target: '[data-solution-tour="draft-scorecard-hover-row"]',
@@ -402,23 +402,12 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
       },
       {
         route: '/draft',
-        target: '[data-solution-tour="draft-library"]',
-        placement: 'corner',
-        scrollMode: 'page-top',
-        chartComparison: 'ath-prod',
-        title: 'Problems to address',
-        body:
-          '1. The first problem to address to understand if this is actually a need users have. My rationale comes from a hunch based off repeated analytical themes coming from this page.',
-      },
-      {
-        route: '/draft',
         target: '[data-solution-tour="combine-scorecard"]',
         anchorTarget: '[data-solution-tour="combine-scorecard"]',
         placement: 'anchored-above',
         scrollMode: 'target-start',
         chartComparison: 'ath-prod',
         clearFocus: true,
-        nextButtonLabel: 'Done',
         title: 'The next problem',
         body:
           'The next problem would be to decide:\n\nCut the bottom scouting table, and fit these extra stats into the combine tracker.\n\nOR\n\nEliminate the combine tracker, and find a way to accomodate the excess data here.',

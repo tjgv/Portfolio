@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { fetchDraft } from '../api'
 import { BigBoardBoard } from '../components/BigBoardBoard'
 import { CheatSheetBoard } from '../components/CheatSheetBoard'
-import { CombineTrackingBoard } from '../components/CombineTrackingBoard'
+import { CombineTrackingOutOfScopePanel } from '../components/CombineTrackingOutOfScopePanel'
 import { DraftCentralBoard } from '../components/DraftCentralBoard'
 import { type DraftSubView, parseDraftSubView } from '../components/DraftSubnav'
 import { IqTabHeader } from '../components/IqTabHeader'
@@ -109,16 +109,10 @@ export function DraftCentralPage() {
         </section>
       ) : subView === 'combine-tracking' ? (
         <section
-          className="draft-central-section draft-central-section--board draft-central-section--combine-tracking"
-          aria-label="Combine tracking metrics"
+          className="draft-central-section draft-central-section--combine-tracking-oos"
+          aria-label="Combine tracking"
         >
-          <div className="draft-board draft-board--combine-tracking">
-            <div className="draft-board__primary-wrap draft-board__primary-wrap--combine-tracking">
-              <div className="draft-board__primary-card draft-board__primary-card--combine-tracking">
-                <CombineTrackingBoard />
-              </div>
-            </div>
-          </div>
+          <CombineTrackingOutOfScopePanel />
         </section>
       ) : null}
     </div>

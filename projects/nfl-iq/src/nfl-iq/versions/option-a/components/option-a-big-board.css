@@ -43,16 +43,30 @@
   background: var(--iq-surface, #fff);
 }
 
+.draft-central-section--big-board .draft-board--option-a {
+  width: 100%;
+  max-width: none;
+}
+
+.draft-central-section--big-board .draft-board--option-a .draft-board__primary-wrap--big-board,
+.draft-central-section--big-board .draft-board--option-a .draft-board__primary-card--big-board {
+  width: 100%;
+  max-width: none;
+}
+
 .draft-central-section--big-board .draft-board--option-a .big-board__scroll {
   width: 100%;
+  max-width: 100%;
+  padding-inline: 0;
   overflow-x: auto;
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Width scale on table; board shell width from option-a-layout.css */
 .draft-central-section--big-board .draft-board--option-a .big-board__table {
-  min-width: calc(52rem * var(--bb-width-scale));
+  width: 100%;
+  min-width: 100%;
+  max-width: none;
 }
 
 .draft-board--option-a .big-board__th,

@@ -322,9 +322,11 @@ function PeerRow({
       <div className="tc-summary__peer-group">
         <div
           className="tc-summary__peer-logo-wrap"
-          {...(peerTeamId === 'IND'
-            ? { 'data-solution-tour': 'team-summary-peer-ind' }
-            : {})}
+          {...(peerTeamId === 'JAX'
+            ? { 'data-solution-tour': 'team-summary-peer-jax' }
+            : peerTeamId === 'IND'
+              ? { 'data-solution-tour': 'team-summary-peer-ind' }
+              : {})}
         >
           <img
             className="tc-summary__peer-logo"

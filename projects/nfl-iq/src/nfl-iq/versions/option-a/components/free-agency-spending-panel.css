@@ -307,7 +307,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.15rem;
-  padding: 0.22rem 0.4rem;
+  padding: 0.22rem calc(0.4rem + 4px);
   border-radius: 3px;
   font-family: var(--fa-spending-font-title);
   font-size: 10px;

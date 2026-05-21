@@ -4,9 +4,14 @@ import {
   getSolutionDefinition,
   type SolutionId,
 } from '../solution-showcase/solution-definitions'
+import {
+  getTourOutroStepIndex,
+  isTourIntroStep,
+  SOLUTION_INTRO_STEP_INDEX,
+} from '../solution-showcase/solution-tour-state'
 import { SolutionShowcaseContext } from './solution-showcase-context'
 
-export const SOLUTION_INTRO_STEP_INDEX = -1
+export { SOLUTION_INTRO_STEP_INDEX }
 
 export function SolutionShowcaseProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate()
@@ -18,8 +23,8 @@ export function SolutionShowcaseProvider({ children }: { children: ReactNode }) 
   const goToStep = useCallback(
     (solutionId: SolutionId, index: number) => {
       const def = getSolutionDefinition(solutionId)
+      if (index < 0 || index >= def.steps.length) return
       const step = def.steps[index]
-      if (!step) return
       const path = step.search
         ? `${step.route}${step.search.startsWith('?') ? step.search : `?${step.search}`}`
         : step.route
@@ -38,6 +43,12 @@ export function SolutionShowcaseProvider({ children }: { children: ReactNode }) 
     },
     [navigate],
   )
+
+  const goToOutro = useCallback((solutionId: SolutionId) => {
+    const def = getSolutionDefinition(solutionId)
+    if (!def.contextIntro) return
+    setStepIndex(getTourOutroStepIndex(def))
+  }, [])
 
   const startSolution = useCallback(
     (id: SolutionId) => {
@@ -61,30 +72,47 @@ export function SolutionShowcaseProvider({ children }: { children: ReactNode }) 
     if (!activeSolutionId) return
     const def = getSolutionDefinition(activeSolutionId)
 
-    if (stepIndex === SOLUTION_INTRO_STEP_INDEX) {
+    if (isTourIntroStep(stepIndex)) {
       goToStep(activeSolutionId, 0)
       return
     }
 
-    const next = stepIndex + 1
-    if (next >= def.steps.length) {
+    if (stepIndex >= 0 && stepIndex < def.steps.length - 1) {
+      goToStep(activeSolutionId, stepIndex + 1)
+      return
+    }
+
+    if (stepIndex === def.steps.length - 1 && def.contextIntro) {
+      goToOutro(activeSolutionId)
+      return
+    }
+
+    if (isTourIntroStep(stepIndex) || stepIndex === getTourOutroStepIndex(def)) {
       stopSolution()
       return
     }
-    goToStep(activeSolutionId, next)
-  }, [activeSolutionId, stepIndex, goToStep, stopSolution])
+
+    stopSolution()
+  }, [activeSolutionId, stepIndex, goToStep, goToOutro, stopSolution])
 
   const prevStep = useCallback(() => {
     if (!activeSolutionId) return
     const def = getSolutionDefinition(activeSolutionId)
+    const outroIndex = getTourOutroStepIndex(def)
+
+    if (stepIndex === outroIndex && def.contextIntro) {
+      goToStep(activeSolutionId, def.steps.length - 1)
+      return
+    }
 
     if (stepIndex === 0 && def.contextIntro) {
       goToIntro(activeSolutionId)
       return
     }
 
-    if (stepIndex <= 0) return
-    goToStep(activeSolutionId, stepIndex - 1)
+    if (stepIndex > 0) {
+      goToStep(activeSolutionId, stepIndex - 1)
+    }
   }, [activeSolutionId, stepIndex, goToIntro, goToStep])
 
   const value = useMemo(

@@ -1,7 +1,7 @@
 /* NFL IQ — visual system aligned with nfl.com/iq light theme */
 
 .nfl-iq {
-  --iq-bg: #f4f8f8;
+  --iq-bg: #ffffff;
   --iq-surface: #ffffff;
   --iq-surface-muted: #eef3f3;
   --iq-border: #d8e0e2;
@@ -312,6 +312,7 @@
   flex: 1 1 auto;
   min-height: calc(100vh - 120px);
   min-height: calc(100dvh - 120px);
+  background: var(--iq-bg);
 }
 
 .iq-main {
@@ -321,6 +322,7 @@
   margin-inline: auto;
   padding: calc(1.25rem - 12px) var(--iq-page-gutter) 5.5rem;
   min-width: 0;
+  background: var(--iq-bg);
 }
 
 @media (min-width: 900px) {

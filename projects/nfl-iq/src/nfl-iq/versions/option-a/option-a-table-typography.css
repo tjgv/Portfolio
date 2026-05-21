@@ -1,0 +1,144 @@
+/* Option A — shared table typography (Team Central + Free Agency) */
+
+.fa-board--option-a .fa-board__table,
+.free-agency-page--option-a .fa-signings__table {
+  font-family: var(--iq-table-font);
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-weight);
+  color: #374151;
+}
+
+.fa-board--option-a .fa-board__table thead th,
+.free-agency-page--option-a .fa-signings__table thead th {
+  font-family: var(--iq-table-font);
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-head-weight);
+}
+
+.fa-board--option-a .fa-board__table tbody td,
+.fa-board--option-a .fa-board__table tfoot td,
+.free-agency-page--option-a .fa-signings__table tbody td {
+  font-family: var(--iq-table-font);
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-weight);
+}
+
+.fa-board--option-a .fa-board__table thead th,
+.fa-board--option-a .fa-board__table tbody td,
+.fa-board--option-a .fa-board__table tfoot td {
+  padding: var(--iq-table-cell-pad-y) var(--iq-table-cell-pad-x);
+}
+
+.fa-board--option-a .fa-board__table thead th.fa-table-filter-th,
+.fa-board--option-a .fa-board__table thead th:has(.iq-table-col-cell) {
+  padding: 0;
+}
+
+.fa-board--option-a .fa-board__table thead th .iq-table-col-cell,
+.fa-board--option-a .fa-board__table--agents thead th .iq-table-col-cell {
+  padding: var(--iq-table-cell-pad-y) var(--iq-table-cell-pad-x);
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-head-weight);
+}
+
+.fa-board--option-a .fa-board__rank,
+.fa-board--option-a .fa-board__player,
+.fa-board--option-a .fa-board__player-name,
+.fa-board--option-a .fa-board__alignment {
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-weight);
+}
+
+.fa-board--option-a .fa-board__age--wall {
+  font-weight: var(--iq-table-head-weight);
+}
+
+.fa-board--option-a .fa-board__injury {
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-head-weight);
+}
+
+.fa-board--option-a .fa-board__legend,
+.fa-board--option-a .fa-board__draft-note {
+  font-family: var(--iq-table-font);
+  font-size: var(--iq-table-detail-size);
+  font-weight: var(--iq-table-detail-weight);
+  line-height: 1.4;
+}
+
+/* Sidebar roster — same tokens as Team Central (no compact 0.56rem overrides) */
+.fa-board--option-a .fa-board__card--team-roster .team-central-charts__tile--roster {
+  --tc-roster-cell-pad-y: var(--iq-table-cell-pad-y);
+  --tc-roster-cell-pad-x: var(--iq-table-cell-pad-x);
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table,
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table thead th,
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tbody td,
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table tfoot td {
+  font-family: var(--iq-table-font);
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-weight);
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__table thead th {
+  font-weight: var(--iq-table-head-weight);
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__aav {
+  font-family: var(--iq-table-font);
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-weight);
+}
+
+.fa-board--option-a .fa-board__card--sidebar .team-central-charts__age--accent {
+  font-weight: var(--iq-table-head-weight);
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__table thead th,
+.fa-board--option-a .fa-board__card--sidebar .fa-board__table tbody td {
+  font-family: var(--iq-table-font);
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-weight);
+  padding: var(--iq-table-cell-pad-y) var(--iq-table-cell-pad-x);
+}
+
+.fa-board--option-a .fa-board__card--sidebar .fa-board__table thead th {
+  font-weight: var(--iq-table-head-weight);
+}
+
+/* Recent signings */
+.free-agency-page--option-a .fa-signings__table thead th .iq-table-col-cell,
+.free-agency-page--option-a .fa-signings__table thead th .fa-table-sort {
+  padding: var(--iq-table-cell-pad-y) var(--iq-table-cell-pad-x);
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-head-weight);
+}
+
+.free-agency-page--option-a .fa-signings__td {
+  padding: var(--iq-table-cell-pad-y) var(--iq-table-cell-pad-x);
+}
+
+.free-agency-page--option-a .fa-signings__player-name,
+.free-agency-page--option-a .fa-signings__player-pos,
+.free-agency-page--option-a .fa-signings__type-label,
+.free-agency-page--option-a .fa-signings__deal-value,
+.free-agency-page--option-a .fa-signings__deal-years {
+  font-family: var(--iq-table-font);
+  font-size: var(--iq-table-size);
+}
+
+.free-agency-page--option-a .fa-signings__player-name,
+.free-agency-page--option-a .fa-signings__deal-value {
+  font-weight: var(--iq-table-head-weight);
+}
+
+.free-agency-page--option-a .fa-signings__player-pos,
+.free-agency-page--option-a .fa-signings__deal-years {
+  font-weight: var(--iq-table-weight);
+}
+
+.free-agency-page--option-a .fa-signings__portrait-initials {
+  font-size: var(--iq-table-size);
+  font-weight: var(--iq-table-head-weight);
+}

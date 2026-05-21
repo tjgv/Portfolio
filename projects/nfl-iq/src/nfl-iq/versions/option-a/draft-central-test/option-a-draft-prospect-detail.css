@@ -361,31 +361,44 @@
   border-bottom: 3px solid #22c55e;
 }
 
-/* —— Archetype + play style (below breakdown) —— */
+/* —— Archetype + play style comps (two squares) —— */
 .draft-prospect-detail__play-style-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 520px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   align-items: stretch;
 }
 
-.draft-prospect-detail__card--archetype {
-  padding: 0.85rem 0.9rem 1rem;
-}
-
-.draft-prospect-detail__card--play-style-home {
+.draft-prospect-detail__play-style-tile {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1;
   padding: 0;
   overflow: hidden;
 }
 
-.draft-prospect-play-style-home__shot {
-  width: 100%;
-  border: none;
-  border-radius: 0;
+.draft-prospect-detail__play-style-tile .draft-prospect-detail__card-title {
+  flex-shrink: 0;
+  padding: 0.75rem 0.85rem 0.45rem;
+  margin: 0;
+  border-bottom: 1px solid #eef2f4;
 }
 
-.draft-prospect-play-style-home__shot .draft-hover-preview__img {
-  width: 100%;
+.draft-prospect-detail__card--archetype {
+  padding: 0;
+}
+
+.draft-prospect-detail__card--play-style-comps {
+  padding: 0;
+}
+
+.draft-prospect-detail__play-style-comps-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .draft-prospect-archetype {
@@ -395,11 +408,42 @@
   gap: 1rem 1.5rem;
 }
 
+.draft-prospect-archetype--tile {
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 0;
+  padding: 0.35rem 0.85rem 0.75rem;
+}
+
+.draft-prospect-archetype__venn {
+  display: block;
+}
+
+.draft-prospect-archetype--tile .draft-prospect-archetype__venn {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  width: 100%;
+}
+
 .draft-prospect-archetype__svg {
   width: 100%;
   max-width: 320px;
   height: auto;
   flex: 1 1 240px;
+}
+
+.draft-prospect-archetype--tile .draft-prospect-archetype__svg {
+  flex: none;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: min(72%, 220px);
 }
 
 .draft-prospect-archetype__labels {
@@ -411,6 +455,13 @@
   gap: 0.35rem;
   flex: 1 1 180px;
   min-width: 160px;
+}
+
+.draft-prospect-archetype--tile .draft-prospect-archetype__labels {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  gap: 0.3rem;
 }
 
 .draft-prospect-archetype__label {
@@ -435,16 +486,6 @@
   color: #111827;
 }
 
-.draft-prospect-detail__card--comps {
-  overflow: hidden;
-}
-
-.draft-prospect-detail__card--comps .draft-prospect-detail__card-title {
-  padding: 0.85rem 0.9rem 0.5rem;
-  margin: 0;
-  border-bottom: 1px solid #eef2f4;
-}
-
 .draft-prospect-comps__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -453,12 +494,27 @@
   list-style: none;
 }
 
+.draft-prospect-comps__grid--tile {
+  flex: 1 1 auto;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  height: 100%;
+  min-height: 0;
+}
+
 .draft-prospect-comps__cell {
   padding: 0.55rem 0.65rem;
   border-right: 1px solid #eef2f4;
   border-bottom: 1px solid #eef2f4;
   min-height: 4.5rem;
   box-sizing: border-box;
+}
+
+.draft-prospect-comps__grid--tile .draft-prospect-comps__cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+  padding: 0.65rem 0.55rem;
 }
 
 .draft-prospect-comps__cell:nth-child(4n) {
@@ -477,11 +533,21 @@
   color: #111827;
 }
 
+.draft-prospect-comps__grid--tile .draft-prospect-comps__name {
+  margin-bottom: 0.35rem;
+  font-size: clamp(0.62rem, 1.1vw, 0.78rem);
+}
+
 .draft-prospect-comps__similarity {
   margin: 0 0 0.15rem;
   font-size: 0.78rem;
   font-weight: 800;
   color: #111827;
+}
+
+.draft-prospect-comps__grid--tile .draft-prospect-comps__similarity {
+  margin-bottom: 0.25rem;
+  font-size: clamp(0.68rem, 1.2vw, 0.88rem);
 }
 
 .draft-prospect-comps__prod {
@@ -490,15 +556,26 @@
   color: #6b7280;
 }
 
-.draft-prospect-comps__prod-label {
+.draft-prospect-comps__grid--tile .draft-prospect-comps__prod {
+  font-size: clamp(0.58rem, 1vw, 0.72rem);
+}
+
+.draft-prospect-comps__metric-label {
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.draft-prospect-comps__grid--tile .draft-prospect-comps__metric-label {
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 .draft-prospect-comps__prod-value {
   font-weight: 800;
   color: #111827;
+}
+
+.draft-prospect-detail__card--play-style-comps .draft-prospect-detail__nfl-bar {
+  flex-shrink: 0;
 }
 
 .draft-prospect-detail__nfl-bar {

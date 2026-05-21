@@ -1,7 +1,10 @@
+import { prospectPortraitUrl } from '../versions/option-a/draft-central-test/prospect-portrait'
+
 export type TeamDraftClassRow = {
   pk: string
   pos: string
   player: string
+  portraitUrl: string
   rank: string
   ht: string
   wt: string
@@ -67,9 +70,11 @@ export function getTeamDraftClassRows(teamId: string): TeamDraftClassRow[] {
     const prospect = DRAFT_PROSPECTS[(i + hashSeed(teamId)) % DRAFT_PROSPECTS.length]
     const round = PICK_ROUNDS[i % PICK_ROUNDS.length]
     const slot = 4 + Math.floor(rng() * 28) + i * 3
+    const pk = formatPick(round, slot)
     rows.push({
       ...prospect,
-      pk: formatPick(round, slot),
+      pk,
+      portraitUrl: prospectPortraitUrl(pk, prospect.player),
       highlight: i === 2,
     })
   }

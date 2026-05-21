@@ -24,6 +24,7 @@ import { OptionASiteNav } from './OptionASiteNav'
 import '../../nfl-iq.css'
 import './option-a-layout.css'
 import './option-a-table-headers.css'
+import './option-a-table-typography.css'
 
 export function OptionAAppShell() {
   const { pathname } = useLocation()

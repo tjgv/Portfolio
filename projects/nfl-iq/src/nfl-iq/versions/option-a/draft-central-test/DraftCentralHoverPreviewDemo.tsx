@@ -17,7 +17,7 @@ export function DraftCentralHoverPreviewDemo({
     null,
   )
 
-  const measure = useCallback((): (() => void) | void => {
+  const measure = useCallback(() => {
     const row = document.querySelector<HTMLElement>(
       '[data-solution-tour="draft-scorecard-hover-row"]',
     )
@@ -30,31 +30,20 @@ export function DraftCentralHoverPreviewDemo({
       top: rect.top - 10,
       left: rect.left + rect.width / 2 - CARD_WIDTH_PX / 2,
     })
-    row.classList.add('draft-scorecard-hover-row--preview-active')
-    return () => {
-      row.classList.remove('draft-scorecard-hover-row--preview-active')
-    }
   }, [])
 
   useLayoutEffect(() => {
     if (!visible) {
       setPosition(null)
       setExpanded(false)
-      document
-        .querySelectorAll('.draft-scorecard-hover-row--preview-active')
-        .forEach((el) => el.classList.remove('draft-scorecard-hover-row--preview-active'))
       return
     }
 
-    let cleanupRowClass = measure()
-    const onReflow = () => {
-      cleanupRowClass?.()
-      cleanupRowClass = measure()
-    }
+    measure()
+    const onReflow = () => measure()
     window.addEventListener('resize', onReflow)
     window.addEventListener('scroll', onReflow, true)
     return () => {
-      cleanupRowClass?.()
       window.removeEventListener('resize', onReflow)
       window.removeEventListener('scroll', onReflow, true)
     }

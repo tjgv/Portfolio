@@ -26,7 +26,7 @@
   flex-shrink: 0;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.15rem 0.3rem;
+  padding: 0.15rem calc(0.3rem - 4px);
   border-radius: 8px;
   transition:
     background 0.15s ease,
@@ -34,10 +34,11 @@
 }
 
 .fa-team-filter__division--highlight {
-  padding-left: calc(0.3rem + 4px);
-  padding-right: calc(0.3rem + 4px);
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
   border-radius: 100px;
-  background: color-mix(in srgb, var(--iq-nfl-blue, #013369) 15%, transparent);
+  border: 1px solid var(--iq-border, #d8e0e2);
+  background: rgba(255, 255, 255, 0.75);
   box-shadow: none;
 }
 

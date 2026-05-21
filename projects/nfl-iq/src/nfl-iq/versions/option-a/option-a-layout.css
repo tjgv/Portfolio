@@ -7,6 +7,14 @@
   --option-a-table-inset-left: var(--option-a-content-pad);
   --option-a-divider: #eef2f4;
   --option-a-col-header-color: var(--iq-text-muted, #5c6578);
+  --iq-table-font: Inter, system-ui, sans-serif;
+  --iq-table-size: 10px;
+  --iq-table-weight: 500;
+  --iq-table-head-weight: 700;
+  --iq-table-detail-size: 10px;
+  --iq-table-detail-weight: 500;
+  --iq-table-cell-pad-y: 0.35rem;
+  --iq-table-cell-pad-x: 0.5rem;
 }
 
 /* —— Option A: full-bleed dividers, padded content —— */
@@ -48,18 +56,18 @@
   border-bottom: 1px solid var(--option-a-divider);
 }
 
-.nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__card--team-roster .team-central-charts__legend {
-  padding: 0.32rem var(--option-a-content-pad) 0.4rem;
-  border-top: 1px solid var(--option-a-divider);
-}
-
 .nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__card--team-roster .fa-spending__needs {
   padding: 0.4rem var(--option-a-content-pad) 0.5rem;
   border-top: 1px solid var(--option-a-divider);
 }
 
 .nfl-iq[data-mock-version='option-a'] .fa-board--option-a .fa-board__legend {
-  padding: 0.35rem var(--option-a-content-pad);
+  padding: 0.5rem var(--option-a-content-pad);
+  font-family: var(--iq-table-font);
+  font-size: var(--iq-table-detail-size);
+  font-weight: var(--iq-table-detail-weight);
+  line-height: 1.4;
+  color: #6b7280;
 }
 
 /* Draft boards */
@@ -84,7 +92,7 @@
 }
 
 .nfl-iq[data-mock-version='option-a'] .draft-central-section--big-board .big-board__scroll {
-  padding-inline: var(--option-a-content-pad);
+  padding-inline: 0;
   box-sizing: border-box;
 }
 
@@ -164,12 +172,19 @@
 
 .nfl-iq[data-mock-version='option-a'] .free-agency-board-section {
   padding: 1.15rem 0 1.5rem;
-  background: transparent;
+  background: var(--iq-bg, #fff);
 }
 
-/* Hide QuickSight-style muted canvas behind Option A table boards */
 .nfl-iq[data-mock-version='option-a'] .draft-central-section--board {
-  background: transparent;
+  background: var(--iq-bg, #fff);
+}
+
+/* Page body shells */
+.nfl-iq[data-mock-version='option-a'] .iq-home,
+.nfl-iq[data-mock-version='option-a'] .draft-central-page,
+.nfl-iq[data-mock-version='option-a'] .free-agency-page,
+.nfl-iq[data-mock-version='option-a'] .team-central-page {
+  background: var(--iq-bg, #fff);
 }
 
 .nfl-iq[data-mock-version='option-a'] .iq-draft-widget-section,
@@ -200,6 +215,15 @@
 .nfl-iq[data-mock-version='option-a'] .draft-central-section--board > .draft-board .draft-board__table {
   width: 100%;
   min-width: 100%;
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--big-board > .draft-board--option-a,
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--big-board .big-board__scroll,
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--big-board .big-board__table {
+  width: 100%;
+  max-width: none;
+  min-width: 100%;
+  box-sizing: border-box;
 }
 
 .nfl-iq[data-mock-version='option-a']

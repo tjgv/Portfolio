@@ -11,7 +11,7 @@
   margin-top: 0;
   margin-inline: calc(-1 * var(--iq-page-gutter, 1rem));
   padding: 0.75rem var(--iq-page-gutter, 1rem) 2.5rem;
-  background: var(--iq-surface-muted, #eef3f3);
+  background: var(--iq-bg, #fff);
 }
 
 .draft-central-section--cheat-sheet,

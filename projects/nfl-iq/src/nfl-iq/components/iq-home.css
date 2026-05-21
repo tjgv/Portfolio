@@ -136,11 +136,11 @@
 }
 
 .iq-home-hero__cta {
-  font-size: 15px;
+  font-size: 21px;
   letter-spacing: calc(2px - 1.5%);
   flex-shrink: 0;
   margin: 0;
-  padding: 0.6rem 1.4rem;
+  padding: calc(0.6rem + 4px) 1.4rem;
   border: none;
   border-radius: 999px;
   background: #fff;
@@ -164,7 +164,7 @@
 
 /* Value picks */
 .iq-home-value {
-  margin-bottom: var(--iq-home-section-gap);
+  margin-bottom: calc(var(--iq-home-section-gap) + 2rem);
 }
 
 .iq-home-value__head {
@@ -187,7 +187,7 @@
 .iq-home-value__tabs {
   display: flex;
   align-items: center;
-  gap: 2.25rem;
+  gap: 1.125rem;
   flex-shrink: 0;
 }
 
@@ -198,7 +198,7 @@
   background: none;
   font-family: 'Instrument Sans', Inter, system-ui, sans-serif;
   font-weight: 700;
-  font-size: clamp(1.0625rem, 1.87vw, 1.9125rem);
+  font-size: clamp(0.8125rem, calc(1.87vw - 4px), 1.6625rem);
   line-height: 1.55;
   letter-spacing: 0.02em;
   color: #acacac;
@@ -256,7 +256,7 @@
   font-size: 13px;
   letter-spacing: 2px;
   position: absolute;
-  top: calc(18% - 12px);
+  top: calc(18% - 20px);
   right: 0;
   left: 0;
   z-index: 4;
@@ -463,7 +463,7 @@
 
 .iq-home-winners__head {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 2rem;
@@ -506,8 +506,8 @@
 }
 
 .iq-home-winner-card {
-  background: var(--iq-home-card-bg);
-  border: 1px solid var(--iq-home-card-border);
+  background: rgba(238, 238, 238, 0.8);
+  border: 1px solid rgba(99, 99, 99, 0.144);
   border-radius: 12px;
   padding: 1.15rem;
   min-width: 0;

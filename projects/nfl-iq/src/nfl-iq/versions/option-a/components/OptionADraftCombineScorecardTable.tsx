@@ -101,7 +101,6 @@ export function OptionADraftCombineScorecardTable({
           {th('Vert', 'vert')}
           {th('Shuttle', 'shuttle')}
           {th('Cone', 'cone')}
-          {th('Bench', 'bench')}
           {th('Raw Ath', 'rawAth')}
           {th('Athleticism', 'athleticism')}
           {th('Production', 'production')}

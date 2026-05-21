@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSolutionShowcase } from '../../../context/useSolutionShowcase'
-import { getSolutionDefinition } from '../../../solution-showcase/solution-definitions'
+import { getTourFeatureStepForActive } from '../../../solution-showcase/solution-tour-state'
 import type { DraftBoardProspect } from '../../../types'
 import { prospectStableKey } from '../../../utils/draft-ng-ranks'
 import '../../../components/draft-central-board.css'
@@ -44,8 +44,9 @@ export function OptionADraftCentralTestBoard({
   const [searchParams, setSearchParams] = useSearchParams()
 
   useLayoutEffect(() => {
-    if (!activeSolutionId || stepIndex < 0) return
-    const step = getSolutionDefinition(activeSolutionId).steps[stepIndex]
+    if (!activeSolutionId) return
+    const step = getTourFeatureStepForActive(activeSolutionId, stepIndex)
+    if (!step) return
     if (step.chartComparison) setChartComparison(step.chartComparison)
     if (step.clearFocus) {
       setFocusedKeys([])

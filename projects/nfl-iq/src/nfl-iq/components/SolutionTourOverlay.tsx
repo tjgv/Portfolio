@@ -8,11 +8,16 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { SOLUTION_INTRO_STEP_INDEX } from '../context/SolutionShowcaseProvider'
 import {
   getSolutionDefinition,
   type SolutionTourStep,
 } from '../solution-showcase/solution-definitions'
+import {
+  getTourFeatureStep,
+  getTourTotalStages,
+  isTourIntroStep,
+  isTourOutroStep,
+} from '../solution-showcase/solution-tour-state'
 import {
   ARROW_SIZE_PX,
   anchoredCardSelector,
@@ -68,11 +73,17 @@ function SolutionContextIntroCard({
       </h2>
       <p className="solution-tour__body solution-tour__body--spaced">{intro.problem}</p>
 
-      <h3 className="solution-tour__context-heading">Users:</h3>
-      <p className="solution-tour__body solution-tour__body--users solution-tour__body--spaced">
-        {intro.users}
-      </p>
-      <p className="solution-tour__body solution-tour__body--spaced">{intro.audience}</p>
+      {intro.users ? (
+        <div className="solution-tour__users-block">
+          <h3 className="solution-tour__context-heading">Users:</h3>
+          <p className="solution-tour__body solution-tour__body--users solution-tour__body--spaced">
+            {intro.users}
+          </p>
+        </div>
+      ) : null}
+      {intro.audience ? (
+        <p className="solution-tour__body solution-tour__body--spaced">{intro.audience}</p>
+      ) : null}
 
       <h3 className="solution-tour__context-heading">
         {intro.userGoalLabel ?? 'USER GOAL'}:
@@ -81,13 +92,12 @@ function SolutionContextIntroCard({
         {intro.userGoal}
       </p>
 
-      <p className="solution-tour__note">
-        <em>
-          Note: {intro.note}
-        </em>
-      </p>
-
       <div className="solution-tour__card-footer solution-tour__card-footer--intro">
+        <p className="solution-tour__note">
+          <em>
+            Note: {intro.note}
+          </em>
+        </p>
         <button
           type="button"
           className="solution-tour__next solution-tour__next--cta"
@@ -96,6 +106,79 @@ function SolutionContextIntroCard({
         >
           <span>Let&apos;s go!</span>
           <span aria-hidden>→</span>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function SolutionContextOutroCard({
+  onClose,
+  onPrev,
+  onNext,
+  stageLabel,
+}: {
+  onClose: () => void
+  onPrev: () => void
+  onNext: () => void
+  stageLabel: string
+}) {
+  const { activeSolutionId } = useSolutionShowcase()
+  if (!activeSolutionId) return null
+
+  const intro = getSolutionDefinition(activeSolutionId).contextIntro
+  if (!intro) return null
+
+  const goalResolution =
+    intro.goalResolution?.trim() ||
+    'Copy coming soon.'
+
+  return (
+    <div
+      className="solution-tour__card solution-tour__card--centered solution-tour__card--outro"
+      role="dialog"
+      aria-labelledby="solution-tour-outro-problem"
+    >
+      <div className="solution-tour__card-chrome">
+        <span className="solution-tour__stage" aria-live="polite">
+          ({stageLabel})
+        </span>
+        <button
+          type="button"
+          className="solution-tour__close"
+          aria-label="Stop the show"
+          onClick={onClose}
+        >
+          ×
+        </button>
+      </div>
+
+      <h3 id="solution-tour-outro-problem" className="solution-tour__context-heading">
+        {intro.problemLabel ?? 'Core Problem'}:
+      </h3>
+      <p className="solution-tour__body solution-tour__body--quote solution-tour__body--spaced">
+        {intro.problem}
+      </p>
+
+      <h3 className="solution-tour__context-heading">How this addresses the goal:</h3>
+      <p className="solution-tour__body solution-tour__body--spaced">{goalResolution}</p>
+
+      <div className="solution-tour__card-footer solution-tour__card-footer--outro">
+        <button
+          type="button"
+          className="solution-tour__prev"
+          aria-label="Previous feature"
+          onClick={onPrev}
+        >
+          ←
+        </button>
+        <button
+          type="button"
+          className="solution-tour__next solution-tour__next--cta"
+          aria-label="Finish walkthrough"
+          onClick={onNext}
+        >
+          Done
         </button>
       </div>
     </div>
@@ -143,6 +226,7 @@ function SolutionTourStepCard({
   stageLabel,
   title,
   body,
+  bodyQuote,
   placement = 'corner',
   anchorPosition,
   requiresClick = false,
@@ -156,7 +240,8 @@ function SolutionTourStepCard({
   isLastStep: boolean
   stageLabel: string
   title: string
-  body: string
+  body?: string
+  bodyQuote?: string
   placement?: SolutionTourStep['placement']
   anchorPosition?: AnchorPosition | null
   requiresClick?: boolean
@@ -186,7 +271,13 @@ function SolutionTourStepCard({
       }
       role="dialog"
       aria-labelledby="solution-tour-title"
-      aria-describedby="solution-tour-body"
+      aria-describedby={
+        body || bodyQuote
+          ? [body ? 'solution-tour-body' : null, bodyQuote ? 'solution-tour-body-quote' : null]
+              .filter(Boolean)
+              .join(' ') || undefined
+          : undefined
+      }
       style={
         isAnchored && anchorPosition
           ? ({
@@ -223,9 +314,19 @@ function SolutionTourStepCard({
       <h3 id="solution-tour-title" className="solution-tour__title">
         {title}
       </h3>
-      <p id="solution-tour-body" className="solution-tour__body solution-tour__body--pre-line">
-        {body}
-      </p>
+      {body ? (
+        <p id="solution-tour-body" className="solution-tour__body solution-tour__body--pre-line">
+          {body}
+        </p>
+      ) : null}
+      {bodyQuote ? (
+        <p
+          id="solution-tour-body-quote"
+          className="solution-tour__body solution-tour__body-quote"
+        >
+          {bodyQuote}
+        </p>
+      ) : null}
 
       <div
         className={
@@ -377,7 +478,7 @@ function useAnchoredTourStep(step: SolutionTourStep | null, enabled: boolean) {
     measureAndPlace()
     const raf = requestAnimationFrame(() => measureAndPlace())
     return () => cancelAnimationFrame(raf)
-  }, [anchorReady, step, measureAndPlace, step?.title, step?.body])
+  }, [anchorReady, step, measureAndPlace, step?.title, step?.body, step?.bodyQuote])
 
   useEffect(() => {
     if (!anchorReady || !isAnchoredPlacement(step?.placement)) return
@@ -451,40 +552,42 @@ export function SolutionTourOverlay() {
     activeSolutionId != null
       ? getSolutionDefinition(activeSolutionId)
       : null
-  const isIntro = stepIndex === SOLUTION_INTRO_STEP_INDEX
-  const step = !isIntro ? (definition?.steps[stepIndex] ?? null) : null
-  const tourStepCount = definition?.steps.length ?? 0
+  const isIntro = isTourIntroStep(stepIndex)
   const hasContextIntro = Boolean(definition?.contextIntro)
-  const totalStages = hasContextIntro ? tourStepCount + 1 : tourStepCount
-  const isLastStep = stepIndex >= tourStepCount - 1
+  const isOutro = definition ? isTourOutroStep(definition, stepIndex) : false
+  const step =
+    definition && !isIntro && !isOutro
+      ? (getTourFeatureStep(definition, stepIndex) ?? null)
+      : null
+  const totalStages = definition ? getTourTotalStages(definition) : 0
   const canGoBackFromTourStep =
     stepIndex > 0 || (stepIndex === 0 && hasContextIntro)
   const isAnchoredStep = isAnchoredPlacement(step?.placement)
 
   const { anchorReady, anchorPosition } = useAnchoredTourStep(
     step,
-    Boolean(activeSolutionId && !isIntro && isAnchoredStep),
+    Boolean(activeSolutionId && !isIntro && !isOutro && isAnchoredStep),
   )
 
   useTourClickGate(
     step,
-    Boolean(activeSolutionId && !isIntro && step?.requiresClick),
+    Boolean(activeSolutionId && !isIntro && !isOutro && step?.requiresClick),
     nextStep,
   )
 
   useEffect(() => {
-    if (!activeSolutionId || isIntro || step?.placement !== 'centered') return
+    if (!activeSolutionId || isIntro || isOutro || step?.placement !== 'centered') return
     if (step.scrollMode === 'page-top') void smoothScrollToY(0)
-  }, [activeSolutionId, isIntro, step])
+  }, [activeSolutionId, isIntro, isOutro, step])
 
   useEffect(() => {
     if (!activeSolutionId) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') stopSolution()
-      if (e.key === 'ArrowRight' && !step?.requiresClick) nextStep()
+      if (e.key === 'ArrowRight' && (isOutro || !step?.requiresClick)) nextStep()
       if (e.key === 'ArrowLeft') {
         if (isIntro) return
-        if (canGoBackFromTourStep) prevStep()
+        if (isOutro || canGoBackFromTourStep) prevStep()
       }
     }
     document.addEventListener('keydown', onKey)
@@ -497,13 +600,14 @@ export function SolutionTourOverlay() {
     isIntro,
     canGoBackFromTourStep,
     step?.requiresClick,
+    isOutro,
   ])
 
   if (!activeSolutionId || !definition) return null
-  if (!isIntro && !step) return null
+  if (!isIntro && !isOutro && !step) return null
 
   if (isIntro && definition.contextIntro) {
-    const introStageLabel = `1 / ${totalStages}`
+    const introStageLabel = `1/${totalStages}`
     return createPortal(
       <SolutionContextIntroCard
         onClose={stopSolution}
@@ -514,12 +618,25 @@ export function SolutionTourOverlay() {
     )
   }
 
+  if (isOutro && definition.contextIntro) {
+    const outroStageLabel = `${totalStages}/${totalStages}`
+    return createPortal(
+      <SolutionContextOutroCard
+        onClose={stopSolution}
+        onPrev={prevStep}
+        onNext={stopSolution}
+        stageLabel={outroStageLabel}
+      />,
+      document.body,
+    )
+  }
+
   if (isAnchoredStep && !anchorReady) {
     return null
   }
 
   const stageNumber = hasContextIntro ? stepIndex + 2 : stepIndex + 1
-  const stageLabel = `${stageNumber} / ${totalStages}`
+  const stageLabel = `${stageNumber}/${totalStages}`
 
   return createPortal(
     <SolutionTourStepCard
@@ -527,10 +644,11 @@ export function SolutionTourOverlay() {
       onPrev={prevStep}
       onNext={nextStep}
       isFirstStep={!canGoBackFromTourStep}
-      isLastStep={isLastStep}
+      isLastStep={false}
       stageLabel={stageLabel}
       title={step!.title}
       body={step!.body}
+      bodyQuote={step!.bodyQuote}
       placement={step!.placement}
       anchorPosition={isAnchoredStep ? anchorPosition : null}
       requiresClick={step!.requiresClick}

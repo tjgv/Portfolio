@@ -60,13 +60,27 @@ export function TeamCentralDraftClassTile({
           <table className="team-central-charts__table team-central-charts__table--draft">
             <thead>
               <tr>
-                <th scope="col">PK/PROJ</th>
-                <th scope="col">POS</th>
-                <th scope="col">PLAYER</th>
-                <th scope="col">DJ RANK</th>
-                <th scope="col">HT</th>
-                <th scope="col">WT</th>
-                <th scope="col">OVR</th>
+                <th scope="col" className="team-central-charts__col--pk">
+                  PK/PROJ
+                </th>
+                <th scope="col" className="team-central-charts__col--player">
+                  PLAYER
+                </th>
+                <th scope="col" className="team-central-charts__col--pos">
+                  POS
+                </th>
+                <th scope="col" className="team-central-charts__col--rank">
+                  DJ RANK
+                </th>
+                <th scope="col" className="team-central-charts__col--ht">
+                  HT
+                </th>
+                <th scope="col" className="team-central-charts__col--wt">
+                  WT
+                </th>
+                <th scope="col" className="team-central-charts__col--ovr">
+                  OVR
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -77,13 +91,24 @@ export function TeamCentralDraftClassTile({
                     row.highlight ? 'team-central-charts__tr--highlight' : undefined
                   }
                 >
-                  <td>{row.pk}</td>
-                  <td>{row.pos}</td>
-                  <td>{row.player}</td>
-                  <td>{row.rank}</td>
-                  <td>{row.ht}</td>
-                  <td>{row.wt}</td>
-                  <td>
+                  <td className="team-central-charts__col--pk">{row.pk}</td>
+                  <td className="team-central-charts__col--player">
+                    <div className="team-central-charts__player-cell">
+                      <img
+                        className="team-central-charts__player-portrait"
+                        src={row.portraitUrl}
+                        alt=""
+                      />
+                      <span className="team-central-charts__player-name">
+                        {row.player}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="team-central-charts__col--pos">{row.pos}</td>
+                  <td className="team-central-charts__col--rank">{row.rank}</td>
+                  <td className="team-central-charts__col--ht">{row.ht}</td>
+                  <td className="team-central-charts__col--wt">{row.wt}</td>
+                  <td className="team-central-charts__col--ovr">
                     <span
                       className={`team-central-charts__ovr team-central-charts__ovr--${row.grade}`}
                     >

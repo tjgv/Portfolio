@@ -1,0 +1,60 @@
+/* Combine Tracking — out-of-scope placeholder (matches site nav surface) */
+.combine-tracking-oos {
+  --combine-oos-bg: #f5f7f7;
+  --combine-oos-ink: #3d5566;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 50px);
+  min-height: min(72vh, 640px);
+  margin: 50px 0 0 50px;
+  padding: 2.5rem var(--iq-page-gutter, 1rem) 3rem;
+  box-sizing: border-box;
+  border-radius: 50px;
+  overflow: hidden;
+  background: var(--combine-oos-bg);
+  color: var(--combine-oos-ink);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.combine-tracking-oos__content {
+  width: 100%;
+  max-width: 44rem;
+}
+
+.combine-tracking-oos__headline {
+  margin: 0 0 2rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: var(--combine-oos-ink);
+}
+
+.combine-tracking-oos__body {
+  max-width: none;
+}
+
+.combine-tracking-oos__body p {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--combine-oos-ink);
+}
+
+.combine-tracking-oos__body p:last-child {
+  margin-bottom: 0;
+}
+
+.draft-central-section--combine-tracking-oos {
+  margin-top: 0;
+  padding: 0;
+  background: var(--iq-bg, #fff);
+}
+
+.nfl-iq[data-mock-version='option-a'] .draft-central-section--combine-tracking-oos {
+  padding-inline: 0;
+  background: var(--iq-bg, #fff);
+}

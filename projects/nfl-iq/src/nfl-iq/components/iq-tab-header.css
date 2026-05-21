@@ -9,8 +9,8 @@
   gap: 1.5rem;
   width: 100%;
   padding: 0.75rem 0;
-  background: var(--iq-surface);
-  border-bottom: 1px solid var(--iq-border);
+  background: transparent;
+  border-bottom: none;
 }
 
 .iq-tab-header__left {

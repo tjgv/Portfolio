@@ -5,7 +5,6 @@ import { prospectStableKey } from '../../../utils/draft-ng-ranks'
 import { prospectPortraitUrl } from './prospect-portrait'
 import { DraftProspectArchetypeChart } from './DraftProspectArchetypeChart'
 import { DraftProspectPlayStyleComps } from './DraftProspectPlayStyleComps'
-import { DraftProspectPlayStyleHomePanel } from './DraftProspectPlayStyleHomePanel'
 import { buildProspectPlayStyleProfile } from './prospect-play-style-data'
 import { buildProspectPageMeta } from './prospect-profile-data'
 import {
@@ -217,33 +216,27 @@ export function OptionADraftProspectDetail({
 
         <div className="draft-prospect-detail__play-style-row">
           <section
-            className="draft-prospect-detail__card draft-prospect-detail__card--archetype"
+            className="draft-prospect-detail__card draft-prospect-detail__play-style-tile draft-prospect-detail__card--archetype"
             data-solution-tour="prospect-archetype-percentiles"
             aria-label="Archetype percentiles"
           >
             <h2 className="draft-prospect-detail__card-title">Archetype Percentiles</h2>
-            <DraftProspectArchetypeChart slices={playStyle.archetypes} />
+            <DraftProspectArchetypeChart layout="tile" slices={playStyle.archetypes} />
           </section>
 
           <section
-            className="draft-prospect-detail__card draft-prospect-detail__card--play-style-home"
-            data-solution-tour="prospect-play-style-home"
-            aria-label="Play style comparison"
+            className="draft-prospect-detail__card draft-prospect-detail__play-style-tile draft-prospect-detail__card--play-style-comps"
+            aria-label="Top play style comparisons"
           >
-            <DraftProspectPlayStyleHomePanel />
+            <h2 className="draft-prospect-detail__card-title">Top Play Style Comps</h2>
+            <div className="draft-prospect-detail__play-style-comps-body">
+              <DraftProspectPlayStyleComps layout="tile" comps={playStyle.comps} />
+            </div>
+            <footer className="draft-prospect-detail__nfl-bar">
+              NFL.com Comparison: <strong>{playStyle.nflComparison}</strong>
+            </footer>
           </section>
         </div>
-
-        <section
-          className="draft-prospect-detail__card draft-prospect-detail__card--comps"
-          aria-label="Top play style comparisons"
-        >
-          <h2 className="draft-prospect-detail__card-title">Top Play Style Comps</h2>
-          <DraftProspectPlayStyleComps comps={playStyle.comps} />
-          <footer className="draft-prospect-detail__nfl-bar">
-            NFL.com Comparison: <strong>{playStyle.nflComparison}</strong>
-          </footer>
-        </section>
       </div>
     </article>
   )
