@@ -1,6 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
   "rewrites": [
+    { "source": "/giq", "destination": "/giq/index.html" },
+    { "source": "/giq/assets/:path*", "destination": "/giq/assets/:path*" },
+    { "source": "/giq/images/:path*", "destination": "/giq/images/:path*" },
+    { "source": "/giq/:path*", "destination": "/giq/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "cleanUrls": false,

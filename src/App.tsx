@@ -9,7 +9,6 @@ import PromptView from './pages/PromptView'
 import PromptsPage from './pages/PromptsPage'
 import CxProPage from './pages/CxProPage'
 import Project2Page from './pages/Project2Page'
-
 // Lazy-load Workflow Builder (isolates @xyflow/react) – no impact on main site
 const WorkflowBuilderPage = lazy(() => import('./pages/WorkflowBuilderPage'))
 

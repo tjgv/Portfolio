@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build:nfl-iq": "node scripts/build-nfl-iq.mjs",
+    "build": "npm run build:nfl-iq && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "node server/index.js"

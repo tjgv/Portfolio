@@ -1,4 +1,24 @@
-# React + TypeScript + Vite
+# Portfolio site
+
+Personal portfolio (Vercel). React + TypeScript + Vite.
+
+## Hidden NFL IQ prototype
+
+The Genius take-home NFL IQ app is hosted on this site (not linked from the homepage):
+
+- **`/giq`** — hidden NFL IQ app (not in nav)
+
+Setup and deploy details: **[docs/NFL_IQ_HOSTING.md](docs/NFL_IQ_HOSTING.md)**
+
+```bash
+cd "/Users/tejimoto/Desktop/MAIN PORTFOLIO"
+npm run build
+npm run preview
+```
+
+---
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

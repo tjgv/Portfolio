@@ -4,23 +4,60 @@ import { copyFileSync } from 'fs'
 import { resolve } from 'path'
 const root = process.cwd()
 
+function giqOrPortfolioSpaFallback(
+  req: { url?: string | null },
+  _res: unknown,
+  next: () => void,
+) {
+  const url = req.url ?? ''
+  const pathname = url.split('?')[0]
+  const query = url.includes('?') ? url.slice(url.indexOf('?')) : ''
+
+  // Hidden NFL IQ app at /giq (static bundle in public/giq, not a React route)
+  if (pathname === '/giq' || pathname === '/giq/') {
+    req.url = `/giq/index.html${query}`
+    return next()
+  }
+  if (pathname.startsWith('/giq/')) {
+    if (
+      pathname.startsWith('/giq/assets/') ||
+      pathname.startsWith('/giq/images/') ||
+      /\.[a-z0-9]+$/i.test(pathname)
+    ) {
+      return next()
+    }
+    req.url = `/giq/index.html${query}`
+    return next()
+  }
+
+  // Portfolio SPA
+  if (
+    url.startsWith('/api') ||
+    url.startsWith('/src/') ||
+    url.startsWith('/@') ||
+    url.startsWith('/node_modules/') ||
+    url.startsWith('/assets/') ||
+    /\.[a-z0-9]+$/i.test(pathname)
+  ) {
+    return next()
+  }
+  req.url = `/index.html${query}`
+  next()
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    // Dev: serve index.html for client routes so /project1, /prompts/:slug etc. load the app
+    // Dev/preview: SPA fallbacks for portfolio routes and /giq client routes
     {
       name: 'spa-fallback',
       enforce: 'pre',
       configureServer(server) {
-        server.middlewares.use((req, _res, next) => {
-          const url = req.url ?? ''
-          if (url.startsWith('/api') || url.startsWith('/src/') || url.startsWith('/@') || url.startsWith('/node_modules/') || url.startsWith('/assets/') || /\.[a-z0-9]+$/i.test(url.split('?')[0])) {
-            return next()
-          }
-          req.url = '/index.html'
-          next()
-        })
+        server.middlewares.use(giqOrPortfolioSpaFallback)
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use(giqOrPortfolioSpaFallback)
       },
     },
     // Build: copy index.html to 404.html so hosts (e.g. GitHub Pages) serve the SPA on unknown paths
