@@ -27,6 +27,8 @@ export type SolutionContextIntro = {
 export type SolutionDefinition = {
   id: SolutionId
   label: string
+  /** Prefix in the showcase bar (defaults to "Solution N:"). */
+  showcasePrefix?: string
   contextIntro?: SolutionContextIntro
   steps: SolutionTourStep[]
 }
@@ -129,6 +131,7 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
         target: '[data-solution-tour="team-central-summary"]',
         placement: 'anchored-below',
         scrollMode: 'target-start',
+        nextButtonLabel: 'Done',
         title: 'Team / User Identity',
         body:
           'I am assuming that one of the core motivators for the fan class (Super fans, casual fans) is their connection to their favorite teams. The Team Central page had powerful context that was tucked away. I chose to hero that context because I believe it will provide users the ground work to frame the rest of their experience off of. "My team needs these players, my rival division teams are performing better than us right now, what can we pick? Are we doomed? Is there hope?"',
@@ -316,6 +319,7 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
   {
     id: 'head-to-head',
     label: 'Head-to-head comparison',
+    showcasePrefix: 'Bonus:',
     contextIntro: {
       route: '/draft',
       problemLabel: 'Core Problem',

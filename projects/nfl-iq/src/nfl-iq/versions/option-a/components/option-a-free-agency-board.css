@@ -18,7 +18,7 @@
 }
 
 .fa-board--option-a .fa-board__grid {
-  grid-template-columns: minmax(0, 3.1fr) minmax(310px, 1.125fr);
+  grid-template-columns: minmax(0, 3.1fr) minmax(357px, 1.294fr);
   gap: 1.15rem;
   align-items: stretch;
 }
@@ -148,7 +148,7 @@
 }
 
 .fa-board--option-a .fa-board__card--sidebar {
-  max-width: 400px;
+  max-width: 460px;
   justify-self: end;
   width: 100%;
 }
@@ -362,7 +362,7 @@
 
 @media (max-width: 1100px) {
   .fa-board--option-a .fa-board__grid {
-    grid-template-columns: minmax(0, 2.5fr) minmax(275px, 1.25fr);
+    grid-template-columns: minmax(0, 2.5fr) minmax(316px, 1.438fr);
   }
 }
 

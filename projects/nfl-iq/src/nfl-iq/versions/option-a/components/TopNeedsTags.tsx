@@ -1,6 +1,7 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import type { TopNeedTag } from '../data/team-spending.mock'
 import { formatPositionLabel } from '../data/position-names'
+import { getTopNeedTooltip } from '../data/top-need-tooltips'
 import './free-agency-spending-panel.css'
 import './top-needs-tags.css'
 
@@ -19,25 +20,13 @@ function NeedTag({
 }) {
   const critical = tag.status === 'critical'
   const label = formatPositionLabel(tag.pos, mode, critical)
-  const icon =
-    tag.status === 'done'
-      ? '✓'
-      : tag.status === 'partial'
-        ? '−'
-        : tag.status === 'critical'
-          ? '!'
-          : null
 
   return (
     <span
       className={`fa-spending__need-tag fa-spending__need-tag--${tag.status}`}
-      title={formatPositionLabel(tag.pos, 'full', critical)}
+      title={getTopNeedTooltip(tag)}
+      role="listitem"
     >
-      {icon && tag.status !== 'critical' ? (
-        <span className="fa-spending__need-icon" aria-hidden>
-          {icon}
-        </span>
-      ) : null}
       <span className="fa-spending__need-label">{label}</span>
     </span>
   )

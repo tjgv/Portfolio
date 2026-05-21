@@ -1,9 +1,8 @@
 .solution-showcase-bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
   padding: 0.5rem var(--iq-page-gutter, 1rem);
   background: #0b162a;
   color: #fff;
@@ -11,6 +10,8 @@
 }
 
 .solution-showcase-bar__label {
+  grid-column: 1;
+  justify-self: start;
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
   font-size: 0.68rem;
@@ -22,11 +23,12 @@
 }
 
 .solution-showcase-bar__options {
+  grid-column: 2;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin-left: auto;
 }
 
 .solution-showcase-bar__option {
@@ -101,16 +103,17 @@
 
 @media (max-width: 640px) {
   .solution-showcase-bar {
-    justify-content: center;
+    grid-template-columns: 1fr;
+    justify-items: center;
   }
 
   .solution-showcase-bar__label {
-    width: 100%;
+    grid-column: 1;
+    justify-self: center;
     text-align: center;
   }
 
   .solution-showcase-bar__options {
-    margin-left: 0;
-    justify-content: center;
+    grid-column: 1;
   }
 }

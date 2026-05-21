@@ -19,8 +19,8 @@ import {
   computeAnchoredPosition,
   isAnchoredPlacement,
   isOnTourStepRoute,
-  scrollPageToTopInstant,
   scrollTourStepIntoView,
+  smoothScrollToY,
   waitForElement,
   type AnchorPosition,
   type TourScrollMode,
@@ -474,7 +474,7 @@ export function SolutionTourOverlay() {
 
   useEffect(() => {
     if (!activeSolutionId || isIntro || step?.placement !== 'centered') return
-    if (step.scrollMode === 'page-top') scrollPageToTopInstant()
+    if (step.scrollMode === 'page-top') void smoothScrollToY(0)
   }, [activeSolutionId, isIntro, step])
 
   useEffect(() => {

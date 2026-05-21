@@ -104,14 +104,33 @@
   grid-template-columns: 1.75rem 1.75rem 1fr;
   align-items: center;
   gap: 0.35rem;
+  width: 100%;
   min-height: var(--iq-draft-round-row-h, 2.5rem);
+  margin: 0;
   padding: 0.4rem 0.65rem;
+  border: none;
   border-bottom: 1px solid #eef2f4;
   box-sizing: border-box;
+  background: transparent;
   font-family: Roboto, Inter, system-ui, sans-serif;
   font-size: 0.72rem;
   line-height: 1.35;
   color: #374151;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.iq-draft-round-row:hover {
+  background: #f4f8f8;
+}
+
+.iq-draft-round-row:focus-visible {
+  outline: 2px solid var(--iq-nfl-blue, #013369);
+  outline-offset: -2px;
+  z-index: 1;
 }
 
 .iq-draft-round-row:last-child {

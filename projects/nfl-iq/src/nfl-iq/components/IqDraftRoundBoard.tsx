@@ -1,6 +1,8 @@
 import { Fragment, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ngsTeamLogoUrl } from '../constants'
-import { DRAFT_PICKS, type DraftPick } from '../data/draft-data'
+import { DRAFT_PICKS, draftPickDisplayName, type DraftPick } from '../data/draft-data'
+import { draftTestFocusPath } from '../versions/option-a/draft-central-test/draft-test-focus-nav'
 import './iq-draft-round-board.css'
 
 const ROUNDS = [1, 2, 3, 4, 5, 6, 7] as const
@@ -25,9 +27,17 @@ function parsePickLabel(player: string): {
 }
 
 function PickRow({ pick }: { pick: DraftPick }) {
+  const navigate = useNavigate()
   const { position, name, school } = parsePickLabel(pick.player)
+  const displayName = draftPickDisplayName(pick)
+
   return (
-    <div className="iq-draft-round-row">
+    <button
+      type="button"
+      className="iq-draft-round-row"
+      aria-label={`View ${displayName} in Draft Central`}
+      onClick={() => navigate(draftTestFocusPath(displayName))}
+    >
       <span className="iq-draft-round-row__num">{pick.pick}</span>
       <span className="iq-draft-round-row__logo">
         <img src={ngsTeamLogoUrl(pick.teamId)} alt="" width={24} height={24} />
@@ -38,7 +48,7 @@ function PickRow({ pick }: { pick: DraftPick }) {
         {name}
         {school ? `, ${school}` : ''}
       </span>
-    </div>
+    </button>
   )
 }
 

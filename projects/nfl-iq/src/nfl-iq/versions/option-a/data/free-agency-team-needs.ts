@@ -1,4 +1,5 @@
 import { parseAlignmentCodes } from '../utils/free-agency-filters'
+import { positionFullName } from './position-names'
 import { generateTeamTopNeeds } from './team-top-needs.mock'
 
 const NEED_POSITION_TO_ALIGNMENT: Record<string, string> = {
@@ -23,16 +24,38 @@ export function getFreeAgencyTeamNeedPositions(teamId: string): readonly string[
     .map((tag) => tag.pos)
 }
 
-export function countFreeAgencyNeedMatches(alignment: string, teamId: string): number {
+export function getFreeAgencyMatchedNeedPositions(
+  alignment: string,
+  teamId: string,
+): string[] {
   const codes = parseAlignmentCodes(alignment)
-  let count = 0
+  const matched: string[] = []
   for (const need of getFreeAgencyTeamNeedPositions(teamId)) {
     const needCodes = alignmentCodesForNeed(need)
     if (needCodes.some((code) => codes.includes(code))) {
-      count++
+      matched.push(need)
     }
   }
-  return count
+  return matched
+}
+
+export function countFreeAgencyNeedMatches(alignment: string, teamId: string): number {
+  return getFreeAgencyMatchedNeedPositions(alignment, teamId).length
+}
+
+export function getFreeAgencyNeedTooltip(
+  alignment: string,
+  teamId: string,
+): string {
+  const matched = getFreeAgencyMatchedNeedPositions(alignment, teamId)
+  if (matched.length === 0) {
+    return 'No match — this player’s alignment does not fill an open team need.'
+  }
+  const labels = matched.map((pos) => positionFullName(pos))
+  if (matched.length >= 2) {
+    return `Matches multiple open needs: ${labels.join(', ')}.`
+  }
+  return `Matches open team need at ${labels[0]}.`
 }
 
 export function getFreeAgencyNeedIndicator(

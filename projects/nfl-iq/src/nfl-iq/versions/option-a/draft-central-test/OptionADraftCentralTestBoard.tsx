@@ -84,6 +84,17 @@ export function OptionADraftCentralTestBoard({
     )
   }, [loading, rows, searchParams, setSearchParams])
 
+  useEffect(() => {
+    if (focusedKeys.length !== 1) return
+
+    const frame = window.requestAnimationFrame(() => {
+      document
+        .querySelector<HTMLElement>('.draft-test__library-row--focused')
+        ?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [focusedKeys])
+
   const handleSelectProspect = useCallback((key: string, shiftKey: boolean) => {
     setFocusedKeys((prev) => {
       if (shiftKey) {

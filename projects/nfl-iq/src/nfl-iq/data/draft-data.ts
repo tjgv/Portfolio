@@ -4,6 +4,13 @@ export type DraftPick = {
   player: string
 }
 
+/** Display name from a round-recap pick label (e.g. "QB Fernando Mendoza, Indiana" → "Fernando Mendoza"). */
+export function draftPickDisplayName(pick: DraftPick): string {
+  const match = pick.player.match(/^([A-Z]+(?:\/[A-Z]+)?)\s+(.+),\s*(.+)$/)
+  if (match) return match[2].trim()
+  return pick.player.trim()
+}
+
 export type TeamScoreRow = {
   teamId: string
   teamName: string

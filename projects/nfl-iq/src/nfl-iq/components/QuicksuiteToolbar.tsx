@@ -70,7 +70,11 @@ export function QuicksuiteToolbar() {
               >
                 <button
                   type="button"
-                  className={`nav-tab${isActive ? ' active' : ''}`}
+                  className={
+                    isActive
+                      ? 'nav-tab iq-toolbar-tab iq-toolbar-tab--active'
+                      : 'nav-tab iq-toolbar-tab'
+                  }
                   data-tab={tab.id}
                   aria-current={isActive ? 'page' : false}
                   onClick={() => handleTab(tab)}

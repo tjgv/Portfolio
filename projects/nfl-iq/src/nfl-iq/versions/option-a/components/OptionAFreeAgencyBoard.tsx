@@ -7,16 +7,12 @@ import type { FreeAgencyAvailableAgent } from '../../../types/free-agency-board'
 import { useIqTeam } from '../../../context/useIqTeam'
 import { MarketCard } from '../../../components/FreeAgencyBoard'
 import { TeamCentralRosterTile } from '../../../components/TeamCentralRosterTile'
-import { FreeAgencyTopNeedsSection } from './FreeAgencyTopNeedsSection'
 import {
   OptionASortableTh,
   type OptionASortDirection,
 } from './OptionASortableTh'
 import { OptionATableFilterDropdown } from './OptionATableFilterDropdown'
-import {
-  getFreeAgencyNeedIndicator,
-  getFreeAgencyNeedSortRank,
-} from '../data/free-agency-team-needs'
+import { getFreeAgencyNeedSortRank } from '../data/free-agency-team-needs'
 import {
   agentMatchesAlignmentFilter,
   agentMatchesPositionFilter,
@@ -317,16 +313,13 @@ function AgentRow({
   selectedTeamId: string | null
   showNeedColumn: boolean
 }) {
-  const needIndicator =
-    showNeedColumn && selectedTeamId
-      ? getFreeAgencyNeedIndicator(row.alignment, selectedTeamId)
-      : 'none'
-
   return (
     <tr>
       <td className="fa-board__rank fa-board__col--rank">#{row.rank}</td>
       <td className="fa-board__col--pos">{row.position}</td>
-      {showNeedColumn ? <FreeAgencyNeedCell indicator={needIndicator} /> : null}
+      {showNeedColumn && selectedTeamId ? (
+        <FreeAgencyNeedCell alignment={row.alignment} teamId={selectedTeamId} />
+      ) : null}
       <td className="fa-board__player">
         {row.injuryOta ? (
           <span className="fa-board__player-leading">
@@ -423,7 +416,6 @@ export function OptionAFreeAgencyBoard() {
             data-solution-tour="free-agency-roster-panel"
           >
             <TeamCentralRosterTile teamId={selectedTeamId} headerLayout="sidebar" />
-            <FreeAgencyTopNeedsSection teamId={selectedTeamId} />
           </section>
         ) : (
           <MarketCard className="fa-board__card--sidebar" />

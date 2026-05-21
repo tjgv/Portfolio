@@ -42,7 +42,7 @@ export function SolutionShowcaseBar() {
                 ) : (
                   <>
                     <span className="solution-showcase-bar__option-index">
-                      Solution {index + 1}:
+                      {solution.showcasePrefix ?? `Solution ${index + 1}:`}
                     </span>{' '}
                     {solution.label}
                   </>

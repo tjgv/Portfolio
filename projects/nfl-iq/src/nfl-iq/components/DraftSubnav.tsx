@@ -60,8 +60,8 @@ export function DraftSubnav() {
               type="button"
               className={
                 active === item.id
-                  ? 'draft-subnav__pill draft-subnav__pill--active'
-                  : 'draft-subnav__pill'
+                  ? 'draft-subnav__pill iq-toolbar-tab iq-toolbar-tab--active'
+                  : 'draft-subnav__pill iq-toolbar-tab'
               }
               aria-pressed={active === item.id}
               onClick={() => select(item.id)}

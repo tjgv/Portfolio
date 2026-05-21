@@ -1,5 +1,7 @@
 /* NFL IQ quicksuite toolbar + team picker (below site nav) */
 
+@import './components/iq-toolbar-tabs.css';
+
 .quicksuite-toolbar {
   background: var(--iq-surface);
   border-bottom: 1px solid var(--iq-border);
@@ -72,42 +74,6 @@
   flex-shrink: 0;
   display: flex;
   align-items: stretch;
-}
-
-.quicksuite-toolbar .nav-tab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  align-self: stretch;
-  padding: 0.85rem 1rem;
-  border: none;
-  background: transparent;
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--iq-text-muted);
-  cursor: pointer;
-  white-space: nowrap;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -1px;
-  box-sizing: border-box;
-  transition:
-    color 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.quicksuite-toolbar .nav-tab:hover {
-  color: var(--iq-nfl-blue);
-}
-
-.quicksuite-toolbar .nav-item.active .nav-tab,
-.quicksuite-toolbar .nav-tab.active {
-  color: var(--iq-nfl-blue);
-  border-bottom-color: var(--iq-nfl-blue);
 }
 
 .quicksuite-toolbar .nav-team-logo {
@@ -218,7 +184,7 @@
 }
 
 @media (max-width: 640px) {
-  .quicksuite-toolbar .nav-tab {
+  .quicksuite-toolbar .iq-toolbar-tab {
     padding: 0.75rem 0.65rem;
     font-size: 0.8rem;
   }

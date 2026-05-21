@@ -8,6 +8,7 @@ import {
 import { ArrowUpright, ChevronDown } from '../../nav/NavIcons'
 import { NavDropdownPanel } from '../../nav/NavDropdownPanel'
 import { MobileNav } from '../../nav/MobileNav'
+import { NFL_LOGO } from '../../constants'
 import { appRoute } from '../../lib/app-paths'
 import '../../nav/site-nav.css'
 import './option-a-site-nav.css'
@@ -44,8 +45,8 @@ export function OptionASiteNav({ onAskIq }: OptionASiteNavProps) {
     <nav aria-label="Site" className="site-nav">
       <div className="site-nav__container">
         <div className="site-nav__left">
-          <a className="site-nav__logo-link" href={appRoute('/')} aria-label="Option A prototype">
-            <span className="option-a-site-nav__mark" aria-hidden>(A)</span>
+          <a className="site-nav__logo-link" href={appRoute('/')} aria-label="NFL Homepage">
+            <img className="site-nav__logo" src={NFL_LOGO} alt="" aria-hidden width={36} height={36} />
           </a>
 
           <ul className="site-nav__primary">

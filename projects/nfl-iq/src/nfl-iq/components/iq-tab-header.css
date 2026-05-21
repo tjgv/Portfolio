@@ -9,7 +9,8 @@
   gap: 1.5rem;
   width: 100%;
   padding: 0.75rem 0;
-  background: #f4f8f8;
+  background: var(--iq-surface);
+  border-bottom: 1px solid var(--iq-border);
 }
 
 .iq-tab-header__left {
@@ -40,8 +41,8 @@
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.02em;
-  color: #212121;
-  text-transform: uppercase;
+  color: var(--iq-nfl-blue);
+  text-transform: none;
 }
 
 .iq-tab-header__subtitle {

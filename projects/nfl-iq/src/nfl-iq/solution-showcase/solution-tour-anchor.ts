@@ -147,8 +147,10 @@ export async function runTourScrollToElement(
   const { durationMs, routeChangePauseMs } = TOUR_SCROLL
 
   if (scrollMode === 'page-top') {
-    scrollPageToTopInstant()
-    await waitForScrollSettle(routeChangePauseMs)
+    if (routeChanged) {
+      await waitForScrollSettle(routeChangePauseMs)
+    }
+    await smoothScrollToY(0, durationMs)
     await waitForScrollSettle()
     return
   }

@@ -1,56 +1,25 @@
+@import './iq-toolbar-tabs.css';
+
 .draft-subnav {
-  background: #f0f3f5;
-  border-bottom: 1px solid var(--iq-border, #d8e0e2);
+  background: var(--iq-surface);
+  border-bottom: 1px solid var(--iq-border);
 }
 
 .draft-subnav__inner {
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .draft-subnav__pills {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
+  align-items: stretch;
+  gap: 0.25rem;
 }
 
-.draft-subnav__pill {
-  display: inline-flex;
-  align-items: center;
-  margin: 0;
-  padding: 0.5rem 1rem;
-  border-radius: 9px;
-  border: 1px solid #d1d5db;
-  background: #fff;
-  color: #374151;
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    color 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.draft-subnav__pill:hover:not(.draft-subnav__pill--active) {
-  border-color: #9ca3af;
-  color: var(--iq-nfl-blue, #013369);
-}
-
-.draft-subnav__pill--active,
-.draft-subnav__pill--active:hover,
-.draft-subnav__pill--active:focus,
-.draft-subnav__pill--active:focus-visible {
-  background: #002244;
-  border-color: #002244;
-  color: #fff;
-}
-
-.draft-subnav__pill:focus-visible {
-  outline: 2px solid var(--iq-nfl-blue, #013369);
-  outline-offset: 2px;
+@media (max-width: 640px) {
+  .draft-subnav__pills .iq-toolbar-tab {
+    padding: 0.75rem 0.65rem;
+    font-size: 0.8rem;
+  }
 }
