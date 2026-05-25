@@ -217,7 +217,7 @@ export async function scrollTourStepIntoView(
     return
   }
 
-  if (!anchorEl || anchorEl === scrollEl) return
+  if (!anchorEl || anchorEl === scrollEl || scrollMode === 'target-center') return
 
   await waitForScrollSettle(120)
   const anchorY = getScrollTopForElement(anchorEl, 'nearest')

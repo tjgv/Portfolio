@@ -155,7 +155,7 @@
 /* —— Main header —— */
 .iq-header {
   position: sticky;
-  top: 0;
+  top: var(--solution-showcase-bar-height, 0px);
   z-index: 40;
   background: var(--iq-surface);
   border-bottom: 1px solid var(--iq-border);

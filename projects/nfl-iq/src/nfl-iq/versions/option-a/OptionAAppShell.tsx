@@ -9,6 +9,7 @@ import { AskIqChat } from '../../components/AskIqChat'
 import { IqBottomNav } from '../../components/IqBottomNav'
 import { IqSiteFooter } from '../../components/IqSiteFooter'
 import { QuicksuiteToolbar } from '../../components/QuicksuiteToolbar'
+import { SolutionShowcaseBar } from '../../components/SolutionShowcaseBar'
 import { TeamPicker } from '../../components/TeamPicker'
 import { OptionATeamFilterStrip } from './components/OptionATeamFilterStrip'
 import { IqTeamProvider } from '../../context/IqTeamContext'
@@ -35,6 +36,7 @@ export function OptionAAppShell() {
     <IqTeamProvider>
       <SolutionTourTeamPrepare />
       <div className="nfl-iq" data-mock-version="option-a">
+        <SolutionShowcaseBar />
         <a className="iq-skip" href="#main-content">
           Skip to main content
         </a>

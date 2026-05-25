@@ -168,10 +168,10 @@ export const SOLUTION_DEFINITIONS: SolutionDefinition[] = [
     steps: [
       {
         route: '/',
-        target: '.iq-home-value__title',
+        target: '#iq-home-value-picks',
         anchorTarget: '[data-solution-tour="value-pick-sonny-styles"]',
         placement: 'anchored-left',
-        scrollMode: 'target-start',
+        scrollMode: 'target-center',
         requiresClick: true,
         clickTarget: '[data-solution-tour="value-pick-sonny-styles"]',
         clickHint: 'You must click Sonny!',

@@ -160,7 +160,7 @@ function SolutionContextOutroCard({
         {intro.problem}
       </p>
 
-      <h3 className="solution-tour__context-heading">How this addresses the goal:</h3>
+      <h3 className="solution-tour__context-heading">How this addresses the problem</h3>
       <p className="solution-tour__body solution-tour__body--spaced">{goalResolution}</p>
 
       <div className="solution-tour__card-footer solution-tour__card-footer--outro">

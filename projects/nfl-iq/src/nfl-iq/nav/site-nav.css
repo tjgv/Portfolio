@@ -13,7 +13,7 @@
   --container-max: var(--iq-page-max, 1280px);
 
   position: sticky;
-  top: 0;
+  top: var(--solution-showcase-bar-height, 0px);
   z-index: 50;
   background: var(--ls-level-2);
   border-bottom: 1px solid var(--ls-200);
