@@ -1,6 +1,9 @@
 import { useLayoutEffect, useRef } from 'react'
+import { ArrowLeft } from 'lucide-react'
+import { NFL_IQ_ORIGINAL_SITE_URL, portfolioHomeUrl } from '../lib/app-paths'
 import { SOLUTION_DEFINITIONS } from '../solution-showcase/solution-definitions'
 import { useSolutionShowcase } from '../context/useSolutionShowcase'
+import { ArrowUpright } from '../nav/NavIcons'
 import { SolutionShowcaseLandingHint } from './SolutionShowcaseLandingHint'
 import './solution-showcase-bar.css'
 
@@ -41,7 +44,13 @@ export function SolutionShowcaseBar() {
         aria-label="Solution walkthroughs"
       >
         <div className="solution-showcase-bar">
-          <p className="solution-showcase-bar__label">NFL IQ prototype showcase</p>
+          <a
+            className="solution-showcase-bar__side-link solution-showcase-bar__side-link--left"
+            href={portfolioHomeUrl()}
+          >
+            <ArrowLeft className="solution-showcase-bar__side-icon" size={14} aria-hidden />
+            Return to Portfolio
+          </a>
           <div
             className="solution-showcase-bar__options"
             role="group"
@@ -86,6 +95,15 @@ export function SolutionShowcaseBar() {
               )
             })}
           </div>
+          <a
+            className="solution-showcase-bar__side-link solution-showcase-bar__side-link--right"
+            href={NFL_IQ_ORIGINAL_SITE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Original Site
+            <ArrowUpright className="solution-showcase-bar__side-icon" size={14} />
+          </a>
         </div>
         <SolutionShowcaseLandingHint />
       </div>

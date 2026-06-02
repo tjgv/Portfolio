@@ -14,7 +14,10 @@ const FigPalFloatingCharacter = lazy(() =>
 )
 
 
-type CaseStudyId = 'project1' | 'project2' | 'project4' | null
+type CaseStudyId = 'project1' | 'project2' | 'project3' | 'project4' | null
+
+const PROJECT3_FIGMA_EMBED =
+  'https://embed.figma.com/design/kfYbHeyfx7kIagEc0BxvMb/Genius-Sports--Copy-?node-id=56-1067&embed-host=share'
 
 const FIGPAL_PARK_HINT_SESSION_KEY = 'figpal-park-hint-shown'
 const FIGPAL_MOBILE_MAX_WIDTH = 767
@@ -209,6 +212,53 @@ function CaseStudyPopup({
   )
 }
 
+/* Full-width Figma embed popup for project 3 */
+function Project3FigmaPopup({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const onEscape = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
+    window.addEventListener('keydown', onEscape)
+    return () => window.removeEventListener('keydown', onEscape)
+  }, [onClose])
+
+  return (
+    <div
+      className="home-v2-popup-backdrop home-v2-popup-backdrop--figma-embed"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Genius Sports take home assignment"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div className="home-v2-popup home-v2-popup--figma-embed" onClick={(e) => e.stopPropagation()}>
+        <nav className="home-v2-popup-nav home-v2-popup-nav--figma-embed" aria-label="Preview actions">
+          <span className="home-v2-popup-figma-embed-title">Genius Sports Take Home Assignment</span>
+          <div className="home-v2-popup-nav-actions">
+            <Link to="/giq" className="home-v2-popup-figma-embed-cta" onClick={onClose}>
+              View Solutions
+            </Link>
+            <button
+              type="button"
+              className="home-v2-popup-close"
+              onClick={onClose}
+              aria-label="Close preview"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </nav>
+        <div className="home-v2-popup-figma-embed-body">
+          <iframe
+            src={PROJECT3_FIGMA_EMBED}
+            allowFullScreen
+            title="Genius Sports take home assignment Figma prototype"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const WORK_CARDS = [
   {
     id: 'project1' as const,
@@ -227,12 +277,12 @@ const WORK_CARDS = [
     visual: 'dark',
   },
   {
-    id: 'placeholder2',
+    id: 'project3' as const,
     label: 'Coming soon',
     year: '—',
     hoverLine: 'More work on the way.',
     bgStyle: { backgroundImage: 'url(/project3-placeholder.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
-    visual: 'placeholder',
+    visual: 'apple',
   },
   {
     id: 'project4' as const,
@@ -406,13 +456,13 @@ export default function HomePageV2() {
                       Try it out!
                     </span>
                   </button>
-                ) : card.id === 'placeholder2' ? (
+                ) : card.id === 'project3' ? (
                   <button
                     type="button"
-                    className={`home-v2-card home-v2-card--${card.visual}`}
+                    className={`home-v2-card home-v2-card--${card.visual} home-v2-card--has-bg home-v2-card--project3`}
                     style={'bgStyle' in card ? card.bgStyle : undefined}
-                    disabled
-                    aria-label={card.label}
+                    onClick={() => openPopup('project3')}
+                    aria-label="Open NFL IQ Figma prototype"
                   >
                     <span className="home-v2-card-pill"><span className="home-v2-card-pill-label">{card.label}</span><span className="home-v2-card-pill-year"> · {card.year}</span></span>
                   </button>
@@ -446,6 +496,8 @@ export default function HomePageV2() {
             onStateChange={setFigpalBuilderState}
           />
         </Suspense>
+      ) : popupCaseStudy === 'project3' ? (
+        <Project3FigmaPopup onClose={closePopup} />
       ) : popupCaseStudy ? (
         <CaseStudyPopup caseStudyId={popupCaseStudy} onClose={closePopup} />
       ) : null}

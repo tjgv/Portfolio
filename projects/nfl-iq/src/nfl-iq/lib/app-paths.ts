@@ -20,3 +20,18 @@ export function appRoute(path: string): string {
   const segment = path.startsWith('/') ? path : `/${path}`
   return `${base}${segment}`
 }
+
+const DEFAULT_PORTFOLIO_HOME = 'https://tjgomezvidal.com/'
+
+/** Portfolio homepage — same-origin `/` when embedded under a subpath. */
+export function portfolioHomeUrl(): string {
+  const configured = import.meta.env.VITE_PORTFOLIO_HOME_URL as string | undefined
+  if (configured?.trim()) return configured.trim()
+
+  const base = APP_BASE.replace(/\/$/, '')
+  if (base && base !== '/') return '/'
+
+  return DEFAULT_PORTFOLIO_HOME
+}
+
+export const NFL_IQ_ORIGINAL_SITE_URL = 'https://www.nfl.com/iq'
