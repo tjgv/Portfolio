@@ -278,8 +278,8 @@ const WORK_CARDS = [
   },
   {
     id: 'project3' as const,
-    label: 'Coming soon',
-    year: '—',
+    label: 'NFL IQ',
+    year: '2026',
     hoverLine: 'More work on the way.',
     bgStyle: { backgroundImage: 'url(/project3-placeholder.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'apple',
