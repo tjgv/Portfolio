@@ -232,9 +232,9 @@ function Project3FigmaPopup({ onClose }: { onClose: () => void }) {
         <nav className="home-v2-popup-nav home-v2-popup-nav--figma-embed" aria-label="Preview actions">
           <span className="home-v2-popup-figma-embed-title">Genius Sports Take Home Assignment</span>
           <div className="home-v2-popup-nav-actions">
-            <Link to="/giq" className="home-v2-popup-figma-embed-cta" onClick={onClose}>
+            <a href="/giq" className="home-v2-popup-figma-embed-cta" onClick={onClose}>
               View Solutions
-            </Link>
+            </a>
             <button
               type="button"
               className="home-v2-popup-close"
