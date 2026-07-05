@@ -1,0 +1,271 @@
+/* Hotspot map — image + bubbles share one stage so backdrop-filter can sample the screenshot */
+
+.np1-hotspot-map {
+  width: 100%;
+}
+
+.np1-hotspot-map__stage {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  border: 0.75px solid rgba(200, 200, 200, 0.5);
+  background: #0a0a0a;
+}
+
+.np1-hotspot-map__stage .media-with-loader-wrap {
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+
+.np1-hotspot-map__image,
+.np1-hotspot-map__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.np1-hotspot-map__layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Positioning wrapper — no transform (transform breaks backdrop-filter on descendants) */
+.np1-info-bubble-anchor {
+  position: absolute;
+  --bubble-size: clamp(32px, 2.6vw, 40px);
+  width: var(--anchor-width, var(--bubble-size));
+  pointer-events: none;
+  margin-left: calc(var(--anchor-width, var(--bubble-size)) / -2);
+  margin-top: calc(var(--bubble-size) / -2);
+}
+
+.np1-info-bubble-anchor--left {
+  margin-left: 0;
+}
+
+.np1-info-bubble-anchor--right {
+  margin-left: calc(var(--anchor-width, var(--bubble-size)) * -1);
+}
+
+.np1-info-bubble-anchor--center-x.np1-info-bubble-anchor--bottom,
+.np1-info-bubble-anchor--left.np1-info-bubble-anchor--bottom,
+.np1-info-bubble-anchor--right.np1-info-bubble-anchor--bottom {
+  margin-top: calc(var(--bubble-size) * -1);
+}
+
+/* ----- Liquid glass bubble ----- */
+.np1-info-bubble {
+  --bubble-size: clamp(32px, 2.6vw, 40px);
+  --bubble-radius: 999px;
+  --bubble-pad-x: 0px;
+  --bubble-pad-y: 0px;
+  --bubble-width: 100%;
+  --bubble-height: var(--bubble-size);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  box-sizing: border-box;
+  width: var(--bubble-width);
+  min-width: 0;
+  height: var(--bubble-height);
+  min-height: var(--bubble-size);
+  margin: 0;
+  padding: var(--bubble-pad-y) var(--bubble-pad-x);
+  border-radius: var(--bubble-radius);
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  color: #fff;
+  cursor: pointer;
+  pointer-events: auto;
+  overflow: visible;
+  text-align: left;
+  transform: scale(0);
+  opacity: 0;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.42s ease-out,
+    width 0.5s cubic-bezier(0.22, 1.24, 0.36, 1),
+    height 0.5s cubic-bezier(0.22, 1.24, 0.36, 1),
+    min-width 0.5s cubic-bezier(0.22, 1.24, 0.36, 1),
+    min-height 0.5s cubic-bezier(0.22, 1.24, 0.36, 1),
+    padding 0.5s cubic-bezier(0.22, 1.24, 0.36, 1),
+    border-radius 0.5s cubic-bezier(0.22, 1.24, 0.36, 1),
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    -webkit-backdrop-filter 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+
+.np1-info-bubble-anchor--entered .np1-info-bubble {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.np1-info-bubble-anchor:not(.np1-info-bubble-anchor--entered) .np1-info-bubble {
+  pointer-events: none;
+}
+
+/* ----- Pulse ring — same grow + pulse language as the journey-map lightbox's
+   pan hint pill, so bubbles read as clickable right after they grow in ----- */
+@keyframes np1-info-bubble-pulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.np1-info-bubble-anchor--entered .np1-info-bubble:not(.np1-info-bubble--expanded)::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  animation: np1-info-bubble-pulse 1.1s cubic-bezier(0.32, 0.72, 0, 1) 0.5s 2;
+}
+
+.np1-info-bubble:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.32);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 36px 0 rgba(0, 0, 0, 0.24);
+}
+
+.np1-info-bubble--expanded {
+  --bubble-height: auto;
+  --bubble-radius: 14px;
+  --bubble-pad-x: 14px;
+  --bubble-pad-y: 12px;
+  z-index: 5;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.26);
+}
+
+.np1-info-bubble__icon {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.95);
+  transition: width 0.5s cubic-bezier(0.22, 1.24, 0.36, 1), height 0.5s cubic-bezier(0.22, 1.24, 0.36, 1);
+}
+
+.np1-info-bubble:not(.np1-info-bubble--expanded) .np1-info-bubble__body {
+  width: 0;
+  flex: 0 0 0;
+}
+
+.np1-info-bubble--expanded .np1-info-bubble__icon {
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+}
+
+.np1-info-bubble__body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: 0fr;
+  flex: 1;
+  opacity: 0;
+  min-width: 0;
+  transition:
+    grid-template-rows 0.45s cubic-bezier(0.22, 1.24, 0.36, 1),
+    opacity 0.28s ease 0.05s;
+}
+
+.np1-info-bubble--expanded .np1-info-bubble__body {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.np1-info-bubble__body-inner {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.np1-info-bubble__title {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--np1-font-display);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.np1-info-bubble__text {
+  display: block;
+  font-family: var(--np1-font-display);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.82);
+  white-space: pre-line;
+}
+
+.np1-info-bubble:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.75);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1-info-bubble {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .np1-info-bubble,
+  .np1-info-bubble__body,
+  .np1-info-bubble__icon {
+    transition: none;
+  }
+
+  .np1-info-bubble-anchor--entered .np1-info-bubble::before {
+    animation: none;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .np1-info-bubble {
+    background: rgba(40, 40, 40, 0.72);
+  }
+
+  .np1-info-bubble--expanded {
+    background: rgba(32, 32, 32, 0.82);
+  }
+}

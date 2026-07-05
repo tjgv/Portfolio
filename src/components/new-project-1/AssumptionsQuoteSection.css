@@ -1,0 +1,299 @@
+/* Key Assumptions + User Quotes — Figma node 26308:68466 */
+
+.np1-assumptions-quote {
+  --popup-control-bottom: max(24px, env(safe-area-inset-bottom, 0px));
+
+  position: relative;
+  background: var(--np1-bg);
+}
+
+.np1-assumptions-quote__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: clamp(64px, 6.6vw, 100px);
+  padding-bottom: clamp(64px, 8vh, 120px);
+}
+
+/* Quote card + pill dock — 60px between card and pill resting position */
+.np1-assumptions-quote__quotes-block {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.np1-assumptions-quote__quotes-block .np1-pill1__dock {
+  justify-content: center;
+}
+
+.np1-assumptions-quote__label {
+  margin: 0 0 var(--np1-label-title-gap);
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-subheader-1-size);
+  font-weight: var(--np1-subheader-1-weight);
+  line-height: var(--np1-subheader-1-lh);
+  letter-spacing: var(--np1-subheader-1-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-assumptions-quote__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--np1-split-gap);
+  width: 100%;
+  margin-bottom: clamp(40px, 5.3vw, 80px);
+}
+
+.np1-assumptions-quote__headline {
+  margin: 0;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-header-1-size);
+  font-weight: var(--np1-header-1-weight);
+  line-height: var(--np1-header-1-lh);
+  letter-spacing: var(--np1-header-1-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-assumptions-quote__body {
+  padding-block: 10px;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-body-1-size);
+  font-weight: var(--np1-split-body-weight);
+  line-height: var(--np1-body-1-lh);
+  letter-spacing: var(--np1-body-1-ls);
+  color: var(--np1-text-sub-hero);
+}
+
+.np1-assumptions-quote__body p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.np1-assumptions-quote__body ol {
+  margin: 0;
+  padding-left: 1.5em;
+  list-style-position: outside;
+}
+
+.np1-assumptions-quote__body li + li {
+  margin-top: 0.35em;
+}
+
+/* Quote card + controls stack */
+.np1-quote-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vw, 28px);
+}
+
+/* ----- Quote card ----- */
+.np1-quote-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: clamp(280px, 26vw, 340px);
+  padding: clamp(40px, 6vw, 80px);
+  background: var(--np1-card-bg);
+  border-radius: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.np1-quote-card__viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.np1-quote-card__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.np1-quote-card__slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.75fr);
+  gap: clamp(32px, 5.3vw, 80px);
+  /* Center vertically so the fixed-height card (needed to keep a stable size
+     across quotes of varying length) doesn't read as lopsided extra padding
+     underneath shorter quotes. */
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.np1-quote-card__quote {
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.np1-quote-card__quote-text {
+  margin: 0;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-body-hero-size);
+  font-weight: var(--np1-body-hero-weight);
+  line-height: var(--np1-body-hero-lh);
+  letter-spacing: var(--np1-body-hero-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-quote-card__attribution {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.np1-quote-card__name {
+  margin: 0;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  font-weight: 500;
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-quote-card__role {
+  margin: 0;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  font-weight: var(--np1-body-2-weight);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  color: var(--np1-text-hero);
+  opacity: 0.5;
+}
+
+/* ----- Bottom controls (below card) ----- */
+.np1-quote-card__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-inline: clamp(20px, 3vw, 32px);
+}
+
+.np1-quote-card__control {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--np1-text-hero);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.np1-quote-card__control:hover {
+  opacity: 0.85;
+}
+
+.np1-quote-card__progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.np1-quote-card__progress-track {
+  fill: none;
+  stroke: rgba(245, 245, 247, 0.12);
+  stroke-width: 2;
+}
+
+.np1-quote-card__progress-fill {
+  fill: none;
+  stroke: rgba(245, 245, 247, 0.72);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.np1-quote-card__control-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+}
+
+.np1-quote-card__nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid rgba(245, 245, 247, 0.18);
+  border-radius: 999px;
+  background: rgba(245, 245, 247, 0.04);
+}
+
+.np1-quote-card__nav-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--np1-text-hero);
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.np1-quote-card__nav-btn:hover {
+  background: rgba(245, 245, 247, 0.1);
+}
+
+.np1-quote-card__nav-btn:active {
+  opacity: 0.75;
+}
+
+@media (max-width: 767px) {
+  .np1-quote-card {
+    height: clamp(320px, 58vw, 400px);
+  }
+
+  .np1-quote-card__slide {
+    grid-template-columns: 1fr;
+    align-content: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1-quote-card__track {
+    transition: none;
+  }
+
+  .np1-quote-card__control {
+    display: none;
+  }
+
+  .np1-assumptions-quote__quotes-block .np1-pill1__dock {
+    min-height: 0;
+  }
+
+  .np1-assumptions-quote .np1-popup-reveal--pinned {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+}

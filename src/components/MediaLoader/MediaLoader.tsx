@@ -2,7 +2,7 @@ import './MediaLoader.css'
 
 interface MediaLoaderProps {
   visible: boolean
-  variant?: 'default' | 'dark'
+  variant?: 'default' | 'dark' | 'video'
   className?: string
 }
 

@@ -9,6 +9,7 @@ import PromptView from './pages/PromptView'
 import PromptsPage from './pages/PromptsPage'
 import CxProPage from './pages/CxProPage'
 import Project2Page from './pages/Project2Page'
+import NewProject1Page from './pages/NewProject1Page'
 // Lazy-load Workflow Builder (isolates @xyflow/react) – no impact on main site
 const WorkflowBuilderPage = lazy(() => import('./pages/WorkflowBuilderPage'))
 
@@ -47,6 +48,7 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/project1" element={<CxProPage />} />
         <Route path="/project2" element={<Project2Page />} />
+        <Route path="/new-project-1" element={<NewProject1Page />} />
         <Route path="/workflow" element={<Suspense fallback={null}><WorkflowBuilderPage /></Suspense>} />
         <Route path="/ai" element={<PromptsPage />} />
         <Route path="/prompts/:slug" element={<PromptView />} />

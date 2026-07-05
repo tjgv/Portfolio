@@ -1,0 +1,109 @@
+/* Target audience — Figma node 26303:68366 */
+
+.np1-audience {
+  padding-block: clamp(80px, 12vh, 180px);
+}
+
+.np1-audience__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--np1-block-gap);
+  width: 100%;
+}
+
+.np1-audience__heading {
+  margin: 0;
+  width: 100%;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-subheader-1-size);
+  font-weight: var(--np1-subheader-1-weight);
+  line-height: var(--np1-subheader-1-lh);
+  letter-spacing: var(--np1-subheader-1-ls);
+  text-align: center;
+  color: var(--np1-text-sub-1);
+}
+
+.np1-audience__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 1.7vw, 25px);
+  width: 100%;
+}
+
+.np1-audience-card {
+  background: var(--np1-card-bg);
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  min-height: clamp(288px, 29.6vw, 450px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 5.3vw, 80px);
+  padding: 50px;
+  justify-content: flex-start;
+}
+
+.np1-audience-card--media {
+  padding: 0;
+}
+
+.np1-audience-card__title {
+  margin: 0;
+  max-width: 100%;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-header-1-size);
+  font-weight: var(--np1-header-1-weight);
+  line-height: var(--np1-header-1-lh);
+  letter-spacing: var(--np1-header-1-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-audience-card__body {
+  margin: 0;
+  max-width: 509px;
+  padding-block: 0;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-body-1-size);
+  font-weight: var(--np1-split-body-weight);
+  line-height: var(--np1-body-1-lh);
+  letter-spacing: var(--np1-body-1-ls);
+  color: var(--np1-text-sub-hero);
+}
+
+.np1-audience-card__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: clamp(192px, 29.6vw, 450px);
+  overflow: hidden;
+}
+
+.np1-audience-card__media .media-with-loader-wrap {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+}
+
+.np1-audience-card__media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@media (max-width: 1023px) {
+  .np1-audience-card__media {
+    min-height: clamp(176px, 36vw, 288px);
+  }
+}
+
+@media (max-width: 767px) {
+  .np1-audience__grid {
+    grid-template-columns: 1fr;
+  }
+}

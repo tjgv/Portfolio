@@ -1,0 +1,176 @@
+/* Left-aligned inline pill — circle grows right, label slides out from under the button */
+
+.np1-inline-pill.np1-popup-aap {
+  --np1-pill-seed: 48.75px;
+  --np1-pill-action: 35.75px;
+  --np1-pill-pad: 6.5px;
+  --np1-pill-inner-gap: 13px;
+  --np1-pill-cta-max: 220px;
+  --np1-pill-target-max: 280px;
+  --np1-inline-pill-extra-pad-right: 8px;
+}
+
+.np1-inline-pill--left {
+  align-self: flex-start;
+}
+
+.np1-inline-pill--center {
+  align-self: center;
+}
+
+.np1-inline-pill {
+  margin-top: clamp(28px, 3.5vh, 44px);
+  pointer-events: none;
+}
+
+.np1-inline-pill--ready {
+  pointer-events: auto;
+}
+
+.np1-inline-pill--overlay-open {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.np1-inline-pill__stage {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: var(--np1-pill-seed);
+}
+
+.np1-inline-pill__pill-measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--np1-pill-inner-gap);
+  padding: var(--np1-pill-pad);
+  padding-right: calc(var(--np1-pill-pad) + var(--np1-inline-pill-extra-pad-right));
+  white-space: nowrap;
+}
+
+.np1-inline-pill__pill-measure .np1-inline-pill__cta-text {
+  max-width: none;
+  opacity: 1;
+  transform: none;
+}
+
+.np1-inline-pill__action-sizer {
+  flex-shrink: 0;
+  width: var(--np1-pill-action);
+  height: var(--np1-pill-action);
+}
+
+.np1-inline-pill__cluster {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--inline-pill-width, var(--np1-pill-seed));
+  max-width: min(var(--inline-pill-target-width, var(--np1-pill-target-max)), calc(100vw - 48px));
+  height: var(--np1-pill-seed);
+}
+
+.np1-inline-pill__shell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: calc(var(--np1-pill-inner-gap) * var(--inline-pill-expand, 0));
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: var(--np1-pill-pad);
+  padding-right: calc(var(--np1-pill-pad) + var(--np1-inline-pill-extra-pad-right));
+  border: none;
+  border-radius: 999px;
+  background: rgba(
+    var(--inline-pill-shell-bg-rgb, 62, 69, 85),
+    var(--inline-pill-shell-alpha, 0)
+  );
+  overflow: hidden;
+  box-sizing: border-box;
+  white-space: nowrap;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.np1-inline-pill__shell:disabled {
+  cursor: default;
+}
+
+.np1-inline-pill--ready .np1-inline-pill__shell:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.np1-inline-pill__action-grow {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: var(--np1-pill-action);
+  height: var(--np1-pill-action);
+  transform: scale(var(--inline-pill-btn-scale, 0));
+  transform-origin: center center;
+}
+
+.np1-inline-pill__action {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: rgb(48, 108, 228);
+  color: #fff;
+  pointer-events: none;
+}
+
+.np1-inline-pill__cta-text {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  max-width: calc(var(--inline-pill-expand, 0) * var(--np1-pill-cta-max));
+  overflow: hidden;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  font-weight: var(--np1-body-1-weight);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  color: var(--np1-text-hero);
+  white-space: nowrap;
+  opacity: var(--inline-pill-expand, 0);
+  transform: translateX(var(--inline-pill-text-slide, 0px));
+}
+
+@media (max-width: 640px) {
+  .np1-inline-pill__cta-text {
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1-inline-pill {
+    pointer-events: auto;
+  }
+
+  .np1-inline-pill__cluster {
+    width: var(--inline-pill-target-width, var(--np1-pill-target-max)) !important;
+  }
+
+  .np1-inline-pill__action-grow {
+    transform: scale(1) !important;
+  }
+
+  .np1-inline-pill__shell {
+    background: rgba(var(--inline-pill-shell-bg-rgb, 62, 69, 85), 1) !important;
+  }
+
+  .np1-inline-pill__cta-text {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

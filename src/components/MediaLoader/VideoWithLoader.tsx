@@ -1,44 +1,76 @@
-import { useState, useCallback } from 'react'
+import { forwardRef, useCallback, useState } from 'react'
 import { MediaLoader } from './MediaLoader'
 import './MediaLoader.css'
 
 interface VideoWithLoaderProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
-  variant?: 'default' | 'dark'
+  variant?: 'default' | 'dark' | 'video'
+  fill?: boolean
 }
 
-export function VideoWithLoader({ variant = 'default', onLoadedData, onCanPlay, className = '', ...videoProps }: VideoWithLoaderProps) {
+export const VideoWithLoader = forwardRef<HTMLVideoElement, VideoWithLoaderProps>(function VideoWithLoader(
+  {
+    variant = 'video',
+    fill = false,
+    onLoadedData,
+    onCanPlay,
+    onPlaying,
+    className = '',
+    style,
+    ...videoProps
+  },
+  ref
+) {
   const [loaded, setLoaded] = useState(false)
+
+  const markLoaded = useCallback(() => {
+    setLoaded(true)
+  }, [])
 
   const handleLoadedData = useCallback(
     (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-      setLoaded(true)
+      markLoaded()
       onLoadedData?.(e)
     },
-    [onLoadedData]
+    [markLoaded, onLoadedData]
   )
 
   const handleCanPlay = useCallback(
     (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-      setLoaded(true)
+      markLoaded()
       onCanPlay?.(e)
     },
-    [onCanPlay]
+    [markLoaded, onCanPlay]
   )
 
+  const handlePlaying = useCallback(
+    (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+      markLoaded()
+      onPlaying?.(e)
+    },
+    [markLoaded, onPlaying]
+  )
+
+  const targetOpacity = typeof style?.opacity === 'number' ? style.opacity : 1
+
   return (
-    <div className="media-with-loader-wrap" style={{ position: 'relative' }}>
+    <div
+      className={`media-with-loader-wrap${fill ? ' media-with-loader-wrap--fill' : ''}`}
+      style={{ position: 'relative' }}
+    >
       <MediaLoader visible={!loaded} variant={variant} />
       <video
         {...videoProps}
+        ref={ref}
         className={className}
         onLoadedData={handleLoadedData}
         onCanPlay={handleCanPlay}
+        onPlaying={handlePlaying}
         style={{
-          ...videoProps.style,
-          opacity: loaded ? 1 : 0,
-          transition: 'opacity 0.35s ease',
+          ...style,
+          opacity: loaded ? targetOpacity : 0,
+          transition: 'opacity 0.45s ease',
         }}
       />
     </div>
   )
-}
+})

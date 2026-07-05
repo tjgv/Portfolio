@@ -1,0 +1,316 @@
+/* EditingCarousel — center-snap swipeable carousel with per-slide captions */
+
+/* Compound selector so this reliably beats the shared .np1-section padding
+   rule regardless of stylesheet load order — the gradient above needs to sit
+   flush against the section's top edge, with .np1-editing-carousel__inner
+   owning all of the section's actual vertical spacing instead. */
+.np1-section.np1-editing-carousel {
+  padding: 0;
+  background: var(--np1-bg);
+  overflow: hidden;
+}
+
+/* Sizing for the shared RevealGradient — a shorter accent than the closing
+   hero's, since this is a mid-page section rather than a full-viewport one. */
+.np1-editing-carousel__gradient {
+  height: clamp(220px, 34vh, 420px);
+}
+
+.np1-editing-carousel__inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 5vh, 64px);
+  padding-top: 80px;
+  padding-bottom: clamp(48px, 6vh, 96px);
+}
+
+.np1-editing-carousel__intro {
+  width: min(var(--np1-content-max), 100%);
+  margin-inline: auto;
+  padding-inline: var(--np1-content-padding-inline);
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.np1-editing-carousel__headline {
+  margin: 0 0 clamp(20px, 1.7vw, 29px);
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-header-1-size);
+  font-weight: var(--np1-header-1-weight);
+  line-height: var(--np1-header-1-lh);
+  letter-spacing: var(--np1-header-1-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-editing-carousel__body {
+  width: 100%;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  font-weight: var(--np1-body-2-weight);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  color: var(--np1-text-sub-hero);
+}
+
+.np1-editing-carousel__body p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.np1-editing-carousel__body p + p {
+  margin-top: 1.15em;
+}
+
+.np1-editing-carousel__body ol {
+  margin: 1.15em 0 0;
+  padding-left: 1.5em;
+  list-style-position: outside;
+}
+
+.np1-editing-carousel__body li + li {
+  margin-top: 0.65em;
+}
+
+.np1-editing-carousel__body li {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.np1-editing-carousel__body strong {
+  font-weight: var(--np1-subheader-1-weight);
+  color: var(--np1-text-hero);
+}
+
+/* Shared gallery + controls stack — reused inside the "View Journey Maps" modal */
+.np1-editing-carousel__carousel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vw, 32px);
+  width: 100%;
+}
+
+/* ── Gallery (scrollable strip) ─────────────────────────────── */
+.np1-editing-carousel__gallery {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* No snap — arrows drive scroll position via custom animation */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.np1-editing-carousel__gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.np1-editing-carousel__track {
+  display: flex;
+  align-items: flex-start;  /* so narrow slide doesn't stretch */
+  list-style: none;
+  margin: 0;
+  /* padding-inline is set dynamically by JS for center-snap */
+  padding-block: 0;
+  gap: clamp(16px, 2vw, 24px);
+  /* give it content-width so % padding resolves against the gallery */
+  width: max-content;
+}
+
+/* ── Slide ──────────────────────────────────────────────────── */
+.np1-editing-carousel__slide {
+  /* Wide slides: fixed width */
+  --np1-ec-slide-width: min(
+    calc(var(--np1-column-width, 1150px) * 0.85),
+    calc(100vw - 48px)
+  );
+
+  flex: 0 0 var(--np1-ec-slide-width);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Narrow slide — explicit width is set by JS after image loads */
+.np1-editing-carousel__slide--narrow {
+  flex: 0 0 auto;
+  /* width is injected via style prop after measuring the rendered image */
+  align-items: flex-start;
+}
+
+/* ── Media frame ─────────────────────────────────────────────── */
+.np1-editing-carousel__media-frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  /* Fixed height shared by all slides — this box never resizes on flip;
+     only its contents (the .flip inner) rotate inside it. */
+  height: clamp(280px, 36vw, 580px);
+  width: 100%;
+  flex-shrink: 0;
+  perspective: 1600px;
+}
+
+/* Narrow slide: shrink-wraps the image at first paint (like before); JS
+   (syncNarrowWidth) then pins an explicit px width/height once the image
+   loads, matching its rendered size, so the flip faces below always have a
+   stable, definite box to fill without any visible size jump. */
+.np1-editing-carousel__slide--narrow .np1-editing-carousel__media-frame {
+  width: auto;
+  height: auto;
+  background: none;
+}
+
+/* ── Flip card — front (media) / back (detail text) ───────────── */
+.np1-editing-carousel__flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.np1-editing-carousel__flip--back {
+  transform: rotateY(180deg);
+}
+
+.np1-editing-carousel__flip-face {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: inherit;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.np1-editing-carousel__flip-face--back {
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: flex-start;
+  padding: clamp(20px, 2.4vw, 32px);
+  /* Extra right padding keeps the paragraph clear of the flip button, which
+     stays fixed in the top-right corner across both faces. */
+  padding-right: clamp(76px, 6vw, 96px);
+  background: #2c2c2e;
+}
+
+.np1-editing-carousel__flip-text {
+  margin: 0;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  font-weight: var(--np1-body-2-weight);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  color: var(--np1-text-sub-hero);
+}
+
+/* ── Flip toggle button — transparent circle, same size both states ───── */
+.np1-editing-carousel__flip-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.14);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  backdrop-filter: blur(8px) saturate(140%);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.np1-editing-carousel__flip-btn:hover {
+  background: rgba(0, 0, 0, 0.26);
+  transform: scale(1.06);
+}
+
+.np1-editing-carousel__flip-btn:active {
+  transform: scale(0.96);
+}
+
+/* ── Media elements ──────────────────────────────────────────── */
+.np1-editing-carousel__video,
+.np1-editing-carousel__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Narrow image: natural size, capped so it doesn't tower over other slides */
+.np1-editing-carousel__slide--narrow .np1-editing-carousel__image {
+  width: auto;
+  height: auto;
+  max-height: clamp(280px, 36vw, 580px);
+  object-fit: unset;
+}
+
+/* VideoWithLoader wraps inside a div — make it fill the frame */
+.np1-editing-carousel__media-frame .media-with-loader-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+.np1-editing-carousel__media-frame .media-with-loader-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Caption — body-2, left-aligned with the media ───────────── */
+.np1-editing-carousel__caption {
+  margin: 0;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  font-weight: var(--np1-body-2-weight);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  color: var(--np1-text-sub-hero);
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+/* Card is showing its back face — fade out the caption underneath it */
+.np1-editing-carousel__slide--flipped .np1-editing-carousel__caption {
+  opacity: 0;
+}
+
+/* ── Nav arrows ──────────────────────────────────────────────── */
+
+/* Dim arrows at start / end of track */
+.np1-quote-card__nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
+}
+
+.np1-editing-carousel__controls {
+  display: flex;
+  justify-content: flex-start;
+  padding-inline: var(--np1-section-side-pad, clamp(24px, 5vw, 80px));
+  /* align with content column */
+  max-width: calc(
+    var(--np1-column-width, 1150px) +
+    2 * var(--np1-section-side-pad, clamp(24px, 5vw, 80px))
+  );
+  margin-inline: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .np1-editing-carousel__slide {
+    --np1-ec-slide-width: calc(100vw - 48px);
+  }
+}
+

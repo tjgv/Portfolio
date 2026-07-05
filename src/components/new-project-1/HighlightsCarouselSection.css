@@ -1,0 +1,123 @@
+/* Standard highlights carousel section */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.np1-carousel-section {
+  --carousel-section-height: 200vh;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: var(--carousel-section-height);
+  background: #000;
+}
+
+.np1-carousel-section__header {
+  flex-shrink: 0;
+  padding-block: clamp(80px, 12vh, 160px) clamp(32px, 4vh, 56px);
+}
+
+.np1-carousel-section__headline {
+  margin: 0;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-header-1-size);
+  font-weight: var(--np1-header-1-weight);
+  line-height: var(--np1-header-1-lh);
+  letter-spacing: var(--np1-header-1-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-carousel-section__subhead {
+  margin: clamp(20px, 1.7vw, 29px) 0 0;
+  max-width: 52ch;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-1-size);
+  font-weight: var(--np1-body-1-weight);
+  line-height: var(--np1-body-1-lh);
+  letter-spacing: var(--np1-body-1-ls);
+  color: var(--np1-text-sub-hero);
+}
+
+.np1-carousel-section__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.np1-carousel-section__gallery {
+  flex: 1;
+  min-height: clamp(360px, 52vh, 640px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.np1-carousel-section__gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.np1-carousel-section__track {
+  display: flex;
+  gap: clamp(16px, 2vw, 28px);
+  width: max-content;
+  height: 100%;
+  margin: 0;
+  padding: 0 clamp(20px, 4vw, 40px);
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.np1-carousel-section__slide {
+  flex: 0 0 min(88vw, 980px);
+  height: 100%;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.np1-carousel-section__media {
+  height: 100%;
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #111;
+}
+
+.np1-carousel-section__media .media-with-loader-wrap {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.np1-carousel-section__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(360px, 52vh, 640px);
+  object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  .np1-carousel-section__slide {
+    flex-basis: 92vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1-carousel-section__gallery {
+    scroll-behavior: auto;
+  }
+}
