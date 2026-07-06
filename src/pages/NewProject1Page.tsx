@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { ArrowUpRight } from 'lucide-react'
 import { ImgWithLoader } from '../components/MediaLoader'
 import EmbedControlledVideo from '../components/new-project-1/EmbedControlledVideo'
 import ResultsPhasesAnimation from '../components/new-project-1/ResultsPhasesAnimation'
-import CaseStudyDevMode from '../components/case-study-dev-mode/CaseStudyDevMode'
 import CurrentToolHotspotMap, { type Hotspot } from '../components/new-project-1/CurrentToolHotspotMap'
 import CaseStudyNavSection from '../components/new-project-1/CaseStudyNavSection'
 import CurrentToolUseCases from '../components/new-project-1/CurrentToolUseCases'
@@ -22,6 +22,29 @@ import TargetAudience from '../components/new-project-1/TargetAudience'
 import './NewProject1Page.css'
 
 export const NEW_PROJECT_1_ROUTE = '/new-project-1'
+
+const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
+const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
+
+/* Diagonal arrow that slides up-and-out on hover, replaced by a duplicate
+   sliding in from the opposite corner — signals "opens in a new tab".
+   Mirrors the homepage nav's NavExternalArrow. */
+function NavExternalArrow() {
+  return (
+    <span className="new-project-1-nav__arrow" aria-hidden="true">
+      <ArrowUpRight
+        className="new-project-1-nav__arrow-icon new-project-1-nav__arrow-icon--primary"
+        size={13}
+        strokeWidth={2.25}
+      />
+      <ArrowUpRight
+        className="new-project-1-nav__arrow-icon new-project-1-nav__arrow-icon--secondary"
+        size={13}
+        strokeWidth={2.25}
+      />
+    </span>
+  )
+}
 
 export const NEW_PROJECT_1_META = {
   title: 'Finding Familiarity in Complexity',
@@ -445,20 +468,36 @@ export default function NewProject1Page({ embedded = false }: NewProject1PagePro
       className={`new-project-1-page${embedded ? ' cx-pro-page--embedded' : ''}`}
     >
       {!embedded && (
-        <>
-          <nav className="new-project-1-nav" aria-label="Main navigation">
-            <Link to="/" className="new-project-1-nav__back" aria-label="Back to home">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M19 12H5M12 19l-7-7 7-7" />
-              </svg>
-            </Link>
-            <div className="new-project-1-nav__links">
-              <a href="https://www.linkedin.com/in/trent-gomez-vidal/" target="_blank" rel="noopener noreferrer" className="new-project-1-nav__link">LinkedIn</a>
-              <Link to="/contact" className="new-project-1-nav__link">Contact</Link>
-            </div>
-          </nav>
-          <CaseStudyDevMode scopeRef={pageRef} activeClassName="new-project-1-page--dev-mode" />
-        </>
+        <nav className="new-project-1-nav" aria-label="Main navigation">
+          <Link to="/" className="new-project-1-nav__back" aria-label="Back to home">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </Link>
+          <div className="new-project-1-nav__links">
+            <Link to="/" className="new-project-1-nav__link">Work</Link>
+            <Link to="/contact" className="new-project-1-nav__link">About</Link>
+            <span className="new-project-1-nav__divider" aria-hidden="true" />
+            <a
+              href={RESUME_PDF_PATH}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="new-project-1-nav__link new-project-1-nav__link--external"
+            >
+              Resume
+              <NavExternalArrow />
+            </a>
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="new-project-1-nav__link new-project-1-nav__link--external"
+            >
+              LinkedIn
+              <NavExternalArrow />
+            </a>
+          </div>
+        </nav>
       )}
 
       <main className={`project-main${embedded ? ' project-main--embedded' : ''}`}>

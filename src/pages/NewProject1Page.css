@@ -89,6 +89,57 @@
   color: #fff;
 }
 
+.new-project-1-nav__link--external {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.new-project-1-nav__divider {
+  width: 1px;
+  height: 16px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Diagonal arrow that slides up-and-right out of view on hover, while a
+   duplicate slides in from the bottom-left to take its place. */
+.new-project-1-nav__arrow {
+  position: relative;
+  display: inline-flex;
+  width: 13px;
+  height: 13px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.new-project-1-nav__arrow-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.32s ease;
+}
+
+.new-project-1-nav__arrow-icon--primary {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+.new-project-1-nav__arrow-icon--secondary {
+  transform: translate(-120%, 120%);
+  opacity: 0;
+}
+
+.new-project-1-nav__link--external:hover .new-project-1-nav__arrow-icon--primary {
+  transform: translate(120%, -120%);
+  opacity: 0;
+}
+
+.new-project-1-nav__link--external:hover .new-project-1-nav__arrow-icon--secondary {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
 /* ----- Content wrapper ----- */
 .np1-content {
   width: 100%;
