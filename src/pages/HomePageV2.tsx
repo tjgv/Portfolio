@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useRef, lazy, Suspense } from 'react'
-import { Gamepad2, Maximize2 } from 'lucide-react'
+import { ArrowUpRight, Gamepad2, Maximize2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import type { FigPalFollowState, FigPalBuilderState } from '../components/FigPalCharacterBuilder'
 import FigPalSign from '../components/FigPalSign'
@@ -19,6 +19,28 @@ type CaseStudyId = 'placeholder1' | 'project1' | 'project2' | 'project3' | 'proj
 
 const PROJECT3_FIGMA_EMBED =
   'https://embed.figma.com/design/kfYbHeyfx7kIagEc0BxvMb/Genius-Sports--Copy-?node-id=56-1067&embed-host=share'
+
+const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
+const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
+
+/* Diagonal arrow that slides up-and-out on hover, replaced by a duplicate
+   sliding in from the opposite corner — signals "opens in a new tab". */
+function NavExternalArrow() {
+  return (
+    <span className="home-v2-nav-arrow" aria-hidden="true">
+      <ArrowUpRight
+        className="home-v2-nav-arrow__icon home-v2-nav-arrow__icon--primary"
+        size={13}
+        strokeWidth={2.25}
+      />
+      <ArrowUpRight
+        className="home-v2-nav-arrow__icon home-v2-nav-arrow__icon--secondary"
+        size={13}
+        strokeWidth={2.25}
+      />
+    </span>
+  )
+}
 
 const FIGPAL_PARK_HINT_SESSION_KEY = 'figpal-park-hint-shown'
 const FIGPAL_MOBILE_MAX_WIDTH = 767
@@ -356,7 +378,7 @@ const WORK_CARDS = [
     id: 'placeholder1',
     label: 'Consumer-Grade CX Pro',
     year: '2026',
-    hoverLine: 'Finding familiarity in complexity.',
+    hoverLine: 'Defining MVP and north star direction for a consumer-grade CX Pro',
     bgStyle: { backgroundImage: 'url(/new-project-1/hero-bg.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'apple',
   },
@@ -389,7 +411,7 @@ const WORK_CARDS = [
     label: 'Coming soon',
     year: '—',
     hoverLine: 'More work on the way.',
-    bgStyle: { backgroundImage: 'url(/project3-placeholder.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
+    bgStyle: { backgroundImage: 'url(/project5-cosm-app.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'placeholder',
   },
   {
@@ -520,8 +542,26 @@ export default function HomePageV2() {
               </div>
               <nav className="home-v2-nav" aria-label="Main">
                 <button type="button" className="home-v2-nav-item home-v2-nav-item--active">Work</button>
-                <Link to="/ai" className="home-v2-nav-item">A.I Prompts</Link>
                 <Link to="/contact" className="home-v2-nav-item">About</Link>
+                <span className="home-v2-nav-divider" aria-hidden="true" />
+                <a
+                  href={RESUME_PDF_PATH}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="home-v2-nav-item home-v2-nav-item--external"
+                >
+                  Resume
+                  <NavExternalArrow />
+                </a>
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="home-v2-nav-item home-v2-nav-item--external"
+                >
+                  LinkedIn
+                  <NavExternalArrow />
+                </a>
               </nav>
             </div>
           </div>
@@ -618,8 +658,26 @@ export default function HomePageV2() {
             <span className="home-v2-footer-name">T.J. Gomez-Vidal</span>
             <div className="home-v2-footer-links">
               <button type="button" className="home-v2-footer-link">Work</button>
-              <Link to="/ai" className="home-v2-footer-link">A.I Prompts</Link>
               <Link to="/contact" className="home-v2-footer-link">About</Link>
+              <span className="home-v2-footer-divider" aria-hidden="true" />
+              <a
+                href={RESUME_PDF_PATH}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="home-v2-footer-link home-v2-footer-link--external"
+              >
+                Resume
+                <NavExternalArrow />
+              </a>
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="home-v2-footer-link home-v2-footer-link--external"
+              >
+                LinkedIn
+                <NavExternalArrow />
+              </a>
             </div>
             <div className="home-v2-footer-contact">
               <span>Let&apos;s work together!</span>

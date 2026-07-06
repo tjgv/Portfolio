@@ -22,7 +22,12 @@ function runwayPx(vh: number): number {
   return (window.innerHeight * vh) / 100
 }
 
-export default function NewProject1Hero({ embedded = false }: { embedded?: boolean }) {
+/**
+ * Full case study page hero only — scroll-jacking video reveal + title
+ * handoff + iPad scroll-in. The preview modal renders its own plain banner
+ * image directly in NewProject1Page instead of using this component.
+ */
+export default function NewProject1Hero() {
   const scrollRef = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [scrollPx, setScrollPx] = useState(0)
@@ -34,8 +39,6 @@ export default function NewProject1Hero({ embedded = false }: { embedded?: boole
   }, [])
 
   useEffect(() => {
-    if (embedded) return
-
     let rafId = 0
 
     const update = () => {
@@ -63,29 +66,26 @@ export default function NewProject1Hero({ embedded = false }: { embedded?: boole
       window.removeEventListener('resize', update)
       if (rafId) cancelAnimationFrame(rafId)
     }
-  }, [embedded])
+  }, [])
 
   const phase1EndPx = runwayPx(PHASE1_RUNWAY_VH)
   const ipadScrollPx = runwayPx(PHASE2_IPAD_SCROLL_VH)
   const handoffEndPx = phase1EndPx + ipadScrollPx
 
-  const phase1Progress = embedded ? 1 : Math.min(1, scrollPx / phase1EndPx)
+  const phase1Progress = Math.min(1, scrollPx / phase1EndPx)
 
-  const phase2Progress = embedded
-    ? 0
-    : scrollPx <= phase1EndPx
-      ? 0
-      : Math.min(1, (scrollPx - phase1EndPx) / ipadScrollPx)
+  const phase2Progress =
+    scrollPx <= phase1EndPx ? 0 : Math.min(1, (scrollPx - phase1EndPx) / ipadScrollPx)
 
   const eased1 = easeOutCubic(phase1Progress)
   const eased2 = easeOutCubic(phase2Progress)
   const easedIpad = easeOutQuint(phase2Progress)
 
-  const inTitleHandoff = !embedded && scrollPx >= phase1EndPx && scrollPx < handoffEndPx
-  const handoffComplete = !embedded && scrollPx >= handoffEndPx
+  const inTitleHandoff = scrollPx >= phase1EndPx && scrollPx < handoffEndPx
+  const handoffComplete = scrollPx >= handoffEndPx
 
   const ipadEntryOffsetPx = runwayPx(IPAD_ENTRY_OFFSET_VH)
-  const ipadTranslateY = embedded ? 0 : Math.max(0, (1 - easedIpad) * ipadEntryOffsetPx)
+  const ipadTranslateY = Math.max(0, (1 - easedIpad) * ipadEntryOffsetPx)
 
   const videoOpacityPhase1 = 1 - eased1 * 0.75
   const videoOpacity = phase2Progress > 0 ? videoOpacityPhase1 * (1 - eased2) : videoOpacityPhase1
@@ -93,21 +93,17 @@ export default function NewProject1Hero({ embedded = false }: { embedded?: boole
   const titleOpacityPhase1 = eased1
   const titleTranslateYPhase1 = (1 - eased1) * TITLE_SLIDE_OFFSET_PX
 
-  const titleStyle = embedded
-    ? { opacity: 1, transform: 'none' }
-    : handoffComplete
-      ? { opacity: 0, transform: 'translateY(-24px)' }
-      : {
-          opacity: titleOpacityPhase1,
-          transform: `translateY(${titleTranslateYPhase1}px)`,
-        }
-
-  const videoOpacityFinal = embedded ? 0.25 : videoOpacity
+  const titleStyle = handoffComplete
+    ? { opacity: 0, transform: 'translateY(-24px)' }
+    : {
+        opacity: titleOpacityPhase1,
+        transform: `translateY(${titleTranslateYPhase1}px)`,
+      }
 
   return (
     <section
       ref={scrollRef}
-      className={`np1-hero-scroll${embedded ? ' np1-hero-scroll--embedded' : ''}`}
+      className="np1-hero-scroll"
       data-dev-section="hero"
       aria-label="Hero"
     >
@@ -118,7 +114,7 @@ export default function NewProject1Hero({ embedded = false }: { embedded?: boole
               ref={videoRef}
               className="np1-hero__video"
               src={HERO_VIDEO}
-              style={{ opacity: videoOpacityFinal }}
+              style={{ opacity: videoOpacity }}
               fill
               autoPlay
               muted
@@ -127,7 +123,7 @@ export default function NewProject1Hero({ embedded = false }: { embedded?: boole
               preload="auto"
             />
           </div>
-          {(embedded || !handoffComplete) && (
+          {!handoffComplete && (
             <h1 className="np1-hero__title np1-hero__title--in-video" style={titleStyle}>
               Finding Familiarity in Complexity
             </h1>
@@ -138,18 +134,13 @@ export default function NewProject1Hero({ embedded = false }: { embedded?: boole
       <div className="np1-hero np1-hero--ipad np1-handoff-stage" data-dev-section="ipad">
         <div className="np1-handoff-sticky">
           <div className="np1-handoff-stack">
-            {embedded && (
-              <h1 className="np1-hero__title np1-hero__title--handoff" style={titleStyle}>
-                Finding Familiarity in Complexity
-              </h1>
-            )}
-            {(embedded || inTitleHandoff || handoffComplete) && (
+            {(inTitleHandoff || handoffComplete) && (
               <>
-                {!embedded && <div className="np1-handoff-stack__title-spacer" aria-hidden />}
+                <div className="np1-handoff-stack__title-spacer" aria-hidden />
                 <div
                   className="np1-handoff-ipad"
                   style={{
-                    transform: embedded ? undefined : `translateY(${ipadTranslateY}px)`,
+                    transform: `translateY(${ipadTranslateY}px)`,
                   }}
                 >
                   <div className="np1-handoff-ipad__inner">

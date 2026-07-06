@@ -14,13 +14,6 @@
   padding-bottom: 0;
 }
 
-.np1-hero-scroll--embedded {
-  --np1-hero-runway-title: 0vh;
-  --np1-hero-runway-ipad: 0vh;
-  --np1-hero-runway-handoff: 0vh;
-  height: auto;
-}
-
 /* Phase 1 — video + title sticky */
 .np1-video-stage {
   height: calc(100vh + var(--np1-hero-runway-title));
@@ -37,16 +30,6 @@
   justify-content: center;
   overflow: hidden;
   background: #000;
-}
-
-.np1-hero-scroll--embedded .np1-video-stage {
-  height: min(52vh, 480px);
-}
-
-.np1-hero-scroll--embedded .np1-video-sticky {
-  position: relative;
-  height: 100%;
-  min-height: 0;
 }
 
 .np1-hero__media {
@@ -95,12 +78,6 @@
   margin-top: calc(-1 * (100vh - clamp(80px, 12vh, 160px)));
   overflow: visible;
   pointer-events: none;
-}
-
-.np1-hero-scroll--embedded .np1-handoff-stage {
-  margin-top: 0;
-  height: auto;
-  pointer-events: auto;
 }
 
 .np1-handoff-sticky {
@@ -163,27 +140,8 @@
   height: auto;
 }
 
-.np1-hero-scroll--embedded .np1-handoff-sticky {
-  position: relative;
-  height: auto;
-  min-height: 0;
-}
-
-.np1-hero-scroll--embedded .np1-handoff-stack {
-  padding-top: 0;
-  gap: clamp(2rem, 6vw, 4rem);
-}
-
-.np1-hero-scroll--embedded .np1-hero__title--handoff {
-  padding-block: clamp(32px, 6vw, 64px);
-}
-
-.np1-hero-scroll--embedded .np1-hero__title--in-video {
-  padding-block: clamp(32px, 6vw, 64px);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .np1-hero-scroll:not(.np1-hero-scroll--embedded) {
+  .np1-hero-scroll {
     --np1-hero-runway-title: 0vh;
     --np1-hero-runway-ipad: 0vh;
     --np1-hero-runway-handoff: 0vh;

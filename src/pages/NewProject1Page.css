@@ -34,6 +34,10 @@
   padding: 0;
 }
 
+.new-project-1-page.cx-pro-page--embedded {
+  min-height: 0;
+}
+
 /* ----- Nav (fixed overlay — hero extends to page top) ----- */
 .new-project-1-nav {
   position: fixed;
@@ -169,6 +173,53 @@
   }
 }
 
+/* Preview modal only: intro headline/body use Header-2 / Body-2 instead of
+   the full page's Header-1 / Body-1 sizing. */
+.new-project-1-page.cx-pro-page--embedded .np1-split__headline {
+  font-size: var(--np1-header-2-size);
+  font-weight: var(--np1-header-2-weight);
+  line-height: var(--np1-header-2-lh);
+  letter-spacing: var(--np1-header-2-ls);
+}
+
+.new-project-1-page.cx-pro-page--embedded .np1-split__body {
+  font-size: var(--np1-body-2-size);
+  font-weight: var(--np1-body-2-weight);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+}
+
+/* Preview modal only: the intro's own content-inset (meant for the full
+   page's wider layout) double-pads against the popup's shell padding, so
+   it reads indented relative to the rest of the embedded content below it
+   (which relies on the popup's padding alone). Drop it so both align. */
+.new-project-1-page.cx-pro-page--embedded .np1-intro .np1-section__inner {
+  padding-inline: 0;
+}
+
+/* Preview modal only: stack headline above body (top/down) instead of the
+   full page's side-by-side split, matching the header-then-content rhythm
+   of the other embedded sections below it. */
+.new-project-1-page.cx-pro-page--embedded .np1-split {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* Preview modal only: banner image above the intro text. Deliberately a
+   bare block image with no shared classes/wrappers from the full page's
+   hero — width fills the column, height is fully automatic from the
+   image's own aspect ratio, so there is nothing to clip it. */
+.np1-embed-banner-block {
+  width: 100%;
+  line-height: 0;
+}
+
+.np1-embed-banner-block__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .np1-intro,
 .np1-glance {
   padding-block: 0;
@@ -188,6 +239,15 @@
   padding-bottom: clamp(48px, 8vh, 100px);
 }
 
+/* Preview modal only: the full page's negative top margin pulls the intro
+   section up to overlap the sticky scroll-jacking video during its handoff
+   transition. The embedded preview has no such video/transition — the
+   overlap was instead sliding this section's solid black background right
+   on top of the bottom of the banner image, covering it. */
+.new-project-1-page.cx-pro-page--embedded .np1-intro {
+  margin-top: 0;
+}
+
 .np1-intro__inner {
   padding-top: clamp(64px, 6.6vw, 100px);
   padding-bottom: 10px;
@@ -201,46 +261,86 @@
   padding-top: clamp(64px, 6.6vw, 100px);
 }
 
+/* ----- At a glance: header-left / content-right layout -----
+   Mirrors the CX Pro "My Role" block group: a sticky col1 label and a col2
+   stack of icon-labeled sub-blocks. Single column on mobile and inside the
+   embedded popup; two columns on the full desktop page. */
+.np1-glance__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+@media (min-width: 1025px) {
+  .new-project-1-page:not(.cx-pro-page--embedded) .np1-glance__layout {
+    grid-template-columns: minmax(160px, 0.4fr) 1fr;
+    gap: 0 32px;
+    align-items: start;
+  }
+
+  .new-project-1-page:not(.cx-pro-page--embedded) .np1-glance__col1 {
+    position: sticky;
+    top: 24px;
+  }
+}
+
 .np1-glance__title {
   margin: 0;
   width: 100%;
   font-family: var(--np1-font-display);
-  font-size: var(--np1-header-1-size);
-  font-weight: var(--np1-header-1-weight);
-  line-height: var(--np1-header-1-lh);
-  letter-spacing: var(--np1-header-1-ls);
+  font-size: var(--np1-header-2-size);
+  font-weight: var(--np1-header-2-weight);
+  line-height: var(--np1-header-2-lh);
+  letter-spacing: var(--np1-header-2-ls);
   text-align: left;
   color: var(--np1-text-hero);
 }
 
-.np1-glance__grid {
+/* ----- At a glance: icon-labeled blocks -----
+   Styled after the CX Pro "My Role" block group (icon + label header, light
+   grey divider, value/paragraph or name-role pairs). Only Header-2 and
+   Body-2 are used; Body-2's weight shifts +100 for values/names and -100
+   for muted secondary text to build hierarchy without new type styles. */
+.np1-glance__blocks {
   display: flex;
   flex-direction: column;
-  gap: var(--np1-glance-row-gap);
+  gap: clamp(28px, 3.2vw, 40px);
   width: 100%;
+  max-width: calc(760px * var(--np1-content-width-scale));
 }
 
-.np1-glance__row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--np1-glance-col-gap);
-  align-items: start;
-}
-
-@media (max-width: 767px) {
-  .np1-glance__row {
-    grid-template-columns: 1fr;
-  }
-}
-
-.np1-glance-item {
+.np1-glance-block {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: flex-start;
+  width: 100%;
 }
 
-.np1-glance-item__title {
+.np1-glance-block__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.np1-glance-block__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.np1-glance-block__icon svg {
+  width: 16px;
+  height: 16px;
+  color: var(--np1-text-hero);
+}
+
+.np1-glance-block__label {
   margin: 0;
   font-family: var(--np1-font-display);
   font-size: var(--np1-header-2-size);
@@ -250,20 +350,69 @@
   color: var(--np1-text-hero);
 }
 
-.np1-glance-item__body {
+.np1-glance-block__divider {
+  height: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.np1-glance-block__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.np1-glance-block__value {
   margin: 0;
-  padding-block: 10px;
   font-family: var(--np1-font-body);
   font-size: var(--np1-body-2-size);
-  font-weight: var(--np1-body-2-weight);
   line-height: var(--np1-body-2-lh);
   letter-spacing: var(--np1-body-2-ls);
+  font-weight: calc(var(--np1-body-2-weight) + 100);
+  color: var(--np1-text-hero);
+}
+
+.np1-glance-block__paragraph {
+  margin: 0;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  font-weight: var(--np1-body-2-weight);
   color: var(--np1-text-sub-hero);
 }
 
-.np1-glance-item__body strong {
+.np1-glance-block__paragraph strong {
   color: var(--np1-text-hero);
   font-weight: inherit;
+}
+
+.np1-glance-block__pairs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.np1-glance-block__pair {
+  display: flex;
+  flex-direction: column;
+}
+
+.np1-glance-block__pair-primary {
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  font-weight: calc(var(--np1-body-2-weight) + 100);
+  color: var(--np1-text-hero);
+}
+
+.np1-glance-block__pair-secondary {
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  font-weight: calc(var(--np1-body-2-weight) - 100);
+  color: var(--np1-text-sub-1);
 }
 
 /* ----- Current tool tabs ----- */
@@ -462,6 +611,164 @@
 .new-project-1-page.cx-pro-page--embedded .np1-stub,
 .new-project-1-page.cx-pro-page--embedded .new-project-1-footer {
   display: none;
+}
+
+/* ----- Pop-out modal preview: simplified sections -----
+   Mirrors the CX Pro popup's pattern (label/headline column + paragraph
+   text and static images) instead of the full page's heavier interactive
+   sections. All text uses the np1 type scale's Header-2 / Body-2 tokens
+   (see NewProject1Typography.css) so every section reads at one consistent
+   scale. */
+.np1-embed-sections {
+  width: 100%;
+  padding: clamp(48px, 8vh, 100px) 0;
+}
+
+.np1-embed-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 27px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.np1-embed-block:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.np1-embed-block + .np1-embed-block {
+  margin-top: 27px;
+}
+
+.np1-embed-header {
+  margin: 0;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-header-2-size);
+  line-height: var(--np1-header-2-lh);
+  letter-spacing: var(--np1-header-2-ls);
+  font-weight: var(--np1-header-2-weight);
+  color: var(--np1-text-hero);
+}
+
+.np1-embed-block__col2 {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.np1-embed-body {
+  margin: 0;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-body-2-size);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  font-weight: var(--np1-body-2-weight);
+  color: var(--np1-text-sub-hero);
+}
+
+.np1-embed-body strong {
+  color: var(--np1-text-hero);
+  font-weight: inherit;
+}
+
+.np1-embed-full-width {
+  width: 100%;
+}
+
+.np1-embed-full-width img {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.np1-embed-video-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.np1-embed-two-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.np1-embed-two-images img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .np1-embed-two-images {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Results — condensed circle-diagram reveal, reusing the full page's
+   ResultsPhasesAnimation component/classes with modal-scoped sizing. */
+.np1-results__phases.np1-embed-results-phases {
+  --np1-results-edge-inset: 45px;
+  padding-inline: 45px;
+  padding-block: clamp(28px, 4vh, 48px);
+}
+
+.np1-embed-results-phases .np1-results__list {
+  /* 200px - 35px */
+  gap: 165px;
+  justify-content: center;
+}
+
+.np1-embed-results-phases .np1-phase-circle {
+  /* +15% from clamp(96px, 22vw, 160px), then +10% more */
+  --np1-phase-size: clamp(121px, 27.8vw, 202.4px);
+  gap: 4px;
+}
+
+.np1-embed-results-phases .np1-phase-circle__label,
+.np1-embed-results-phases .np1-phase-circle__title,
+.np1-embed-results-phases .np1-phase-circle__status {
+  width: 100%;
+  text-align: center;
+}
+
+.np1-embed-results-phases .np1-phase-circle__label {
+  font-size: calc(var(--np1-subheader-1-size) - 2px);
+}
+
+.np1-embed-results-phases .np1-phase-circle__title {
+  font-size: calc(var(--np1-header-2-size) - 2px);
+}
+
+.np1-embed-results-phases .np1-phase-circle__status {
+  font-size: calc(var(--np1-body-2-size) - 2px);
+}
+
+@media (max-width: 600px) {
+  .np1-results__phases.np1-embed-results-phases {
+    padding-inline: 24px;
+  }
+
+  .np1-embed-results-phases .np1-results__stroke {
+    display: none;
+  }
+
+  .np1-embed-results-phases .np1-results__list {
+    flex-direction: column;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+
+  .np1-embed-results-phases .np1-phase-circle {
+    --np1-phase-size: clamp(160px, 50vw, 200px);
+  }
 }
 
 /* np1-glance used to be the last visible section in the embedded preview and

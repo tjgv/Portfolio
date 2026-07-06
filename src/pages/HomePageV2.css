@@ -189,23 +189,24 @@
 }
 
 .home-v2-name {
-  font-family: 'Figtree', sans-serif;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: clamp(28px, 5vw, 35px);
   font-weight: 700;
-  letter-spacing: 0.06em; /* 6% tracking */
+  letter-spacing: -0.005rem;
   margin: 0;
   color: #374151;
 }
 
 .home-v2-name-initials {
-  letter-spacing: 0; /* 0% tracking for T.J. */
-  font-weight: 700;
+  letter-spacing: inherit;
+  font-weight: inherit;
 }
 
 .home-v2-tagline {
   font-size: clamp(18.75px, 2.5vw, 21.25px);
   font-weight: 400;
-  line-height: 1.21;
+  line-height: 1.331; /* +10% from 1.21 */
+  letter-spacing: -0.0005em; /* -0.05% tracking, from normal (0%) */
   color: #9CA3AF;
   margin: 0;
   max-width: 520px;
@@ -320,6 +321,60 @@
 .home-v2-nav-item:focus-visible {
   outline: 2px solid rgba(0, 122, 255, 0.5);
   outline-offset: 2px;
+}
+
+.home-v2-nav-item--external {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.home-v2-nav-divider {
+  width: 1px;
+  height: 20px;
+  flex-shrink: 0;
+  margin: 0 2px;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+/* Diagonal arrow that slides up-and-right out of view on hover, while a
+   duplicate slides in from the bottom-left to take its place. */
+.home-v2-nav-arrow {
+  position: relative;
+  display: inline-flex;
+  width: 13px;
+  height: 13px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.home-v2-nav-arrow__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.32s ease;
+}
+
+.home-v2-nav-arrow__icon--primary {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+.home-v2-nav-arrow__icon--secondary {
+  transform: translate(-120%, 120%);
+  opacity: 0;
+}
+
+.home-v2-nav-item--external:hover .home-v2-nav-arrow__icon--primary,
+.home-v2-footer-link--external:hover .home-v2-nav-arrow__icon--primary {
+  transform: translate(120%, -120%);
+  opacity: 0;
+}
+
+.home-v2-nav-item--external:hover .home-v2-nav-arrow__icon--secondary,
+.home-v2-footer-link--external:hover .home-v2-nav-arrow__icon--secondary {
+  transform: translate(0, 0);
+  opacity: 1;
 }
 
 @media (max-width: 767px) {
@@ -708,6 +763,19 @@
   color: #1a1a1a;
 }
 
+.home-v2-footer-link--external {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.home-v2-footer-divider {
+  width: 1px;
+  height: 14px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.14);
+}
+
 .home-v2-footer-contact {
   margin-left: auto;
   display: flex;
@@ -788,11 +856,20 @@
               background-color 0.6s ease-in-out;
 }
 
+/* This case study's preview modal only — 10% wider than the shared popup shell */
+.home-v2-popup--dark:not(.home-v2-popup--expanding) {
+  max-width: min(1161.6px, 81.675vw);
+}
+
 @media (max-width: 767px) {
   .home-v2-popup {
     max-width: 100%;
     max-height: 85vh;
     border-radius: 20px 20px 0 0;
+  }
+
+  .home-v2-popup--dark:not(.home-v2-popup--expanding) {
+    max-width: 100%;
   }
 }
 

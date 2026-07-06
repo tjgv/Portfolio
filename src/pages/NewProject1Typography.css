@@ -67,8 +67,6 @@
   --np1-split-gap: clamp(40px, 5.4vw, 81px);
   --np1-block-gap: clamp(40px, 4vw, 60px);
   --np1-label-title-gap: 30px;
-  --np1-glance-row-gap: clamp(32px, 3.3vw, 50px);
-  --np1-glance-col-gap: clamp(40px, 5.3vw, 80px);
   --np1-split-body-weight: 510;
 
   font-family: var(--np1-font-body);
