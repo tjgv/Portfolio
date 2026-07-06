@@ -1,9 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
+import { preload } from 'react-dom'
 import { ImgWithLoader, VideoWithLoader } from '../MediaLoader'
 import './NewProject1Hero.css'
 
 const HERO_VIDEO = '/new-project-1/hero-video.mp4'
 const INTRO_TABLET = '/new-project-1/intro-tablet.png'
+
+// Both assets are needed early in the scroll (video is visible immediately;
+// the iPad image only mounts once the user scrolls into the handoff phase,
+// so without an explicit hint the browser wouldn't start fetching it until
+// then). Hinting both as high priority means the iPad image is already
+// cached by the time it scrolls into view.
+preload(HERO_VIDEO, { as: 'video', fetchPriority: 'high' })
+preload(INTRO_TABLET, { as: 'image', fetchPriority: 'high' })
 
 const TITLE_SLIDE_OFFSET_PX = 120
 const PHASE1_RUNWAY_VH = 75
@@ -144,7 +153,11 @@ export default function NewProject1Hero() {
                   }}
                 >
                   <div className="np1-handoff-ipad__inner">
-                    <ImgWithLoader src={INTRO_TABLET} alt="Hands holding CX Pro on tablet" />
+                    <ImgWithLoader
+                      src={INTRO_TABLET}
+                      alt="Hands holding CX Pro on tablet"
+                      fetchPriority="high"
+                    />
                   </div>
                 </div>
               </>

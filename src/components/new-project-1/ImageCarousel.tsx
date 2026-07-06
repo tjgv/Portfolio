@@ -16,6 +16,14 @@ export type CarouselSlide = VideoSlide | ImageSlide
 
 const FLIP_BUTTON_ICON_SIZE = 16
 
+/**
+ * SHELVED FEATURE — flip-to-reveal card details ("+" button in the top-right
+ * corner of each slide, flips the media to a text-only back face). Revisit
+ * later; the button, back-face markup, and CSS below are all still intact
+ * and fully wired up — just flip this back to `true` to bring it back.
+ */
+const SHOW_FLIP_DETAILS_BUTTON = false
+
 /** Ease-in-out cubic — feels natural and slower at start/end */
 function easeInOutCubic(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
@@ -274,19 +282,21 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
                     </div>
                   </div>
 
-                  <button
-                    type="button"
-                    className="np1-editing-carousel__flip-btn"
-                    onClick={() => toggleFlip(index)}
-                    aria-label={flipped ? 'Show media' : 'Show details'}
-                    aria-pressed={flipped}
-                  >
-                    {flipped ? (
-                      <Minus size={FLIP_BUTTON_ICON_SIZE} strokeWidth={2.25} aria-hidden />
-                    ) : (
-                      <Plus size={FLIP_BUTTON_ICON_SIZE} strokeWidth={2.25} aria-hidden />
-                    )}
-                  </button>
+                  {SHOW_FLIP_DETAILS_BUTTON && (
+                    <button
+                      type="button"
+                      className="np1-editing-carousel__flip-btn"
+                      onClick={() => toggleFlip(index)}
+                      aria-label={flipped ? 'Show media' : 'Show details'}
+                      aria-pressed={flipped}
+                    >
+                      {flipped ? (
+                        <Minus size={FLIP_BUTTON_ICON_SIZE} strokeWidth={2.25} aria-hidden />
+                      ) : (
+                        <Plus size={FLIP_BUTTON_ICON_SIZE} strokeWidth={2.25} aria-hidden />
+                      )}
+                    </button>
+                  )}
                 </div>
 
                 <p className="np1-editing-carousel__caption">
