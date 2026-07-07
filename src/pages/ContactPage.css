@@ -8,21 +8,25 @@
 /* About grid: image left, content right – image matches text height */
 .contact-about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 3fr 5fr;
+  gap: 60px;
   align-items: stretch;
 }
 
 @media (max-width: 1023px) {
   .contact-about-grid {
-    gap: 32px;
+    gap: 52px;
   }
 }
 
 @media (max-width: 767px) {
   .contact-about-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 44px;
+  }
+
+  .contact-about-image {
+    width: 75%;
   }
 }
 
@@ -80,7 +84,7 @@
   align-items: center;
   gap: 6px 20px;
   font-family: 'Figtree', sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   color: #6b6b6b;
   margin: 0;
 }
@@ -97,7 +101,7 @@
 
 .contact-about-text {
   font-family: 'Figtree', sans-serif;
-  font-size: 16px;
+  font-size: 19px;
   line-height: 1.6;
   color: #4b5563;
 }

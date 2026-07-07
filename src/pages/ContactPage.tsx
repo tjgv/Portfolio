@@ -80,7 +80,7 @@ export default function ContactPage() {
               />
             </div>
             <div className="contact-about-content">
-              <h2 className="contact-about-title">Hi, I&apos;m T.J.!</h2>
+              <h2 className="contact-about-title">Hi, I&apos;m TJ!</h2>
               <p className="contact-about-meta">
                 <span className="contact-about-meta-item">
                   <MapPin size={16} aria-hidden />

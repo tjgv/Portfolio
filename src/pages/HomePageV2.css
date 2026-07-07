@@ -976,8 +976,8 @@
 .home-v2-popup--figma-embed {
   display: flex;
   flex-direction: column;
-  width: min(1400px, 96vw);
-  max-width: min(1400px, 96vw);
+  width: min(1120px, 76.8vw);
+  max-width: min(1120px, 76.8vw);
   height: min(92vh, 920px);
   max-height: 92vh;
 }
@@ -1019,6 +1019,24 @@
   border-color: rgba(0, 0, 0, 0.28);
 }
 
+.home-v2-popup-figma-embed-intro {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.home-v2-popup-figma-embed-text {
+  margin: 0;
+  width: 100%;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #4a4a4a;
+}
+
 .home-v2-popup-figma-embed-body {
   flex: 1;
   min-height: 0;
@@ -1029,7 +1047,6 @@
   display: block;
   width: 100%;
   height: 100%;
-  min-height: calc(92vh - 100px);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
@@ -1058,8 +1075,12 @@
     font-size: 13px;
   }
 
-  .home-v2-popup-figma-embed-body iframe {
-    min-height: calc(88vh - 92px);
+  .home-v2-popup-figma-embed-intro {
+    padding: 20px 12px;
+  }
+
+  .home-v2-popup-figma-embed-text {
+    font-size: 0.875rem;
   }
 }
 

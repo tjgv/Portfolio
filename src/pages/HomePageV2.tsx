@@ -363,6 +363,14 @@ function Project3FigmaPopup({ onClose }: { onClose: () => void }) {
             </button>
           </div>
         </nav>
+        <div className="home-v2-popup-figma-embed-intro">
+          <p className="home-v2-popup-figma-embed-text">
+            <strong>Process:</strong> This project was a take-home assignment for Genius Sports. The objective of the assignment was to identify the top 3 problems with the current NFL IQ product experience. The product seemed to be in its infancy, and as such, there were many problems with it. To ensure that the &ldquo;top&rdquo; 3 problems were truly the highest impact items, I audited the tool through the lens of how the product is positioned within the larger NFL Draft product eco-system. From this context, I was able to make key assumptions about users - defining primary and secondary types. Then, I audited the experience from those users perspective and contrasted that against assumed key use-cases. I took the many problems which overlapped (weighing primary user problems more heavily) to form 3 foundational top problems to solve. Then, I brain stormed solutions to address said-problems, leaning on a balanced mix of solutions with modest effort value constraints.
+          </p>
+          <p className="home-v2-popup-figma-embed-text">
+            For design deliverables, I chose to quickly rebuild the tool within Cursor then implement my solutions within the tool for a fully interactable prototype.
+          </p>
+        </div>
         <div className="home-v2-popup-figma-embed-body">
           <iframe
             src={PROJECT3_FIGMA_EMBED}
@@ -404,8 +412,8 @@ const WORK_CARDS = [
     id: 'project3' as const,
     label: 'NFL IQ',
     year: '2026',
-    hoverLine: 'More work on the way.',
-    bgStyle: { backgroundImage: 'url(/project3-placeholder.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
+    hoverLine: 'Auditing and transforming the NFL IQ user experience',
+    bgStyle: { backgroundImage: 'url(/nfl-iq-cover.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'apple',
   },
   {
