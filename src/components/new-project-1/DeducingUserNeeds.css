@@ -9,7 +9,7 @@
 .np1-user-needs__intro {
   display: flex;
   flex-direction: column;
-  gap: clamp(20px, 1.7vw, 29px);
+  gap: var(--np1-label-title-gap);
   max-width: 100%;
 }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ImgWithLoader, VideoWithLoader } from '../components/MediaLoader'
+import CaseStudyNavSection from '../components/new-project-1/CaseStudyNavSection'
 import './CxProPage.css'
 
 const CX_IMAGES = '/cx-pro-images'
@@ -1216,6 +1217,8 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         )}
 
         {!embedded && (
+        <>
+        <CaseStudyNavSection currentSlug="cx-pro-c2c" theme="light" />
         <footer className="project-footer site-footer-offwhite" id="contact">
           <div className="footer-info">
             <div>TJ Gomez-Vidal ©</div>
@@ -1224,6 +1227,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
           </div>
           <p className="footer-quote">"Great design is invisible—it anticipates needs before users articulate them."</p>
         </footer>
+        </>
         )}
       </main>
 

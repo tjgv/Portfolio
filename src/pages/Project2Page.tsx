@@ -1,6 +1,7 @@
 import { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ImgWithLoader } from '../components/MediaLoader'
+import CaseStudyNavSection from '../components/new-project-1/CaseStudyNavSection'
 import './CxProPage.css'
 
 const VALIDUS_IMAGES = '/validus-images'
@@ -916,6 +917,8 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         </div>
 
         {!embedded && (
+        <>
+        <CaseStudyNavSection currentSlug="validus-redesign" theme="light" />
         <footer className="project-footer site-footer-offwhite" id="contact">
           <div className="footer-info">
             <div>TJ Gomez-Vidal ©</div>
@@ -924,6 +927,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
           </div>
           <p className="footer-quote">"Great design is invisible—it anticipates needs before users articulate them."</p>
         </footer>
+        </>
         )}
       </main>
 

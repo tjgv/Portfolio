@@ -1656,8 +1656,9 @@
   box-sizing: border-box;
 }
 
-/* Floating scroll-to-top: bottom right, circle, appears after scroll to S3 */
-.cx-pro-page .cx-scroll-to-top {
+/* Floating scroll-to-top: bottom right, circle, appears after scroll trigger */
+.cx-pro-page .cx-scroll-to-top,
+.new-project-1-page .cx-scroll-to-top {
   position: fixed;
   bottom: 28px;
   right: 28px;
@@ -1679,18 +1680,21 @@
   pointer-events: none;
 }
 
-.cx-pro-page .cx-scroll-to-top--visible {
+.cx-pro-page .cx-scroll-to-top--visible,
+.new-project-1-page .cx-scroll-to-top--visible {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
 
-.cx-pro-page .cx-scroll-to-top:hover {
+.cx-pro-page .cx-scroll-to-top:hover,
+.new-project-1-page .cx-scroll-to-top:hover {
   background: rgba(0, 0, 0, 0.88);
   transform: scale(1.05);
 }
 
-.cx-pro-page .cx-scroll-to-top:active {
+.cx-pro-page .cx-scroll-to-top:active,
+.new-project-1-page .cx-scroll-to-top:active {
   transform: scale(0.98);
 }
 

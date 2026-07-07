@@ -1,50 +1,77 @@
 import { Link } from 'react-router-dom'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { ImgWithLoader } from '../MediaLoader'
+import {
+  getCaseStudyNeighbors,
+  type CaseStudySlug,
+} from '../../data/caseStudies'
 import './CaseStudyNavSection.css'
 
-const NEXT_CASE_STUDIES = [
-  {
-    id: 'project1',
-    href: '/project1',
-    title: 'CX Pro',
-    thumbnail: '/project1-cx.png',
-    align: 'left',
-  },
-  {
-    id: 'project2',
-    href: '/project2',
-    title: 'Validus',
-    thumbnail: '/project2-events.png',
-    align: 'right',
-  },
-] as const
+type CaseStudyNavSectionProps = {
+  currentSlug: CaseStudySlug
+  theme?: 'dark' | 'light'
+}
 
-export default function CaseStudyNavSection() {
+export default function CaseStudyNavSection({
+  currentSlug,
+  theme = 'dark',
+}: CaseStudyNavSectionProps) {
+  const { prev, next } = getCaseStudyNeighbors(currentSlug)
+
+  if (!prev && !next) return null
+
   return (
     <section
-      className="np1-case-study-nav"
+      className={`np1-case-study-nav np1-case-study-nav--${theme}`}
       data-dev-section="case-study-nav"
       aria-label="More case studies"
     >
-      <nav className="np1-case-study-nav__row" aria-label="More case studies">
-        {NEXT_CASE_STUDIES.map((study) => (
+      <nav className="np1-case-study-nav__row" aria-label="Case study carousel">
+        {prev ? (
           <Link
-            key={study.id}
-            to={study.href}
-            className={`np1-case-study-nav__card np1-case-study-nav__card--${study.align}`}
+            to={prev.route}
+            className="np1-case-study-nav__card np1-case-study-nav__card--prev"
           >
             <ImgWithLoader
               className="np1-case-study-nav__thumb"
-              src={study.thumbnail}
+              src={prev.thumbnail}
               alt=""
               aria-hidden="true"
             />
             <span className="np1-case-study-nav__copy">
-              <span className="np1-case-study-nav__title">{study.title}</span>
-              <span className="np1-case-study-nav__cta">View Case Study</span>
+              <span className="np1-case-study-nav__cta-row">
+                <ArrowLeft className="np1-case-study-nav__arrow" size={16} strokeWidth={2.25} aria-hidden />
+                <span className="np1-case-study-nav__cta">View Previous</span>
+              </span>
+              <span className="np1-case-study-nav__title">{prev.title}</span>
             </span>
           </Link>
-        ))}
+        ) : (
+          <div className="np1-case-study-nav__spacer" aria-hidden="true" />
+        )}
+
+        {next ? (
+          <Link
+            to={next.route}
+            className="np1-case-study-nav__card np1-case-study-nav__card--next"
+          >
+            <span className="np1-case-study-nav__copy">
+              <span className="np1-case-study-nav__title">{next.title}</span>
+              <span className="np1-case-study-nav__cta-row">
+                <span className="np1-case-study-nav__cta">View Next</span>
+                <ArrowRight className="np1-case-study-nav__arrow" size={16} strokeWidth={2.25} aria-hidden />
+              </span>
+            </span>
+            <ImgWithLoader
+              className="np1-case-study-nav__thumb"
+              src={next.thumbnail}
+              alt=""
+              aria-hidden="true"
+            />
+          </Link>
+        ) : (
+          <div className="np1-case-study-nav__spacer" aria-hidden="true" />
+        )}
       </nav>
     </section>
   )

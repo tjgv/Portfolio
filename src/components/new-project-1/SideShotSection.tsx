@@ -23,6 +23,8 @@ export type SideShotSectionProps = {
     /** `pill1` — scroll grow orb + expanding pill; `inline` — legacy inline pill */
     pill?: 'pill1' | 'inline'
   }
+  /** Body copy scale — defaults to Body-2; pass `body-1` for the intro split's Body-1 rhythm. */
+  bodyVariant?: 'body-1' | 'body-2'
 }
 
 function SideShotFigure({
@@ -50,17 +52,24 @@ function SideShotCopy({
   title,
   children,
   stacked = false,
+  bodyVariant = 'body-2',
 }: {
   label?: string
   title: string
   children: ReactNode
   stacked?: boolean
+  bodyVariant?: 'body-1' | 'body-2'
 }) {
+  const bodyClassName =
+    bodyVariant === 'body-1'
+      ? 'np1-side-shot__body np1-side-shot__body--body-1'
+      : 'np1-side-shot__body'
+
   return (
     <div className={`np1-side-shot__copy${stacked ? ' np1-side-shot__copy--stacked' : ''}`}>
       {label ? <p className="np1-side-shot__label">{label}</p> : null}
       <h2 className="np1-side-shot__title">{title}</h2>
-      <div className="np1-side-shot__body">{children}</div>
+      <div className={bodyClassName}>{children}</div>
     </div>
   )
 }
@@ -78,9 +87,14 @@ export default function SideShotSection({
   ariaLabel,
   children,
   reveal,
+  bodyVariant = 'body-2',
 }: SideShotSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const isStacked = layout === 'stacked'
+  const bodyClassName =
+    bodyVariant === 'body-1'
+      ? 'np1-side-shot__body np1-side-shot__body--body-1'
+      : 'np1-side-shot__body'
 
   const pillReveal = reveal ? (
     reveal.pill === 'pill1' ? (
@@ -117,7 +131,7 @@ export default function SideShotSection({
       {isStacked ? (
         <div className="np1-side-shot__inner">
           <div className="np1-side-shot__stack">
-            <SideShotCopy label={label} title={title} stacked>
+            <SideShotCopy label={label} title={title} stacked bodyVariant={bodyVariant}>
               {children}
             </SideShotCopy>
             <div className="np1-side-shot__media-block">
@@ -131,7 +145,7 @@ export default function SideShotSection({
           <div className="np1-side-shot__copy">
             {label ? <p className="np1-side-shot__label">{label}</p> : null}
             <h2 className="np1-side-shot__title">{title}</h2>
-            <div className="np1-side-shot__body">{children}</div>
+            <div className={bodyClassName}>{children}</div>
             {pillReveal}
           </div>
 

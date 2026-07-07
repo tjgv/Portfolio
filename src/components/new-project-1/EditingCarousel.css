@@ -35,10 +35,10 @@
 .np1-editing-carousel__headline {
   margin: 0 0 clamp(20px, 1.7vw, 29px);
   font-family: var(--np1-font-display);
-  font-size: var(--np1-header-1-size);
-  font-weight: var(--np1-header-1-weight);
-  line-height: var(--np1-header-1-lh);
-  letter-spacing: var(--np1-header-1-ls);
+  font-size: var(--np1-header-2-size);
+  font-weight: var(--np1-header-2-weight);
+  line-height: var(--np1-header-2-lh);
+  letter-spacing: var(--np1-header-2-ls);
   color: var(--np1-text-hero);
 }
 

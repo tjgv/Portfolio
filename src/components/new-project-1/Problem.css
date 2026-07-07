@@ -33,7 +33,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 50vh;
+  padding-block: var(--np1-content-padding);
   background: var(--np1-bg);
 }
 
@@ -41,10 +41,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0;
-  height: 100%;
+  width: min(calc(var(--np1-content-max) * 0.8), 80%);
   text-align: center;
+}
+
+/* The copy band carries the full vertical breathing room above and below the
+   problem statement — drop Hypothesis's default section top padding so the
+   distance from the statement to the next section matches the image-to-copy gap. */
+.new-project-1-page .np1-problem + .np1-hypothesis {
+  padding-top: 0;
 }
 
 .np1-problem__label {

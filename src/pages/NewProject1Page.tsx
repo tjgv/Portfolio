@@ -6,6 +6,8 @@ import EmbedControlledVideo from '../components/new-project-1/EmbedControlledVid
 import ResultsPhasesAnimation from '../components/new-project-1/ResultsPhasesAnimation'
 import CurrentToolHotspotMap, { type Hotspot } from '../components/new-project-1/CurrentToolHotspotMap'
 import CaseStudyNavSection from '../components/new-project-1/CaseStudyNavSection'
+import ScrollToTopButton from '../components/case-study/ScrollToTopButton'
+import { useScrollToTopReveal } from '../hooks/useScrollToTopReveal'
 import CurrentToolUseCases from '../components/new-project-1/CurrentToolUseCases'
 import NewProject1Hero from '../components/new-project-1/NewProject1Hero'
 import DeducingUserNeeds from '../components/new-project-1/DeducingUserNeeds'
@@ -21,7 +23,7 @@ import ResultsSection from '../components/new-project-1/ResultsSection'
 import TargetAudience from '../components/new-project-1/TargetAudience'
 import './NewProject1Page.css'
 
-export const NEW_PROJECT_1_ROUTE = '/new-project-1'
+export const NEW_PROJECT_1_ROUTE = '/consumer-cx-pro'
 
 const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
@@ -411,10 +413,12 @@ export interface NewProject1PageProps {
 
 export default function NewProject1Page({ embedded = false }: NewProject1PageProps = {}) {
   const pageRef = useRef<HTMLDivElement>(null)
+  const scrollRevealRef = useRef<HTMLElement>(null)
   const goalRevealRef = useRef<HTMLDivElement>(null)
   const goalObserverRef = useRef<IntersectionObserver | null>(null)
   const [goalInView, setGoalInView] = useState(false)
   const [currentToolTab, setCurrentToolTab] = useState<CurrentToolTabId>('current-tool')
+  const showScrollToTop = useScrollToTopReveal(scrollRevealRef)
 
   useLayoutEffect(() => {
     if (embedded) return
@@ -534,7 +538,7 @@ export default function NewProject1Page({ embedded = false }: NewProject1PagePro
         )}
 
         <div className="np1-content" data-dev-section="content">
-        <section className="np1-section np1-intro" data-dev-section="intro" aria-label="Introduction">
+        <section className="np1-section np1-intro" data-dev-section="intro" aria-label="Introduction" ref={scrollRevealRef}>
           <div className="np1-section__inner np1-intro__inner">
             {embedded ? (
               <div className="np1-embed-block__text np1-embed-block__text--lead">
@@ -569,42 +573,38 @@ export default function NewProject1Page({ embedded = false }: NewProject1PagePro
         {!embedded && (
           <section className="np1-section np1-glance" data-dev-section="at-a-glance" aria-label="At a glance">
             <div className="np1-section__inner np1-glance__inner">
-              <div className="np1-glance__layout">
-                <div className="np1-glance__col1">
-                  <h2 className="np1-glance__title">At a glance</h2>
-                </div>
-                <div className="np1-glance__col2">
-                  <div className="np1-glance__blocks">
-                    {GLANCE_BLOCKS.map((block) => (
-                      <article key={block.id} className="np1-glance-block">
-                        <div className="np1-glance-block__head">
-                          <span className="np1-glance-block__icon" aria-hidden>
-                            {block.icon}
-                          </span>
-                          <h3 className="np1-glance-block__label">{block.label}</h3>
-                        </div>
-                        <div className="np1-glance-block__divider" aria-hidden />
-                        <div className="np1-glance-block__content">
-                          {block.value ? (
-                            <p className="np1-glance-block__value">{block.value}</p>
-                          ) : null}
-                          {block.pairs ? (
-                            <div className="np1-glance-block__pairs">
-                              {block.pairs.map((pair) => (
-                                <div key={pair.id} className="np1-glance-block__pair">
-                                  <span className="np1-glance-block__pair-primary">{pair.primary}</span>
-                                  <span className="np1-glance-block__pair-secondary">{pair.secondary}</span>
-                                </div>
-                              ))}
-                            </div>
-                          ) : null}
-                          {block.paragraph ? (
-                            <p className="np1-glance-block__paragraph">{block.paragraph}</p>
-                          ) : null}
-                        </div>
-                      </article>
-                    ))}
-                  </div>
+              <div className="np1-split">
+                <h2 className="np1-split__headline">At a glance</h2>
+                <div className="np1-glance__blocks">
+                  {GLANCE_BLOCKS.map((block) => (
+                    <article key={block.id} className="np1-glance-block">
+                      <div className="np1-glance-block__head">
+                        <span className="np1-glance-block__icon" aria-hidden>
+                          {block.icon}
+                        </span>
+                        <h3 className="np1-glance-block__label">{block.label}</h3>
+                      </div>
+                      <div className="np1-glance-block__divider" aria-hidden />
+                      <div className="np1-glance-block__content">
+                        {block.value ? (
+                          <p className="np1-glance-block__value">{block.value}</p>
+                        ) : null}
+                        {block.pairs ? (
+                          <div className="np1-glance-block__pairs">
+                            {block.pairs.map((pair) => (
+                              <div key={pair.id} className="np1-glance-block__pair">
+                                <span className="np1-glance-block__pair-primary">{pair.primary}</span>
+                                <span className="np1-glance-block__pair-secondary">{pair.secondary}</span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : null}
+                        {block.paragraph ? (
+                          <p className="np1-glance-block__paragraph">{block.paragraph}</p>
+                        ) : null}
+                      </div>
+                    </article>
+                  ))}
                 </div>
               </div>
             </div>
@@ -781,7 +781,8 @@ export default function NewProject1Page({ embedded = false }: NewProject1PagePro
           })}
 
         {!embedded && <EndHeroSection />}
-        {!embedded && <CaseStudyNavSection />}
+        {!embedded && <CaseStudyNavSection currentSlug="consumer-cx-pro" />}
+        {!embedded && <ScrollToTopButton visible={showScrollToTop} />}
 
         {!embedded && (
           <footer className="new-project-1-footer" data-dev-section="footer">

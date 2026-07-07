@@ -7,6 +7,7 @@ import { MediaLoader, ImgWithLoader } from '../components/MediaLoader'
 import CxProPage from './CxProPage'
 import Project2Page from './Project2Page'
 import NewProject1Page, { NEW_PROJECT_1_META, NEW_PROJECT_1_ROUTE } from './NewProject1Page'
+import { CASE_STUDIES } from '../data/caseStudies'
 import './HomePageV2.css'
 
 const FigPalPopup = lazy(() => import('../components/FigPalPopup'))
@@ -232,7 +233,8 @@ function CaseStudyPopup({
   onClose: () => void
 }) {
   const navigate = useNavigate()
-  const fullHref = caseStudyId === 'project1' ? '/project1' : '/project2'
+  const study = CASE_STUDIES.find((entry) => entry.homeCardId === caseStudyId)
+  const fullHref = study?.route ?? '/'
   const [isExpanding, setIsExpanding] = useState(false)
 
   useEffect(() => {
@@ -251,7 +253,7 @@ function CaseStudyPopup({
     return () => clearTimeout(id)
   }, [isExpanding, navigate, fullHref])
 
-  const title = caseStudyId === 'project1' ? 'CX Pro' : 'Validus'
+  const title = study?.title ?? 'Case Study'
   const timeline = caseStudyId === 'project1' ? 'Nov 23 – Nov 25' : 'Nov 23 – Nov 25'
   const role = 'Product Design'
   const org = caseStudyId === 'project1' ? 'Cosm' : 'Eventus'
@@ -384,7 +386,7 @@ const WORK_CARDS = [
   },
   {
     id: 'project1' as const,
-    label: 'CX Pro',
+    label: 'CX Pro: Concept to Commercialization',
     year: '2023-25',
     hoverLine: 'Scaling 0→1 enterprise platform to commercial launch.',
     bgStyle: { backgroundImage: 'url(/project1-cx.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
@@ -392,7 +394,7 @@ const WORK_CARDS = [
   },
   {
     id: 'project2' as const,
-    label: 'Validus',
+    label: 'Validus Overhaul',
     year: '2022',
     hoverLine: 'Reviving a legacy product with +72% satisfaction.',
     bgStyle: { backgroundImage: 'url(/project2-events.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
@@ -615,7 +617,7 @@ export default function HomePageV2() {
                     onClick={() => openPopup('project2')}
                     imgSrc="/project2-events.png"
                     videoSrc="/Vid2.mov"
-                    label="Validus"
+                    label="Validus Overhaul"
                     year="2022"
                     visual="dark"
                     showVideo={project2ShowVideo}

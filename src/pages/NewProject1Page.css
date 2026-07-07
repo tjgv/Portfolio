@@ -320,65 +320,21 @@
 
 /* ----- At a glance ----- */
 .np1-glance__inner {
-  display: flex;
-  flex-direction: column;
-  gap: var(--np1-block-gap);
   padding-top: clamp(64px, 6.6vw, 100px);
 }
 
-/* ----- At a glance: header-left / content-right layout -----
-   Mirrors the CX Pro "My Role" block group: a sticky col1 label and a col2
-   stack of icon-labeled sub-blocks. Single column on mobile and inside the
-   embedded popup; two columns on the full desktop page. */
-.np1-glance__layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  width: 100%;
-}
-
-@media (min-width: 1025px) {
-  .new-project-1-page:not(.cx-pro-page--embedded) .np1-glance__layout {
-    grid-template-columns: minmax(160px, 0.4fr) 1fr;
-    gap: 0 32px;
-    align-items: start;
-  }
-
-  .new-project-1-page:not(.cx-pro-page--embedded) .np1-glance__col1 {
-    position: sticky;
-    top: 24px;
-  }
-}
-
-.np1-glance__title {
-  margin: 0;
-  width: 100%;
-  font-family: var(--np1-font-display);
-  font-size: var(--np1-header-2-size);
-  font-weight: var(--np1-header-2-weight);
-  line-height: var(--np1-header-2-lh);
-  letter-spacing: var(--np1-header-2-ls);
-  text-align: left;
-  color: var(--np1-text-hero);
-}
-
-/* ----- At a glance: icon-labeled blocks -----
-   Styled after the CX Pro "My Role" block group (icon + label header, light
-   grey divider, value/paragraph or name-role pairs). Only Header-2 and
-   Body-2 are used; Body-2's weight shifts +100 for values/names and -100
-   for muted secondary text to build hierarchy without new type styles. */
 .np1-glance__blocks {
   display: flex;
   flex-direction: column;
   gap: clamp(28px, 3.2vw, 40px);
   width: 100%;
-  max-width: calc(760px * var(--np1-content-width-scale));
+  padding-block: 10px;
 }
 
 .np1-glance-block {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--np1-label-title-gap);
   width: 100%;
 }
 
@@ -408,10 +364,10 @@
 .np1-glance-block__label {
   margin: 0;
   font-family: var(--np1-font-display);
-  font-size: var(--np1-header-2-size);
-  font-weight: var(--np1-header-2-weight);
-  line-height: var(--np1-header-2-lh);
-  letter-spacing: var(--np1-header-2-ls);
+  font-size: var(--np1-body-1-size);
+  font-weight: var(--np1-split-body-weight);
+  line-height: var(--np1-body-1-lh);
+  letter-spacing: var(--np1-body-1-ls);
   color: var(--np1-text-hero);
 }
 
@@ -593,7 +549,7 @@
 }
 
 .np1-stub--goal .np1-stub__title {
-  max-width: calc(1515px * var(--np1-content-width-scale) * 0.85);
+  max-width: calc(1515px * var(--np1-content-width-scale) * 0.85 * 0.8);
   margin-bottom: clamp(24px, 3vw, 40px);
   font-size: var(--np1-header-1-size);
   line-height: var(--np1-header-1-lh);
@@ -608,7 +564,7 @@
 
 .np1-stub--goal .np1-stub__body {
   margin: 0;
-  max-width: calc(1312px * var(--np1-content-width-scale) * 0.85);
+  max-width: calc(1312px * var(--np1-content-width-scale) * 0.85 * 0.8);
   font-family: var(--np1-font-display);
   font-size: var(--np1-body-1-size);
   font-weight: var(--np1-split-body-weight);

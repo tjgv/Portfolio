@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { useLayoutEffect, lazy, Suspense } from 'react'
 import HomePageV2 from './pages/HomePageV2'
 import HomePageV2Test from './pages/HomePageV2Test'
@@ -46,9 +46,12 @@ export default function App() {
         <Route path="/home-test" element={<HomePageV2Test />} />
         <Route path="/run-of-show" element={<RunOfShowPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/project1" element={<CxProPage />} />
-        <Route path="/project2" element={<Project2Page />} />
-        <Route path="/new-project-1" element={<NewProject1Page />} />
+        <Route path="/consumer-cx-pro" element={<NewProject1Page />} />
+        <Route path="/cx-pro-c2c" element={<CxProPage />} />
+        <Route path="/validus-redesign" element={<Project2Page />} />
+        <Route path="/new-project-1" element={<Navigate to="/consumer-cx-pro" replace />} />
+        <Route path="/project1" element={<Navigate to="/cx-pro-c2c" replace />} />
+        <Route path="/project2" element={<Navigate to="/validus-redesign" replace />} />
         <Route path="/workflow" element={<Suspense fallback={null}><WorkflowBuilderPage /></Suspense>} />
         <Route path="/ai" element={<PromptsPage />} />
         <Route path="/prompts/:slug" element={<PromptView />} />

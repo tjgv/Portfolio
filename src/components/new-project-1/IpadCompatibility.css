@@ -66,11 +66,11 @@
 }
 
 .np1-ipad-compat__body {
-  font-family: var(--np1-font-body);
-  font-size: var(--np1-body-2-size);
-  font-weight: var(--np1-body-2-weight);
-  line-height: var(--np1-body-2-lh);
-  letter-spacing: var(--np1-body-2-ls);
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-body-1-size);
+  font-weight: var(--np1-split-body-weight);
+  line-height: var(--np1-body-1-lh);
+  letter-spacing: var(--np1-body-1-ls);
   color: var(--np1-text-sub-hero);
 }
 

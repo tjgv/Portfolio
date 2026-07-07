@@ -13,6 +13,7 @@ export default function RunOfShowSideShot() {
       devSection="run-of-show-side-shot"
       ariaLabel="Run of show view"
       reveal={RUN_SHOW_REVEAL}
+      bodyVariant="body-1"
     >
       <p>
         I designed the Run Show View based on the assumption that this view would be the primary

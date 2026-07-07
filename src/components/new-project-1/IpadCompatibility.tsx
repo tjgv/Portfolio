@@ -40,11 +40,6 @@ export default function IpadCompatibility() {
               experiences efficiently in a way that fits their operations.
             </p>
             <p>
-              For some, that means a simple interface that lets them focus on other event
-              responsibilities. For others, it means more direct ways to engage with an audience. In
-              many cases, being tied to a desktop only adds friction.
-            </p>
-            <p>
               Ultimately, CX Pro is not meant to drive engagement, it&apos;s meant to make operations
               effortless. An iPad gives speakers direct control of their shows, allows event staff
               to multitask more freely, and makes the product more accessible.

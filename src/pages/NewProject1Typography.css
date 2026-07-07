@@ -1,6 +1,7 @@
 /* New Project 1 typography — Figma node 26308:68451 */
 
 .new-project-1-page,
+.np1-case-study-nav,
 .np1-popup-overlay,
 .np1-popup-reveal-portal-host {
   --np1-font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -66,7 +67,7 @@
   --np1-column-width: calc(1000px * var(--np1-content-width-scale));
   --np1-split-gap: clamp(40px, 5.4vw, 81px);
   --np1-block-gap: clamp(40px, 4vw, 60px);
-  --np1-label-title-gap: 30px;
+  --np1-label-title-gap: 24px;
   --np1-split-body-weight: 510;
 
   font-family: var(--np1-font-body);

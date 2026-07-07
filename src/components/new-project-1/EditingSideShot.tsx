@@ -12,6 +12,7 @@ export default function EditingSideShot() {
       imageScale={1.15}
       devSection="editing-side-shot"
       ariaLabel="Editing view"
+      bodyVariant="body-1"
     >
       <p>
         After initial pitch, we agreed that a Run Show view would come later, and that the MVP for
