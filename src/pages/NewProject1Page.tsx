@@ -181,7 +181,17 @@ type EmbedSection = {
   header: string
   body: ReactNode
   images?: readonly { src: string; alt: string }[]
-  videos?: readonly { src: string; ariaLabel: string; hideReset?: boolean }[]
+  videos?: readonly {
+    src: string
+    ariaLabel: string
+    hideReset?: boolean
+    /** Native width/height of the source clip — sizes the video's black-fill
+     *  frame to match its own footprint instead of an arbitrary default. */
+    aspectRatio: string
+    /** CSS `object-position` override, e.g. to crop unwanted headroom off
+     *  the top of a clip instead of cropping evenly on both edges. */
+    objectPosition?: string
+  }[]
   extra?: ReactNode
 }
 
@@ -228,6 +238,7 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
       {
         src: '/new-project-1/editing-clip-1.mp4',
         ariaLabel: 'CX Pro layer asset thumbnail system demonstration',
+        aspectRatio: '1920 / 1244',
       },
     ],
   },
@@ -247,10 +258,18 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
       {
         src: '/new-project-1/feature-show-management.mp4',
         ariaLabel: 'CX Pro show management and run of show view demonstration',
+        aspectRatio: '1920 / 1046',
       },
       {
         src: '/new-project-1/feature-guided-transitions.mp4',
         ariaLabel: 'CX Pro simplified and guided transitions — proposed experience',
+        // This clip has ~50px of unintentional black headroom baked into the
+        // source recording. Rather than re-export the video, the frame is
+        // sized ~50px shorter than the clip's true 1920x1376 footprint and
+        // the video is cropped to its bottom edge, trimming that headroom
+        // off the top instead of squeezing/cropping it evenly.
+        aspectRatio: '1920 / 1326',
+        objectPosition: 'center bottom',
       },
     ],
   },
@@ -277,6 +296,7 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
         src: '/new-project-1/ipad-trim2.mov',
         ariaLabel: 'CX Pro iPad compatibility demonstration',
         hideReset: true,
+        aspectRatio: '1920 / 1472',
       },
     ],
   },
@@ -516,17 +536,33 @@ export default function NewProject1Page({ embedded = false }: NewProject1PagePro
         <div className="np1-content" data-dev-section="content">
         <section className="np1-section np1-intro" data-dev-section="intro" aria-label="Introduction">
           <div className="np1-section__inner np1-intro__inner">
-            <div className="np1-split">
-              <h2 className="np1-split__headline">
-                Preparing an internal tool for an external release.
-              </h2>
-              <p className="np1-split__body">
-                I was the sole designer for CX Pro. This is a tool used to build, run, and manage
-                Cosm&apos;s advanced displays, including their marquee product: the immersive dome.
-                Early 2025, I learned the tool was being positioned for external clients. At the
-                time, we only had internal venue staff using the tool.
-              </p>
-            </div>
+            {embedded ? (
+              <div className="np1-embed-block__text np1-embed-block__text--lead">
+                <div className="np1-split">
+                  <h2 className="np1-split__headline">
+                    Preparing an internal tool for an external release.
+                  </h2>
+                  <p className="np1-split__body">
+                    I was the sole designer for CX Pro. This is a tool used to build, run, and manage
+                    Cosm&apos;s advanced displays, including their marquee product: the immersive dome.
+                    Early 2025, I learned the tool was being positioned for external clients. At the
+                    time, we only had internal venue staff using the tool.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="np1-split">
+                <h2 className="np1-split__headline">
+                  Preparing an internal tool for an external release.
+                </h2>
+                <p className="np1-split__body">
+                  I was the sole designer for CX Pro. This is a tool used to build, run, and manage
+                  Cosm&apos;s advanced displays, including their marquee product: the immersive dome.
+                  Early 2025, I learned the tool was being positioned for external clients. At the
+                  time, we only had internal venue staff using the tool.
+                </p>
+              </div>
+            )}
           </div>
         </section>
 
@@ -583,37 +619,41 @@ export default function NewProject1Page({ embedded = false }: NewProject1PagePro
                 className="np1-embed-block"
                 data-dev-section={section.id}
               >
-                <div className="np1-embed-block__col1">
+                <div className="np1-embed-block__text">
                   <h2 className="np1-embed-header">{section.header}</h2>
+                  <div className="np1-embed-block__body">{section.body}</div>
                 </div>
-                <div className="np1-embed-block__col2">
-                  {section.body}
-                  {section.images?.length === 2 ? (
-                    <div className="np1-embed-two-images">
-                      {section.images.map((image) => (
-                        <ImgWithLoader key={image.src} src={image.src} alt={image.alt} />
-                      ))}
-                    </div>
-                  ) : section.images?.length === 1 ? (
-                    <div className="np1-embed-full-width">
-                      <ImgWithLoader src={section.images[0].src} alt={section.images[0].alt} />
-                    </div>
-                  ) : null}
-                  {section.videos?.length ? (
-                    <div className="np1-embed-video-stack">
-                      {section.videos.map((video) => (
-                        <div key={video.src} className="np1-embed-full-width">
+                {section.images?.length === 2 ? (
+                  <div className="np1-embed-two-images">
+                    {section.images.map((image) => (
+                      <ImgWithLoader key={image.src} src={image.src} alt={image.alt} />
+                    ))}
+                  </div>
+                ) : section.images?.length === 1 ? (
+                  <div className="np1-embed-full-width">
+                    <ImgWithLoader src={section.images[0].src} alt={section.images[0].alt} />
+                  </div>
+                ) : null}
+                {section.videos?.length ? (
+                  <div className="np1-embed-video-stack">
+                    {section.videos.map((video) => (
+                      <div key={video.src} className="np1-embed-full-width">
+                        <div
+                          className="np1-embed-video-frame"
+                          style={{ aspectRatio: video.aspectRatio }}
+                        >
                           <EmbedControlledVideo
                             src={video.src}
                             ariaLabel={video.ariaLabel}
                             hideReset={video.hideReset}
+                            objectPosition={video.objectPosition}
                           />
                         </div>
-                      ))}
-                    </div>
-                  ) : null}
-                  {section.extra}
-                </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+                {section.extra}
               </div>
             ))}
           </div>

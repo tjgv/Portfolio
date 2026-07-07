@@ -163,7 +163,7 @@ function NewProject1Popup({ onClose }: { onClose: () => void }) {
       onClick={(e) => !isExpanding && e.target === e.currentTarget && onClose()}
     >
       <div
-        className={`home-v2-popup home-v2-popup--dark ${isExpanding ? 'home-v2-popup--expanding' : ''}`}
+        className={`home-v2-popup ${isExpanding ? 'home-v2-popup--expanding' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
         <nav className="home-v2-popup-nav" aria-label="Preview actions">

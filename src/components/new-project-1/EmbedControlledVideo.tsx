@@ -42,13 +42,17 @@ type EmbedControlledVideoProps = {
   /** Hides the corner restart/progress button (e.g. for a short clip where
    *  restarting isn't a useful action). */
   hideReset?: boolean
+  /** CSS `object-position` for the video within its (letterboxed) frame —
+   *  e.g. `'center bottom'` to crop off unwanted headroom from the top of
+   *  the source clip instead of cropping evenly on both edges. */
+  objectPosition?: string
 }
 
 /** Preview-modal video: stays paused until scrolled into view, then autoplays
  *  and loops. Clicking the video toggles play/pause (with a giant play glyph
  *  while paused); a separate reset button in the corner always restarts the
  *  clip from the beginning without affecting play/pause state. */
-export default function EmbedControlledVideo({ src, ariaLabel, hideReset }: EmbedControlledVideoProps) {
+export default function EmbedControlledVideo({ src, ariaLabel, hideReset, objectPosition }: EmbedControlledVideoProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const hasEnteredRef = useRef(false)
@@ -163,11 +167,13 @@ export default function EmbedControlledVideo({ src, ariaLabel, hideReset }: Embe
     >
       <VideoWithLoader
         ref={videoRef}
+        fill
         src={src}
         aria-label={ariaLabel}
         muted
         playsInline
         preload="auto"
+        style={objectPosition ? { objectPosition } : undefined}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleEnded}
       />

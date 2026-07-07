@@ -34,8 +34,15 @@
   padding: 0;
 }
 
+/* Preview modal only: white background, black text — matches the CX Pro /
+   Validus preview modals instead of the full page's dark theme. */
 .new-project-1-page.cx-pro-page--embedded {
   min-height: 0;
+  --np1-bg: #ffffff;
+  --np1-text-hero: #000000;
+  --np1-text-sub-hero: #000000;
+  --np1-text-sub-1: #6b6b6b;
+  --np1-border: rgba(0, 0, 0, 0.12);
 }
 
 /* ----- Nav (fixed overlay — hero extends to page top) ----- */
@@ -269,6 +276,7 @@
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 8px;
 }
 
 .np1-intro,
@@ -297,6 +305,12 @@
    on top of the bottom of the banner image, covering it. */
 .new-project-1-page.cx-pro-page--embedded .np1-intro {
   margin-top: 0;
+  padding-bottom: 0;
+}
+
+.new-project-1-page.cx-pro-page--embedded .np1-intro__inner {
+  padding-top: 100px;
+  padding-bottom: 0;
 }
 
 .np1-intro__inner {
@@ -672,24 +686,34 @@
    scale. */
 .np1-embed-sections {
   width: 100%;
-  padding: clamp(48px, 8vh, 100px) 0;
+  padding: 0;
 }
 
 .np1-embed-block {
   display: flex;
   flex-direction: column;
+  gap: 28px;
+  padding-top: 100px;
+  padding-bottom: 0;
+}
+
+.np1-embed-block__text {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
-  padding-top: 27px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--np1-border);
+  padding-top: 20px;
 }
 
-.np1-embed-block:first-child {
-  padding-top: 0;
+.np1-embed-block__text--lead {
   border-top: none;
+  padding-top: 0;
 }
 
-.np1-embed-block + .np1-embed-block {
-  margin-top: 27px;
+.np1-embed-block__body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .np1-embed-header {
@@ -700,12 +724,6 @@
   letter-spacing: var(--np1-header-2-ls);
   font-weight: var(--np1-header-2-weight);
   color: var(--np1-text-hero);
-}
-
-.np1-embed-block__col2 {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
 }
 
 .np1-embed-body {
@@ -739,6 +757,22 @@
   flex-direction: column;
   gap: 14px;
   width: 100%;
+}
+
+/* Video frame — black fill + light-grey stroke sized to the video's own
+   footprint (via aspect-ratio), with the video inset 24px on every side.
+   Needed because several source clips have their own black backdrops; the
+   preview modal is no longer black, so it can't rely on the modal's own
+   background to hide those edges. Sizing the frame to the video's native
+   aspect ratio keeps every section the same height it was before. */
+.np1-embed-video-frame {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background: #000;
+  border: 2px solid #808080;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .np1-embed-two-images {
@@ -800,6 +834,37 @@
 
 .np1-embed-results-phases .np1-phase-circle__status {
   font-size: calc(var(--np1-body-2-size) - 2px);
+}
+
+/* Phase-circle diagram was designed for the full page's black background —
+   re-tone the circle fills, connecting stroke, and status text for
+   legibility against the preview modal's white background. */
+.new-project-1-page.cx-pro-page--embedded .np1-phase-circle {
+  background: #f0f0f0;
+  border-color: transparent;
+}
+
+.new-project-1-page.cx-pro-page--embedded .np1-results__stroke {
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+}
+
+.new-project-1-page.cx-pro-page--embedded .np1-phase-circle--green .np1-phase-circle__status {
+  color: #0e9f5d;
+}
+
+.new-project-1-page.cx-pro-page--embedded .np1-phase-circle--green.np1-phase-circle--activated {
+  background: #e9f9f0;
+  border-color: #0e9f5d;
+}
+
+.new-project-1-page.cx-pro-page--embedded .np1-phase-circle--yellow .np1-phase-circle__status {
+  color: #a68b00;
+}
+
+.new-project-1-page.cx-pro-page--embedded .np1-phase-circle--yellow.np1-phase-circle--activated {
+  background: #fbf7e0;
+  border-color: #a68b00;
 }
 
 @media (max-width: 600px) {

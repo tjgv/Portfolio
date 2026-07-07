@@ -1,7 +1,30 @@
 import { Link } from 'react-router-dom'
-import { MapPin, GraduationCap } from 'lucide-react'
+import { MapPin, GraduationCap, ArrowUpRight } from 'lucide-react'
 import './HomePageV2.css'
 import './ContactPage.css'
+
+const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
+const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
+
+/* Diagonal arrow that slides up-and-out on hover, replaced by a duplicate
+   sliding in from the opposite corner — signals "opens in a new tab".
+   Mirrors the homepage nav's NavExternalArrow. */
+function NavExternalArrow() {
+  return (
+    <span className="home-v2-nav-arrow" aria-hidden="true">
+      <ArrowUpRight
+        className="home-v2-nav-arrow__icon home-v2-nav-arrow__icon--primary"
+        size={13}
+        strokeWidth={2.25}
+      />
+      <ArrowUpRight
+        className="home-v2-nav-arrow__icon home-v2-nav-arrow__icon--secondary"
+        size={13}
+        strokeWidth={2.25}
+      />
+    </span>
+  )
+}
 
 export default function ContactPage() {
   return (
@@ -22,8 +45,26 @@ export default function ContactPage() {
               </div>
               <nav className="home-v2-nav" aria-label="Main">
                 <Link to="/" className="home-v2-nav-item">Work</Link>
-                <Link to="/ai" className="home-v2-nav-item">A.I Prompts</Link>
                 <span className="home-v2-nav-item home-v2-nav-item--active">About</span>
+                <span className="home-v2-nav-divider" aria-hidden="true" />
+                <a
+                  href={RESUME_PDF_PATH}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="home-v2-nav-item home-v2-nav-item--external"
+                >
+                  Resume
+                  <NavExternalArrow />
+                </a>
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="home-v2-nav-item home-v2-nav-item--external"
+                >
+                  LinkedIn
+                  <NavExternalArrow />
+                </a>
               </nav>
             </div>
           </div>
@@ -79,8 +120,26 @@ export default function ContactPage() {
             <span className="home-v2-footer-name">T.J. Gomez-Vidal</span>
             <div className="home-v2-footer-links">
               <Link to="/" className="home-v2-footer-link">Work</Link>
-              <Link to="/ai" className="home-v2-footer-link">A.I Prompts</Link>
               <span className="home-v2-footer-link home-v2-footer-link--active">About</span>
+              <span className="home-v2-footer-divider" aria-hidden="true" />
+              <a
+                href={RESUME_PDF_PATH}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="home-v2-footer-link home-v2-footer-link--external"
+              >
+                Resume
+                <NavExternalArrow />
+              </a>
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="home-v2-footer-link home-v2-footer-link--external"
+              >
+                LinkedIn
+                <NavExternalArrow />
+              </a>
             </div>
             <div className="home-v2-footer-contact">
               <span>Let&apos;s work together!</span>
