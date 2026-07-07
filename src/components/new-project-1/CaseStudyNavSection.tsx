@@ -39,11 +39,11 @@ export default function CaseStudyNavSection({
               aria-hidden="true"
             />
             <span className="np1-case-study-nav__copy">
+              <span className="np1-case-study-nav__title">{prev.title}</span>
               <span className="np1-case-study-nav__cta-row">
                 <ArrowLeft className="np1-case-study-nav__arrow" size={16} strokeWidth={2.25} aria-hidden />
                 <span className="np1-case-study-nav__cta">View Previous</span>
               </span>
-              <span className="np1-case-study-nav__title">{prev.title}</span>
             </span>
           </Link>
         ) : (
