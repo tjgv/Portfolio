@@ -920,31 +920,6 @@
   justify-content: flex-end;
 }
 
-.home-v2-popup-expand {
-  position: static;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 100px;
-  background: rgba(0, 0, 0, 0.06);
-  color: #1a1a1a;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.home-v2-popup-expand-text {
-  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.home-v2-popup-expand:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
 .home-v2-popup-close {
   width: 32px;
   height: 32px;
@@ -1899,7 +1874,7 @@ button.home-v2-popup-xp-caption:active {
 }
 
 .home-v2-popup-title {
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 0;
@@ -1908,7 +1883,7 @@ button.home-v2-popup-xp-caption:active {
 
 @media (max-width: 479px) {
   .home-v2-popup-title {
-    font-size: 24px;
+    font-size: 28px;
   }
 }
 

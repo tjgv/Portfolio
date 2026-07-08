@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useRef, lazy, Suspense } from 'react'
-import { ArrowUpRight, Gamepad2, Maximize2 } from 'lucide-react'
+import { ArrowUpRight, Gamepad2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import type { FigPalFollowState, FigPalBuilderState } from '../components/FigPalCharacterBuilder'
 import FigPalSign from '../components/FigPalSign'
@@ -7,6 +7,7 @@ import { MediaLoader, ImgWithLoader } from '../components/MediaLoader'
 import CxProPage from './CxProPage'
 import Project2Page from './Project2Page'
 import NewProject1Page, { NEW_PROJECT_1_META, NEW_PROJECT_1_ROUTE } from './NewProject1Page'
+import CaseStudyPreviewNav from '../components/CaseStudyPreviewNav'
 import { CASE_STUDIES } from '../data/caseStudies'
 import './HomePageV2.css'
 
@@ -167,27 +168,7 @@ function NewProject1Popup({ onClose }: { onClose: () => void }) {
         className={`home-v2-popup ${isExpanding ? 'home-v2-popup--expanding' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <nav className="home-v2-popup-nav" aria-label="Preview actions">
-          <button
-            type="button"
-            className="home-v2-popup-expand"
-            onClick={handleExpandClick}
-            aria-label="View full case study"
-          >
-            <Maximize2 size={18} aria-hidden />
-            <span className="home-v2-popup-expand-text">View Full</span>
-          </button>
-          <button
-            type="button"
-            className="home-v2-popup-close"
-            onClick={onClose}
-            aria-label="Close preview"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </button>
-        </nav>
+        <CaseStudyPreviewNav onClose={onClose} onViewCaseStudy={handleExpandClick} />
         <div className="home-v2-popup-scroll">
           <header className="home-v2-popup-header">
             <h1 className="home-v2-popup-title">{title}</h1>
@@ -271,27 +252,7 @@ function CaseStudyPopup({
         className={`home-v2-popup ${isExpanding ? 'home-v2-popup--expanding' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <nav className="home-v2-popup-nav" aria-label="Preview actions">
-          <button
-            type="button"
-            className="home-v2-popup-expand"
-            onClick={handleExpandClick}
-            aria-label="View full case study"
-          >
-            <Maximize2 size={18} aria-hidden />
-            <span className="home-v2-popup-expand-text">View Full</span>
-          </button>
-          <button
-            type="button"
-            className="home-v2-popup-close"
-            onClick={onClose}
-            aria-label="Close preview"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </button>
-        </nav>
+        <CaseStudyPreviewNav onClose={onClose} onViewCaseStudy={handleExpandClick} />
         <div className="home-v2-popup-scroll">
           <header className="home-v2-popup-header">
             <h1 className="home-v2-popup-title">{title}</h1>

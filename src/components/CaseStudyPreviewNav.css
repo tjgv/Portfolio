@@ -1,0 +1,105 @@
+.home-v2-popup-nav-start {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.home-v2-popup-nav-title {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.005rem;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+.home-v2-preview-cta-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.home-v2-preview-cta-measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  white-space: nowrap;
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.home-v2-preview-cta__icon-sizer {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+}
+
+.home-v2-preview-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: var(--preview-cta-width, 36px);
+  height: 36px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 999px;
+  background: #2d66c3;
+  color: #fff;
+  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: filter 0.2s ease;
+}
+
+.home-v2-preview-cta--ready:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.home-v2-preview-cta:disabled {
+  cursor: default;
+}
+
+.home-v2-preview-cta__text {
+  flex-shrink: 0;
+  max-width: var(--preview-cta-text-max-width, 0px);
+  opacity: var(--preview-cta-text-opacity, 0);
+  overflow: hidden;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.home-v2-preview-cta__icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  color: #fff;
+  transform: scale(var(--preview-cta-icon-scale, 0));
+  transform-origin: center center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-v2-preview-cta {
+    width: auto !important;
+    cursor: pointer;
+  }
+
+  .home-v2-preview-cta__text {
+    max-width: none !important;
+    opacity: 1 !important;
+  }
+
+  .home-v2-preview-cta__icon {
+    transform: scale(1) !important;
+  }
+}
