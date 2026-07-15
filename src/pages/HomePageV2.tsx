@@ -134,6 +134,13 @@ function MediaCycleCard({
 }
 
 
+/* =============================================================================
+ * DORMANT: home-case-study-preview-modals
+ * NewProject1Popup + CaseStudyPopup are kept for easy restore but currently
+ * unwired — HomePageV2 cards navigate straight to CASE_STUDIES routes instead.
+ * See .cursor/rules/home-case-study-preview-modals.mdc
+ * ============================================================================= */
+
 /* New project 1 preview popup — slot 1 case study shell */
 function NewProject1Popup({ onClose }: { onClose: () => void }) {
   const navigate = useNavigate()
@@ -396,6 +403,7 @@ const WORK_CARDS = [
 ]
 
 export default function HomePageV2() {
+  const navigate = useNavigate()
   const [popupCaseStudy, setPopupCaseStudy] = useState<CaseStudyId>(null)
   const [heroShowVideo, setHeroShowVideo] = useState(false)
   const [project1ShowVideo, setProject1ShowVideo] = useState(false)
@@ -416,6 +424,16 @@ export default function HomePageV2() {
 
   const openPopup = useCallback((id: CaseStudyId) => setPopupCaseStudy(id), [])
   const closePopup = useCallback(() => setPopupCaseStudy(null), [])
+
+  /** Case-study cards skip the preview modal and go straight to the full page.
+   *  (DORMANT restore: home-case-study-preview-modals → openPopup instead) */
+  const openCaseStudy = useCallback(
+    (homeCardId: 'placeholder1' | 'project1' | 'project2') => {
+      const study = CASE_STUDIES.find((entry) => entry.homeCardId === homeCardId)
+      if (study) navigate(study.route)
+    },
+    [navigate]
+  )
 
   const handleFigPalClose = useCallback(() => {
     try {
@@ -548,7 +566,7 @@ export default function HomePageV2() {
               <div key={card.id} className={`home-v2-card-wrap${isPlaying ? ' home-v2-card-wrap--playing' : ''}`}>
                 {card.id === 'placeholder1' ? (
                   <MediaCycleCard
-                    onClick={() => openPopup('placeholder1')}
+                    onClick={() => openCaseStudy('placeholder1')}
                     imgSrc="/consumer-cx-cover.png"
                     videoSrc="/consumer-cx-cover.mp4"
                     label={card.label}
@@ -571,7 +589,7 @@ export default function HomePageV2() {
                   </button>
                 ) : card.id === 'project1' ? (
                   <MediaCycleCard
-                    onClick={() => openPopup('project1')}
+                    onClick={() => openCaseStudy('project1')}
                     imgSrc="/project1-cx.png"
                     videoSrc="/clip-3-cosm.mov"
                     label="CX Pro"
@@ -583,7 +601,7 @@ export default function HomePageV2() {
                   />
                 ) : card.id === 'project2' ? (
                   <MediaCycleCard
-                    onClick={() => openPopup('project2')}
+                    onClick={() => openCaseStudy('project2')}
                     imgSrc="/project2-events.png"
                     videoSrc="/Vid2.mov"
                     label="Validus Overhaul"
@@ -668,10 +686,6 @@ export default function HomePageV2() {
         </Suspense>
       ) : popupCaseStudy === 'project3' ? (
         <Project3FigmaPopup onClose={closePopup} />
-      ) : popupCaseStudy === 'placeholder1' ? (
-        <NewProject1Popup onClose={closePopup} />
-      ) : popupCaseStudy === 'project1' || popupCaseStudy === 'project2' ? (
-        <CaseStudyPopup caseStudyId={popupCaseStudy} onClose={closePopup} />
       ) : null}
       {figpalFollowState.enabled &&
         (figpalParked || isFigpalMobile) &&

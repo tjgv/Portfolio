@@ -67,6 +67,8 @@
   --np1-column-width: calc(1000px * var(--np1-content-width-scale));
   --np1-split-gap: clamp(40px, 5.4vw, 81px);
   --np1-block-gap: clamp(40px, 4vw, 60px);
+  /* Shared vertical gap between a text stack and the media below it */
+  --np1-text-media-gap: clamp(60px, 7vw, 120px);
   --np1-label-title-gap: 24px;
   --np1-split-body-weight: 510;
 

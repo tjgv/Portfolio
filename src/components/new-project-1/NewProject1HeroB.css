@@ -1,0 +1,199 @@
+/* Hero variant B — single sticky frame: fade + image rise, then shrink + timed sides */
+
+.np1-hero-scroll--b {
+  --np1-hero-runway-title: 5vh;
+  --np1-hero-runway-ipad: 47.5vh;
+  --np1-hero-runway-settle: 20vh;
+  /* Brief settle after title — long hold + reverse/fixed was pinning over lower sections */
+  --np1-hero-runway-hold: 12vh;
+  position: relative;
+  height: calc(
+    100vh + var(--np1-hero-runway-title) + var(--np1-hero-runway-ipad) +
+      var(--np1-hero-runway-settle) + var(--np1-hero-runway-hold)
+  );
+  padding-bottom: 0;
+}
+
+.np1-hero-b-stage {
+  height: 100%;
+}
+
+.np1-hero-b-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  height: 100vh;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+}
+
+.np1-hero-scroll--b .np1-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.np1-hero-scroll--b .np1-hero__fade-from-bottom {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  will-change: background, opacity;
+}
+
+.np1-hero-scroll--b .np1-handoff-stack--b {
+  position: relative;
+  z-index: 3;
+  gap: 0;
+  padding-top: 0;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Three-device row — tablet on top, sides slide in underneath with overlap */
+.np1-hero-scroll--b .np1-handoff-devices {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.np1-hero-scroll--b .np1-handoff-ipad {
+  position: relative;
+  z-index: 3;
+  width: min(52%, 720px);
+  flex-shrink: 0;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.np1-hero-scroll--b .np1-handoff-ipad__inner {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+.np1-hero-scroll--b .np1-handoff-ipad__inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.np1-hero-scroll--b .np1-handoff-device {
+  position: absolute;
+  z-index: 1;
+  width: min(36.72%, 490px);
+  margin-top: 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Vertical rest above center; JS animates translateX only */
+.np1-hero-scroll--b .np1-handoff-device--left {
+  top: calc(50% - 13vh);
+  right: calc(52% + 5vh);
+  transform-origin: center center;
+}
+
+.np1-hero-scroll--b .np1-handoff-device--right {
+  top: calc(50% - 13vh);
+  left: calc(52% + 5vh);
+  transform-origin: center center;
+}
+
+.np1-hero-scroll--b .np1-handoff-device .media-with-loader-wrap,
+.np1-hero-scroll--b .np1-handoff-device img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.np1-hero-scroll--b .np1-hero__title.np1-hero__title--below-image {
+  position: absolute;
+  top: auto;
+  bottom: 13vh;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  max-width: none;
+  width: min(var(--np1-wide-max), 100%);
+  margin: 0 auto;
+  padding: 0 var(--np1-wide-padding-inline);
+  flex-shrink: 0;
+  font-size: var(--np1-header-1-size);
+  font-weight: var(--np1-header-1-weight);
+  line-height: var(--np1-header-1-lh);
+  letter-spacing: var(--np1-header-1-ls);
+  text-align: center;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+@media (max-width: 767px) {
+  .np1-hero-scroll--b .np1-handoff-ipad {
+    width: min(70%, 420px);
+  }
+
+  .np1-hero-scroll--b .np1-handoff-device {
+    width: min(44.37%, 275px);
+  }
+
+  .np1-hero-scroll--b .np1-handoff-device--left {
+    right: calc(48% + 5vh);
+  }
+
+  .np1-hero-scroll--b .np1-handoff-device--right {
+    left: calc(48% + 5vh);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1-hero-scroll--b {
+    --np1-hero-runway-title: 0vh;
+    --np1-hero-runway-ipad: 0vh;
+    --np1-hero-runway-settle: 0vh;
+    --np1-hero-runway-hold: 0vh;
+    height: auto;
+  }
+
+  .np1-hero-b-stage {
+    height: auto;
+  }
+
+  .np1-hero-b-sticky {
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .np1-hero-scroll--b .np1-handoff-ipad {
+    transform: translateY(5vh) scale(0.816) !important;
+  }
+
+  .np1-hero-scroll--b .np1-handoff-device {
+    opacity: 1 !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .np1-hero-scroll--b .np1-hero__title--below-image {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .np1-hero-scroll--b .np1-hero__fade-from-bottom {
+    background: #000 !important;
+    opacity: 1 !important;
+  }
+
+  .np1-hero-scroll--b .np1-hero__video {
+    opacity: 0 !important;
+  }
+}

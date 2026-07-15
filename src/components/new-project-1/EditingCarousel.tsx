@@ -2,6 +2,33 @@ import ImageCarousel, { type CarouselSlide } from './ImageCarousel'
 import RevealGradient from './RevealGradient'
 import './EditingCarousel.css'
 
+const MVP_PRIORITY_CARDS = [
+  {
+    id: 'asset-visualizations',
+    icon: '/new-project-1/icons/asset-visualization.svg',
+    title: 'Asset Visualizations',
+    body: 'Create clear visual identifiers for assets, making scene building more intuitive. The challenge was developing a scalable system alongside our content teams.',
+  },
+  {
+    id: 'scene-visualizations',
+    icon: '/new-project-1/icons/scene-visualization.svg',
+    title: 'Scene Visualizations',
+    body: 'Represent the combinations of assets that make up a show. The challenge was communicating these combinations without pre-rendered scenes.',
+  },
+  {
+    id: 'layering-support',
+    icon: '/new-project-1/icons/layering-support.svg',
+    title: 'Layering Support',
+    body: 'Communicate layer hierarchy and the unique behaviors of each layer type. The challenge was designing a consistent layer system where each layer behaves differently.',
+  },
+  {
+    id: 'auto-play-scenes',
+    icon: '/new-project-1/icons/auto-play.svg',
+    title: 'Auto-Play Scenes',
+    body: 'Move us closer to a click-and-go show running experience by reducing manual transitions. The challenge was supporting shows that do not follow a linear sequence.',
+  },
+] as const
+
 // Thin image (Image2) is in the center slot so it can be centered with overflow on both sides
 const SLIDES: CarouselSlide[] = [
   {
@@ -35,40 +62,38 @@ export default function EditingCarousel() {
     <section
       className="np1-section np1-editing-carousel"
       data-dev-section="editing-carousel"
-      aria-label="Editing view details"
+      aria-label="MVP Priorities"
     >
       <RevealGradient className="np1-editing-carousel__gradient" />
 
       <div className="np1-editing-carousel__inner">
         <div className="np1-editing-carousel__intro">
-          <h2 className="np1-editing-carousel__headline">MVP Editing + Groundwork Targets</h2>
-          <div className="np1-editing-carousel__body">
-            <p>
-              Beyond improving language and interactions, I focused on four changes to simplify
-              editing and early show running experiences.
-            </p>
-            <ol>
-              <li>
-                <strong>Asset Visualizations</strong> create clear visual identifiers for assets,
-                making scene building more intuitive. The challenge was developing a scalable system
-                alongside our content teams.
+          <p className="np1-editing-carousel__label">MVP Priorities</p>
+          <h2 className="np1-editing-carousel__headline">
+            Identifying Improvements for the Current Experience and the Future Split Experience
+          </h2>
+          <p className="np1-editing-carousel__lede">
+            I prioritized four initiatives that improved the current editing experience while
+            laying the groundwork for future Show Running capabilities.
+          </p>
+          <ul className="np1-editing-carousel__cards">
+            {MVP_PRIORITY_CARDS.map((card) => (
+              <li key={card.id} className="np1-editing-carousel__card">
+                <img
+                  className="np1-editing-carousel__card-icon"
+                  src={card.icon}
+                  alt=""
+                  aria-hidden
+                  width={24}
+                  height={24}
+                />
+                <div className="np1-editing-carousel__card-text">
+                  <h3 className="np1-editing-carousel__card-title">{card.title}</h3>
+                  <p className="np1-editing-carousel__card-body">{card.body}</p>
+                </div>
               </li>
-              <li>
-                <strong>Scene Visualizations</strong> represent the combinations of assets that make up
-                a show. The challenge was communicating these combinations without pre-rendered scenes.
-              </li>
-              <li>
-                <strong>Layering Support</strong> communicates layer hierarchy and the unique behaviors
-                of each layer type. The challenge was designing a consistent layer system where each
-                layer behaves differently.
-              </li>
-              <li>
-                <strong>Auto-Play Scenes</strong> moves us closer to a click-and-go show running
-                experience by reducing manual transitions. The challenge was supporting shows that do
-                not follow a linear sequence.
-              </li>
-            </ol>
-          </div>
+            ))}
+          </ul>
         </div>
 
         <ImageCarousel slides={SLIDES} ariaLabel="Editing carousel slides" />

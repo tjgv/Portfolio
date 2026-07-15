@@ -250,11 +250,11 @@ export default function AssumptionsQuoteSection() {
 
         <div className="np1-assumptions-quote__copy">
           <h2 className="np1-assumptions-quote__headline">
-            Mapping prospective users to current experiences.
+            Drawing comparisons with internal user types
           </h2>
           <div className="np1-assumptions-quote__body">
             <p>
-              Without access to prospective users, I talked with the sales team to draft core
+              Without access to prospective users, I spoke with the sales team to draft core
               assumptions.
             </p>
             <p>&nbsp;</p>

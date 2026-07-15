@@ -2,7 +2,7 @@
 
 export const GROW_SEED_COLOR = '#3E4555'
 
-/** Hold at pulse peak before retract (fraction of full open progress; ~250ms at 5200ms open anim). */
+/** Hold at pulse peak before retract (fraction of full open progress; ~62ms at 1300ms open anim). */
 export const PULSE_HOLD_PROGRESS = 250 / 5200
 
 /** Quick seed zoom + rise from viewport bottom (fraction of open timeline). */

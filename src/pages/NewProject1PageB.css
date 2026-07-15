@@ -1,0 +1,125 @@
+/* Page B — unified wide content gutters (matches Target Audience section),
+   tightened 15% vs the shared wide standard. */
+.new-project-1-page--b {
+  --np1-wide-max: calc(2200px * var(--np1-content-width-scale) * 0.85);
+  /* 12vw → 17.7vw keeps content ≈ 85% of the previous column width */
+  --np1-wide-padding-inline: clamp(0px, 17.7vw, 376px);
+}
+
+.new-project-1-page--b .np1-content .np1-section__inner {
+  width: min(var(--np1-wide-max), 100%);
+  max-width: none;
+  padding-inline: var(--np1-wide-padding-inline);
+  box-sizing: border-box;
+}
+
+.new-project-1-page--b .np1-side-shot {
+  --np1-side-shot-copy-inset: max(
+    var(--np1-wide-padding-inline),
+    calc((100vw - min(var(--np1-wide-max), 100vw)) / 2 + var(--np1-wide-padding-inline))
+  );
+}
+
+.new-project-1-page--b .np1-editing-carousel__intro,
+.new-project-1-page--b .np1-editing-carousel__controls {
+  width: min(var(--np1-wide-max), 100%);
+  max-width: none;
+  margin-inline: auto;
+  padding-inline: var(--np1-wide-padding-inline);
+  box-sizing: border-box;
+}
+
+/* Match Hypothesis / other Page B section inners (not full-bleed 100%) */
+.new-project-1-page--b .np1-problem--b .np1-problem__copy-inner--b {
+  width: min(var(--np1-wide-max), 100%);
+  max-width: none;
+  padding-inline: var(--np1-wide-padding-inline);
+  box-sizing: border-box;
+}
+
+/* Goal — centered stack filling the same content column as Problem / Hypothesis */
+.new-project-1-page--b .np1-stub--goal .np1-section__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.new-project-1-page--b .np1-stub--goal .np1-stub__label {
+  margin: 0 0 var(--np1-label-title-gap);
+  width: 100%;
+  color: var(--np1-text-hero);
+}
+
+.new-project-1-page--b .np1-stub--goal .np1-stub__title {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 0;
+  color: var(--np1-text-hero);
+}
+
+.new-project-1-page--b .np1-stub--goal .np1-stub__body {
+  width: 100%;
+  max-width: none;
+  margin: var(--np1-label-title-gap) 0 0;
+  color: var(--np1-text-sub-hero);
+}
+
+/* At a glance — headline above a 3-over-2 grid (bottom row matches top width) */
+.new-project-1-page--b .np1-glance .np1-split {
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 3.2vw, 40px);
+}
+
+.new-project-1-page--b .np1-glance__blocks {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 18px) clamp(10px, 1.2vw, 16px);
+  align-items: stretch;
+}
+
+.new-project-1-page--b .np1-glance-block {
+  box-sizing: border-box;
+  height: 100%;
+  padding: clamp(16px, 1.6vw, 24px);
+  border: 1px solid var(--np1-border);
+  opacity: 0;
+  transform: translateX(-18px);
+  transition:
+    opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--np1-glance-stagger, 0) * 90ms);
+  will-change: opacity, transform;
+}
+
+.new-project-1-page--b .np1-glance__blocks--in-view .np1-glance-block {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.new-project-1-page--b .np1-glance-block:nth-child(-n + 3) {
+  grid-column: span 2;
+}
+
+.new-project-1-page--b .np1-glance-block:nth-child(n + 4) {
+  grid-column: span 3;
+}
+
+@media (max-width: 767px) {
+  .new-project-1-page--b .np1-glance__blocks {
+    grid-template-columns: 1fr;
+  }
+
+  .new-project-1-page--b .np1-glance-block:nth-child(-n + 3),
+  .new-project-1-page--b .np1-glance-block:nth-child(n + 4) {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .new-project-1-page--b .np1-glance-block {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

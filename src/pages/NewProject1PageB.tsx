@@ -1,27 +1,27 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { ImgWithLoader } from '../components/MediaLoader'
 import EmbedControlledVideo from '../components/new-project-1/EmbedControlledVideo'
 import ResultsPhasesAnimation from '../components/new-project-1/ResultsPhasesAnimation'
-import CurrentToolHotspotMap, { type Hotspot } from '../components/new-project-1/CurrentToolHotspotMap'
 import CaseStudyNavSection from '../components/new-project-1/CaseStudyNavSection'
 import ScrollToTopButton from '../components/case-study/ScrollToTopButton'
 import { useScrollToTopReveal } from '../hooks/useScrollToTopReveal'
-import CurrentToolUseCases from '../components/new-project-1/CurrentToolUseCases'
-import NewProject1Hero from '../components/new-project-1/NewProject1Hero'
-import DeducingUserNeeds from '../components/new-project-1/DeducingUserNeeds'
-import Hypothesis from '../components/new-project-1/Hypothesis'
-import Problem from '../components/new-project-1/Problem'
-import RunOfShowSideShot from '../components/new-project-1/RunOfShowSideShot'
-import EditingSideShot from '../components/new-project-1/EditingSideShot'
+import NewProject1HeroB from '../components/new-project-1/NewProject1HeroB'
+import HeroQuoteSection from '../components/new-project-1/HeroQuoteSection'
+import ContextSection from '../components/new-project-1/ContextSection'
+import HowItAddressesSection from '../components/new-project-1/HowItAddressesSection'
+import ProblemB from '../components/new-project-1/ProblemB'
+import EditingSideShotB from '../components/new-project-1/EditingSideShotB'
+import HypothesisB from '../components/new-project-1/HypothesisB'
+import Hypothesis2B from '../components/new-project-1/Hypothesis2B'
 import EditingCarousel from '../components/new-project-1/EditingCarousel'
 import EndHeroSection from '../components/new-project-1/EndHeroSection'
-import IpadCompatibility from '../components/new-project-1/IpadCompatibility'
-import LeadershipQuoteSection from '../components/new-project-1/LeadershipQuoteSection'
 import ResultsSection from '../components/new-project-1/ResultsSection'
 import TargetAudience from '../components/new-project-1/TargetAudience'
+import DeducingUserNeeds from '../components/new-project-1/DeducingUserNeeds'
 import './NewProject1Page.css'
+import './NewProject1PageB.css'
 
 export const NEW_PROJECT_1_B_ROUTE = '/consumer-cx-pro-b'
 
@@ -318,75 +318,6 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
   },
 ] as const
 
-const CURRENT_TOOL_IMAGE = '/new-project-1/v2.1.png'
-
-const CURRENT_USE_CASES = [
-  {
-    id: 'sports-shows',
-    image: '/new-project-1/use-case-sports.png',
-    imageAlt: 'Sports show in the Cosm dome during a Lakers vs Warriors game',
-    body: 'Sports Shows are Cosm\u2019s marquee experience. This is our most advanced use case as there are more moving parts to manage: dynamic scoring, custom visual setups, responsive effects to real-time events, syncing live-feeds, live feed swaps, non-linear run of show.',
-  },
-  {
-    id: 'studio-shows',
-    image: '/new-project-1/use-case-studio.png',
-    imageAlt: 'Studio show with audience viewing immersive dome content',
-    body: 'Studio Shows are Cosm\u2019s marquee experience. This is our most advanced use case as there are more moving parts to manage: dynamic scoring, custom visual setups, responsive effects to real-time events, syncing live-feeds, live feed swaps, non-linear run of show.',
-  },
-] as const
-
-const CURRENT_TOOL_HOTSPOTS: Hotspot[] = [
-  {
-    id: 'scenes',
-    x: 19,
-    y: 10,
-    title: 'Scenes',
-    body: 'These are the individual components of a show. Each scene has a configuration of assets which make up the audience experience.',
-  },
-  {
-    id: 'media-widgets',
-    x: 48,
-    y: 42,
-    title: 'Media Widgets',
-    body: 'These are configurations of media containers that are intended to overlay on top of the main content in the display. These come in a pre-configured group/scheme called a "Layout Layer."',
-  },
-  {
-    id: 'asset-libraries',
-    x: 4,
-    y: 24,
-    title: 'Asset Libraries',
-    body: 'This is where users find the assets used to build a show. There are layer assets:\nEnvironment Layer — virtual decorations for a screen\nImmersive Layer — main feature of a display, like the movie or game\nLayout Layer — schemes of media widgets to overlay on top of the screen\n\nThen, there are normal asset libraries to populate media widgets.',
-  },
-  {
-    id: 'inspector',
-    x: 82,
-    y: 22,
-    title: 'Inspector',
-    body: 'This is the settings panel to edit the unique settings each layer brings.',
-  },
-  {
-    id: 'triggers',
-    x: 38,
-    y: 93,
-    title: 'Triggers',
-    body: 'Triggers are effects the operator can press during a live show to make an effect occur instantaneously. Think "fireworks" when a team scores a goal.',
-  },
-  {
-    id: 'transition-controls',
-    x: 24,
-    y: 3,
-    title: 'Transition Controls',
-    body: 'These are the specific controls users must utilize in a sequence to correctly transition between scenes that require an Unreal Engine reset.',
-  },
-]
-
-const CURRENT_TOOL_TABS = [
-  { id: 'current-tool', label: 'Current tool' },
-  { id: 'current-use-cases', label: 'Experiences' },
-] as const
-
-type CurrentToolTabId = (typeof CURRENT_TOOL_TABS)[number]['id']
-
 const UPCOMING_SECTIONS = [
   {
     label: 'Goal',
@@ -397,7 +328,6 @@ const UPCOMING_SECTIONS = [
   { label: 'Key Assumptions', title: 'Deducing User Needs' },
   { label: 'Problem', title: 'CX Pro is too conceptually complex for newer users to grasp.' },
   { label: 'Hypothesis', title: 'Splitting the tool would improve comprehension and scalability.' },
-  { label: 'Phase 3', title: 'Pitching iPad Compatibility' },
   { label: 'Business Value', title: 'Results' },
 ] as const
 
@@ -417,8 +347,9 @@ export default function NewProject1PageB({ embedded = false }: NewProject1PageBP
   const goalRevealRef = useRef<HTMLDivElement>(null)
   const goalObserverRef = useRef<IntersectionObserver | null>(null)
   const [goalInView, setGoalInView] = useState(false)
-  const [currentToolTab, setCurrentToolTab] = useState<CurrentToolTabId>('current-tool')
+  const [glanceInView, setGlanceInView] = useState(false)
   const showScrollToTop = useScrollToTopReveal(scrollRevealRef)
+  const glanceObserverRef = useRef<IntersectionObserver | null>(null)
 
   useLayoutEffect(() => {
     if (embedded) return
@@ -486,10 +417,39 @@ export default function NewProject1PageB({ embedded = false }: NewProject1PageBP
 
   useEffect(() => () => goalObserverRef.current?.disconnect(), [])
 
+  const setGlanceBlocksRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      glanceObserverRef.current?.disconnect()
+      glanceObserverRef.current = null
+
+      if (!node || embedded) return
+
+      const reveal = () => setGlanceInView(true)
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) reveal()
+        },
+        { threshold: 0.05, rootMargin: '0px 0px -4% 0px' }
+      )
+
+      observer.observe(node)
+      glanceObserverRef.current = observer
+
+      const rect = node.getBoundingClientRect()
+      if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+        reveal()
+      }
+    },
+    [embedded]
+  )
+
+  useEffect(() => () => glanceObserverRef.current?.disconnect(), [])
+
   return (
     <div
       ref={pageRef}
-      className={`new-project-1-page${embedded ? ' cx-pro-page--embedded' : ''}`}
+      className={`new-project-1-page new-project-1-page--b${embedded ? ' cx-pro-page--embedded' : ''}`}
     >
       {!embedded && (
         <nav className="new-project-1-nav" aria-label="Main navigation">
@@ -534,57 +494,33 @@ export default function NewProject1PageB({ embedded = false }: NewProject1PageBP
             />
           </div>
         ) : (
-          <NewProject1Hero />
+          <NewProject1HeroB />
         )}
 
         <div className="np1-content" data-dev-section="content">
-        <section className="np1-section np1-intro" data-dev-section="intro" aria-label="Introduction" ref={scrollRevealRef}>
-          <div className="np1-section__inner np1-intro__inner">
-            {embedded ? (
-              <div className="np1-embed-block__text np1-embed-block__text--lead">
-                <div className="np1-split">
-                  <h2 className="np1-split__headline">
-                    Preparing an internal tool for an external release.
-                  </h2>
-                  <p className="np1-split__body">
-                    I was the sole designer for CX Pro. This is a tool used to build, run, and manage
-                    Cosm&apos;s advanced displays, including their marquee product: the immersive dome.
-                    Early 2025, I learned the tool was being positioned for external clients. At the
-                    time, we only had internal venue staff using the tool.
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="np1-split">
-                <h2 className="np1-split__headline">
-                  Preparing an internal tool for an external release.
-                </h2>
-                <p className="np1-split__body">
-                  I was the sole designer for CX Pro. This is a tool used to build, run, and manage
-                  Cosm&apos;s advanced displays, including their marquee product: the immersive dome.
-                  Early 2025, I learned the tool was being positioned for external clients. At the
-                  time, we only had internal venue staff using the tool.
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
+        {!embedded && <HeroQuoteSection sectionRef={scrollRevealRef} />}
 
         {!embedded && (
           <section className="np1-section np1-glance" data-dev-section="at-a-glance" aria-label="At a glance">
             <div className="np1-section__inner np1-glance__inner">
               <div className="np1-split">
                 <h2 className="np1-split__headline">At a glance</h2>
-                <div className="np1-glance__blocks">
-                  {GLANCE_BLOCKS.map((block) => (
-                    <article key={block.id} className="np1-glance-block">
+                <div
+                  ref={setGlanceBlocksRef}
+                  className={`np1-glance__blocks${glanceInView ? ' np1-glance__blocks--in-view' : ''}`}
+                >
+                  {GLANCE_BLOCKS.map((block, index) => (
+                    <article
+                      key={block.id}
+                      className="np1-glance-block"
+                      style={{ '--np1-glance-stagger': index } as CSSProperties}
+                    >
                       <div className="np1-glance-block__head">
                         <span className="np1-glance-block__icon" aria-hidden>
                           {block.icon}
                         </span>
                         <h3 className="np1-glance-block__label">{block.label}</h3>
                       </div>
-                      <div className="np1-glance-block__divider" aria-hidden />
                       <div className="np1-glance-block__content">
                         {block.value ? (
                           <p className="np1-glance-block__value">{block.value}</p>
@@ -605,6 +541,28 @@ export default function NewProject1PageB({ embedded = false }: NewProject1PageBP
                       </div>
                     </article>
                   ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {!embedded && <ContextSection />}
+
+        {embedded && (
+          <section className="np1-section np1-intro" data-dev-section="intro" aria-label="Introduction">
+            <div className="np1-section__inner np1-intro__inner">
+              <div className="np1-embed-block__text np1-embed-block__text--lead">
+                <div className="np1-split">
+                  <h2 className="np1-split__headline">
+                    Preparing an internal tool for an external release.
+                  </h2>
+                  <p className="np1-split__body">
+                    I was the sole designer for CX Pro. This is a tool used to build, run, and manage
+                    Cosm&apos;s advanced displays, including their marquee product: the immersive dome.
+                    Early 2025, I learned the tool was being positioned for external clients. At the
+                    time, we only had internal venue staff using the tool.
+                  </p>
                 </div>
               </div>
             </div>
@@ -659,60 +617,6 @@ export default function NewProject1PageB({ embedded = false }: NewProject1PageBP
           </div>
         )}
 
-        {!embedded && (
-          <section
-            className="np1-section np1-current-tool"
-            data-dev-section="current-tool"
-            aria-label="Current tool"
-          >
-            <div className="np1-section__inner np1-current-tool__inner">
-              <div className="np1-current-tool__tabs" role="tablist" aria-label="Current tool views">
-                {CURRENT_TOOL_TABS.map((tab) => {
-                  const selected = currentToolTab === tab.id
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      role="tab"
-                      id={`np1-current-tool-tab-${tab.id}`}
-                      aria-selected={selected}
-                      aria-controls={`np1-current-tool-panel-${tab.id}`}
-                      className={`np1-current-tool__tab${selected ? ' np1-current-tool__tab--active' : ''}`}
-                      onClick={() => setCurrentToolTab(tab.id)}
-                    >
-                      {tab.label}
-                    </button>
-                  )
-                })}
-              </div>
-              {CURRENT_TOOL_TABS.map((tab) => {
-                const selected = currentToolTab === tab.id
-                return (
-                  <div
-                    key={tab.id}
-                    role="tabpanel"
-                    id={`np1-current-tool-panel-${tab.id}`}
-                    aria-labelledby={`np1-current-tool-tab-${tab.id}`}
-                    className="np1-current-tool__panel"
-                    hidden={!selected}
-                  >
-                    {tab.id === 'current-tool' && (
-                      <CurrentToolHotspotMap
-                        src={CURRENT_TOOL_IMAGE}
-                        alt="CX Pro current tool interface"
-                        hotspots={CURRENT_TOOL_HOTSPOTS}
-                      />
-                    )}
-                    {tab.id === 'current-use-cases' && (
-                      <CurrentToolUseCases items={[...CURRENT_USE_CASES]} />
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          </section>
-        )}
-
         {!embedded &&
           UPCOMING_SECTIONS.map((section) => {
             const isGoal = section.label === 'Goal'
@@ -720,7 +624,6 @@ export default function NewProject1PageB({ embedded = false }: NewProject1PageBP
             const isKeyAssumptions = section.label === 'Key Assumptions'
             const isProblem = section.label === 'Problem'
             const isHypothesis = section.label === 'Hypothesis'
-            const isIpadCompat = section.label === 'Phase 3'
             const isBusinessValue = section.label === 'Business Value'
 
             if (isAudience) {
@@ -732,31 +635,23 @@ export default function NewProject1PageB({ embedded = false }: NewProject1PageBP
             }
 
             if (isProblem) {
-              return <Problem key={section.label} />
+              return <ProblemB key={section.label} />
             }
 
             if (isHypothesis) {
               return (
                 <>
-                  <Hypothesis key={section.label} />
-                  <EditingSideShot key="editing-side-shot" />
+                  <HypothesisB key={section.label} />
+                  <Hypothesis2B key={`${section.label}-2`} />
+                  <HowItAddressesSection key="how-it-addresses" />
+                  <EditingSideShotB key="editing-side-shot" />
                   <EditingCarousel key="editing-carousel" />
-                  <RunOfShowSideShot key="run-of-show-side-shot" />
                 </>
               )
-            }
-
-            if (isIpadCompat) {
-              return <IpadCompatibility key={section.label} />
             }
 
             if (isBusinessValue) {
-              return (
-                <>
-                  <ResultsSection key={section.label} />
-                  <LeadershipQuoteSection key="leadership-quote" />
-                </>
-              )
+              return <ResultsSection key={section.label} />
             }
 
             return (

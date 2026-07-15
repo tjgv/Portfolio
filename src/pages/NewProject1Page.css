@@ -14,6 +14,7 @@
   --np1-wide-padding-inline: clamp(0px, 12vw, 320px);
   --np1-gutter: var(--np1-content-padding-inline);
   --np1-nav-height: 68px;
+  --np1-nav-padding-inline: clamp(20px, 4vw, 40px);
   --np1-hero-text-size: var(--np1-header-hero-size);
   --np1-hero-text-tracking: var(--np1-header-hero-ls);
 
@@ -56,7 +57,7 @@
   align-items: center;
   justify-content: space-between;
   height: var(--np1-nav-height);
-  padding: 0 clamp(20px, 4vw, 40px);
+  padding: 0 var(--np1-nav-padding-inline);
   background: transparent;
   border-bottom: none;
 }
@@ -181,6 +182,53 @@
   box-sizing: border-box;
 }
 
+/* XL Media — breaks out of section content to align with nav left/right edges */
+.np1-media--xl {
+  width: calc(100vw - 2 * var(--np1-nav-padding-inline));
+  max-width: none;
+  margin-inline: calc(50% - 50vw + var(--np1-nav-padding-inline));
+  box-sizing: border-box;
+}
+
+.np1-media--xl .media-with-loader-wrap,
+.np1-media--xl img,
+.np1-media--xl video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* XL Media — natural height (no crop); width fills, height hugs the image */
+.np1-media--xl.np1-media--xl-hug {
+  height: auto;
+  overflow: visible;
+}
+
+.np1-media--xl.np1-media--xl-hug .media-with-loader-wrap,
+.np1-media--xl.np1-media--xl-hug img,
+.np1-media--xl.np1-media--xl-hug video {
+  height: auto;
+  object-fit: contain;
+}
+
+/* XL Media — side-by-side pair (equal columns, fixed gap) */
+.np1-media--xl.np1-media--xl-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.np1-media--xl.np1-media--xl-pair .media-with-loader-wrap,
+.np1-media--xl.np1-media--xl-pair img,
+.np1-media--xl.np1-media--xl-pair video {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 /* ----- Shared split column (intro, key assumptions) ----- */
 .np1-split {
   display: grid;
@@ -225,8 +273,70 @@
   margin-top: 0.35em;
 }
 
+/* ----- Horizontal text stack -----
+   Sub-header above; header + body top-aligned side by side;
+   sub-header left-aligned with the header column. */
+.np1-h-text-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--np1-label-title-gap);
+  width: 100%;
+}
+
+.np1-h-text-stack__label {
+  margin: 0;
+  font-family: var(--np1-font-body);
+  font-size: var(--np1-subheader-1-size);
+  font-weight: var(--np1-subheader-1-weight);
+  line-height: var(--np1-subheader-1-lh);
+  letter-spacing: var(--np1-subheader-1-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-h-text-stack__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--np1-split-gap);
+  align-items: start;
+}
+
+.np1-h-text-stack__headline {
+  margin: 0;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-header-1-size);
+  font-weight: var(--np1-header-1-weight);
+  line-height: var(--np1-header-1-lh);
+  letter-spacing: var(--np1-header-1-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-h-text-stack__body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-body-1-size);
+  font-weight: var(--np1-split-body-weight);
+  line-height: var(--np1-body-1-lh);
+  letter-spacing: var(--np1-body-1-ls);
+  color: var(--np1-text-sub-hero);
+}
+
+.np1-h-text-stack__body p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.np1-h-text-stack__body p + p {
+  margin-top: 0.35em;
+}
+
 @media (max-width: 767px) {
   .np1-split {
+    grid-template-columns: 1fr;
+  }
+
+  .np1-h-text-stack__row {
     grid-template-columns: 1fr;
   }
 }

@@ -1,47 +1,13 @@
-/* Hypothesis — split copy matches intro; video below */
-
+/* Hypothesis — horizontal text stack; video below */
 
 .np1-hypothesis__inner {
   display: flex;
   flex-direction: column;
-  gap: clamp(60px, 7vw, 120px);
+  gap: var(--np1-text-media-gap);
 }
 
 .np1-hypothesis__copy {
   width: 100%;
-}
-
-.np1-hypothesis__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--np1-label-title-gap);
-  align-self: start;
-}
-
-.np1-hypothesis__label {
-  margin: 0;
-  font-family: var(--np1-font-body);
-  font-size: var(--np1-subheader-1-size);
-  font-weight: var(--np1-subheader-1-weight);
-  line-height: var(--np1-subheader-1-lh);
-  letter-spacing: var(--np1-subheader-1-ls);
-  text-align: left;
-  color: var(--np1-text-hero);
-}
-
-.np1-hypothesis__body {
-  align-self: start;
-  padding-block: 0;
-}
-
-.np1-hypothesis__split .np1-split__body p {
-  margin: 0;
-  font-size: inherit;
-  line-height: inherit;
-}
-
-.np1-hypothesis__split .np1-split__body p + p {
-  margin-top: 0.35em;
 }
 
 .np1-hypothesis__media {

@@ -3,7 +3,7 @@
 .np1-ipad-compat__inner {
   display: flex;
   flex-direction: column;
-  gap: clamp(40px, 5vw, 64px);
+  gap: var(--np1-text-media-gap);
 }
 
 .np1-ipad-compat__header {

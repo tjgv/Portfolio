@@ -63,7 +63,7 @@ export default function CarouselControls({
                       disabled={!controlsReady}
                     >
                       <span className="visually-hidden">
-                        Slide {index + 1}: {slide.imageAlt}
+                        Slide {index + 1}: {slide.caption}
                       </span>
                       <span
                         className="np1-carousel-aap__dot-progress"
