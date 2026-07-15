@@ -142,7 +142,7 @@ function MediaCycleCard({
  * ============================================================================= */
 
 /* New project 1 preview popup — slot 1 case study shell */
-function NewProject1Popup({ onClose }: { onClose: () => void }) {
+export function NewProject1Popup({ onClose }: { onClose: () => void }) {
   const navigate = useNavigate()
   const [isExpanding, setIsExpanding] = useState(false)
   const { title, timeline, role, org, withPeople } = NEW_PROJECT_1_META
@@ -213,7 +213,7 @@ function NewProject1Popup({ onClose }: { onClose: () => void }) {
 }
 
 /* Scrollable case study popup: expand (top-left), close on backdrop, full sections + read more */
-function CaseStudyPopup({
+export function CaseStudyPopup({
   caseStudyId,
   onClose,
 }: {
