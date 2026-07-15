@@ -14,7 +14,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
   {
     slug: 'consumer-cx-pro',
     route: '/consumer-cx-pro',
-    legacyRoutes: ['/new-project-1'],
+    legacyRoutes: ['/new-project-1', '/consumer-cx-pro-b'],
     title: 'Consumer-Grade CX Pro',
     thumbnail: '/new-project-1/hero-bg.png',
     homeCardId: 'placeholder1',

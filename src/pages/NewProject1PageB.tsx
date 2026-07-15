@@ -23,6 +23,8 @@ import DeducingUserNeeds from '../components/new-project-1/DeducingUserNeeds'
 import './NewProject1Page.css'
 import './NewProject1PageB.css'
 
+export const NEW_PROJECT_1_ROUTE = '/consumer-cx-pro'
+/** @deprecated Former View B URL — redirects to NEW_PROJECT_1_ROUTE. */
 export const NEW_PROJECT_1_B_ROUTE = '/consumer-cx-pro-b'
 
 const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
