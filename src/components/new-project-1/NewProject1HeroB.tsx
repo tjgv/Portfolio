@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { preload } from 'react-dom'
-import { ImgWithLoader, VideoWithLoader } from '../MediaLoader'
+import { ImgWithLoader } from '../MediaLoader'
+import HeroVideoLoop from './HeroVideoLoop'
 import './NewProject1Hero.css'
 import './NewProject1HeroB.css'
 
-const HERO_VIDEO = '/new-project-1/hero-video.mp4'
 const INTRO_TABLET = '/new-project-1/intro-tablet.png'
 const LAPTOP_IMAGE = '/new-project-1/laptop1.png'
 const MAC_IMAGE = '/new-project-1/mac1.png'
 const HERO_TITLE = 'Making CX Pro Accessible to a Broader Audience'
 
-preload(HERO_VIDEO, { as: 'video', fetchPriority: 'high' })
 preload(INTRO_TABLET, { as: 'image', fetchPriority: 'high' })
 /** Side devices slide in mid-sequence — preload + high fetch so they aren't starved by the hero video. */
 preload(LAPTOP_IMAGE, { as: 'image', fetchPriority: 'high' })
@@ -82,7 +81,6 @@ function prefersReducedMotion(): boolean {
  */
 export default function NewProject1HeroB() {
   const scrollRef = useRef<HTMLElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
   const ipadRef = useRef<HTMLDivElement>(null)
   const [scrollPx, setScrollPx] = useState(0)
   const [leftProgress, setLeftProgress] = useState(0)
@@ -96,12 +94,6 @@ export default function NewProject1HeroB() {
   const leftRafRef = useRef<number | null>(null)
   const titleRafRef = useRef<number | null>(null)
   const titleDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    video.play().catch(() => {})
-  }, [])
 
   // Force early fetch+decode for side devices (start off-screen / opacity 0,
   // so the browser may otherwise defer them until mid-scroll).
@@ -298,18 +290,7 @@ export default function NewProject1HeroB() {
       <div className="np1-hero-b-stage">
         <div className="np1-hero-b-sticky">
           <div className="np1-hero__media" aria-hidden>
-            <VideoWithLoader
-              ref={videoRef}
-              className="np1-hero__video"
-              src={HERO_VIDEO}
-              style={{ opacity: videoOpacity }}
-              fill
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-            />
+            <HeroVideoLoop opacity={videoOpacity} />
             <div
               className="np1-hero__fade-from-bottom"
               style={{

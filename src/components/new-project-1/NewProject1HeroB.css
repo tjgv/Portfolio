@@ -37,6 +37,19 @@
   z-index: 0;
 }
 
+/* Stacked multi-clip hero reel — only the active clip is visible */
+.np1-hero-scroll--b .np1-hero-video-loop {
+  width: 100%;
+  height: 100%;
+}
+
+.np1-hero-scroll--b .np1-hero-video-loop__clip {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: none;
+}
+
 .np1-hero-scroll--b .np1-hero__fade-from-bottom {
   position: absolute;
   inset: 0;
