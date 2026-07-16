@@ -1,4 +1,4 @@
-/* Hero quote — compact ~60vh band with centered leadership quote */
+/* Hero / end quote band — shared QuoteCarousel inside a compact centered section */
 
 .np1-hero-quote {
   display: flex;
@@ -10,20 +10,4 @@
 
 .np1-hero-quote__inner {
   width: 100%;
-}
-
-.np1-hero-quote .np1-single-quote-card {
-  margin-inline: auto;
-  align-items: start;
-  /* Quote column was 1.6fr — +15% → 1.84fr */
-  grid-template-columns: minmax(0, 1.84fr) minmax(0, 0.75fr);
-}
-
-.np1-hero-quote .np1-single-quote-card__quote-text {
-  font-size: calc(var(--np1-body-hero-size) + 2px);
-}
-
-.np1-hero-quote .np1-single-quote-card__name,
-.np1-hero-quote .np1-single-quote-card__role {
-  font-size: calc(var(--np1-body-2-size) + 2px);
 }

@@ -1,0 +1,200 @@
+/* Shared quote carousel — hero-aligned text layout + edge-hugging controls */
+
+.np1-quote-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vw, 28px);
+  width: 100%;
+}
+
+.np1-quote-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Height comes from the tallest quote + equal padding on top/bottom */
+  height: auto;
+  padding: clamp(40px, 6vw, 80px);
+  background: var(--np1-card-bg);
+  border-radius: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.np1-quote-card__viewport {
+  overflow: hidden;
+}
+
+.np1-quote-card__track {
+  display: flex;
+  /* Cross-axis stretch → every slide matches the tallest quote’s content height */
+  align-items: stretch;
+  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* Match former hero single-quote grid; center content so top/bottom gaps stay even */
+.np1-quote-card__slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.84fr) minmax(0, 0.75fr);
+  gap: clamp(32px, 5.3vw, 80px);
+  align-items: center;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.np1-quote-card__quote {
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.np1-quote-card__quote-text {
+  margin: 0;
+  font-family: var(--np1-font-display);
+  font-size: calc(var(--np1-body-hero-size) + 2px);
+  font-weight: var(--np1-body-hero-weight);
+  line-height: var(--np1-body-hero-lh);
+  letter-spacing: var(--np1-body-hero-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-quote-card__attribution {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.np1-quote-card__name {
+  margin: 0;
+  font-family: var(--np1-font-body);
+  font-size: calc(var(--np1-body-2-size) + 2px);
+  font-weight: 500;
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  color: var(--np1-text-hero);
+}
+
+.np1-quote-card__role {
+  margin: 0;
+  font-family: var(--np1-font-body);
+  font-size: calc(var(--np1-body-2-size) + 2px);
+  font-weight: var(--np1-body-2-weight);
+  line-height: var(--np1-body-2-lh);
+  letter-spacing: var(--np1-body-2-ls);
+  color: var(--np1-text-hero);
+  opacity: 0.5;
+}
+
+/* Controls flush to the quote card’s left / right edges */
+.np1-quote-card__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-inline: 0;
+}
+
+.np1-quote-card__control {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--np1-text-hero);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.np1-quote-card__control:hover {
+  opacity: 0.85;
+}
+
+.np1-quote-card__progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.np1-quote-card__progress-track {
+  fill: none;
+  stroke: color-mix(in srgb, var(--np1-text-hero) 12%, transparent);
+  stroke-width: 2;
+}
+
+.np1-quote-card__progress-fill {
+  fill: none;
+  stroke: color-mix(in srgb, var(--np1-text-hero) 72%, transparent);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.np1-quote-card__control-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+}
+
+.np1-quote-card__nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid color-mix(in srgb, var(--np1-text-hero) 18%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--np1-text-hero) 4%, transparent);
+}
+
+.np1-quote-card__nav-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--np1-text-hero);
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.np1-quote-card__nav-btn:hover {
+  background: color-mix(in srgb, var(--np1-text-hero) 10%, transparent);
+}
+
+.np1-quote-card__nav-btn:active {
+  opacity: 0.75;
+}
+
+@media (max-width: 767px) {
+  .np1-quote-card__slide {
+    grid-template-columns: 1fr;
+    align-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1-quote-card__track {
+    transition: none;
+  }
+
+  .np1-quote-card__control {
+    display: none;
+  }
+}

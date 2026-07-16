@@ -25,10 +25,7 @@ export default function ResultsSection() {
         </div>
       </section>
 
-      <HeroQuoteSection
-        ariaLabel="Results quote"
-        devSectionId="results-quote"
-      />
+      <HeroQuoteSection ariaLabel="Results quote" devSectionId="results-quote" />
     </>
   )
 }
