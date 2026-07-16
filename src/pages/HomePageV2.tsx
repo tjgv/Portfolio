@@ -66,6 +66,7 @@ function MediaCycleCard({
   videoSrc,
   label,
   year,
+  hoverLine,
   visual,
   showVideo,
   onVideoEnded,
@@ -77,6 +78,7 @@ function MediaCycleCard({
   videoSrc: string
   label: string
   year: string
+  hoverLine: string
   visual: 'apple' | 'dark'
   showVideo: boolean
   onVideoEnded: () => void
@@ -128,7 +130,11 @@ function MediaCycleCard({
           aria-hidden
         />
       </div>
-      <span className="home-v2-card-pill"><span className="home-v2-card-pill-label">{label}</span><span className="home-v2-card-pill-year"> · {year}</span></span>
+      <span className="home-v2-card-pill">
+        <span className="home-v2-card-pill-label">{label}</span>
+        <span className="home-v2-card-pill-year"> · {year}</span>
+      </span>
+      <span className="home-v2-card-hover-line">{hoverLine}</span>
     </button>
   )
 }
@@ -555,15 +561,19 @@ export default function HomePageV2() {
             </div>
           </div>
         </header>
-        <main className="home-v2-main">
+        <main className="home-v2-main home-v2-main--work">
           <div className="home-v2-cards">
-            {WORK_CARDS.map((card) => {
+            {WORK_CARDS.map((card, index) => {
               const isPlaying =
                 (card.id === 'placeholder1' && heroShowVideo) ||
                 (card.id === 'project1' && project1ShowVideo) ||
                 (card.id === 'project2' && project2ShowVideo)
               return (
-              <div key={card.id} className={`home-v2-card-wrap${isPlaying ? ' home-v2-card-wrap--playing' : ''}`}>
+              <div
+                key={card.id}
+                className={`home-v2-card-wrap${isPlaying ? ' home-v2-card-wrap--playing' : ''}`}
+                style={{ '--home-v2-card-stagger': index } as React.CSSProperties}
+              >
                 {card.id === 'placeholder1' ? (
                   <MediaCycleCard
                     onClick={() => openCaseStudy('placeholder1')}
@@ -571,6 +581,7 @@ export default function HomePageV2() {
                     videoSrc="/consumer-cx-cover.mp4"
                     label={card.label}
                     year={card.year}
+                    hoverLine={card.hoverLine}
                     visual="apple"
                     showVideo={heroShowVideo}
                     onVideoEnded={onHeroVideoEnded}
@@ -585,7 +596,11 @@ export default function HomePageV2() {
                     disabled
                     aria-label={card.label}
                   >
-                    <span className="home-v2-card-pill"><span className="home-v2-card-pill-label">{card.label}</span><span className="home-v2-card-pill-year"> · {card.year}</span></span>
+                    <span className="home-v2-card-pill">
+                      <span className="home-v2-card-pill-label">{card.label}</span>
+                      <span className="home-v2-card-pill-year"> · {card.year}</span>
+                    </span>
+                    <span className="home-v2-card-hover-line">{card.hoverLine}</span>
                   </button>
                 ) : card.id === 'project1' ? (
                   <MediaCycleCard
@@ -594,6 +609,7 @@ export default function HomePageV2() {
                     videoSrc="/clip-3-cosm.mov"
                     label="CX Pro"
                     year="2023-25"
+                    hoverLine={card.hoverLine}
                     visual="apple"
                     showVideo={project1ShowVideo}
                     onVideoEnded={onProject1VideoEnded}
@@ -606,6 +622,7 @@ export default function HomePageV2() {
                     videoSrc="/Vid2.mov"
                     label="Validus Overhaul"
                     year="2022"
+                    hoverLine={card.hoverLine}
                     visual="dark"
                     showVideo={project2ShowVideo}
                     onVideoEnded={onProject2VideoEnded}
@@ -619,7 +636,11 @@ export default function HomePageV2() {
                     onClick={() => openPopup('project3')}
                     aria-label="Open NFL IQ Figma prototype"
                   >
-                    <span className="home-v2-card-pill"><span className="home-v2-card-pill-label">{card.label}</span><span className="home-v2-card-pill-year"> · {card.year}</span></span>
+                    <span className="home-v2-card-pill">
+                      <span className="home-v2-card-pill-label">{card.label}</span>
+                      <span className="home-v2-card-pill-year"> · {card.year}</span>
+                    </span>
+                    <span className="home-v2-card-hover-line">{card.hoverLine}</span>
                   </button>
                 ) : card.id === 'project4' ? (
                   <button
@@ -630,14 +651,17 @@ export default function HomePageV2() {
                     onClick={() => openPopup('project4')}
                     aria-label={`Open ${card.label} preview`}
                   >
-                    <span className="home-v2-card-pill"><span className="home-v2-card-pill-label">{card.label}</span><span className="home-v2-card-pill-year"> · {card.year}</span></span>
                     <span className="home-v2-card-chip home-v2-card-chip--try">
                       <Gamepad2 size={14} strokeWidth={2.5} aria-hidden />
                       Try it out!
                     </span>
+                    <span className="home-v2-card-pill">
+                      <span className="home-v2-card-pill-label">{card.label}</span>
+                      <span className="home-v2-card-pill-year"> · {card.year}</span>
+                    </span>
+                    <span className="home-v2-card-hover-line">{card.hoverLine}</span>
                   </button>
                 ) : null}
-                <span className="home-v2-card-hover-line">{card.hoverLine}</span>
               </div>
             )})}
           </div>

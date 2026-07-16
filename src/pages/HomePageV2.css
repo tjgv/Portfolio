@@ -41,30 +41,29 @@
   );
 }
 
-/* Content horizontal margins – responsive */
+/* Content horizontal margins – responsive (header/footer); cards break out to 25px */
 .home-v2-content-margin {
-  margin-left: 64px;
-  margin-right: 64px;
+  --home-v2-page-margin: 64px;
+  margin-left: var(--home-v2-page-margin);
+  margin-right: var(--home-v2-page-margin);
   max-width: 100%;
 }
 
 @media (max-width: 1023px) {
   .home-v2-content-margin {
-    margin-left: 48px;
-    margin-right: 48px;
+    --home-v2-page-margin: 48px;
   }
 }
 
 @media (max-width: 767px) {
   .home-v2-content-margin {
-    margin-left: 24px;
-    margin-right: 24px;
+    --home-v2-page-margin: 24px;
   }
 }
 
 @media (max-width: 479px) {
   .home-v2-content-margin {
-    margin-left: max(20px, env(safe-area-inset-left));
+    --home-v2-page-margin: max(20px, env(safe-area-inset-left));
     margin-right: max(20px, env(safe-area-inset-right));
   }
 }
@@ -156,8 +155,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 16px 24px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid #efefef;
+  padding-bottom: 0;
 }
 
 @media (max-width: 639px) {
@@ -169,14 +167,12 @@
 
 @media (max-width: 767px) {
   .home-v2-header-bottom {
-    padding-bottom: 24px;
     gap: 12px 20px;
   }
 }
 
 @media (max-width: 479px) {
   .home-v2-header-bottom {
-    padding-bottom: 20px;
     gap: 12px 16px;
   }
 }
@@ -388,22 +384,25 @@
   }
 }
 
-/* Main: case study cards – full width of container */
+/* Main: cards break out of page margin to sit 25px from viewport edges */
 .home-v2-main {
   position: relative;
   z-index: 1;
-  padding: 32px 0 48px; /* 32px top = equal spacing below divider, matching nav padding */
 }
 
-@media (max-width: 767px) {
-  .home-v2-main {
-    padding: 24px 0 40px;
-  }
+/* Work tab only: pull cards out to 25px from the viewport edges */
+.home-v2-main--work {
+  --home-v2-card-inset: 25px;
+  margin-left: calc(var(--home-v2-card-inset) - var(--home-v2-page-margin));
+  margin-right: calc(var(--home-v2-card-inset) - var(--home-v2-page-margin));
+  /* 25px under header and above the footer divider (no top divider line) */
+  padding: var(--home-v2-card-inset) 0;
 }
 
 @media (max-width: 479px) {
-  .home-v2-main {
-    padding: 20px 0 32px;
+  .home-v2-main--work {
+    --home-v2-card-inset: max(25px, env(safe-area-inset-left));
+    margin-right: calc(max(25px, env(safe-area-inset-right)) - var(--home-v2-page-margin));
   }
 }
 
@@ -411,8 +410,8 @@
 .home-v2-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  row-gap: 24px;
-  column-gap: 24px;
+  row-gap: 15px;
+  column-gap: 15px;
   width: 100%;
 }
 
@@ -422,59 +421,61 @@
   }
 }
 
-@media (max-width: 479px) {
-  .home-v2-cards {
-    row-gap: 16px;
-    column-gap: 0;
-  }
-}
-
 .home-v2-card {
   position: relative;
   width: 100%;
-  aspect-ratio: 678 / 367.625;
+  /* +10% taller than prior 678 / 367.625 */
+  aspect-ratio: 678 / 404.3875;
   min-height: 0;
   min-width: 0;
   border: none;
-  border-radius: 24px;
+  border-radius: 0;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.18),
+    0 6px 14px rgba(0, 0, 0, 0.22);
   transition: box-shadow 0.25s ease, transform 0.22s ease;
   display: flex;
   align-items: flex-end;
   padding: 0;
   text-align: left;
+  background-size: cover;
+  background-position: center;
 }
 
-@media (max-width: 767px) {
-  .home-v2-card {
-    border-radius: 20px;
-  }
-}
-
-@media (max-width: 479px) {
-  .home-v2-card {
-    border-radius: 16px;
-  }
+/* Bottom fade so overlay copy stays legible on the image */
+.home-v2-card::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 48%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.35) 42%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .home-v2-card:hover {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.22),
+    0 8px 18px rgba(0, 0, 0, 0.26);
   transform: scale(0.98);
 }
 
 /* Multi-colored pastel drop-shadow when video is playing – equal distance on all sides */
 /* Applied to card-wrap so glow isn't clipped by overflow; uses filter for reliable visibility */
-/* 2% larger when playing – smooth transition into enlarged state */
 .home-v2-card-wrap--playing {
   filter:
     drop-shadow(0 0 12px rgba(255, 182, 193, 0.166))
     drop-shadow(0 0 24px rgba(230, 200, 255, 0.158))
     drop-shadow(0 0 36px rgba(200, 230, 255, 0.149))
     drop-shadow(0 0 48px rgba(200, 255, 220, 0.131));
-  transform: scale(1.02);
-  transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: filter 0.4s ease;
 }
 
 .home-v2-card-wrap--playing:hover {
@@ -486,7 +487,9 @@
 }
 
 .home-v2-card--playing {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.18),
+    0 6px 14px rgba(0, 0, 0, 0.22);
 }
 
 .home-v2-card--apple {
@@ -513,7 +516,9 @@
 
 .home-v2-card--placeholder-interactive:hover {
   transform: scale(0.98);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.22),
+    0 8px 18px rgba(0, 0, 0, 0.26);
 }
 
 .home-v2-card--placeholder .home-v2-card-pill {
@@ -525,39 +530,76 @@
   color: #6b6b6b;
 }
 
-/* Card wrap: stacks card + text line below */
+/* Card wrap — page-load cascade: gentle fall + fade onto the page */
+@keyframes home-v2-card-fall-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  45% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .home-v2-card-wrap {
   display: flex;
   flex-direction: column;
   gap: 0;
   min-width: 0; /* allow grid items to shrink below intrinsic size */
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  animation: home-v2-card-fall-in 1.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.16s + var(--home-v2-card-stagger, 0) * 0.18s);
+  transition: filter 0.4s ease;
 }
 
-/* Hover line: sits underneath the card, revealed on wrap hover (slide up + fade in) */
+@media (prefers-reduced-motion: reduce) {
+  .home-v2-card-wrap {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* Hover line: overlays the bottom of the image over the fade */
 .home-v2-card-hover-line {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+  z-index: 2;
   display: block;
-  padding: 13px;
+  margin: 0;
+  padding: 0;
   font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.05em;
   line-height: 1.4;
-  color: #9ca3af;
+  color: #ffffff;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+  text-align: left;
 }
 
-.home-v2-card-wrap:hover .home-v2-card-hover-line {
+.home-v2-card-wrap:hover .home-v2-card-hover-line,
+.home-v2-card:hover .home-v2-card-hover-line,
+.home-v2-card:focus-visible .home-v2-card-hover-line {
   opacity: 1;
   transform: translateY(0);
 }
 
 .home-v2-card-pill {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  top: 16px;
+  left: 16px;
+  right: auto;
+  bottom: auto;
   padding: 6px 14px;
   font-size: 16.25px; /* 25% larger than 13px */
   font-weight: 500;
@@ -565,7 +607,7 @@
   border: 1px solid #EFEFEF;
   border-radius: 999px;
   backdrop-filter: blur(6px);
-  z-index: 1;
+  z-index: 2;
 }
 
 .home-v2-card-pill-label {
@@ -577,11 +619,12 @@
   color: #9CA3AF;
 }
 
-/* Secondary chip – top-right (e.g. FigPal "Try it out!") */
+/* Secondary chip – top-right so it doesn't collide with the title pill */
 .home-v2-card-chip {
   position: absolute;
   top: 16px;
   right: 16px;
+  left: auto;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -590,7 +633,7 @@
   font-weight: 600;
   letter-spacing: 0.03em;
   border-radius: 999px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .home-v2-card-chip--try {
@@ -607,18 +650,18 @@
     font-size: 12px;
     gap: 5px;
   }
-}
 
-@media (max-width: 479px) {
   .home-v2-card-pill {
-    bottom: 16px;
-    left: 16px;
+    top: 12px;
+    left: 12px;
     padding: 5px 12px;
     font-size: 15px; /* 25% larger than 12px */
   }
 
   .home-v2-card-hover-line {
-    padding: 10px 0;
+    left: 16px;
+    right: 16px;
+    bottom: 14px;
     font-size: 14px;
   }
 }
