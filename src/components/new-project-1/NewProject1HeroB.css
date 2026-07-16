@@ -4,8 +4,8 @@
   --np1-hero-runway-title: 5vh;
   --np1-hero-runway-ipad: 47.5vh;
   --np1-hero-runway-settle: 20vh;
-  /* Brief settle after title — long hold + reverse/fixed was pinning over lower sections */
-  --np1-hero-runway-hold: 12vh;
+  /* Brief settle after title — half prior hold to tighten gap before quote */
+  --np1-hero-runway-hold: 6vh;
   position: relative;
   height: calc(
     100vh + var(--np1-hero-runway-title) + var(--np1-hero-runway-ipad) +
@@ -150,6 +150,53 @@
   will-change: opacity, transform;
 }
 
+/* Mouse + pulsing arrow — bottom center of the sticky viewport */
+.np1-hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(16px, 3vh, 32px);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  color: rgba(245, 245, 247, 0.72);
+  transition: opacity 160ms linear;
+}
+
+.np1-hero-scroll-cue__mouse {
+  display: block;
+  width: 50px;
+  height: 75px;
+}
+
+.np1-hero-scroll-cue__arrow {
+  display: flex;
+  width: 45px;
+  height: 23px;
+  animation: np1-hero-scroll-pulse 1.8s ease-in-out infinite;
+}
+
+.np1-hero-scroll-cue__arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes np1-hero-scroll-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(5px);
+  }
+}
+
 @media (max-width: 767px) {
   .np1-hero-scroll--b .np1-handoff-ipad {
     width: min(70%, 420px);
@@ -208,5 +255,10 @@
 
   .np1-hero-scroll--b .np1-hero__video {
     opacity: 0 !important;
+  }
+
+  .np1-hero-scroll-cue__arrow {
+    animation: none;
+    opacity: 0.65;
   }
 }

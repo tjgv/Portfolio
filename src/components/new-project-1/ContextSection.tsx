@@ -22,7 +22,7 @@ export default function ContextSection() {
           <div className="np1-h-text-stack">
             <p className="np1-h-text-stack__label">Context</p>
             <div className="np1-h-text-stack__row">
-              <h2 className="np1-h-text-stack__headline">CX Pro controls immersive displays</h2>
+              <h2 className="np1-h-text-stack__headline">CX Pro controls immersive screens.</h2>
               <p className="np1-h-text-stack__body">
                 I was the sole designer for CX Pro. This is a tool used to build, run, and manage
                 Cosm&apos;s advanced displays, including their marquee product: the immersive dome.

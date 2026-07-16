@@ -21,7 +21,7 @@
   line-height: var(--np1-subheader-1-lh);
   letter-spacing: var(--np1-subheader-1-ls);
   text-align: center;
-  color: var(--np1-text-sub-1);
+  color: var(--np1-text-hero);
 }
 
 .np1-audience__grid {

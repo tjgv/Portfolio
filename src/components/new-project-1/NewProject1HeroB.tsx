@@ -262,6 +262,9 @@ export default function NewProject1HeroB() {
   const rightOpacity = easeOutHeavy(rightProgress) * washPresence
   const titleOpacity = easeOutHeavy(titleProgress) * washPresence
 
+  /** Fade scroll cue out over the first ~12vh of scroll. */
+  const scrollCueOpacity = clamp01(1 - scrollPx / Math.max(1, runwayPx(12)))
+
   const easedLeft = easeOutHeavy(leftProgress)
   const easedRight = easeOutHeavy(rightProgress)
   const leftSlideX = (1 - easedLeft) * -SIDE_SLIDE_FROM_PCT
@@ -372,6 +375,49 @@ export default function NewProject1HeroB() {
           >
             {HERO_TITLE}
           </h1>
+
+          <div
+            className="np1-hero-scroll-cue"
+            style={{ opacity: scrollCueOpacity }}
+            aria-hidden
+          >
+            <svg
+              className="np1-hero-scroll-cue__mouse"
+              viewBox="0 0 24 36"
+              fill="none"
+              focusable="false"
+            >
+              <rect
+                x="6"
+                y="1.5"
+                width="12"
+                height="20"
+                rx="6"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+              <line
+                x1="12"
+                y1="5.5"
+                x2="12"
+                y2="9.5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="np1-hero-scroll-cue__arrow">
+              <svg viewBox="0 0 24 12" fill="none" focusable="false">
+                <path
+                  d="M6 2.5l6 6 6-6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
     </section>

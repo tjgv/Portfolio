@@ -35,8 +35,8 @@ export default function HypothesisB() {
             <h2 className="np1-h-text-stack__headline">
               CX Pro combines{' '}
               <span className="np1-text-run">Show Running</span> and{' '}
-              <span className="np1-text-edit">Show Building</span> workflows into a single
-              interface. Balancing both workflows in one UI makes each harder to learn.
+              <span className="np1-text-edit">Building &amp; Editing</span> workflows into a
+              single interface. Balancing both workflows in one UI makes each harder to learn.
             </h2>
           </div>
         </div>

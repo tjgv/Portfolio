@@ -99,28 +99,6 @@ function GlanceScheduleIcon() {
   )
 }
 
-function GlanceReportIcon() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden focusable="false">
-      <path
-        fill="currentColor"
-        d="M25 35.4167C25.5903 35.4167 26.0851 35.217 26.4844 34.8177C26.8837 34.4184 27.0833 33.9236 27.0833 33.3333C27.0833 32.7431 26.8837 32.2483 26.4844 31.849C26.0851 31.4497 25.5903 31.25 25 31.25C24.4097 31.25 23.9149 31.4497 23.5156 31.849C23.1163 32.2483 22.9167 32.7431 22.9167 33.3333C22.9167 33.9236 23.1163 34.4184 23.5156 34.8177C23.9149 35.217 24.4097 35.4167 25 35.4167ZM22.9167 27.0833H27.0833V14.5833H22.9167V27.0833ZM17.1875 43.75L6.25 32.8125V17.1875L17.1875 6.25H32.8125L43.75 17.1875V32.8125L32.8125 43.75H17.1875ZM18.9583 39.5833H31.0417L39.5833 31.0417V18.9583L31.0417 10.4167H18.9583L10.4167 18.9583V31.0417L18.9583 39.5833Z"
-      />
-    </svg>
-  )
-}
-
-function GlanceStarIcon() {
-  return (
-    <svg viewBox="0 0 50 50" fill="none" aria-hidden focusable="false">
-      <path
-        fill="currentColor"
-        d="M25 35.9792L37.875 43.75L34.4583 29.1042L45.8333 19.25L30.8542 17.9792L25 4.1667L19.1458 17.9792L4.1667 19.25L15.5417 29.1042L12.125 43.75Z"
-      />
-    </svg>
-  )
-}
-
 type GlanceBlock = {
   id: string
   icon: ReactNode
@@ -157,20 +135,6 @@ const GLANCE_BLOCKS: readonly GlanceBlock[] = [
     icon: <GlanceScheduleIcon />,
     label: 'Timeline',
     value: '6\u20138 Months',
-  },
-  {
-    id: 'problem',
-    icon: <GlanceReportIcon />,
-    label: 'Problem',
-    paragraph:
-      'CX Pro was built for internal experts with deep technical knowledge, but it needed to evolve into a simpler client-facing product for external users. The challenge was identifying the highest-impact improvements needed today while defining the future experience we wanted to create tomorrow.',
-  },
-  {
-    id: 'outcome',
-    icon: <GlanceStarIcon />,
-    label: 'Outcome',
-    paragraph:
-      'Aligned leadership around a long-term product vision that separates key workflows, simplified the current experience, and successfully pitched a design direction for CX Pro.',
   },
 ] as const
 
@@ -323,8 +287,8 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
 const UPCOMING_SECTIONS = [
   {
     label: 'Goal',
-    title: 'Make CX Pro accessible to a broader audience.',
-    body: 'CX Pro is built for internal power users. To support customer adoption, it needs a lower learning curve while preserving its flexibility.',
+    title: 'Make CX Pro easy to pick up for casual users.',
+    body: 'CX Pro is designed for specialists, but will soon be picked up by a casual set of users.',
   },
   { label: 'Audience', title: 'The target audience' },
   { label: 'Key Assumptions', title: 'Deducing User Needs' },

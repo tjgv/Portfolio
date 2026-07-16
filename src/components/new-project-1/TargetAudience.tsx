@@ -65,7 +65,7 @@ export default function TargetAudience() {
       aria-label="Target audience"
     >
       <div className="np1-section__inner np1-section__inner--wide np1-audience__inner">
-        <h2 className="np1-audience__heading">Who we are designing for</h2>
+        <h2 className="np1-audience__heading">Who we&apos;re anticipating using CX Pro</h2>
 
         <div className="np1-audience__grid">
           <article className="np1-audience-card">

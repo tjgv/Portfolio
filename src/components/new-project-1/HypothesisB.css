@@ -98,11 +98,11 @@
   background: #0c8ce9;
 }
 
-/* Match hypothesis media-tag strokes (edit = pink, run = blue) */
+/* Softened versions of the media-tag pink/blue — text only, tags keep full chroma */
 .np1-text-edit {
-  color: #f317b0;
+  color: #db5aad;
 }
 
 .np1-text-run {
-  color: #0c8ce9;
+  color: #4a9fd6;
 }
