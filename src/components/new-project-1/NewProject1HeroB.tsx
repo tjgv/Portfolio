@@ -12,6 +12,7 @@ const HERO_TITLE = 'Making CX Pro Accessible to a Broader Audience'
 
 preload(HERO_VIDEO, { as: 'video', fetchPriority: 'high' })
 preload(INTRO_TABLET, { as: 'image', fetchPriority: 'high' })
+/** Side devices slide in mid-sequence — preload + high fetch so they aren't starved by the hero video. */
 preload(LAPTOP_IMAGE, { as: 'image', fetchPriority: 'high' })
 preload(MAC_IMAGE, { as: 'image', fetchPriority: 'high' })
 
@@ -100,6 +101,17 @@ export default function NewProject1HeroB() {
     const video = videoRef.current
     if (!video) return
     video.play().catch(() => {})
+  }, [])
+
+  // Force early fetch+decode for side devices (start off-screen / opacity 0,
+  // so the browser may otherwise defer them until mid-scroll).
+  useEffect(() => {
+    ;[LAPTOP_IMAGE, MAC_IMAGE].forEach((src) => {
+      const img = new Image()
+      img.fetchPriority = 'high'
+      img.decoding = 'async'
+      img.src = src
+    })
   }, [])
 
   useEffect(() => {
@@ -326,7 +338,13 @@ export default function NewProject1HeroB() {
                   transform: `translateY(-50%) translateX(${leftSlideX}%)`,
                 }}
               >
-                <ImgWithLoader src={LAPTOP_IMAGE} alt="CX Pro on laptop" />
+                <ImgWithLoader
+                  src={LAPTOP_IMAGE}
+                  alt="CX Pro on laptop"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                />
               </div>
 
               <div
@@ -340,6 +358,7 @@ export default function NewProject1HeroB() {
                   <ImgWithLoader
                     src={INTRO_TABLET}
                     alt="Hands holding CX Pro on tablet"
+                    loading="eager"
                     fetchPriority="high"
                   />
                 </div>
@@ -352,7 +371,13 @@ export default function NewProject1HeroB() {
                   transform: `translateY(-50%) translateX(${rightSlideX}%)`,
                 }}
               >
-                <ImgWithLoader src={MAC_IMAGE} alt="CX Pro on desktop" />
+                <ImgWithLoader
+                  src={MAC_IMAGE}
+                  alt="CX Pro on desktop"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                />
               </div>
             </div>
           </div>
