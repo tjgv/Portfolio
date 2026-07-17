@@ -43,6 +43,13 @@
   padding-block: clamp(24px, 4vh, 48px);
 }
 
+/* End quote under Results bubbles — pull closer to the phase animation */
+.new-project-1-page--b .np1-hero-quote[data-dev-section='results-quote'] {
+  min-height: 0;
+  padding-top: clamp(16px, 3vh, 32px);
+  padding-bottom: clamp(48px, 8vh, 96px);
+}
+
 /* Goal — centered stack filling the same content column as Problem / Hypothesis */
 .new-project-1-page--b .np1-stub--goal .np1-section__inner {
   display: flex;

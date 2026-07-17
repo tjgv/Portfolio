@@ -1,0 +1,13 @@
+/* Defining the MVP — challenge-style top-down stack (copy, then media) */
+
+.np1-editing-mvp__body {
+  margin: var(--np1-label-title-gap) 0 0;
+  width: 100%;
+  max-width: none;
+  font-family: var(--np1-font-display);
+  font-size: var(--np1-body-1-size);
+  font-weight: var(--np1-split-body-weight);
+  line-height: var(--np1-body-1-lh);
+  letter-spacing: var(--np1-body-1-ls);
+  color: var(--np1-text-sub-hero);
+}

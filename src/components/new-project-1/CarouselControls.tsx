@@ -1,41 +1,70 @@
 import type { CSSProperties, KeyboardEvent } from 'react'
 import { Pause, Play, RotateCcw } from 'lucide-react'
-import type { HighlightSlide } from './highlightsSlides'
-import { PILL_LUCIDE_ICON_SIZE } from './pillControlSizes'
+import { CAROUSEL_NAV_FULL, PILL_LUCIDE_ICON_SIZE } from './pillControlSizes'
 import './carouselGrowAnimation.css'
 import './CarouselControls.css'
 
+export type CarouselControlSlide = {
+  id: string
+  caption: string
+}
+
 export type CarouselControlsProps = {
-  slides: HighlightSlide[]
+  slides: readonly CarouselControlSlide[]
   activeIndex: number
-  isPlaying: boolean
-  ended: boolean
-  autoplayProgress: number
-  controlsReady: boolean
-  style: CSSProperties
+  /** Manual = clickable dots only (no play/pause, no duration fill). */
+  variant?: 'autoplay' | 'manual'
+  isPlaying?: boolean
+  ended?: boolean
+  autoplayProgress?: number
+  controlsReady?: boolean
+  style?: CSSProperties
   onSelectSlide: (index: number) => void
-  onPauseAutoplay: () => void
-  onPlayPause: () => void
-  onDotKeyDown: (event: KeyboardEvent<HTMLButtonElement>, index: number) => void
+  onPauseAutoplay?: () => void
+  onPlayPause?: () => void
+  onDotKeyDown?: (event: KeyboardEvent<HTMLButtonElement>, index: number) => void
 }
 
 export default function CarouselControls({
   slides,
   activeIndex,
-  isPlaying,
-  ended,
-  autoplayProgress,
-  controlsReady,
+  variant = 'autoplay',
+  isPlaying = false,
+  ended = false,
+  autoplayProgress = 0,
+  controlsReady = true,
   style,
   onSelectSlide,
   onPauseAutoplay,
   onPlayPause,
   onDotKeyDown,
 }: CarouselControlsProps) {
+  const isManual = variant === 'manual'
+  const ready = isManual || controlsReady
+
+  const manualStyle: CSSProperties | undefined = isManual
+    ? ({
+        '--aap-morph': 1,
+        '--aap-nav-width': `${CAROUSEL_NAV_FULL}px`,
+        '--aap-cluster-width': `${CAROUSEL_NAV_FULL}px`,
+        '--aap-nav-right': '0px',
+        '--aap-ui-opacity': 1,
+        '--aap-gap': '0px',
+        ...style,
+      } as CSSProperties)
+    : style
+
   return (
     <div
-      className={`np1-carousel-controls np1-carousel-aap${controlsReady ? ' np1-carousel-aap--ready np1-carousel-aap--revealed' : ''}`}
-      style={style}
+      className={[
+        'np1-carousel-controls',
+        'np1-carousel-aap',
+        ready ? 'np1-carousel-aap--ready np1-carousel-aap--revealed' : '',
+        isManual ? 'np1-carousel-aap--manual' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      style={manualStyle}
     >
       <div className="np1-carousel-aap__stage">
         <div className="np1-carousel-aap__cluster">
@@ -57,22 +86,24 @@ export default function CarouselControls({
                       className={`np1-carousel-aap__dot${isActive ? ' np1-carousel-aap__dot--active' : ''}`}
                       onClick={() => {
                         onSelectSlide(index)
-                        onPauseAutoplay()
+                        onPauseAutoplay?.()
                       }}
-                      onKeyDown={(e) => onDotKeyDown(e, index)}
-                      disabled={!controlsReady}
+                      onKeyDown={(e) => onDotKeyDown?.(e, index)}
+                      disabled={!ready}
                     >
                       <span className="visually-hidden">
                         Slide {index + 1}: {slide.caption}
                       </span>
-                      <span
-                        className="np1-carousel-aap__dot-progress"
-                        style={{
-                          transform: `scaleX(${isActive ? autoplayProgress : 0})`,
-                          opacity: isActive ? 1 : 0,
-                        }}
-                        aria-hidden
-                      />
+                      {!isManual ? (
+                        <span
+                          className="np1-carousel-aap__dot-progress"
+                          style={{
+                            transform: `scaleX(${isActive ? autoplayProgress : 0})`,
+                            opacity: isActive ? 1 : 0,
+                          }}
+                          aria-hidden
+                        />
+                      ) : null}
                     </button>
                   </div>
                 )
@@ -80,29 +111,31 @@ export default function CarouselControls({
             </div>
           </div>
 
-          <div className="np1-carousel-aap__play-orb">
-            <div className="np1-grow-orb__pulse np1-grow-orb__pulse--out" aria-hidden />
-            <div className="np1-grow-orb__pulse np1-grow-orb__pulse--in" aria-hidden />
-            <button
-              type="button"
-              className="np1-grow-orb__seed np1-carousel-aap__play-shell"
-              onClick={onPlayPause}
-              disabled={!controlsReady}
-              aria-label={
-                ended ? 'Replay carousel' : isPlaying ? 'Pause carousel' : 'Play carousel'
-              }
-            >
-              <span className="np1-carousel-aap__play-icon" aria-hidden>
-                {ended ? (
-                  <RotateCcw size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} />
-                ) : isPlaying ? (
-                  <Pause size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} />
-                ) : (
-                  <Play size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} />
-                )}
-              </span>
-            </button>
-          </div>
+          {!isManual ? (
+            <div className="np1-carousel-aap__play-orb">
+              <div className="np1-grow-orb__pulse np1-grow-orb__pulse--out" aria-hidden />
+              <div className="np1-grow-orb__pulse np1-grow-orb__pulse--in" aria-hidden />
+              <button
+                type="button"
+                className="np1-grow-orb__seed np1-carousel-aap__play-shell"
+                onClick={onPlayPause}
+                disabled={!ready}
+                aria-label={
+                  ended ? 'Replay carousel' : isPlaying ? 'Pause carousel' : 'Play carousel'
+                }
+              >
+                <span className="np1-carousel-aap__play-icon" aria-hidden>
+                  {ended ? (
+                    <RotateCcw size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} />
+                  ) : isPlaying ? (
+                    <Pause size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} />
+                  ) : (
+                    <Play size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} />
+                  )}
+                </span>
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

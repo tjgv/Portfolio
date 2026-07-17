@@ -123,6 +123,22 @@
   background: rgba(255, 255, 255, 0.22);
 }
 
+/* Manual (dots-only) — centered pill, solid active fill, no play orb */
+.np1-carousel-aap--manual .np1-carousel-aap__nav-shell {
+  right: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+.np1-carousel-aap--manual .np1-carousel-aap__nav {
+  opacity: 1;
+}
+
+.np1-carousel-aap--manual .np1-carousel-aap__dot--active {
+  background: rgba(255, 255, 255, 0.85);
+}
+
 .np1-carousel-aap__dot-progress {
   position: absolute;
   inset: 0;

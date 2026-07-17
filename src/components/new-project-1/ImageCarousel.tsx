@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { Minus, Plus } from 'lucide-react'
 import { ImgWithLoader } from '../MediaLoader'
 import { VideoWithLoader } from '../MediaLoader/VideoWithLoader'
+import CarouselControls from './CarouselControls'
 import './EditingCarousel.css'
 
 type SlideBase = {
@@ -174,17 +175,30 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
     [smoothScrollTo]
   )
 
-  const goToPrev = useCallback(() => {
-    const next = Math.max(0, activeIndex - 1)
-    setActiveIndex(next)
-    scrollToIndex(next)
-  }, [activeIndex, scrollToIndex])
+  const goToSlide = useCallback(
+    (index: number) => {
+      const next = Math.max(0, Math.min(slideCount - 1, index))
+      setActiveIndex(next)
+      scrollToIndex(next)
+    },
+    [scrollToIndex, slideCount]
+  )
 
-  const goToNext = useCallback(() => {
-    const next = Math.min(slideCount - 1, activeIndex + 1)
-    setActiveIndex(next)
-    scrollToIndex(next)
-  }, [activeIndex, scrollToIndex, slideCount])
+  const handleDotKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        goToSlide(index)
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault()
+        goToSlide(activeIndex - 1)
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        goToSlide(activeIndex + 1)
+      }
+    },
+    [activeIndex, goToSlide]
+  )
 
   // Sync active index from native trackpad scroll (no snap, so read scroll position)
   const syncFromScroll = useCallback(() => {
@@ -239,6 +253,7 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
             return (
               <li
                 key={slide.id}
+                id={`np1-carousel-slide-${slide.id}`}
                 ref={(node) => { slideRefs.current[index] = node }}
                 className={[
                   'np1-editing-carousel__slide',
@@ -309,26 +324,13 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
       </div>
 
       <div className="np1-editing-carousel__controls">
-        <nav className="np1-quote-card__nav" aria-label="Slide navigation">
-          <button
-            type="button"
-            className="np1-quote-card__nav-btn"
-            onClick={goToPrev}
-            disabled={activeIndex === 0}
-            aria-label="Previous slide"
-          >
-            <FilledChevronLeftIcon />
-          </button>
-          <button
-            type="button"
-            className="np1-quote-card__nav-btn"
-            onClick={goToNext}
-            disabled={activeIndex === slideCount - 1}
-            aria-label="Next slide"
-          >
-            <FilledChevronRightIcon />
-          </button>
-        </nav>
+        <CarouselControls
+          variant="manual"
+          slides={slides}
+          activeIndex={activeIndex}
+          onSelectSlide={goToSlide}
+          onDotKeyDown={handleDotKeyDown}
+        />
       </div>
     </div>
   )

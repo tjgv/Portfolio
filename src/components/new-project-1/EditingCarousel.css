@@ -347,16 +347,15 @@
 
 .np1-editing-carousel__controls {
   display: flex;
-  justify-content: flex-start;
-  padding-inline: var(--np1-section-side-pad, clamp(24px, 5vw, 80px));
-  /* align with content column */
-  max-width: calc(
-    var(--np1-column-width, 1150px) +
-    2 * var(--np1-section-side-pad, clamp(24px, 5vw, 80px))
-  );
-  margin-inline: auto;
+  justify-content: center;
   width: 100%;
   box-sizing: border-box;
+}
+
+.np1-editing-carousel__controls .np1-carousel-controls {
+  position: relative;
+  bottom: auto;
+  padding-block: clamp(16px, 2.5vh, 28px);
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
