@@ -105,7 +105,7 @@ export default function NewProject1HeroB() {
         img.src = src
       })
     }
-    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+    if (typeof window.requestIdleCallback === 'function') {
       const id = window.requestIdleCallback(warm, { timeout: 1500 })
       return () => window.cancelIdleCallback(id)
     }
