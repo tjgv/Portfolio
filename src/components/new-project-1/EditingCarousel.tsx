@@ -70,7 +70,7 @@ export default function EditingCarousel() {
         <div className="np1-editing-carousel__intro">
           <p className="np1-editing-carousel__label">MVP Priorities</p>
           <h2 className="np1-editing-carousel__headline">
-            Identifying Improvements for the Current Experience and the Future Split Experience
+            Identifying highest impact upgrades for MVP
           </h2>
           <p className="np1-editing-carousel__lede">
             I prioritized four initiatives that improved the current editing experience while

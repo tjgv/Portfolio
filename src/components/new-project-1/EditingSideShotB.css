@@ -1,7 +1,25 @@
-/* Defining the MVP — challenge-style top-down stack (copy, then media) */
+/* MVP — centered copy like Problem B, then media */
+
+.np1-editing-mvp .np1-hypothesis__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.np1-editing-mvp .np1-h-text-stack--full {
+  align-items: center;
+  text-align: center;
+}
+
+.np1-editing-mvp .np1-h-text-stack__label,
+.np1-editing-mvp .np1-h-text-stack__headline {
+  width: 100%;
+}
 
 .np1-editing-mvp__body {
-  margin: var(--np1-label-title-gap) 0 0;
+  /* Gap comes from .np1-h-text-stack — don't also add margin (that doubled it vs Problem). */
+  margin: 0;
   width: 100%;
   max-width: none;
   font-family: var(--np1-font-display);
@@ -10,4 +28,5 @@
   line-height: var(--np1-body-1-lh);
   letter-spacing: var(--np1-body-1-ls);
   color: var(--np1-text-sub-hero);
+  text-align: center;
 }

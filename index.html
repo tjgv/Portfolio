@@ -11,12 +11,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
       (function(){
-        if (window.location.pathname === '/' || window.location.pathname === '') {
-          var link = document.createElement('link');
-          link.rel = 'preload';
-          link.as = 'video';
-          link.href = '/clip-3-cosm.mov';
-          document.head.appendChild(link);
+        var path = window.location.pathname;
+        if (path === '/' || path === '') {
+          var homeVideo = document.createElement('link');
+          homeVideo.rel = 'preload';
+          homeVideo.as = 'video';
+          homeVideo.href = '/clip-3-cosm.mov';
+          document.head.appendChild(homeVideo);
+        }
+        // Consumer CX Pro — kick off hero clip 1 + poster before the JS bundle parses.
+        if (
+          path === '/consumer-cx-pro' ||
+          path === '/consumer-cx-pro-b' ||
+          path === '/new-project-1'
+        ) {
+          var poster = document.createElement('link');
+          poster.rel = 'preload';
+          poster.as = 'image';
+          poster.href = '/new-project-1/hero-poster.jpg';
+          poster.fetchPriority = 'high';
+          document.head.appendChild(poster);
+
+          var hero = document.createElement('link');
+          hero.rel = 'preload';
+          hero.as = 'video';
+          hero.href = '/new-project-1/hero-1of3.mp4';
+          hero.type = 'video/mp4';
+          hero.fetchPriority = 'high';
+          document.head.appendChild(hero);
         }
       })();
     </script>

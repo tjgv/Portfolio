@@ -441,6 +441,33 @@ export default function HomePageV2() {
     [navigate]
   )
 
+  /** Warm Consumer CX Pro hero clip before navigation so the case study paints faster. */
+  const prefetchConsumerHero = useCallback(() => {
+    const poster = document.createElement('link')
+    poster.rel = 'prefetch'
+    poster.as = 'image'
+    poster.href = '/new-project-1/hero-poster.jpg'
+    document.head.appendChild(poster)
+
+    const video = document.createElement('link')
+    video.rel = 'prefetch'
+    video.as = 'video'
+    video.href = '/new-project-1/hero-1of3.mp4'
+    video.type = 'video/mp4'
+    document.head.appendChild(video)
+  }, [])
+
+  useEffect(() => {
+    const warm = () => prefetchConsumerHero()
+    const ric = window.requestIdleCallback?.bind(window)
+    if (ric) {
+      const id = ric(warm, { timeout: 2500 })
+      return () => window.cancelIdleCallback?.(id)
+    }
+    const t = window.setTimeout(warm, 1200)
+    return () => window.clearTimeout(t)
+  }, [prefetchConsumerHero])
+
   const handleFigPalClose = useCallback(() => {
     try {
       if (
@@ -575,19 +602,25 @@ export default function HomePageV2() {
                 style={{ '--home-v2-card-stagger': index } as React.CSSProperties}
               >
                 {card.id === 'placeholder1' ? (
-                  <MediaCycleCard
-                    onClick={() => openCaseStudy('placeholder1')}
-                    imgSrc="/consumer-cx-cover.png"
-                    videoSrc="/consumer-cx-cover.mp4"
-                    label={card.label}
-                    year={card.year}
-                    hoverLine={card.hoverLine}
-                    visual="apple"
-                    showVideo={heroShowVideo}
-                    onVideoEnded={onHeroVideoEnded}
-                    videoPreload="auto"
-                    onImageLoaded={() => setHeroImageLoaded(true)}
-                  />
+                  <div
+                    onMouseEnter={prefetchConsumerHero}
+                    onFocus={prefetchConsumerHero}
+                    onTouchStart={prefetchConsumerHero}
+                  >
+                    <MediaCycleCard
+                      onClick={() => openCaseStudy('placeholder1')}
+                      imgSrc="/consumer-cx-cover.png"
+                      videoSrc="/consumer-cx-cover.mp4"
+                      label={card.label}
+                      year={card.year}
+                      hoverLine={card.hoverLine}
+                      visual="apple"
+                      showVideo={heroShowVideo}
+                      onVideoEnded={onHeroVideoEnded}
+                      videoPreload="auto"
+                      onImageLoaded={() => setHeroImageLoaded(true)}
+                    />
+                  </div>
                 ) : card.id === 'placeholder2' ? (
                   <button
                     type="button"

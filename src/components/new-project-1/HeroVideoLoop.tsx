@@ -20,10 +20,18 @@ type HeroVideoLoopProps = {
   opacity?: number
 }
 
+function warmClip(video: HTMLVideoElement | null) {
+  if (!video) return
+  video.preload = 'auto'
+  if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
+    video.load()
+  }
+}
+
 /**
  * Instantly sequences three hero clips in a loop. Clip 1 starts immediately
- * with high fetch priority; clips 2–3 begin buffering as soon as the first
- * is playing so handoffs stay seamless.
+ * with high fetch priority; only the *next* clip buffers while the current
+ * one plays so later clips never contend with the first paint.
  */
 export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideoLoopProps) {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null])
@@ -49,6 +57,10 @@ export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideo
     next.play().catch(() => {})
     activeIndexRef.current = index
     setActiveIndex(index)
+
+    // Prefetch only the upcoming clip — never all remaining at once.
+    const upcoming = (index + 1) % HERO_VIDEO_CLIPS.length
+    warmClip(videos[upcoming])
   }, [])
 
   const advance = useCallback(() => {
@@ -67,38 +79,34 @@ export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideo
       playIndex(nextIndex)
     }
     next.addEventListener('canplay', onReady)
-    next.load()
+    warmClip(next)
   }, [playIndex])
+
+  const markFirstReady = useCallback(() => {
+    setFirstReady(true)
+  }, [])
 
   useEffect(() => {
     const first = videoRefs.current[0]
     if (!first) return
     first.play().catch(() => {})
 
-    // Kick off buffering for the rest once clip 1 is under way.
-    const warmRest = () => {
-      for (let i = 1; i < HERO_VIDEO_CLIPS.length; i++) {
-        const video = videoRefs.current[i]
-        if (!video) continue
-        video.preload = 'auto'
-        if (video.readyState < HTMLMediaElement.HAVE_METADATA) {
-          video.load()
-        }
-      }
+    // Only warm clip 2 after clip 1 is actually playing (not on canplay),
+    // so we don't steal bandwidth from the first download.
+    const onPlaying = () => {
+      markFirstReady()
+      warmClip(videoRefs.current[1])
     }
 
-    if (first.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      warmRest()
-    } else {
-      first.addEventListener('playing', warmRest, { once: true })
-      first.addEventListener('canplay', warmRest, { once: true })
-    }
+    first.addEventListener('playing', onPlaying, { once: true })
+    // loadeddata fires earlier than canplay — reveal as soon as a frame exists.
+    first.addEventListener('loadeddata', markFirstReady, { once: true })
 
     return () => {
-      first.removeEventListener('playing', warmRest)
-      first.removeEventListener('canplay', warmRest)
+      first.removeEventListener('playing', onPlaying)
+      first.removeEventListener('loadeddata', markFirstReady)
     }
-  }, [])
+  }, [markFirstReady])
 
   return (
     <div
@@ -125,15 +133,15 @@ export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideo
           poster={index === 0 ? HERO_VIDEO_POSTER : undefined}
           muted
           playsInline
-          preload={index === 0 ? 'auto' : 'metadata'}
+          preload={index === 0 ? 'auto' : 'none'}
           onEnded={() => {
             if (activeIndexRef.current === index) advance()
           }}
           onPlaying={() => {
-            if (index === 0) setFirstReady(true)
+            if (index === 0) markFirstReady()
           }}
-          onCanPlay={() => {
-            if (index === 0) setFirstReady(true)
+          onLoadedData={() => {
+            if (index === 0) markFirstReady()
           }}
           style={{
             opacity: firstReady && index === activeIndex ? opacity : 0,
