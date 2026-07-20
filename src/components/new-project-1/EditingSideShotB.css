@@ -1,5 +1,10 @@
 /* MVP — centered copy like Problem B, then media */
 
+/* Image asset still reads airy at the top — sit media closer for this section only */
+.np1-editing-mvp .np1-hypothesis__inner {
+  gap: max(0px, calc(var(--np1-text-media-gap) - 75px));
+}
+
 .np1-editing-mvp .np1-hypothesis__copy {
   display: flex;
   flex-direction: column;

@@ -660,9 +660,6 @@ export default function HighlightsCarouselSection({
                   <figure
                     className={`np1-carousel-section__media${slide.kind === 'video' ? ' np1-carousel-section__media--video' : ''}`}
                   >
-                    <span className="np1-carousel-section__position" aria-hidden>
-                      {index + 1}
-                    </span>
                     {slide.kind === 'video' ? (
                       <VideoWithLoader
                         ref={(node) => {

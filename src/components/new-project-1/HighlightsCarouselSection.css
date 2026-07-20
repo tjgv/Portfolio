@@ -15,7 +15,7 @@
 .np1-carousel-section {
   /* Video 1 (show-management 1920×1046) — shared default frame */
   --carousel-video-aspect: 1920 / 1046;
-  --carousel-slide-width: min(88vw, 980px);
+  --carousel-slide-width: min(calc(88vw * 1.15), calc(980px * 1.15));
 
   position: relative;
   display: flex;
@@ -95,7 +95,7 @@
 .np1-carousel-section__track {
   display: flex;
   align-items: flex-start;
-  gap: clamp(16px, 2vw, 28px);
+  gap: clamp(24px, 3vw, 42px);
   width: max-content;
   height: auto;
   margin: 0;
@@ -138,15 +138,11 @@
   aspect-ratio: var(--carousel-video-aspect);
   height: auto;
   margin: 0;
-  border: 1px solid #3a3a3a;
+  border: none;
   border-radius: 18px;
   overflow: hidden;
   background: #111;
   box-sizing: border-box;
-}
-
-#np1-carousel-slide-ipad-compat .np1-carousel-section__media {
-  border: none;
 }
 
 .np1-carousel-section__media .media-with-loader-wrap {
@@ -183,29 +179,6 @@
   object-fit: cover;
 }
 
-.np1-carousel-section__position {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.75rem;
-  height: 1.75rem;
-  padding: 0 0.4rem;
-  border-radius: 6px;
-  background: rgba(0, 0, 0, 0.72);
-  color: #fff;
-  font-family: var(--np1-font-body);
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0;
-  pointer-events: none;
-  user-select: none;
-}
-
 .np1-carousel-section__caption {
   margin: 0;
   width: 100%;
@@ -220,6 +193,6 @@
 
 @media (max-width: 767px) {
   .np1-carousel-section {
-    --carousel-slide-width: 92vw;
+    --carousel-slide-width: min(calc(92vw * 1.15), calc(100vw - 24px));
   }
 }
