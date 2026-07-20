@@ -50,34 +50,45 @@ export default function AssumptionsQuoteSection() {
       aria-label="Deducing user needs"
     >
       <div className="np1-section__inner np1-assumptions-quote__inner">
-        <p className="np1-assumptions-quote__label">Key Assumptions</p>
-
         <div className="np1-assumptions-quote__copy">
-          <h2 className="np1-assumptions-quote__headline">
-            Establishing a User Baseline
-          </h2>
-          <div className="np1-assumptions-quote__body">
-            <p>
-              Without access to prospective users, I spoke with the sales team to draft core
-              assumptions.
-            </p>
-            <p>&nbsp;</p>
-            <ol>
-              <li>
-                <span className="np1-text-emphasis">Most clients will be casual users</span>
-              </li>
-              <li>
-                <span className="np1-text-emphasis">
-                  Most use cases will be simpler in terms of set up and run of show.
-                </span>
-              </li>
-            </ol>
-            <p>&nbsp;</p>
-            <p>
-              I mapped these assumptions to similar internal users to establish a baseline for user
-              needs. With a target in sight, I began speaking with users, focusing on the experience
-              of newer operators.
-            </p>
+          <div className="np1-h-text-stack">
+            <p className="np1-h-text-stack__label">Key Assumptions</p>
+            <div className="np1-h-text-stack__row">
+              <h2 className="np1-h-text-stack__headline">
+                Establishing a User Baseline
+              </h2>
+              <div className="np1-h-text-stack__body">
+                <p>
+                  I didn&apos;t have access to these new users, so I made assumptions about them based
+                  on talks with sales:
+                </p>
+                <p>&nbsp;</p>
+                <p>
+                  <span className="np1-text-emphasis">
+                    Most clients will be casual, non-specialists.
+                  </span>
+                </p>
+                <p>
+                  <span className="np1-text-emphasis">
+                    These clients will have simpler shows.
+                  </span>
+                </p>
+                <p>&nbsp;</p>
+                <p>
+                  To assess the needs for these users, I drew internal comparisons. Ex:
+                </p>
+                <p>
+                  <span className="np1-text-emphasis">Casual Clients → Cosm Interns</span>
+                </p>
+                <p>
+                  <span className="np1-text-emphasis">Simpler Shows → Cosm Studio Shows</span>
+                </p>
+                <p>&nbsp;</p>
+                <p>
+                  I conducted user interviews to learn more about challenges these users would face.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

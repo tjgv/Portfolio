@@ -8,7 +8,7 @@ import './NewProject1HeroB.css'
 const INTRO_TABLET = '/new-project-1/intro-tablet.png'
 const LAPTOP_IMAGE = '/new-project-1/laptop1.png'
 const MAC_IMAGE = '/new-project-1/mac1.png'
-const HERO_TITLE = 'Making CX Pro Accessible to a Broader Audience'
+const HERO_TITLE = 'Making CX Pro easy for anyone to pick up.'
 
 preload(INTRO_TABLET, { as: 'image', fetchPriority: 'high' })
 /** Side devices slide in mid-sequence — preload + high fetch so they aren't starved by the hero video. */

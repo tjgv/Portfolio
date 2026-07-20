@@ -17,7 +17,7 @@ export default function EditingSideShotB() {
           <div className="np1-h-text-stack np1-h-text-stack--full">
             <p className="np1-h-text-stack__label">Defining the MVP</p>
             <h2 className="np1-h-text-stack__headline">
-              Finding an MVP to lead us towards a dual view.
+              Identifying highest impact upgrades for MVP
             </h2>
             <p className="np1-editing-mvp__body">
               A dedicated Show Running Mode would come later. The MVP focused on improving the

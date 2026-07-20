@@ -2,7 +2,7 @@ import './Problem.css'
 import './ProblemB.css'
 
 const PROBLEM_IMAGE = '/new-project-1/problem-hero.png'
-const PROBLEM_LABEL = 'Problem'
+const PROBLEM_LABEL = 'Insight & Problem'
 const PROBLEM_STATEMENT =
   'CX Pro is too conceptually complex for newer users to grasp, making otherwise simple flows unintuitive.'
 const PROBLEM_BODY =
@@ -13,7 +13,7 @@ export default function ProblemB() {
     <section
       className="np1-section np1-problem np1-problem--b"
       data-dev-section="problem"
-      aria-label="Problem"
+      aria-label="Insight & Problem"
     >
       <div className="np1-problem__stage">
         <img

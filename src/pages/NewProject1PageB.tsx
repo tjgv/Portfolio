@@ -288,7 +288,7 @@ const UPCOMING_SECTIONS = [
   {
     label: 'Goal',
     title: 'Make CX Pro easy to pick up for casual users.',
-    body: 'CX Pro is designed for specialists, but will soon be picked up by a casual set of users.',
+    body: 'CX Pro is designed for specialists, but will soon be picked up by a casual set of users. I need to figure out who these users are, what they need, and what this means for the direction of CX Pro.',
   },
   { label: 'Audience', title: 'The target audience' },
   { label: 'Key Assumptions', title: 'Deducing User Needs' },
