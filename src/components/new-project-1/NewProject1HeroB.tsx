@@ -10,10 +10,10 @@ const LAPTOP_IMAGE = '/new-project-1/laptop1.png'
 const MAC_IMAGE = '/new-project-1/mac1.png'
 const HERO_TITLE = 'Making CX Pro easy for anyone to pick up.'
 
-preload(INTRO_TABLET, { as: 'image', fetchPriority: 'high' })
-/** Side devices slide in mid-sequence — preload + high fetch so they aren't starved by the hero video. */
-preload(LAPTOP_IMAGE, { as: 'image', fetchPriority: 'high' })
-preload(MAC_IMAGE, { as: 'image', fetchPriority: 'high' })
+/** Handoff images load after the hero video — keep them low so they don't starve clip 1. */
+preload(INTRO_TABLET, { as: 'image', fetchPriority: 'low' })
+preload(LAPTOP_IMAGE, { as: 'image', fetchPriority: 'low' })
+preload(MAC_IMAGE, { as: 'image', fetchPriority: 'low' })
 
 /** Short hold on the video before the handoff begins. */
 const PHASE1_RUNWAY_VH = 5
@@ -95,15 +95,22 @@ export default function NewProject1HeroB() {
   const titleRafRef = useRef<number | null>(null)
   const titleDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Force early fetch+decode for side devices (start off-screen / opacity 0,
-  // so the browser may otherwise defer them until mid-scroll).
+  // Warm side devices after first paint so they don't contend with hero clip 1.
   useEffect(() => {
-    ;[LAPTOP_IMAGE, MAC_IMAGE].forEach((src) => {
-      const img = new Image()
-      img.fetchPriority = 'high'
-      img.decoding = 'async'
-      img.src = src
-    })
+    const warm = () => {
+      ;[INTRO_TABLET, LAPTOP_IMAGE, MAC_IMAGE].forEach((src) => {
+        const img = new Image()
+        img.fetchPriority = 'low'
+        img.decoding = 'async'
+        img.src = src
+      })
+    }
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(warm, { timeout: 1500 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const t = window.setTimeout(warm, 600)
+    return () => window.clearTimeout(t)
   }, [])
 
   useEffect(() => {
@@ -325,8 +332,8 @@ export default function NewProject1HeroB() {
                 <ImgWithLoader
                   src={LAPTOP_IMAGE}
                   alt="CX Pro on laptop"
-                  loading="eager"
-                  fetchPriority="high"
+                  loading="lazy"
+                  fetchPriority="low"
                   decoding="async"
                 />
               </div>
@@ -343,7 +350,7 @@ export default function NewProject1HeroB() {
                     src={INTRO_TABLET}
                     alt="Hands holding CX Pro on tablet"
                     loading="eager"
-                    fetchPriority="high"
+                    fetchPriority="low"
                   />
                 </div>
               </div>
@@ -358,8 +365,8 @@ export default function NewProject1HeroB() {
                 <ImgWithLoader
                   src={MAC_IMAGE}
                   alt="CX Pro on desktop"
-                  loading="eager"
-                  fetchPriority="high"
+                  loading="lazy"
+                  fetchPriority="low"
                   decoding="async"
                 />
               </div>

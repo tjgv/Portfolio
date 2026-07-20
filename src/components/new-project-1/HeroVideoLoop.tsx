@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { preload } from 'react-dom'
-import { MediaLoader } from '../MediaLoader'
-import '../MediaLoader/MediaLoader.css'
 
 /** Split hero reel — clip 1 priority-loads so 2/3 can buffer while it plays. */
 export const HERO_VIDEO_CLIPS = [
@@ -10,6 +8,10 @@ export const HERO_VIDEO_CLIPS = [
   '/new-project-1/hero-3of3.mp4',
 ] as const
 
+/** First-frame poster so the hero paints before clip 1 finishes buffering. */
+export const HERO_VIDEO_POSTER = '/new-project-1/hero-poster.jpg'
+
+preload(HERO_VIDEO_POSTER, { as: 'image', fetchPriority: 'high' })
 preload(HERO_VIDEO_CLIPS[0], { as: 'video', fetchPriority: 'high' })
 
 type HeroVideoLoopProps = {
@@ -103,7 +105,15 @@ export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideo
       className={`media-with-loader-wrap media-with-loader-wrap--fill np1-hero-video-loop${className ? ` ${className}` : ''}`}
       style={{ position: 'relative' }}
     >
-      <MediaLoader visible={!firstReady} variant="video" />
+      <img
+        className="np1-hero__video np1-hero-video-loop__clip np1-hero-video-loop__poster"
+        src={HERO_VIDEO_POSTER}
+        alt=""
+        aria-hidden
+        decoding="async"
+        fetchPriority="high"
+        style={{ opacity: firstReady ? 0 : opacity }}
+      />
       {HERO_VIDEO_CLIPS.map((src, index) => (
         <video
           key={src}
@@ -112,6 +122,7 @@ export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideo
           }}
           className="np1-hero__video np1-hero-video-loop__clip"
           src={src}
+          poster={index === 0 ? HERO_VIDEO_POSTER : undefined}
           muted
           playsInline
           preload={index === 0 ? 'auto' : 'metadata'}
