@@ -15,7 +15,7 @@
 .np1-carousel-section {
   /* Video 1 (show-management 1920×1046) — shared default frame */
   --carousel-video-aspect: 1920 / 1046;
-  --carousel-slide-width: min(calc(88vw * 1.15), calc(980px * 1.15));
+  --carousel-slide-width: min(calc(88vw * 0.9775), calc(980px * 0.9775));
 
   position: relative;
   display: flex;
@@ -195,7 +195,7 @@
 @media (max-width: 767px) {
   /* Carousel → vertical media stack (no swipe / controls) */
   .np1-carousel-section {
-    --carousel-slide-width: 100%;
+    --carousel-slide-width: 85%;
   }
 
   .np1-carousel-section__gallery {
@@ -206,6 +206,7 @@
 
   .np1-carousel-section__track {
     flex-direction: column;
+    align-items: center;
     width: 100%;
     max-width: 100%;
     padding-left: 0 !important;
@@ -216,7 +217,7 @@
   .np1-carousel-section__slide,
   .np1-carousel-section__slide--narrow {
     flex: 0 0 auto;
-    width: 100%;
+    width: 85%;
     flex-basis: auto;
   }
 

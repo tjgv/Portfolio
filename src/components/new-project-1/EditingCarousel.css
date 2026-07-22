@@ -174,7 +174,7 @@
 .np1-editing-carousel__slide {
   /* Wide slides: fixed width */
   --np1-ec-slide-width: min(
-    calc(var(--np1-column-width, 1150px) * 0.9775),
+    calc(var(--np1-column-width, 1150px) * 0.830875),
     calc(100vw - 48px)
   );
 
@@ -199,7 +199,7 @@
   background: rgba(255, 255, 255, 0.04);
   /* Fixed height shared by all slides — this box never resizes on flip;
      only its contents (the .flip inner) rotate inside it. */
-  height: clamp(322px, 41.4vw, 667px);
+  height: clamp(274px, 35.19vw, 567px);
   width: 100%;
   flex-shrink: 0;
   perspective: 1600px;
@@ -306,7 +306,7 @@
 .np1-editing-carousel__slide--narrow .np1-editing-carousel__image {
   width: auto;
   height: auto;
-  max-height: clamp(322px, 41.4vw, 667px);
+  max-height: clamp(274px, 35.19vw, 567px);
   object-fit: unset;
 }
 
@@ -367,6 +367,7 @@
 
   .np1-editing-carousel__track {
     flex-direction: column;
+    align-items: center;
     width: 100%;
     max-width: 100%;
     padding-left: 0 !important;
@@ -377,8 +378,8 @@
   .np1-editing-carousel__slide,
   .np1-editing-carousel__slide--narrow {
     flex: 0 0 auto;
-    width: 100% !important;
-    --np1-ec-slide-width: 100%;
+    width: 85% !important;
+    --np1-ec-slide-width: 85%;
   }
 
   .np1-editing-carousel__media-frame,

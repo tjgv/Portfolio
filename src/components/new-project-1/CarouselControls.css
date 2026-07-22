@@ -14,7 +14,7 @@
   top: 0;
   z-index: 40;
   /* Match highlights default media frame height */
-  height: calc(var(--carousel-slide-width, min(calc(88vw * 1.15), 1127px)) / (1920 / 1046));
+  height: calc(var(--carousel-slide-width, min(calc(88vw * 0.9775), 958px)) / (1920 / 1046));
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
@@ -23,7 +23,7 @@
 
 .np1-editing-carousel__carousel > .np1-carousel-edge-arrows {
   /* Match editing carousel media-frame height */
-  height: clamp(322px, 41.4vw, 667px);
+  height: clamp(274px, 35.19vw, 567px);
 }
 
 .np1-carousel-edge-arrows--visible {
