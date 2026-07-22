@@ -193,7 +193,35 @@
 }
 
 @media (max-width: 767px) {
+  /* Carousel → vertical media stack (no swipe / controls) */
   .np1-carousel-section {
-    --carousel-slide-width: min(calc(92vw * 1.15), calc(100vw - 24px));
+    --carousel-slide-width: 100%;
+  }
+
+  .np1-carousel-section__gallery {
+    overflow: visible;
+    scroll-snap-type: none;
+    min-height: 0;
+  }
+
+  .np1-carousel-section__track {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    gap: clamp(20px, 4vh, 32px);
+  }
+
+  .np1-carousel-section__slide,
+  .np1-carousel-section__slide--narrow {
+    flex: 0 0 auto;
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .np1-carousel-section__body > .np1-carousel-controls,
+  .np1-carousel-section__body > .np1-carousel-edge-arrows {
+    display: none;
   }
 }

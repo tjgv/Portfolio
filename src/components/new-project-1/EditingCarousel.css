@@ -359,9 +359,47 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 640px) {
-  .np1-editing-carousel__slide {
-    --np1-ec-slide-width: calc(100vw - 48px);
+@media (max-width: 767px) {
+  /* Carousel → vertical media stack (no swipe / controls) */
+  .np1-editing-carousel__gallery {
+    overflow: visible;
+  }
+
+  .np1-editing-carousel__track {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    gap: clamp(20px, 4vh, 32px);
+  }
+
+  .np1-editing-carousel__slide,
+  .np1-editing-carousel__slide--narrow {
+    flex: 0 0 auto;
+    width: 100% !important;
+    --np1-ec-slide-width: 100%;
+  }
+
+  .np1-editing-carousel__media-frame,
+  .np1-editing-carousel__slide--narrow .np1-editing-carousel__media-frame {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none;
+  }
+
+  .np1-editing-carousel__video,
+  .np1-editing-carousel__image,
+  .np1-editing-carousel__slide--narrow .np1-editing-carousel__image {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .np1-editing-carousel__carousel > .np1-carousel-controls,
+  .np1-editing-carousel__carousel > .np1-carousel-edge-arrows {
+    display: none;
   }
 }
 

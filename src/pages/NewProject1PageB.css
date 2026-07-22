@@ -112,6 +112,45 @@
 }
 
 @media (max-width: 767px) {
+  /* Hyper-simple mobile: 16px side gutters; content fills the column */
+  .new-project-1-page--b {
+    --np1-wide-padding-inline: 16px;
+    --np1-content-padding-inline: 16px;
+    --np1-nav-padding-inline: 16px;
+    --np1-wide-max: 100%;
+    --np1-content-max: 100%;
+    --np1-column-width: 100%;
+  }
+
+  .new-project-1-page--b .np1-content .np1-section__inner,
+  .new-project-1-page--b .np1-editing-carousel__intro,
+  .new-project-1-page--b .np1-problem--b .np1-problem__copy-inner--b {
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Stacked carousel media shares the same 16px inset as text */
+  .new-project-1-page--b .np1-carousel-section__body,
+  .new-project-1-page--b .np1-editing-carousel__carousel {
+    width: 100%;
+    padding-inline: var(--np1-wide-padding-inline);
+    box-sizing: border-box;
+  }
+
+  /* Hypothesis Edit/Run pair → vertical stack, full content width */
+  .new-project-1-page--b .np1-media--xl.np1-media--xl-pair {
+    grid-template-columns: 1fr;
+  }
+
+  /* Drop desktop text max-widths so copy fills to the gutter */
+  .new-project-1-page--b .np1-audience-card__body,
+  .new-project-1-page--b .np1-stub--goal .np1-stub__body,
+  .new-project-1-page--b .np1-h-text-stack__headline,
+  .new-project-1-page--b .np1-h-text-stack__body {
+    max-width: none;
+    width: 100%;
+  }
+
   .new-project-1-page--b .np1-glance__blocks {
     grid-template-columns: 1fr;
   }

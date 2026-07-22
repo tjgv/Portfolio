@@ -102,5 +102,21 @@
 @media (max-width: 767px) {
   .np1-audience__grid {
     grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  /* Video on top, then Educators / Students / Staff */
+  .np1-audience-card--media {
+    order: -1;
+  }
+
+  .np1-audience-card {
+    padding: 24px;
+    gap: 24px;
+  }
+
+  .np1-audience-card__body {
+    max-width: none;
+    width: 100%;
   }
 }

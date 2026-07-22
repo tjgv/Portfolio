@@ -339,6 +339,11 @@
   .np1-h-text-stack__row {
     grid-template-columns: 1fr;
   }
+
+  /* Hypothesis Edit/Run pair — stack on mobile */
+  .np1-media--xl.np1-media--xl-pair {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Preview modal only: intro headline/body use Header-2 / Body-2 instead of
