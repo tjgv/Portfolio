@@ -1,0 +1,50 @@
+/* Key Assumptions section chrome — quote card/controls live in QuoteCarousel.css */
+
+.np1c-assumptions-quote {
+  --popup-control-bottom: max(24px, env(safe-area-inset-bottom, 0px));
+
+  position: relative;
+  background: var(--np1c-bg);
+}
+
+.np1c-assumptions-quote__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: clamp(64px, 6.6vw, 100px);
+  padding-bottom: clamp(64px, 8vh, 120px);
+}
+
+.np1c-assumptions-quote__copy {
+  width: 100%;
+  margin-bottom: clamp(40px, 5.3vw, 80px);
+}
+
+.np1c-assumptions-quote__copy .np1c-h-text-stack__body .np1c-text-emphasis {
+  color: var(--np1c-text-hero);
+  font-weight: calc(var(--np1c-split-body-weight) + 100);
+}
+
+/* Quote card + pill dock — 60px between card and pill resting position */
+.np1c-assumptions-quote__quotes-block {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.np1c-assumptions-quote__quotes-block .np1c-pill1__dock {
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1c-assumptions-quote__quotes-block .np1c-pill1__dock {
+    min-height: 0;
+  }
+
+  .np1c-assumptions-quote .np1c-popup-reveal--pinned {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+}

@@ -1,0 +1,169 @@
+/* Page B — unified wide content gutters (matches Target Audience section),
+   tightened 15% vs the shared wide standard. */
+.np1c-page {
+  --np1c-wide-max: calc(2200px * var(--np1c-content-width-scale) * 0.85);
+  /* 12vw → 17.7vw keeps content ≈ 85% of the previous column width */
+  --np1c-wide-padding-inline: clamp(0px, 17.7vw, 376px);
+}
+
+.np1c-page .np1c-content .np1c-section__inner {
+  width: min(var(--np1c-wide-max), 100%);
+  max-width: none;
+  padding-inline: var(--np1c-wide-padding-inline);
+  box-sizing: border-box;
+}
+
+.np1c-page .np1c-side-shot {
+  --np1c-side-shot-copy-inset: max(
+    var(--np1c-wide-padding-inline),
+    calc((100vw - min(var(--np1c-wide-max), 100vw)) / 2 + var(--np1c-wide-padding-inline))
+  );
+}
+
+.np1c-page .np1c-editing-carousel__intro,
+.np1c-page .np1c-editing-carousel__carousel > .np1c-carousel-controls {
+  width: min(var(--np1c-wide-max), 100%);
+  max-width: none;
+  margin-inline: auto;
+  padding-inline: var(--np1c-wide-padding-inline);
+  box-sizing: border-box;
+}
+
+/* Match Hypothesis / other Page B section inners (not full-bleed 100%) */
+.np1c-page .np1c-problem--b .np1c-problem__copy-inner--b {
+  width: min(var(--np1c-wide-max), 100%);
+  max-width: none;
+  padding-inline: var(--np1c-wide-padding-inline);
+  box-sizing: border-box;
+}
+
+/* Opening hero quote — half the default band so it sits closer under the hero title */
+.np1c-page .np1c-content > .np1c-hero-quote {
+  min-height: 30vh;
+  padding-block: clamp(24px, 4vh, 48px);
+}
+
+/* End quote under Results bubbles — pull closer to the phase animation */
+.np1c-page .np1c-hero-quote[data-dev-section='results-quote'] {
+  min-height: 0;
+  padding-top: clamp(16px, 3vh, 32px);
+  padding-bottom: clamp(48px, 8vh, 96px);
+}
+
+/* Goal — centered stack filling the same content column as Problem / Hypothesis */
+.np1c-page .np1c-stub--goal .np1c-section__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.np1c-page .np1c-stub--goal .np1c-stub__label {
+  margin: 0 0 var(--np1c-label-title-gap);
+  width: 100%;
+  color: var(--np1c-text-hero);
+}
+
+.np1c-page .np1c-stub--goal .np1c-stub__title {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 0;
+  color: var(--np1c-text-hero);
+}
+
+.np1c-page .np1c-stub--goal .np1c-stub__body {
+  width: 100%;
+  max-width: none;
+  margin: var(--np1c-label-title-gap) 0 0;
+  color: var(--np1c-text-sub-hero);
+}
+
+/* At a glance — three equal blocks in one row */
+.np1c-page .np1c-glance .np1c-split {
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 3.2vw, 40px);
+}
+
+.np1c-page .np1c-glance__blocks {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 18px) clamp(10px, 1.2vw, 16px);
+  align-items: stretch;
+}
+
+.np1c-page .np1c-glance-block {
+  box-sizing: border-box;
+  grid-column: span 2;
+  height: 100%;
+  padding: clamp(16px, 1.6vw, 24px);
+  border: 1px solid var(--np1c-border);
+  opacity: 0;
+  transform: translateX(-18px);
+  transition:
+    opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--np1c-glance-stagger, 0) * 90ms);
+  will-change: opacity, transform;
+}
+
+.np1c-page .np1c-glance__blocks--in-view .np1c-glance-block {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 767px) {
+  /* Hyper-simple mobile: 16px side gutters; content fills the column */
+  .np1c-page {
+    --np1c-wide-padding-inline: 16px;
+    --np1c-content-padding-inline: 16px;
+    --np1c-nav-padding-inline: 16px;
+    --np1c-wide-max: 100%;
+    --np1c-content-max: 100%;
+    --np1c-column-width: 100%;
+  }
+
+  .np1c-page .np1c-content .np1c-section__inner,
+  .np1c-page .np1c-editing-carousel__intro,
+  .np1c-page .np1c-problem--b .np1c-problem__copy-inner--b {
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Stacked carousel media shares the same 16px inset as text */
+  .np1c-page .np1c-carousel-section__body,
+  .np1c-page .np1c-editing-carousel__carousel {
+    width: 100%;
+    padding-inline: var(--np1c-wide-padding-inline);
+    box-sizing: border-box;
+  }
+
+  /* Hypothesis Edit/Run pair → vertical stack, full content width */
+  .np1c-page .np1c-media--xl.np1c-media--xl-pair {
+    grid-template-columns: 1fr;
+  }
+
+  /* Drop desktop text max-widths so copy fills to the gutter */
+  .np1c-page .np1c-audience-card__body,
+  .np1c-page .np1c-stub--goal .np1c-stub__body,
+  .np1c-page .np1c-h-text-stack__headline,
+  .np1c-page .np1c-h-text-stack__body {
+    max-width: none;
+    width: 100%;
+  }
+
+  .np1c-page .np1c-glance__blocks {
+    grid-template-columns: 1fr;
+  }
+
+  .np1c-page .np1c-glance-block {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1c-page .np1c-glance-block {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

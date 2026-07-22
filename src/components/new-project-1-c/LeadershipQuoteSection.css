@@ -1,0 +1,71 @@
+/* Leadership quote — single quote card, same visual language as the quote carousel */
+
+.np1c-leadership-quote {
+  background: var(--np1c-bg);
+  padding-top: calc(clamp(64px, 10vh, 128px) - 50px);
+  padding-bottom: calc(clamp(64px, 10vh, 128px) + 150px);
+}
+
+.np1c-single-quote-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.75fr);
+  gap: clamp(32px, 5.3vw, 80px);
+  align-items: center;
+  padding: clamp(40px, 6vw, 80px);
+  background: var(--np1c-card-bg);
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.np1c-single-quote-card__quote {
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.np1c-single-quote-card__quote-text {
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-body-hero-size);
+  font-weight: var(--np1c-body-hero-weight);
+  line-height: var(--np1c-body-hero-lh);
+  letter-spacing: var(--np1c-body-hero-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-single-quote-card__attribution {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.np1c-single-quote-card__name {
+  margin: 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  font-weight: 500;
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-single-quote-card__role {
+  margin: 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  font-weight: var(--np1c-body-2-weight);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  color: var(--np1c-text-hero);
+  opacity: 0.5;
+}
+
+@media (max-width: 767px) {
+  .np1c-single-quote-card {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}

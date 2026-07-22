@@ -1,0 +1,133 @@
+/* Target audience — Figma node 26303:68366 */
+
+.np1c-audience {
+  padding-block: clamp(80px, 12vh, 180px);
+}
+
+.np1c-audience__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--np1c-block-gap);
+  width: 100%;
+}
+
+.np1c-audience__heading {
+  margin: 0;
+  width: 100%;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-subheader-1-size);
+  font-weight: var(--np1c-subheader-1-weight);
+  line-height: var(--np1c-subheader-1-lh);
+  letter-spacing: var(--np1c-subheader-1-ls);
+  text-align: center;
+  color: var(--np1c-text-hero);
+}
+
+.np1c-audience__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 1.7vw, 25px);
+  align-items: start;
+  /* width + margin-inline come from .np1c-media--xl (nav-edge gutters) */
+}
+
+.np1c-audience-card {
+  background: var(--np1c-card-bg);
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* True square: height === column width; content cannot stretch it */
+  width: 100%;
+  /* prior × 0.85 → another 15% shorter */
+  aspect-ratio: 1 / 0.578;
+  height: auto;
+  max-height: none;
+  min-width: 0;
+  min-height: 0;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 48px);
+  padding: clamp(31.944px, 3.993vw, 53.24px);
+  justify-content: flex-start;
+}
+
+.np1c-audience-card--media {
+  padding: 0;
+}
+
+.np1c-audience-card__title {
+  margin: 0;
+  max-width: 100%;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  line-height: var(--np1c-header-1-lh);
+  letter-spacing: var(--np1c-header-1-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-audience-card__body {
+  margin: 0;
+  max-width: 509px;
+  padding-block: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-split-body-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: var(--np1c-text-sub-hero);
+}
+
+.np1c-audience-card__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.np1c-audience-card__media .media-with-loader-wrap {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.np1c-audience-card__media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@media (max-width: 767px) {
+  .np1c-audience__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .np1c-audience-card {
+    padding: 21.3px;
+    gap: 12px;
+  }
+
+  .np1c-audience-card__title {
+    font-size: var(--np1c-header-2-size);
+    font-weight: var(--np1c-header-2-weight);
+    line-height: var(--np1c-header-2-lh);
+    letter-spacing: var(--np1c-header-2-ls);
+  }
+
+  .np1c-audience-card__body {
+    max-width: none;
+    width: 100%;
+    font-size: var(--np1c-body-2-size);
+    line-height: var(--np1c-body-2-lh);
+    letter-spacing: var(--np1c-body-2-ls);
+  }
+}

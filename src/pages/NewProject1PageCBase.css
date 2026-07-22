@@ -1,0 +1,973 @@
+/* New Project 1 — Consumer-Grade CX Pro case study (Figma-driven layout) */
+
+@import './NewProject1TypographyC.css';
+
+.np1c-page {
+  --np1c-bg: #000;
+  --np1c-card-bg: #1d1d1f;
+  --np1c-border: rgba(131, 131, 131, 0.25);
+  --np1c-max: 1728px;
+  --np1c-content-padding: 25vh;
+  --np1c-content-max: var(--np1c-column-width);
+  --np1c-content-padding-inline: clamp(20px, 5vw, 40px);
+  --np1c-wide-max: calc(2200px * var(--np1c-content-width-scale));
+  --np1c-wide-padding-inline: clamp(0px, 12vw, 320px);
+  --np1c-gutter: var(--np1c-content-padding-inline);
+  --np1c-nav-height: 68px;
+  --np1c-nav-padding-inline: clamp(20px, 4vw, 40px);
+  --np1c-hero-text-size: var(--np1c-header-hero-size);
+  --np1c-hero-text-tracking: var(--np1c-header-hero-ls);
+
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
+  background: var(--np1c-bg);
+}
+
+.np1c-page .project-main {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
+.np1c-page .project-main--embedded {
+  padding: 0;
+}
+
+/* Preview modal only: white background, black text — matches the CX Pro /
+   Validus preview modals instead of the full page's dark theme. */
+.np1c-page.cx-pro-page--embedded {
+  min-height: 0;
+  --np1c-bg: #ffffff;
+  --np1c-text-hero: #000000;
+  --np1c-text-sub-hero: #000000;
+  --np1c-text-sub-1: #6b6b6b;
+  --np1c-border: rgba(0, 0, 0, 0.12);
+}
+
+/* ----- Nav (fixed overlay — hero extends to page top) ----- */
+.np1c-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--np1c-nav-height);
+  padding: 0 var(--np1c-nav-padding-inline);
+  background: transparent;
+  border-bottom: none;
+}
+
+.np1c-nav__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.np1c-nav__back:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.np1c-nav__links {
+  display: flex;
+  gap: 20px;
+}
+
+.np1c-nav__link {
+  color: rgba(245, 245, 247, 0.85);
+  text-decoration: none;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  font-weight: var(--np1c-body-2-weight);
+  letter-spacing: var(--np1c-body-2-ls);
+  line-height: var(--np1c-body-2-lh);
+}
+
+.np1c-nav__link:hover {
+  color: #fff;
+}
+
+.np1c-nav__link--external {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.np1c-nav__divider {
+  width: 1px;
+  height: 16px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Diagonal arrow that slides up-and-right out of view on hover, while a
+   duplicate slides in from the bottom-left to take its place. */
+.np1c-nav__arrow {
+  position: relative;
+  display: inline-flex;
+  width: 13px;
+  height: 13px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.np1c-nav__arrow-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.32s ease;
+}
+
+.np1c-nav__arrow-icon--primary {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+.np1c-nav__arrow-icon--secondary {
+  transform: translate(-120%, 120%);
+  opacity: 0;
+}
+
+.np1c-nav__link--external:hover .np1c-nav__arrow-icon--primary {
+  transform: translate(120%, -120%);
+  opacity: 0;
+}
+
+.np1c-nav__link--external:hover .np1c-nav__arrow-icon--secondary {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+/* ----- Content wrapper ----- */
+.np1c-content {
+  width: 100%;
+}
+
+/* ----- Content sections (everything except .np1c-hero) ----- */
+.np1c-section {
+  width: 100%;
+  padding: var(--np1c-content-padding) 0;
+}
+
+.np1c-section__inner {
+  width: min(var(--np1c-content-max), 100%);
+  margin-inline: auto;
+  padding-inline: var(--np1c-content-padding-inline);
+  box-sizing: border-box;
+}
+
+/* Alias — standard readable content width (same as default inner) */
+.np1c-section__inner--narrow {
+  width: min(var(--np1c-content-max), 100%);
+  margin-inline: auto;
+  padding-inline: var(--np1c-content-padding-inline);
+  box-sizing: border-box;
+}
+
+/* Large / immersive sections (e.g. target audience cards) */
+.np1c-section__inner--wide {
+  width: min(var(--np1c-wide-max), 100%);
+  max-width: none;
+  padding-inline: var(--np1c-wide-padding-inline);
+  box-sizing: border-box;
+}
+
+/* XL Media — breaks out of section content to align with nav left/right edges */
+.np1c-media--xl {
+  width: calc(100vw - 2 * var(--np1c-nav-padding-inline));
+  max-width: none;
+  margin-inline: calc(50% - 50vw + var(--np1c-nav-padding-inline));
+  box-sizing: border-box;
+}
+
+.np1c-media--xl .media-with-loader-wrap,
+.np1c-media--xl img,
+.np1c-media--xl video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* XL Media — natural height (no crop); width fills, height hugs the image */
+.np1c-media--xl.np1c-media--xl-hug {
+  height: auto;
+  overflow: visible;
+}
+
+.np1c-media--xl.np1c-media--xl-hug .media-with-loader-wrap,
+.np1c-media--xl.np1c-media--xl-hug img,
+.np1c-media--xl.np1c-media--xl-hug video {
+  height: auto;
+  object-fit: contain;
+}
+
+/* XL Media — side-by-side pair (equal columns, fixed gap) */
+.np1c-media--xl.np1c-media--xl-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.np1c-media--xl.np1c-media--xl-pair .media-with-loader-wrap,
+.np1c-media--xl.np1c-media--xl-pair img,
+.np1c-media--xl.np1c-media--xl-pair video {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ----- Shared split column (intro, key assumptions) ----- */
+.np1c-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--np1c-split-gap);
+  align-items: start;
+}
+
+.np1c-split__headline {
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  line-height: var(--np1c-header-1-lh);
+  letter-spacing: var(--np1c-header-1-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-split__body {
+  margin: 0;
+  padding-block: 10px;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-split-body-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: var(--np1c-text-sub-hero);
+}
+
+.np1c-split__body strong,
+.np1c-split__body .np1c-text-emphasis {
+  color: var(--np1c-text-hero);
+  font-weight: inherit;
+}
+
+.np1c-split__body ol {
+  margin: 0;
+  padding-left: 1.5em;
+}
+
+.np1c-split__body li + li {
+  margin-top: 0.35em;
+}
+
+/* ----- Horizontal text stack -----
+   Sub-header above; header + body top-aligned side by side;
+   sub-header left-aligned with the header column. */
+.np1c-h-text-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--np1c-label-title-gap);
+  width: 100%;
+}
+
+.np1c-h-text-stack__label {
+  margin: 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-subheader-1-size);
+  font-weight: var(--np1c-subheader-1-weight);
+  line-height: var(--np1c-subheader-1-lh);
+  letter-spacing: var(--np1c-subheader-1-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-h-text-stack__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--np1c-split-gap);
+  align-items: start;
+}
+
+.np1c-h-text-stack__headline {
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  line-height: var(--np1c-header-1-lh);
+  letter-spacing: var(--np1c-header-1-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-h-text-stack__body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-split-body-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: var(--np1c-text-sub-hero);
+}
+
+.np1c-h-text-stack__body p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.np1c-h-text-stack__body p + p {
+  margin-top: 0.35em;
+}
+
+@media (max-width: 767px) {
+  .np1c-split {
+    grid-template-columns: 1fr;
+  }
+
+  .np1c-h-text-stack__row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hypothesis Edit/Run pair — stack on mobile */
+  .np1c-media--xl.np1c-media--xl-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Preview modal only: intro headline/body use Header-2 / Body-2 instead of
+   the full page's Header-1 / Body-1 sizing. */
+.np1c-page.cx-pro-page--embedded .np1c-split__headline {
+  font-size: var(--np1c-header-2-size);
+  font-weight: var(--np1c-header-2-weight);
+  line-height: var(--np1c-header-2-lh);
+  letter-spacing: var(--np1c-header-2-ls);
+}
+
+.np1c-page.cx-pro-page--embedded .np1c-split__body {
+  font-size: var(--np1c-body-2-size);
+  font-weight: var(--np1c-body-2-weight);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+}
+
+/* Preview modal only: the intro's own content-inset (meant for the full
+   page's wider layout) double-pads against the popup's shell padding, so
+   it reads indented relative to the rest of the embedded content below it
+   (which relies on the popup's padding alone). Drop it so both align. */
+.np1c-page.cx-pro-page--embedded .np1c-intro .np1c-section__inner {
+  padding-inline: 0;
+}
+
+/* Preview modal only: stack headline above body (top/down) instead of the
+   full page's side-by-side split, matching the header-then-content rhythm
+   of the other embedded sections below it. */
+.np1c-page.cx-pro-page--embedded .np1c-split {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* Preview modal only: banner image above the intro text. Deliberately a
+   bare block image with no shared classes/wrappers from the full page's
+   hero — width fills the column, height is fully automatic from the
+   image's own aspect ratio, so there is nothing to clip it. */
+.np1c-embed-banner-block {
+  width: 100%;
+  line-height: 0;
+}
+
+.np1c-embed-banner-block__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.np1c-intro,
+.np1c-glance {
+  padding-block: 0;
+}
+
+.np1c-assumptions-quote {
+  padding-top: 0;
+}
+
+/* ----- Intro ----- */
+.np1c-intro {
+  position: relative;
+  z-index: 5;
+  background: var(--np1c-bg);
+  margin-top: clamp(-120px, -18vh, -220px);
+  padding-top: 0;
+  padding-bottom: clamp(48px, 8vh, 100px);
+}
+
+/* Preview modal only: the full page's negative top margin pulls the intro
+   section up to overlap the sticky scroll-jacking video during its handoff
+   transition. The embedded preview has no such video/transition — the
+   overlap was instead sliding this section's solid black background right
+   on top of the bottom of the banner image, covering it. */
+.np1c-page.cx-pro-page--embedded .np1c-intro {
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+.np1c-page.cx-pro-page--embedded .np1c-intro__inner {
+  padding-top: 100px;
+  padding-bottom: 0;
+}
+
+.np1c-intro__inner {
+  padding-top: clamp(64px, 6.6vw, 100px);
+  padding-bottom: 10px;
+}
+
+/* ----- At a glance ----- */
+.np1c-glance__inner {
+  padding-top: clamp(64px, 6.6vw, 100px);
+}
+
+.np1c-glance__blocks {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.2vw, 40px);
+  width: 100%;
+  padding-block: 10px;
+}
+
+.np1c-glance-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--np1c-label-title-gap);
+  width: 100%;
+}
+
+.np1c-glance-block__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.np1c-glance-block__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.np1c-glance-block__icon svg {
+  width: 16px;
+  height: 16px;
+  color: var(--np1c-text-hero);
+}
+
+.np1c-glance-block__label {
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-split-body-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-glance-block__divider {
+  height: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.np1c-glance-block__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.np1c-glance-block__value {
+  margin: 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  font-weight: calc(var(--np1c-body-2-weight) + 100);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-glance-block__paragraph {
+  margin: 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  font-weight: var(--np1c-body-2-weight);
+  color: var(--np1c-text-sub-hero);
+}
+
+.np1c-glance-block__paragraph strong {
+  color: var(--np1c-text-hero);
+  font-weight: inherit;
+}
+
+.np1c-glance-block__pairs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.np1c-glance-block__pair {
+  display: flex;
+  flex-direction: column;
+}
+
+.np1c-glance-block__pair-primary {
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  font-weight: calc(var(--np1c-body-2-weight) + 100);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-glance-block__pair-secondary {
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  font-weight: calc(var(--np1c-body-2-weight) - 100);
+  color: var(--np1c-text-sub-1);
+}
+
+/* ----- Current tool tabs ----- */
+.np1c-current-tool {
+  padding-block: clamp(80px, 12vh, 180px) clamp(48px, 8vh, 100px);
+}
+
+.np1c-current-tool__inner {
+  container-type: inline-size;
+  container-name: np1c-current-tool;
+  padding-top: 0;
+}
+
+.np1c-current-tool__panel[hidden] {
+  display: none;
+}
+
+.np1c-current-tool__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: clamp(24px, 2.6vw, 40px);
+  margin-bottom: var(--np1c-block-gap);
+}
+
+.np1c-current-tool__tab {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  letter-spacing: var(--np1c-header-1-ls);
+  line-height: var(--np1c-header-1-lh);
+  color: var(--np1c-text-hero);
+  opacity: 0.2;
+  transition: opacity 0.2s ease;
+}
+
+.np1c-current-tool__tab:hover {
+  opacity: 0.45;
+}
+
+.np1c-current-tool__tab--active {
+  opacity: 1;
+}
+
+.np1c-current-tool__tab--active:hover {
+  opacity: 1;
+}
+
+.np1c-current-tool__tab:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 4px;
+}
+
+/* ----- Upcoming section stubs ----- */
+
+.np1c-stub__label {
+  margin: 0 0 var(--np1c-label-title-gap);
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-subheader-1-size);
+  font-weight: var(--np1c-subheader-1-weight);
+  line-height: var(--np1c-subheader-1-lh);
+  letter-spacing: var(--np1c-subheader-1-ls);
+  color: var(--np1c-text-sub-1);
+}
+
+.np1c-stub__title {
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  letter-spacing: var(--np1c-header-1-ls);
+  line-height: var(--np1c-header-1-lh);
+  color: rgba(245, 245, 247, 0.35);
+}
+
+.np1c-stub--goal .np1c-section__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0;
+}
+
+.np1c-stub--goal:not(.np1c-stub--goal-in-view) .np1c-stub__label,
+.np1c-stub--goal:not(.np1c-stub--goal-in-view) .np1c-stub__title,
+.np1c-stub--goal:not(.np1c-stub--goal-in-view) .np1c-stub__body {
+  opacity: 0;
+  transform: translateY(clamp(28px, 4vh, 56px));
+}
+
+.np1c-stub--goal .np1c-stub__label,
+.np1c-stub--goal .np1c-stub__title,
+.np1c-stub--goal .np1c-stub__body {
+  transition:
+    opacity 700ms ease-out,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.np1c-stub--goal .np1c-stub__body {
+  transition-delay: 200ms;
+}
+
+.np1c-stub--goal.np1c-stub--goal-in-view .np1c-stub__label,
+.np1c-stub--goal.np1c-stub--goal-in-view .np1c-stub__title,
+.np1c-stub--goal.np1c-stub--goal-in-view .np1c-stub__body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.np1c-stub--goal .np1c-stub__title {
+  max-width: calc(1515px * var(--np1c-content-width-scale) * 0.85 * 0.8);
+  margin-bottom: clamp(24px, 3vw, 40px);
+  font-size: var(--np1c-header-1-size);
+  line-height: var(--np1c-header-1-lh);
+  letter-spacing: var(--np1c-header-1-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-stub--goal .np1c-stub__label {
+  margin: 0 0 var(--np1c-label-title-gap);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-stub--goal .np1c-stub__body {
+  margin: 0;
+  max-width: calc(1312px * var(--np1c-content-width-scale) * 0.85 * 0.8);
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-split-body-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: var(--np1c-text-sub-hero);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1c-stub--goal .np1c-stub__label,
+  .np1c-stub--goal .np1c-stub__title,
+  .np1c-stub--goal .np1c-stub__body {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ----- Footer ----- */
+/* Same structure as the other case-study page footers (name/email/phone +
+   quote), but inverted: black background with off-white/grey text instead
+   of their off-white background with dark text. */
+.np1c-footer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 48px calc(48px + 5vw);
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.np1c-footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.np1c-footer a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+
+.np1c-footer a:hover {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: underline;
+}
+
+.np1c-footer__quote {
+  margin: 48px 0 0 0;
+  font-family: 'Figtree', sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  max-width: 600px;
+}
+
+/* Embedded preview trims */
+.np1c-page.cx-pro-page--embedded .np1c-stub,
+.np1c-page.cx-pro-page--embedded .np1c-footer {
+  display: none;
+}
+
+/* ----- Pop-out modal preview: simplified sections -----
+   Mirrors the CX Pro popup's pattern (label/headline column + paragraph
+   text and static images) instead of the full page's heavier interactive
+   sections. All text uses the np1 type scale's Header-2 / Body-2 tokens
+   (see NewProject1Typography.css) so every section reads at one consistent
+   scale. */
+.np1c-embed-sections {
+  width: 100%;
+  padding: 0;
+}
+
+.np1c-embed-block {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-top: 100px;
+  padding-bottom: 0;
+}
+
+.np1c-embed-block__text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--np1c-border);
+  padding-top: 20px;
+}
+
+.np1c-embed-block__text--lead {
+  border-top: none;
+  padding-top: 0;
+}
+
+.np1c-embed-block__body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.np1c-embed-header {
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-2-size);
+  line-height: var(--np1c-header-2-lh);
+  letter-spacing: var(--np1c-header-2-ls);
+  font-weight: var(--np1c-header-2-weight);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-embed-body {
+  margin: 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  font-weight: var(--np1c-body-2-weight);
+  color: var(--np1c-text-sub-hero);
+}
+
+.np1c-embed-body strong {
+  color: var(--np1c-text-hero);
+  font-weight: inherit;
+}
+
+.np1c-embed-full-width {
+  width: 100%;
+}
+
+.np1c-embed-full-width img {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.np1c-embed-video-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+/* Video frame — black fill + light-grey stroke sized to the video's own
+   footprint (via aspect-ratio), with the video inset 24px on every side.
+   Needed because several source clips have their own black backdrops; the
+   preview modal is no longer black, so it can't rely on the modal's own
+   background to hide those edges. Sizing the frame to the video's native
+   aspect ratio keeps every section the same height it was before. */
+.np1c-embed-video-frame {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background: #000;
+  border: 2px solid #808080;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.np1c-embed-two-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.np1c-embed-two-images img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .np1c-embed-two-images {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Results — condensed circle-diagram reveal, reusing the full page's
+   ResultsPhasesAnimation component/classes with modal-scoped sizing. */
+.np1c-results__phases.np1c-embed-results-phases {
+  --np1c-results-edge-inset: 45px;
+  padding-inline: 45px;
+  padding-block: clamp(28px, 4vh, 48px);
+}
+
+.np1c-embed-results-phases .np1c-results__list {
+  /* 200px - 35px */
+  gap: 165px;
+  justify-content: center;
+}
+
+.np1c-embed-results-phases .np1c-phase-circle {
+  /* +15% from clamp(96px, 22vw, 160px), then +10% more */
+  --np1c-phase-size: clamp(121px, 27.8vw, 202.4px);
+  gap: 4px;
+}
+
+.np1c-embed-results-phases .np1c-phase-circle__label,
+.np1c-embed-results-phases .np1c-phase-circle__title,
+.np1c-embed-results-phases .np1c-phase-circle__status {
+  width: 100%;
+  text-align: center;
+}
+
+.np1c-embed-results-phases .np1c-phase-circle__label {
+  font-size: calc(var(--np1c-subheader-1-size) - 2px);
+}
+
+.np1c-embed-results-phases .np1c-phase-circle__title {
+  font-size: calc(var(--np1c-header-2-size) - 2px);
+}
+
+.np1c-embed-results-phases .np1c-phase-circle__status {
+  font-size: calc(var(--np1c-body-2-size) - 2px);
+}
+
+/* Phase-circle diagram was designed for the full page's black background —
+   re-tone the circle fills, connecting stroke, and status text for
+   legibility against the preview modal's white background. */
+.np1c-page.cx-pro-page--embedded .np1c-phase-circle {
+  background: #f0f0f0;
+  border-color: transparent;
+}
+
+.np1c-page.cx-pro-page--embedded .np1c-results__stroke {
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+}
+
+.np1c-page.cx-pro-page--embedded .np1c-phase-circle--green .np1c-phase-circle__status {
+  color: #0e9f5d;
+}
+
+.np1c-page.cx-pro-page--embedded .np1c-phase-circle--green.np1c-phase-circle--activated {
+  background: #e9f9f0;
+  border-color: #0e9f5d;
+}
+
+.np1c-page.cx-pro-page--embedded .np1c-phase-circle--yellow .np1c-phase-circle__status {
+  color: #a68b00;
+}
+
+.np1c-page.cx-pro-page--embedded .np1c-phase-circle--yellow.np1c-phase-circle--activated {
+  background: #fbf7e0;
+  border-color: #a68b00;
+}
+
+@media (max-width: 600px) {
+  .np1c-results__phases.np1c-embed-results-phases {
+    padding-inline: 24px;
+  }
+
+  .np1c-embed-results-phases .np1c-results__stroke {
+    display: none;
+  }
+
+  .np1c-embed-results-phases .np1c-results__list {
+    flex-direction: column;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+
+  .np1c-embed-results-phases .np1c-phase-circle {
+    --np1c-phase-size: clamp(160px, 50vw, 200px);
+  }
+}
+
+/* np1c-glance used to be the last visible section in the embedded preview and
+   needed extra bottom breathing room; now more condensed sections follow it,
+   so it goes back to its normal (zero) block padding. */
+
+/* No gap between editing section and carousel beneath it */
+[data-dev-section="editing-side-shot"] {
+  padding-bottom: 0;
+}
+
+.np1c-page--dev-mode [data-dev-section] {
+  outline: 1px solid #ff2d2d;
+  outline-offset: -1px;
+}

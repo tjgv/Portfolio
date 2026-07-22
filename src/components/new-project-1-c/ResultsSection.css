@@ -1,0 +1,265 @@
+/* Results — phased rollout timeline with scroll-triggered reveal + traveling stroke */
+
+.np1c-results {
+  background: var(--np1c-bg);
+  padding-block: clamp(64px, 10vh, 128px);
+  overflow: hidden;
+}
+
+.np1c-results__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.np1c-results__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  margin-bottom: var(--np1c-text-media-gap);
+}
+
+.np1c-results__label {
+  margin: 0 0 var(--np1c-label-title-gap);
+  width: 100%;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-subheader-1-size);
+  font-weight: var(--np1c-subheader-1-weight);
+  line-height: var(--np1c-subheader-1-lh);
+  letter-spacing: var(--np1c-subheader-1-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-results__headline {
+  margin: 0;
+  width: 100%;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  line-height: var(--np1c-header-1-lh);
+  letter-spacing: var(--np1c-header-1-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-results__body {
+  margin: var(--np1c-label-title-gap) 0 0;
+  width: 100%;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-split-body-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: var(--np1c-text-sub-hero);
+}
+
+/* ── Phase timeline ──────────────────────────────────────────── */
+.np1c-results__phases {
+  /* Total inset from the true viewport edge to this container's content edge —
+     used to let the stroke bleed past the section's own padding. */
+  --np1c-results-edge-inset: max(
+    var(--np1c-content-padding-inline),
+    calc((100vw - min(var(--np1c-content-max), 100vw)) / 2 + var(--np1c-content-padding-inline))
+  );
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-block: clamp(20px, 3vh, 40px);
+}
+
+/* Bright stroke that travels left → right, hidden behind opaque circles.
+   No static guide line — the track only exists where the stroke has drawn it. */
+.np1c-results__stroke {
+  position: absolute;
+  top: 50%;
+  /* Ignore container padding — start from the true left edge of the viewport */
+  left: calc(-1 * var(--np1c-results-edge-inset));
+  right: 0;
+  height: 5px;
+  background: #f5f5f7;
+  box-shadow: 0 0 14px rgba(245, 245, 247, 0.6);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 1;
+  will-change: transform;
+}
+
+.np1c-results__list {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: clamp(16px, 3vw, 40px);
+}
+
+.np1c-results__item {
+  opacity: 0;
+  transition: opacity 550ms ease-out;
+}
+
+.np1c-results__item--visible {
+  opacity: 1;
+}
+
+/* ── Phase circle ────────────────────────────────────────────── */
+.np1c-phase-circle {
+  --np1c-phase-size: clamp(180px, 20vw, 275px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: var(--np1c-phase-size);
+  height: var(--np1c-phase-size);
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  background: #191919;
+  text-align: center;
+  transform: scale(1);
+  transition: background-color 420ms ease, border-color 420ms ease;
+}
+
+.np1c-phase-circle__label {
+  margin: 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-subheader-1-size);
+  font-weight: var(--np1c-subheader-1-weight);
+  line-height: var(--np1c-subheader-1-lh);
+  letter-spacing: var(--np1c-subheader-1-ls);
+  color: var(--np1c-text-sub-1);
+}
+
+.np1c-phase-circle__title {
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-2-size);
+  font-weight: var(--np1c-header-2-weight);
+  line-height: var(--np1c-header-2-lh);
+  letter-spacing: var(--np1c-header-2-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-phase-circle__status {
+  margin: 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  font-weight: var(--np1c-body-2-weight);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  opacity: 0;
+  transition: opacity 260ms ease-out;
+}
+
+.np1c-phase-circle__status--visible {
+  opacity: 1;
+}
+
+/* Tone: green (Complete / In Progress) */
+.np1c-phase-circle--green .np1c-phase-circle__status {
+  color: #12b76a;
+}
+
+.np1c-phase-circle--green.np1c-phase-circle--activated {
+  background: #02120b;
+  border-color: #12b76a;
+}
+
+/* Tone: yellow (Tentative Alignment) */
+.np1c-phase-circle--yellow .np1c-phase-circle__status {
+  color: #d7e35a;
+}
+
+.np1c-phase-circle--yellow.np1c-phase-circle--activated {
+  background: #393117;
+  border-color: #d7e35a;
+}
+
+/* Border style */
+.np1c-phase-circle--dashed.np1c-phase-circle--activated {
+  border-style: dashed;
+}
+
+.np1c-phase-circle--solid.np1c-phase-circle--activated {
+  border-style: solid;
+}
+
+/* ── Pulse — fires once when the stroke "hits" the circle ──────── */
+.np1c-phase-circle--green.np1c-phase-circle--activated {
+  animation: np1c-phase-pulse-green 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.np1c-phase-circle--yellow.np1c-phase-circle--activated {
+  animation: np1c-phase-pulse-yellow 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes np1c-phase-pulse-green {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(18, 183, 106, 0.45);
+  }
+  45% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 24px rgba(18, 183, 106, 0);
+  }
+}
+
+@keyframes np1c-phase-pulse-yellow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(215, 227, 90, 0.45);
+  }
+  45% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 24px rgba(215, 227, 90, 0);
+  }
+}
+
+@media (max-width: 820px) {
+  .np1c-results__stroke {
+    display: none;
+  }
+
+  .np1c-results__list {
+    flex-direction: column;
+    gap: clamp(24px, 6vw, 40px);
+  }
+
+  .np1c-phase-circle {
+    --np1c-phase-size: clamp(200px, 55vw, 260px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1c-results__item {
+    opacity: 1;
+    transition: none;
+  }
+
+  .np1c-phase-circle {
+    transition: none;
+  }
+
+  .np1c-phase-circle--green.np1c-phase-circle--activated,
+  .np1c-phase-circle--yellow.np1c-phase-circle--activated {
+    animation: none;
+  }
+
+  .np1c-phase-circle__status {
+    transition: none;
+  }
+}

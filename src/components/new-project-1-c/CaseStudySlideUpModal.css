@@ -1,0 +1,798 @@
+/* Shared slide-up modal overlay — used by quote section and inline pill reveals */
+
+/*
+ * [data-modal-theme='dark'] (unique to this slide-up modal) bumps specificity
+ * above PopupRevealControl.css's legacy `.np1c-popup-overlay` rule — that rule
+ * reuses the same class name but sets `display: flex; align-items: center`,
+ * which (given equal specificity, load-order dependent otherwise) turns this
+ * modal's `__scroll` into a flex item sized to its widest descendant's
+ * content instead of stretching to the viewport, blowing out the layout.
+ */
+.np1c-popup-overlay[data-modal-theme='dark'] {
+  --np1c-modal-edge-inset: 10vh;
+  --np1c-modal-side-inset: 12vh;
+  --np1c-modal-content-padding: 10vh;
+  --np1c-modal-content-padding-top: 60px;
+  --np1c-modal-sheet-height: 500vh;
+  --np1c-modal-sheet-radius: 24px;
+  --np1c-modal-scrim-duration: 0.3s;
+  --np1c-modal-sheet-duration: 0.68s;
+  --np1c-modal-sheet-ease: cubic-bezier(0, 0, 0.2, 1);
+  --np1c-modal-scrim-close-delay: 0.68s;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: block;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+/* Short variant — e.g. "View Journey Maps" (hero + a single carousel
+   subsection). Fixed-height modals reserve 500vh of scroll room for the
+   longest (3-subsection) case; that leaves a lot of dead scroll space for a
+   much smaller modal, so let the sheet size to its actual content instead. */
+.np1c-popup-overlay[data-modal-theme='dark'].np1c-popup-overlay--short {
+  --np1c-modal-sheet-height: auto;
+}
+
+/* Compact variant (e.g. "View Interaction Design") is a fixed set of a few
+   subsections too — sizing the sheet to its actual content avoids a huge
+   dead-scroll gap between the last subsection's video and the sheet's edge. */
+.np1c-popup-overlay[data-modal-theme='dark'].np1c-popup-overlay--compact {
+  --np1c-modal-sheet-height: auto;
+}
+
+.np1c-popup-overlay[data-modal-theme='dark'].np1c-popup-overlay--no-hero
+  .np1c-popup-overlay__subsections {
+  margin-top: 0;
+}
+
+.np1c-popup-overlay__subsection--carousel-only {
+  padding-top: 0;
+}
+
+.np1c-popup-overlay__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.np1c-popup-overlay__scroll {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+.np1c-popup-overlay__scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.np1c-popup-overlay__scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.np1c-popup-overlay__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  -webkit-backdrop-filter: blur(0px) saturate(100%);
+  backdrop-filter: blur(0px) saturate(100%);
+  transition:
+    background-color var(--np1c-modal-scrim-duration) ease-out,
+    -webkit-backdrop-filter var(--np1c-modal-scrim-duration) ease-out,
+    backdrop-filter var(--np1c-modal-scrim-duration) ease-out;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.np1c-popup-overlay--opening .np1c-popup-overlay__scrim,
+.np1c-popup-overlay--open .np1c-popup-overlay__scrim {
+  background-color: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  backdrop-filter: blur(20px) saturate(120%);
+}
+
+.np1c-popup-overlay--closing .np1c-popup-overlay__scrim {
+  background-color: rgba(255, 255, 255, 0);
+  -webkit-backdrop-filter: blur(0px) saturate(100%);
+  backdrop-filter: blur(0px) saturate(100%);
+  transition-delay: var(--np1c-modal-scrim-close-delay);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .np1c-popup-overlay--opening .np1c-popup-overlay__scrim,
+  .np1c-popup-overlay--open .np1c-popup-overlay__scrim {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.np1c-popup-overlay__stage {
+  position: relative;
+  z-index: 1;
+  padding:
+    var(--np1c-modal-edge-inset)
+    var(--np1c-modal-side-inset);
+  min-height: calc(var(--np1c-modal-sheet-height) + (var(--np1c-modal-edge-inset) * 2));
+  pointer-events: none;
+}
+
+.np1c-popup-overlay__sheet {
+  --np1c-modal-content-width: 75%;
+
+  height: var(--np1c-modal-sheet-height);
+  min-height: var(--np1c-modal-sheet-height);
+  border-radius: var(--np1c-modal-sheet-radius);
+  background: #000;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  transform: translateY(calc(100vh - var(--np1c-modal-edge-inset)));
+  transition: transform var(--np1c-modal-sheet-duration) var(--np1c-modal-sheet-ease);
+  transition-delay: 0s;
+  pointer-events: auto;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: var(--np1c-modal-content-padding-top) var(--np1c-modal-content-padding) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.np1c-popup-overlay--open .np1c-popup-overlay__sheet {
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.np1c-popup-overlay--closing .np1c-popup-overlay__sheet {
+  transform: translateY(calc(100vh - var(--np1c-modal-edge-inset)));
+  transition-delay: 0s;
+}
+
+/*
+ * Hero: image bleeds off the left edge of the sheet, right edge of image
+ * lands at the sheet's horizontal center. Text fills the right half.
+ * The sheet's overflow:hidden clips the image at the sheet boundary.
+ */
+.np1c-popup-overlay__hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+  /* Break out of sheet padding so image can bleed to the sheet edge */
+  width: calc(100% + 2 * var(--np1c-modal-content-padding));
+  max-width: none;
+  margin-inline: calc(-1 * var(--np1c-modal-content-padding));
+  padding: 0;
+}
+
+/* Image column: exactly half the full sheet width */
+.np1c-popup-overlay__hero-media {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: flex-end; /* right-align so right edge sits at center */
+  align-self: stretch;
+  align-items: center;
+  overflow: visible;
+  background: transparent;
+  border-radius: 0;
+}
+
+.np1c-popup-overlay__hero-image {
+  display: block;
+  /* 150% of the column = image overflows left, right edge stays at center */
+  width: 150%;
+  height: auto;
+  border-radius: clamp(12px, 1.4vw, 18px);
+  vertical-align: middle;
+}
+
+/* Text column: flex-1, respects right padding */
+.np1c-popup-overlay__hero-copy {
+  flex: 1;
+  min-width: 0;
+  padding-right: var(--np1c-modal-content-padding);
+}
+
+.np1c-popup-overlay__hero-headline {
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  line-height: var(--np1c-header-1-lh);
+  letter-spacing: var(--np1c-header-1-ls);
+  color: #f5f5f7;
+  color: var(--np1c-text-hero);
+}
+
+.np1c-popup-overlay__hero-subhead {
+  margin: clamp(12px, 1.6vh, 20px) 0 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-body-1-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: #d2d2d7;
+  color: var(--np1c-text-sub-hero);
+}
+
+.np1c-popup-overlay__subsection-media {
+  width: 100%;
+  border-radius: clamp(12px, 1.4vw, 18px);
+  overflow: hidden;
+  background: #111;
+}
+
+.np1c-popup-overlay__subsection-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.np1c-popup-overlay__subsections {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: var(--np1c-modal-content-width);
+  max-width: var(--np1c-modal-content-width);
+  margin-top: clamp(48px, 8vh, 96px);
+  padding: 0;
+}
+
+.np1c-popup-overlay__subsection {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vh, 32px);
+  width: 100%;
+  padding-top: 100px;
+}
+
+.np1c-popup-overlay__subsection-headline {
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-2-size);
+  font-weight: var(--np1c-header-2-weight);
+  line-height: var(--np1c-header-2-lh);
+  letter-spacing: var(--np1c-header-2-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-popup-overlay__subsection-body {
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-body-1-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: var(--np1c-text-sub-hero);
+}
+
+.np1c-popup-overlay__quote {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.np1c-popup-overlay__quote-text {
+  margin: 0;
+  font-family: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
+  font-size: clamp(22px, 2.4vw, 36px);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.022em;
+  color: #fff;
+}
+
+.np1c-popup-overlay__quote-attribution {
+  font-style: normal;
+  color: var(--np1c-text-sub-1);
+}
+
+/* Close button — fixed at the same height the CTA pill floats at before it
+   docks (--popup-control-bottom, shared with PopupRevealControl.css), so the
+   button stays put on screen instead of scrolling with the sheet content. */
+.np1c-popup-overlay__close-host {
+  --popup-control-bottom: max(24px, env(safe-area-inset-bottom, 0px));
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--popup-control-bottom);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+  transition-delay: 0s;
+}
+
+.np1c-popup-overlay--open .np1c-popup-overlay__close-host {
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.np1c-popup-overlay--closing .np1c-popup-overlay__close-host {
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+/* ----- Lightbox variant — fixed, fullscreen image with no sheet/scroll ----- */
+.np1c-popup-overlay--lightbox .np1c-popup-overlay__scrim {
+  cursor: default;
+}
+
+.np1c-lightbox {
+  --np1c-lightbox-control-size: 75px;
+  --np1c-lightbox-margin: 25px;
+
+  position: fixed;
+  inset: var(--np1c-lightbox-margin);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+  transition-delay: 0s;
+}
+
+.np1c-popup-overlay--opening .np1c-lightbox,
+.np1c-popup-overlay--open .np1c-lightbox {
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: var(--np1c-modal-scrim-duration);
+}
+
+.np1c-popup-overlay--closing .np1c-lightbox {
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+.np1c-lightbox__frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.np1c-lightbox__image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: clamp(12px, 1.4vw, 18px);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.np1c-lightbox__nav {
+  position: fixed;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: var(--np1c-lightbox-control-size);
+  height: var(--np1c-lightbox-control-size);
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.np1c-lightbox__nav:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.np1c-lightbox__nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.np1c-lightbox__nav--prev {
+  left: var(--np1c-lightbox-margin);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.np1c-lightbox__nav--next {
+  right: var(--np1c-lightbox-margin);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.np1c-lightbox--panning {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.np1c-lightbox__image {
+  will-change: transform;
+}
+
+/* ----- Pan hint pill — grow + pulse entrance, top-center of the screen ----- */
+@keyframes np1c-lightbox-hint-grow {
+  0% {
+    transform: translateX(-50%) scale(0.4);
+    opacity: 0;
+  }
+  55% {
+    transform: translateX(-50%) scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes np1c-lightbox-hint-pulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(1.22);
+    opacity: 0;
+  }
+}
+
+.np1c-lightbox__hint {
+  position: fixed;
+  top: max(28px, var(--np1c-lightbox-margin));
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 10px 11px 18px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #8e8e93 30%, rgba(58, 58, 60, 0.85) 70%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transform: translateX(-50%);
+  animation: np1c-lightbox-hint-grow 0.5s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.np1c-lightbox__hint::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  animation: np1c-lightbox-hint-pulse 1.1s cubic-bezier(0.32, 0.72, 0, 1) 0.4s 2;
+}
+
+.np1c-lightbox__hint-text {
+  font-family: var(--np1c-font-body, 'Inter', sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.np1c-lightbox__hint-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.np1c-lightbox__hint-close:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+@media (max-width: 767px) {
+  .np1c-lightbox {
+    --np1c-lightbox-control-size: 60px;
+    --np1c-lightbox-margin: 16px;
+  }
+}
+
+/* Compact variant — design-decisions modals (run of show, editing) */
+.np1c-popup-overlay--compact .np1c-popup-overlay__hero-copy,
+.np1c-popup-overlay--compact .np1c-popup-overlay__hero-subhead,
+.np1c-popup-overlay--compact .np1c-popup-overlay__subsection-headline,
+.np1c-popup-overlay--compact .np1c-popup-overlay__subsection-body {
+  text-align: left;
+}
+
+.np1c-popup-overlay--compact .np1c-popup-overlay__hero-subhead {
+  font-size: var(--np1c-body-2-size);
+  font-weight: var(--np1c-body-2-weight);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+}
+
+.np1c-popup-overlay--compact .np1c-popup-overlay__subsection-headline {
+  font-size: var(--np1c-header-2-size);
+  line-height: var(--np1c-header-2-lh);
+  letter-spacing: var(--np1c-header-2-ls);
+}
+
+.np1c-popup-overlay--compact .np1c-popup-overlay__subsection-body {
+  font-size: var(--np1c-body-2-size);
+  font-weight: var(--np1c-body-2-weight);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+}
+
+.np1c-popup-overlay--compact .np1c-popup-overlay__hero-media {
+  background: transparent;
+}
+
+.np1c-modal-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.np1c-modal-text-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vh, 12px);
+  width: 100%;
+}
+
+.np1c-modal-text-stack__headline {
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-2-size);
+  font-weight: var(--np1c-header-2-weight);
+  line-height: var(--np1c-header-2-lh);
+  letter-spacing: var(--np1c-header-2-ls);
+  color: #f5f5f7;
+  color: var(--np1c-text-hero);
+}
+
+.np1c-modal-text-stack__body {
+  margin: 0;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  font-weight: var(--np1c-body-2-weight);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  color: #d2d2d7;
+  color: var(--np1c-text-sub-hero);
+}
+
+.np1c-modal-text-stack__body + .np1c-modal-text-stack__body {
+  margin-top: clamp(12px, 1.5vh, 16px);
+}
+
+.np1c-modal-media {
+  width: 100%;
+}
+
+.np1c-modal-controlled-video {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Carousel reused from the "Built for editing" page section, embedded inside
+   a modal subsection — full width of the modal's content column. */
+.np1c-modal-carousel {
+  width: 100%;
+  margin-top: clamp(8px, 1.2vh, 16px);
+}
+
+.np1c-modal-carousel .np1c-editing-carousel__carousel > .np1c-carousel-controls {
+  padding-inline: 0;
+  max-width: none;
+  justify-content: flex-start;
+}
+
+/* Edge arrows don't apply inside the slide-up modal */
+.np1c-modal-carousel .np1c-carousel-edge-arrows {
+  display: none;
+}
+
+.np1c-modal-compare__tabs {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 40px;
+  min-height: 40px;
+  padding: 4px;
+  border-radius: 999px;
+  border: none;
+  background: #3a3a3c;
+  box-sizing: border-box;
+}
+
+.np1c-modal-compare__tab {
+  flex: 1;
+  margin: 0;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(245, 245, 247, 0.72);
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-2-size);
+  font-weight: var(--np1c-body-2-weight);
+  line-height: var(--np1c-body-2-lh);
+  letter-spacing: var(--np1c-body-2-ls);
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.np1c-modal-compare__tab--active {
+  background: #f5f5f7;
+  color: #1d1d1f;
+}
+
+.np1c-modal-compare__tab:focus-visible {
+  outline: 2px solid rgba(245, 245, 247, 0.55);
+  outline-offset: 2px;
+}
+
+.np1c-modal-compare__panel {
+  width: 100%;
+  max-width: 100%;
+  margin-top: clamp(20px, 2.5vh, 32px);
+  border-radius: clamp(12px, 1.4vw, 18px);
+  overflow: hidden;
+  background: #111;
+}
+
+.np1c-modal-compare__panel .media-with-loader-wrap,
+.np1c-modal-compare__panel video,
+.np1c-modal-subsection-video .media-with-loader-wrap,
+.np1c-modal-subsection-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.np1c-modal-subsection-video {
+  width: 100%;
+  border-radius: clamp(12px, 1.4vw, 18px);
+  overflow: hidden;
+  background: #111;
+}
+
+.np1c-modal-compare__panel--after .np1c-modal-compare__video {
+  transform: translateY(-90px);
+  margin-bottom: -90px;
+}
+
+/* ── Video playback controls (outside overflow:hidden panel) ──── */
+.np1c-modal-compare__video-controls,
+.np1c-modal-video-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Shared button base */
+.np1c-modal-video-btn {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(245, 245, 247, 0.08);
+  color: var(--np1c-text-hero, #f5f5f7);
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.np1c-modal-video-btn:hover {
+  background: rgba(245, 245, 247, 0.14);
+}
+
+.np1c-modal-video-btn:active {
+  opacity: 0.75;
+}
+
+/* Progress-circle variant — SVG sits behind the icon */
+.np1c-modal-video-btn--progress {
+  background: transparent;
+}
+
+.np1c-modal-video-progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.np1c-modal-video-progress__track {
+  fill: none;
+  stroke: rgba(245, 245, 247, 0.12);
+  stroke-width: 2;
+}
+
+.np1c-modal-video-progress__fill {
+  fill: none;
+  stroke: rgba(245, 245, 247, 0.72);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.np1c-modal-video-btn__icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 640px) {
+  .np1c-popup-overlay__sheet {
+    --np1c-modal-content-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1c-popup-overlay__scrim,
+  .np1c-popup-overlay__sheet,
+  .np1c-popup-overlay__scroll {
+    transition: none;
+  }
+}

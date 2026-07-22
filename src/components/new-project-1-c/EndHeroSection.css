@@ -1,0 +1,60 @@
+/* Closing full-viewport image section + next case study navigation */
+
+/* Compound selector (not just the modifier class) so this reliably beats the
+   shared .np1c-section padding rule regardless of stylesheet load order. */
+.np1c-section.np1c-end-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0;
+  background: var(--np1c-bg);
+  box-sizing: border-box;
+}
+
+/* Purely decorative backdrop — absolutely positioned so it never occupies
+   layout space or pushes the hero image; behaves like a background image. */
+.np1c-end-hero__gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 85vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.np1c-end-hero__stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.np1c-end-hero__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(var(--np1c-content-max), 100%);
+  height: 100%;
+}
+
+.np1c-end-hero__inner .media-with-loader-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 62.5vh;
+  max-width: 100%;
+}
+
+.np1c-end-hero__image {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}

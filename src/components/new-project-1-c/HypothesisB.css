@@ -1,0 +1,108 @@
+/* Hypothesis variant B — full-width Header-1 text; first section keeps XL still */
+
+.np1c-hypothesis--b .np1c-h-text-stack--full {
+  width: 100%;
+}
+
+.np1c-hypothesis--b .np1c-h-text-stack--full .np1c-h-text-stack__headline {
+  width: 100%;
+  max-width: none;
+}
+
+.np1c-hypothesis--b .np1c-hypothesis__media.np1c-media--xl {
+  /* Natural height via np1c-media--xl-hug — no fixed aspect crop */
+  aspect-ratio: auto;
+  overflow: visible;
+}
+
+/* Challenge media — content-column width (not XL full-bleed) */
+.np1c-hypothesis--b .np1c-hypothesis__media--content {
+  width: 100%;
+  aspect-ratio: auto;
+  overflow: visible;
+  border-radius: 12px;
+}
+
+.np1c-hypothesis--b .np1c-hypothesis__media--content .media-with-loader-wrap,
+.np1c-hypothesis--b .np1c-hypothesis__media--content img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.np1c-hypothesis--b .np1c-hypothesis__media-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: clamp(24px, 3vh, 40px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1c-hypothesis--b .np1c-hypothesis__media-block .np1c-pill1__dock {
+    min-height: 0;
+  }
+
+  .np1c-hypothesis--b .np1c-popup-reveal--pinned {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+}
+
+/* Second hypothesis sits tighter under the first (no double 25vh stack) */
+.np1c-page .np1c-hypothesis--b + .np1c-hypothesis--b-follow {
+  padding-top: 0;
+}
+
+.np1c-media--xl-pair .np1c-media-frame {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.np1c-media--xl-pair .np1c-media-frame .media-with-loader-wrap,
+.np1c-media--xl-pair .np1c-media-frame img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.np1c-media-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 4px 6px;
+  font-family: var(--np1c-font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #fff;
+  white-space: nowrap;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.np1c-media-tag--edit {
+  background: #f317b0;
+}
+
+.np1c-media-tag--run {
+  background: #0c8ce9;
+}
+
+/* Softened versions of the media-tag pink/blue — text only, tags keep full chroma */
+.np1c-text-edit {
+  color: #db5aad;
+}
+
+.np1c-text-run {
+  color: #4a9fd6;
+}

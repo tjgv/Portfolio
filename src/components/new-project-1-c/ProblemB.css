@@ -1,0 +1,33 @@
+/* Problem variant B — centered copy under the hero image */
+
+.np1c-problem--b .np1c-problem__copy-inner--b {
+  align-items: center;
+  text-align: center;
+}
+
+.np1c-problem--b .np1c-problem__label {
+  width: 100%;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-subheader-1-size);
+  font-weight: var(--np1c-subheader-1-weight);
+  line-height: var(--np1c-subheader-1-lh);
+  letter-spacing: var(--np1c-subheader-1-ls);
+  color: var(--np1c-text-hero);
+}
+
+.np1c-problem--b .np1c-problem__statement {
+  width: 100%;
+  max-width: none;
+}
+
+.np1c-problem--b .np1c-problem__body {
+  width: 100%;
+  max-width: none;
+  margin: var(--np1c-label-title-gap) 0 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-split-body-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: var(--np1c-text-sub-hero);
+}

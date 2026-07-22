@@ -1,0 +1,219 @@
+/* Hero variant B — single sticky frame: fade + image rise, then shrink + title */
+
+.np1c-hero-scroll--b {
+  --np1c-hero-runway-title: 5vh;
+  --np1c-hero-runway-ipad: 47.5vh;
+  --np1c-hero-runway-settle: 20vh;
+  /* Brief settle after title — half prior hold to tighten gap before quote */
+  --np1c-hero-runway-hold: 6vh;
+  position: relative;
+  height: calc(
+    100vh + var(--np1c-hero-runway-title) + var(--np1c-hero-runway-ipad) +
+      var(--np1c-hero-runway-settle) + var(--np1c-hero-runway-hold)
+  );
+  padding-bottom: 0;
+}
+
+.np1c-hero-b-stage {
+  height: 100%;
+}
+
+.np1c-hero-b-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  height: 100vh;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+}
+
+.np1c-hero-scroll--b .np1c-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Stacked multi-clip hero reel — only the active clip is visible */
+.np1c-hero-scroll--b .np1c-hero-video-loop {
+  width: 100%;
+  height: 100%;
+}
+
+.np1c-hero-scroll--b .np1c-hero-video-loop__clip {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: none;
+}
+
+.np1c-hero-scroll--b .np1c-hero__fade-from-bottom {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  will-change: background, opacity;
+}
+
+.np1c-hero-scroll--b .np1c-handoff-stack--b {
+  position: relative;
+  z-index: 3;
+  gap: 0;
+  padding-top: 0;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Single rising device */
+.np1c-hero-scroll--b .np1c-handoff-devices {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.np1c-hero-scroll--b .np1c-handoff-ipad {
+  position: relative;
+  z-index: 3;
+  width: min(52%, 720px);
+  flex-shrink: 0;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.np1c-hero-scroll--b .np1c-handoff-ipad__inner {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+.np1c-hero-scroll--b .np1c-handoff-ipad__inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.np1c-hero-scroll--b .np1c-hero__title.np1c-hero__title--below-image {
+  position: absolute;
+  top: auto;
+  bottom: 13vh;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  max-width: none;
+  width: min(var(--np1c-wide-max), 100%);
+  margin: 0 auto;
+  padding: 0 var(--np1c-wide-padding-inline);
+  flex-shrink: 0;
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  line-height: var(--np1c-header-1-lh);
+  letter-spacing: var(--np1c-header-1-ls);
+  text-align: center;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+/* Mouse + pulsing arrow — bottom center of the sticky viewport */
+.np1c-hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(16px, 3vh, 32px);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  color: rgba(245, 245, 247, 0.72);
+  transition: opacity 160ms linear;
+}
+
+.np1c-hero-scroll-cue__mouse {
+  display: block;
+  width: 50px;
+  height: 75px;
+}
+
+.np1c-hero-scroll-cue__arrow {
+  display: flex;
+  width: 45px;
+  height: 23px;
+  animation: np1c-hero-scroll-pulse 1.8s ease-in-out infinite;
+}
+
+.np1c-hero-scroll-cue__arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes np1c-hero-scroll-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(5px);
+  }
+}
+
+@media (max-width: 767px) {
+  .np1c-hero-scroll--b .np1c-handoff-ipad {
+    width: min(70%, 420px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1c-hero-scroll--b {
+    --np1c-hero-runway-title: 0vh;
+    --np1c-hero-runway-ipad: 0vh;
+    --np1c-hero-runway-settle: 0vh;
+    --np1c-hero-runway-hold: 0vh;
+    height: auto;
+  }
+
+  .np1c-hero-b-stage {
+    height: auto;
+  }
+
+  .np1c-hero-b-sticky {
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .np1c-hero-scroll--b .np1c-handoff-ipad {
+    /* Match SETTLE_SCALE after 50% shrink reduction (~1.083) */
+    transform: translateY(-5vh) scale(1.083) !important;
+  }
+
+  .np1c-hero-scroll--b .np1c-hero__title--below-image {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .np1c-hero-scroll--b .np1c-hero__fade-from-bottom {
+    background: #000 !important;
+    opacity: 1 !important;
+  }
+
+  .np1c-hero-scroll--b .np1c-hero__video {
+    opacity: 0 !important;
+  }
+
+  .np1c-hero-scroll-cue__arrow {
+    animation: none;
+    opacity: 0.65;
+  }
+}

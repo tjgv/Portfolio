@@ -1,0 +1,36 @@
+/* Pill-1 — dock reserves space; control pins to viewport until dock scrolls into place */
+
+.np1c-pill1__dock {
+  /* Define seed size here so min-height resolves even when the pill is portaled out of the dock */
+  --np1c-pill-seed: 75px;
+
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(var(--np1c-pill-seed) + 48px);
+}
+
+.np1c-pill1 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.np1c-pill1--left {
+  justify-content: flex-start;
+}
+
+.np1c-pill1--center {
+  justify-content: center;
+}
+
+/* Only unpinned state is in-flow; --pinned must keep position: fixed from PopupRevealControl.css */
+.np1c-pill1 .np1c-popup-reveal:not(.np1c-popup-reveal--pinned) {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1c-pill1__dock {
+    min-height: 0;
+  }
+}

@@ -1,0 +1,77 @@
+/* Problem — Figma node 25802:34475 */
+
+.np1c-problem {
+  padding: 0;
+}
+
+.np1c-problem__stage {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.np1c-problem__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.np1c-problem__fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 85%, #000 100%);
+  pointer-events: none;
+}
+
+.np1c-problem__copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-block: var(--np1c-content-padding);
+  background: var(--np1c-bg);
+}
+
+.np1c-problem__copy-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  width: min(calc(var(--np1c-content-max) * 0.8), 80%);
+  text-align: center;
+}
+
+/* The copy band carries the full vertical breathing room above and below the
+   problem statement — drop Hypothesis's default section top padding so the
+   distance from the statement to the next section matches the image-to-copy gap. */
+.np1c-page .np1c-problem + .np1c-hypothesis {
+  padding-top: 0;
+}
+
+.np1c-problem__label {
+  margin: 0 0 var(--np1c-label-title-gap);
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-subheader-hero-size);
+  font-weight: var(--np1c-subheader-hero-weight);
+  line-height: var(--np1c-subheader-hero-lh);
+  letter-spacing: var(--np1c-subheader-hero-ls);
+  color: var(--np1c-text-sub-hero);
+}
+
+.np1c-problem__statement {
+  width: 100%;
+  margin: 0;
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  line-height: var(--np1c-header-1-lh);
+  letter-spacing: var(--np1c-header-1-ls);
+  color: var(--np1c-text-hero);
+}
+

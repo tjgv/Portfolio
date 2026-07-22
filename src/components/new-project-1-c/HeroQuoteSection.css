@@ -1,0 +1,13 @@
+/* Hero / end quote band — shared QuoteCarousel inside a compact centered section */
+
+.np1c-hero-quote {
+  display: flex;
+  align-items: center;
+  min-height: 60vh;
+  background: var(--np1c-bg);
+  padding-block: clamp(48px, 8vh, 96px);
+}
+
+.np1c-hero-quote__inner {
+  width: 100%;
+}

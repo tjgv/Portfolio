@@ -1,0 +1,50 @@
+@import './pillControlSizes.css';
+
+/* Carousel-only grow orb — scoped so popup styles cannot override layout */
+
+.np1c-carousel-aap .np1c-grow-orb__pulse,
+.np1c-carousel-aap .np1c-grow-orb__seed {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 999px;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.np1c-carousel-aap .np1c-grow-orb__pulse {
+  z-index: 1;
+  width: var(--np1c-pill-pulse);
+  height: var(--np1c-pill-pulse);
+  transform: translate(-50%, -50%) translateY(var(--grow-seed-y, 0))
+    scale(var(--grow-pulse-scale, 1));
+  opacity: var(--grow-pulse-opacity, 0);
+}
+
+.np1c-carousel-aap .np1c-grow-orb__pulse--out {
+  background: rgb(48, 108, 228);
+  --grow-pulse-scale: var(--grow-pulse-out-scale, 1);
+  --grow-pulse-opacity: var(--grow-pulse-out-opacity, 0);
+}
+
+.np1c-carousel-aap .np1c-grow-orb__pulse--in {
+  background: rgb(48, 108, 228);
+  --grow-pulse-scale: var(--grow-pulse-in-scale, 1);
+  --grow-pulse-opacity: var(--grow-pulse-in-opacity, 0);
+}
+
+.np1c-carousel-aap .np1c-grow-orb__seed {
+  z-index: 2;
+  width: var(--np1c-pill-seed);
+  height: var(--np1c-pill-seed);
+  background: #8e8e93;
+  opacity: var(--grow-seed-opacity, 0);
+  filter: blur(var(--grow-seed-blur, 0px));
+  transform: translate(-50%, -50%) translateY(var(--grow-seed-y, 0))
+    scale(var(--grow-seed-scale, 0));
+}
+
+.np1c-carousel-aap--revealed .np1c-grow-orb__pulse {
+  opacity: 0 !important;
+  visibility: hidden;
+}
