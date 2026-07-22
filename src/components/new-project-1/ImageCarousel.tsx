@@ -323,15 +323,15 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
         </ul>
       </div>
 
-      <div className="np1-editing-carousel__controls">
-        <CarouselControls
-          variant="manual"
-          slides={slides}
-          activeIndex={activeIndex}
-          onSelectSlide={goToSlide}
-          onDotKeyDown={handleDotKeyDown}
-        />
-      </div>
+      <CarouselControls
+        variant="manual"
+        slides={slides}
+        activeIndex={activeIndex}
+        loop={false}
+        arrowPinRootRef={galleryRef}
+        onSelectSlide={goToSlide}
+        onDotKeyDown={handleDotKeyDown}
+      />
     </div>
   )
 }

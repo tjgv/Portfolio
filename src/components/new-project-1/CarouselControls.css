@@ -2,6 +2,80 @@
 
 /* Carousel controls — isolated from popup reveal */
 
+/*
+ * Edge arrow bubbles — pause-orb styling, statically over the carousel media.
+ * Vertically centered on the media frame; 5vw from the page edges.
+ * Fade uses the same --aap-ui-opacity as the pill.
+ */
+.np1-carousel-edge-arrows {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 40;
+  /* Match highlights default media frame height */
+  height: calc(var(--carousel-slide-width, min(calc(88vw * 1.15), 1127px)) / (1920 / 1046));
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+.np1-editing-carousel__carousel > .np1-carousel-edge-arrows {
+  /* Match editing carousel media-frame height */
+  height: clamp(322px, 41.4vw, 667px);
+}
+
+.np1-carousel-edge-arrows--visible {
+  opacity: var(--aap-ui-opacity, 1);
+  visibility: visible;
+}
+
+.np1-carousel-edge-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--np1-pill-seed);
+  height: var(--np1-pill-seed);
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translateY(-50%);
+  background: rgba(58, 58, 60, 0.72);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.np1-carousel-edge-arrow--prev {
+  left: 5vw;
+}
+
+.np1-carousel-edge-arrow--next {
+  right: 5vw;
+}
+
+.np1-carousel-edge-arrow:hover:not(:disabled) {
+  background: rgba(72, 72, 74, 0.82);
+}
+
+.np1-carousel-edge-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.np1-carousel-edge-arrows:not(.np1-carousel-edge-arrows--visible) .np1-carousel-edge-arrow {
+  pointer-events: none;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

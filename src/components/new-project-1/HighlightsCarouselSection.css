@@ -72,6 +72,7 @@
 }
 
 .np1-carousel-section__body {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: clamp(20px, 2.5vh, 36px);

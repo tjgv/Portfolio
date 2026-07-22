@@ -624,10 +624,15 @@
   margin-top: clamp(8px, 1.2vh, 16px);
 }
 
-.np1-modal-carousel .np1-editing-carousel__controls {
+.np1-modal-carousel .np1-editing-carousel__carousel > .np1-carousel-controls {
   padding-inline: 0;
   max-width: none;
   justify-content: flex-start;
+}
+
+/* Edge arrows don't apply inside the slide-up modal */
+.np1-modal-carousel .np1-carousel-edge-arrows {
+  display: none;
 }
 
 .np1-modal-compare__tabs {

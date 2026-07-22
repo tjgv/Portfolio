@@ -1,4 +1,4 @@
-/* Hero variant B — single sticky frame: fade + image rise, then shrink + timed sides */
+/* Hero variant B — single sticky frame: fade + image rise, then shrink + title */
 
 .np1-hero-scroll--b {
   --np1-hero-runway-title: 5vh;
@@ -70,7 +70,7 @@
   align-items: center;
 }
 
-/* Three-device row — tablet on top, sides slide in underneath with overlap */
+/* Single rising device */
 .np1-hero-scroll--b .np1-handoff-devices {
   position: relative;
   display: flex;
@@ -95,35 +95,6 @@
 }
 
 .np1-hero-scroll--b .np1-handoff-ipad__inner img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.np1-hero-scroll--b .np1-handoff-device {
-  position: absolute;
-  z-index: 1;
-  width: min(36.72%, 490px);
-  margin-top: 0;
-  will-change: transform, opacity;
-  pointer-events: none;
-}
-
-/* Vertical rest above center; JS animates translateX only */
-.np1-hero-scroll--b .np1-handoff-device--left {
-  top: calc(50% - 13vh);
-  right: calc(52% + 5vh);
-  transform-origin: center center;
-}
-
-.np1-hero-scroll--b .np1-handoff-device--right {
-  top: calc(50% - 13vh);
-  left: calc(52% + 5vh);
-  transform-origin: center center;
-}
-
-.np1-hero-scroll--b .np1-handoff-device .media-with-loader-wrap,
-.np1-hero-scroll--b .np1-handoff-device img {
   display: block;
   width: 100%;
   height: auto;
@@ -201,18 +172,6 @@
   .np1-hero-scroll--b .np1-handoff-ipad {
     width: min(70%, 420px);
   }
-
-  .np1-hero-scroll--b .np1-handoff-device {
-    width: min(44.37%, 275px);
-  }
-
-  .np1-hero-scroll--b .np1-handoff-device--left {
-    right: calc(48% + 5vh);
-  }
-
-  .np1-hero-scroll--b .np1-handoff-device--right {
-    left: calc(48% + 5vh);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -235,12 +194,8 @@
   }
 
   .np1-hero-scroll--b .np1-handoff-ipad {
-    transform: translateY(5vh) scale(0.816) !important;
-  }
-
-  .np1-hero-scroll--b .np1-handoff-device {
-    opacity: 1 !important;
-    transform: translateY(-50%) !important;
+    /* Match SETTLE_SCALE after 50% shrink reduction (~1.083) */
+    transform: translateY(-5vh) scale(1.083) !important;
   }
 
   .np1-hero-scroll--b .np1-hero__title--below-image {

@@ -704,6 +704,8 @@ export default function HighlightsCarouselSection({
           ended={ended}
           autoplayProgress={autoplayProgress}
           controlsReady={controlsReady}
+          arrowPinRootRef={galleryRef}
+          loop={false}
           style={controlStyle}
           onSelectSlide={goToSlide}
           onPauseAutoplay={() => setIsPlaying(false)}

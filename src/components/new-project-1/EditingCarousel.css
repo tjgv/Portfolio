@@ -136,6 +136,7 @@
 
 /* Shared gallery + controls stack — reused inside the "View Journey Maps" modal */
 .np1-editing-carousel__carousel {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: clamp(20px, 2.5vw, 32px);
@@ -351,14 +352,7 @@
   pointer-events: none;
 }
 
-.np1-editing-carousel__controls {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.np1-editing-carousel__controls .np1-carousel-controls {
+.np1-editing-carousel__carousel > .np1-carousel-controls {
   position: relative;
   bottom: auto;
   padding-block: clamp(16px, 2.5vh, 28px);

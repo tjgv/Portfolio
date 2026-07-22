@@ -21,7 +21,7 @@
 }
 
 .new-project-1-page--b .np1-editing-carousel__intro,
-.new-project-1-page--b .np1-editing-carousel__controls {
+.new-project-1-page--b .np1-editing-carousel__carousel > .np1-carousel-controls {
   width: min(var(--np1-wide-max), 100%);
   max-width: none;
   margin-inline: auto;

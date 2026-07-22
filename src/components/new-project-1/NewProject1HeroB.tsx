@@ -5,19 +5,15 @@ import HeroVideoLoop from './HeroVideoLoop'
 import './NewProject1Hero.css'
 import './NewProject1HeroB.css'
 
-const INTRO_TABLET = '/new-project-1/intro-tablet.png'
-const LAPTOP_IMAGE = '/new-project-1/laptop1.png'
-const MAC_IMAGE = '/new-project-1/mac1.png'
+/** Center rising image — formerly the left-slide laptop. */
+const HERO_DEVICE_IMAGE = '/new-project-1/laptop1.png'
 const HERO_TITLE = 'Making CX Pro easy for anyone to pick up.'
 
-/** Handoff images load after the hero video — keep them low so they don't starve clip 1. */
-preload(INTRO_TABLET, { as: 'image', fetchPriority: 'low' })
-preload(LAPTOP_IMAGE, { as: 'image', fetchPriority: 'low' })
-preload(MAC_IMAGE, { as: 'image', fetchPriority: 'low' })
+preload(HERO_DEVICE_IMAGE, { as: 'image', fetchPriority: 'low' })
 
 /** Short hold on the video before the handoff begins. */
 const PHASE1_RUNWAY_VH = 5
-/** Scroll distance for the iPad to rise from fully below → final rest. */
+/** Scroll distance for the device to rise from fully below → final rest. */
 const PHASE2_IPAD_SCROLL_VH = 47.5
 /** Scroll-driven shrink after the image lands. */
 const PHASE3_SHRINK_VH = 20
@@ -26,22 +22,15 @@ const PHASE3_SHRINK_VH = 20
  * the rise begins (synced with the shadow).
  */
 const IPAD_ENTRY_OFFSET_VH = 88
-/** Final rest was 7vh above center; drop the iPad endpoint by 12vh (5vh below center). */
-const FINAL_LIFT_VH = 7 - 12
+/** Final rest: prior was 5vh below center; raise endpoint by 10vh (5vh above center). */
+const FINAL_LIFT_VH = 7 - 12 + 10
 /** Pre-shrink size (35% larger than the original 1.0). */
 const START_SCALE = 1.35
-/** Final shrink size — 12% larger than prior 0.729 settle. */
-const SETTLE_SCALE = 0.729 * 1.12
+/** Prior settle; shrink amount cut by 50%. */
+const PREV_SETTLE_SCALE = 0.729 * 1.12
+const SETTLE_SCALE = START_SCALE - (START_SCALE - PREV_SETTLE_SCALE) * 0.5
 /** Distance the title slides up during reveal (75% shorter than prior 56px). */
 const TITLE_SLIDE_OFFSET_PX = 14
-/** How far side devices travel in from off-screen (as % of their width). */
-const SIDE_SLIDE_FROM_PCT = 72
-/** Fixed-duration side device slide-in (ms). */
-const SIDE_SLIDE_MS = 1600
-/** Rise progress at which the right device starts sliding in. */
-const RIGHT_SLIDE_TRIGGER = 0.68
-/** Shrink progress at which the left device starts sliding in. */
-const LEFT_SLIDE_SHRINK_TRIGGER = 0.22
 /** Shrink progress at which the title starts (before shrink fully finishes). */
 const TITLE_SHRINK_TRIGGER = 0.82
 /** Delay after title trigger before reveal starts (ms). */
@@ -74,44 +63,17 @@ function prefersReducedMotion(): boolean {
 }
 
 /**
- * Variant B hero — fade + iPad rise (scroll), then shrink (scroll), with
- * independently triggered timed side-slides + title reveal.
- * Uses plain CSS sticky only — no reverse/fixed overlay (that path could
- * re-pin itself and stick the hero over lower sections).
+ * Variant B hero — fade + device rise (scroll), then shrink (scroll), then
+ * title reveal. Uses plain CSS sticky only — no reverse/fixed overlay.
  */
 export default function NewProject1HeroB() {
   const scrollRef = useRef<HTMLElement>(null)
-  const ipadRef = useRef<HTMLDivElement>(null)
   const [scrollPx, setScrollPx] = useState(0)
-  const [leftProgress, setLeftProgress] = useState(0)
-  const [rightProgress, setRightProgress] = useState(0)
   const [titleProgress, setTitleProgress] = useState(0)
 
-  const rightAnimStartedRef = useRef(false)
-  const leftAnimStartedRef = useRef(false)
   const titleAnimStartedRef = useRef(false)
-  const rightRafRef = useRef<number | null>(null)
-  const leftRafRef = useRef<number | null>(null)
   const titleRafRef = useRef<number | null>(null)
   const titleDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  // Warm side devices after first paint so they don't contend with hero clip 1.
-  useEffect(() => {
-    const warm = () => {
-      ;[INTRO_TABLET, LAPTOP_IMAGE, MAC_IMAGE].forEach((src) => {
-        const img = new Image()
-        img.fetchPriority = 'low'
-        img.decoding = 'async'
-        img.src = src
-      })
-    }
-    if (typeof window.requestIdleCallback === 'function') {
-      const id = window.requestIdleCallback(warm, { timeout: 1500 })
-      return () => window.cancelIdleCallback(id)
-    }
-    const t = window.setTimeout(warm, 600)
-    return () => window.clearTimeout(t)
-  }, [])
 
   useEffect(() => {
     let rafId = 0
@@ -163,7 +125,7 @@ export default function NewProject1HeroB() {
   const finalLiftPx = runwayPx(FINAL_LIFT_VH)
   const ipadTranslateY = (1 - riseProgress) * entryOffsetPx - riseProgress * finalLiftPx
 
-  // Scroll-driven shrink: 1.35 → ~0.816
+  // Scroll-driven shrink (50% of prior delta).
   const easedShrink = easeOutQuint(shrinkProgress)
   const imageScale = START_SCALE - easedShrink * (START_SCALE - SETTLE_SCALE)
 
@@ -196,50 +158,13 @@ export default function NewProject1HeroB() {
   // Reset timed handoffs when the hero is fully rewound.
   useEffect(() => {
     if (scrollPx > 0) return
-    rightAnimStartedRef.current = false
-    leftAnimStartedRef.current = false
     titleAnimStartedRef.current = false
-    if (rightRafRef.current != null) cancelAnimationFrame(rightRafRef.current)
-    if (leftRafRef.current != null) cancelAnimationFrame(leftRafRef.current)
     if (titleRafRef.current != null) cancelAnimationFrame(titleRafRef.current)
     if (titleDelayRef.current != null) clearTimeout(titleDelayRef.current)
-    rightRafRef.current = null
-    leftRafRef.current = null
     titleRafRef.current = null
     titleDelayRef.current = null
-    setLeftProgress(0)
-    setRightProgress(0)
     setTitleProgress(0)
   }, [scrollPx])
-
-  // Right slide: once the rising iPad is mostly on-screen — horizontal only.
-  useEffect(() => {
-    if (rightAnimStartedRef.current) return
-    if (riseProgress < RIGHT_SLIDE_TRIGGER) return
-
-    if (prefersReducedMotion()) {
-      rightAnimStartedRef.current = true
-      setRightProgress(1)
-      return
-    }
-
-    rightAnimStartedRef.current = true
-    runTimedProgress(setRightProgress, rightRafRef, SIDE_SLIDE_MS)
-  }, [riseProgress])
-
-  // Left slide: shortly after shrink begins — horizontal + fade.
-  useEffect(() => {
-    if (shrinkProgress < LEFT_SLIDE_SHRINK_TRIGGER || leftAnimStartedRef.current) return
-
-    if (prefersReducedMotion()) {
-      leftAnimStartedRef.current = true
-      setLeftProgress(1)
-      return
-    }
-
-    leftAnimStartedRef.current = true
-    runTimedProgress(setLeftProgress, leftRafRef, SIDE_SLIDE_MS)
-  }, [shrinkProgress])
 
   // Title: late in the shrink, slightly before it fully settles.
   const titleReady = shrinkProgress >= TITLE_SHRINK_TRIGGER
@@ -263,19 +188,11 @@ export default function NewProject1HeroB() {
     }
   }, [titleReady])
 
-  // Timed overlays fade with the wash on scroll-back.
   const washPresence = fadeOpacity
-  const leftOpacity = easeOutHeavy(leftProgress) * washPresence
-  const rightOpacity = easeOutHeavy(rightProgress) * washPresence
   const titleOpacity = easeOutHeavy(titleProgress) * washPresence
 
   /** Fade scroll cue out over the first ~12vh of scroll. */
   const scrollCueOpacity = clamp01(1 - scrollPx / Math.max(1, runwayPx(12)))
-
-  const easedLeft = easeOutHeavy(leftProgress)
-  const easedRight = easeOutHeavy(rightProgress)
-  const leftSlideX = (1 - easedLeft) * -SIDE_SLIDE_FROM_PCT
-  const rightSlideX = (1 - easedRight) * SIDE_SLIDE_FROM_PCT
 
   const easedTitle = easeOutHeavy(titleProgress)
   const titleTranslateY = (1 - easedTitle) * TITLE_SLIDE_OFFSET_PX
@@ -323,23 +240,6 @@ export default function NewProject1HeroB() {
           <div className="np1-handoff-stack np1-handoff-stack--b">
             <div className="np1-handoff-devices">
               <div
-                className="np1-handoff-device np1-handoff-device--left"
-                style={{
-                  opacity: leftOpacity,
-                  transform: `translateY(-50%) translateX(${leftSlideX}%)`,
-                }}
-              >
-                <ImgWithLoader
-                  src={LAPTOP_IMAGE}
-                  alt="CX Pro on laptop"
-                  loading="lazy"
-                  fetchPriority="low"
-                  decoding="async"
-                />
-              </div>
-
-              <div
-                ref={ipadRef}
                 className="np1-handoff-ipad"
                 style={{
                   transform: `translateY(${ipadTranslateY}px) scale(${imageScale})`,
@@ -347,28 +247,12 @@ export default function NewProject1HeroB() {
               >
                 <div className="np1-handoff-ipad__inner">
                   <ImgWithLoader
-                    src={INTRO_TABLET}
-                    alt="Hands holding CX Pro on tablet"
+                    src={HERO_DEVICE_IMAGE}
+                    alt="CX Pro on laptop"
                     loading="eager"
                     fetchPriority="low"
                   />
                 </div>
-              </div>
-
-              <div
-                className="np1-handoff-device np1-handoff-device--right"
-                style={{
-                  opacity: rightOpacity,
-                  transform: `translateY(-50%) translateX(${rightSlideX}%)`,
-                }}
-              >
-                <ImgWithLoader
-                  src={MAC_IMAGE}
-                  alt="CX Pro on desktop"
-                  loading="lazy"
-                  fetchPriority="low"
-                  decoding="async"
-                />
               </div>
             </div>
           </div>
