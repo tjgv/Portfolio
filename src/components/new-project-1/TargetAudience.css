@@ -40,7 +40,8 @@
   box-sizing: border-box;
   /* True square: height === column width; content cannot stretch it */
   width: 100%;
-  aspect-ratio: 1 / 1;
+  /* 15% shorter than a true square */
+  aspect-ratio: 1 / 0.85;
   height: auto;
   max-height: none;
   min-width: 0;
