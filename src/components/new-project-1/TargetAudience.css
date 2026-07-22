@@ -50,7 +50,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(24px, 3vw, 48px);
-  padding: clamp(29.04px, 3.63vw, 48.4px);
+  padding: clamp(31.944px, 3.993vw, 53.24px);
   justify-content: flex-start;
 }
 
@@ -112,7 +112,7 @@
   }
 
   .np1-audience-card {
-    padding: 19.36px;
+    padding: 21.3px;
     gap: 12px;
   }
 
