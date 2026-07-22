@@ -28,7 +28,8 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(16px, 1.7vw, 25px);
-  /* width + margin-inline come from .np1-media--xl (nav-edge gutters) */
+  width: 100%;
+  align-items: start;
 }
 
 .np1-audience-card {
@@ -36,16 +37,20 @@
   border: none;
   border-radius: 0;
   overflow: hidden;
-  /* Same width columns → same height squares on every breakpoint */
+  box-sizing: border-box;
+  /* True square: height === column width; content cannot stretch it */
+  width: 100%;
   aspect-ratio: 1 / 1;
+  height: auto;
+  max-height: none;
+  min-width: 0;
   min-height: 0;
-  height: 100%;
+  align-self: start;
   display: flex;
   flex-direction: column;
-  gap: clamp(40px, 5.3vw, 80px);
-  padding: 50px;
+  gap: clamp(24px, 3vw, 48px);
+  padding: clamp(24px, 3vw, 40px);
   justify-content: flex-start;
-  box-sizing: border-box;
 }
 
 .np1-audience-card--media {
@@ -101,22 +106,27 @@
 
 @media (max-width: 767px) {
   .np1-audience__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
   }
 
-  /* Video on top, then Educators / Students / Staff */
-  .np1-audience-card--media {
-    order: -1;
+  .np1-audience-card {
+    padding: 16px;
+    gap: 12px;
   }
 
-  .np1-audience-card {
-    padding: 24px;
-    gap: 24px;
+  .np1-audience-card__title {
+    font-size: var(--np1-header-2-size);
+    font-weight: var(--np1-header-2-weight);
+    line-height: var(--np1-header-2-lh);
+    letter-spacing: var(--np1-header-2-ls);
   }
 
   .np1-audience-card__body {
     max-width: none;
     width: 100%;
+    font-size: var(--np1-body-2-size);
+    line-height: var(--np1-body-2-lh);
+    letter-spacing: var(--np1-body-2-ls);
   }
 }
