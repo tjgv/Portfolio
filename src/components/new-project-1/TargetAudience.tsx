@@ -67,7 +67,7 @@ export default function TargetAudience() {
       <div className="np1-section__inner np1-section__inner--wide np1-audience__inner">
         <h2 className="np1-audience__heading">Who we&apos;re anticipating to pick up CX Pro:</h2>
 
-        <div className="np1-audience__grid">
+        <div className="np1-audience__grid np1-media--xl">
           <article className="np1-audience-card">
             <h3 className="np1-audience-card__title">{FEATURED_CARD.title}</h3>
             <p className="np1-audience-card__body">{FEATURED_CARD.body}</p>
