@@ -26,9 +26,9 @@ const IPAD_ENTRY_OFFSET_VH = 88
 const FINAL_LIFT_VH = 7 - 12 + 10
 /** Pre-shrink size (35% larger than the original 1.0). */
 const START_SCALE = 1.35
-/** Prior settle; shrink amount cut by 50%. */
+/** Prior settle; shrink amount cut by 50%, then +5% larger at rest. */
 const PREV_SETTLE_SCALE = 0.729 * 1.12
-const SETTLE_SCALE = START_SCALE - (START_SCALE - PREV_SETTLE_SCALE) * 0.5
+const SETTLE_SCALE = (START_SCALE - (START_SCALE - PREV_SETTLE_SCALE) * 0.5) * 1.05
 /** Distance the title slides up during reveal (75% shorter than prior 56px). */
 const TITLE_SLIDE_OFFSET_PX = 14
 /** Shrink progress at which the title starts (before shrink fully finishes). */
