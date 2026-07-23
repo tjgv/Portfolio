@@ -765,7 +765,7 @@ export default function HomePageV2() {
               <img src={figpalFollowState.accessoryUrl} alt="" className="figpal-parked-acc" />
             )}
           </div>
-        </div>KLe
+        </div>
       )}
       {figpalFollowState.enabled && !figpalParked && !isFigpalMobile && (
         <>
