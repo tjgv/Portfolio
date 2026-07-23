@@ -1,8 +1,28 @@
 /* MVP — centered copy like Problem B, then media */
 
+.np1c-section.np1c-editing-mvp {
+  position: relative;
+  overflow: hidden;
+  padding-top: 100px;
+}
+
+/* Beat .np1c-reveal-gradient { position: relative } so this is a true
+   section backdrop — content overlays it instead of being pushed down. */
+.np1c-section.np1c-editing-mvp > .np1c-reveal-gradient.np1c-editing-mvp__gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(220px, 34vh, 420px);
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* Image asset still reads airy at the top — sit media closer for this section only */
 .np1c-editing-mvp .np1c-hypothesis__inner {
-  gap: max(0px, calc(var(--np1c-text-media-gap) - 75px));
+  position: relative;
+  z-index: 1;
+  gap: var(--np1c-text-media-gap);
 }
 
 .np1c-editing-mvp .np1c-hypothesis__copy {

@@ -19,6 +19,7 @@ export const SOLUTION_VIDEO_SLIDES: HighlightSlide[] = [
     ariaLabel: 'CX Pro simplified and guided transitions — proposed experience',
     aspectRatio: '1500 / 1046',
     narrow: true,
+    endTrimSeconds: 10,
   },
   {
     id: 'menu-planning',

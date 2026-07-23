@@ -258,7 +258,7 @@ export default function NewProject1HeroB() {
           </div>
 
           <h1
-            className="np1c-hero__title np1c-hero__title--below-image"
+            className="np1c-hero__title np1c-hero__title--below-image np1c-type-hero-bold"
             style={{
               opacity: titleOpacity,
               transform: `translateY(${titleTranslateY}px)`,

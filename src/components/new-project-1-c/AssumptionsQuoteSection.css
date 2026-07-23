@@ -17,7 +17,7 @@
 
 .np1c-assumptions-quote__copy {
   width: 100%;
-  margin-bottom: clamp(40px, 5.3vw, 80px);
+  margin-bottom: var(--np1c-text-media-gap);
 }
 
 .np1c-assumptions-quote__copy .np1c-h-text-stack__body .np1c-text-emphasis {

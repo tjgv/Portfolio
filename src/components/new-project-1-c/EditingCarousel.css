@@ -1,32 +1,11 @@
 /* EditingCarousel — center-snap swipeable carousel with per-slide captions */
 
-/* Compound selector so this reliably beats the shared .np1c-section padding
-   rule regardless of stylesheet load order — the gradient above needs to sit
-   flush against the section's top edge, with .np1c-editing-carousel__inner
-   owning all of the section's actual vertical spacing instead. */
 .np1c-section.np1c-editing-carousel {
-  position: relative;
-  /* Match standard .np1c-section vertical rhythm; gradient is absolute so it
-     stays a background effect and doesn't invent its own top gap. */
   padding: var(--np1c-content-padding) 0;
   background: var(--np1c-bg);
-  overflow: hidden;
-}
-
-/* Decorative only — absolute so it doesn't create a tall empty gap above content */
-.np1c-editing-carousel__gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: clamp(220px, 34vh, 420px);
-  z-index: 0;
-  pointer-events: none;
 }
 
 .np1c-editing-carousel__inner {
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: var(--np1c-text-media-gap);
@@ -59,7 +38,7 @@
   font-weight: var(--np1c-header-1-weight);
   line-height: var(--np1c-header-1-lh);
   letter-spacing: var(--np1c-header-1-ls);
-  color: var(--np1c-text-hero);
+  color: var(--np1c-header-1-color);
 }
 
 .np1c-editing-carousel__lede {
@@ -165,7 +144,7 @@
   margin: 0;
   /* padding-inline is set dynamically by JS for center-snap */
   padding-block: 0;
-  gap: clamp(24px, 3vw, 36px);
+  gap: clamp(48px, 6vw, 72px);
   /* give it content-width so % padding resolves against the gallery */
   width: max-content;
 }
@@ -203,6 +182,12 @@
   width: 100%;
   flex-shrink: 0;
   perspective: 1600px;
+  opacity: 0.8;
+  transition: opacity 0.7s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.np1c-editing-carousel__slide--active .np1c-editing-carousel__media-frame {
+  opacity: 1;
 }
 
 /* Narrow slide: shrink-wraps the image at first paint (like before); JS

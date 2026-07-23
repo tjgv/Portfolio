@@ -556,16 +556,22 @@ export default function HighlightsCarouselSection({
   // Drive progress bar from the active video's currentTime / duration
   useEffect(() => {
     const video = videoRefs.current[activeIndex]
-    if (!video || slides[activeIndex]?.kind !== 'video') return
+    const slide = slides[activeIndex]
+    if (!video || slide?.kind !== 'video') return
 
-    const updateProgress = () => {
+    const endTrim = slide.endTrimSeconds ?? 0
+    let advanced = false
+
+    const effectiveDuration = () => {
       const duration = video.duration
-      if (!duration || !Number.isFinite(duration) || duration <= 0) return
-      setAutoplayProgress(Math.min(1, video.currentTime / duration))
+      if (!duration || !Number.isFinite(duration) || duration <= 0) return 0
+      return Math.max(0.01, duration - endTrim)
     }
 
-    const onEnded = () => {
-      if (!isPlayingRef.current) return
+    const advanceFromVideoEnd = () => {
+      if (advanced || !isPlayingRef.current) return
+      advanced = true
+      video.pause()
       if (activeIndexRef.current >= slideCount - 1) {
         setEnded(true)
         setIsPlaying(false)
@@ -573,6 +579,21 @@ export default function HighlightsCarouselSection({
         return
       }
       goToSlide(activeIndexRef.current + 1)
+    }
+
+    const updateProgress = () => {
+      const playable = effectiveDuration()
+      if (playable <= 0) return
+      if (endTrim > 0 && video.currentTime >= playable) {
+        setAutoplayProgress(1)
+        advanceFromVideoEnd()
+        return
+      }
+      setAutoplayProgress(Math.min(1, video.currentTime / playable))
+    }
+
+    const onEnded = () => {
+      advanceFromVideoEnd()
     }
 
     video.addEventListener('timeupdate', updateProgress)

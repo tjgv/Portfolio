@@ -1,10 +1,9 @@
 /**
- * Consumer CX Pro — Page C (formatting iteration sandbox)
+ * Consumer CX Pro — primary case study page
  *
- * Route: /consumer-cx-pro-C
- * Isolated copy of Page B. Edits here must NOT change
- * src/pages/NewProject1PageB.* or src/components/new-project-1/*.
- * Checkpoint: git tag checkpoint-1-consumer-cx-pro
+ * Route: /consumer-cx-pro
+ * Legacy sandbox URL /consumer-cx-pro-C redirects here.
+ * Prior Page B checkpoint: git tag checkpoint-1-consumer-cx-pro
  */
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
@@ -32,8 +31,8 @@ import DeducingUserNeeds from '../components/new-project-1-c/DeducingUserNeeds'
 import './NewProject1PageCBase.css'
 import './NewProject1PageC.css'
 
-export const NEW_PROJECT_1_ROUTE = '/consumer-cx-pro-C'
-export const NEW_PROJECT_1_C_ROUTE = '/consumer-cx-pro-C'
+export const NEW_PROJECT_1_ROUTE = '/consumer-cx-pro'
+export const NEW_PROJECT_1_C_ROUTE = '/consumer-cx-pro'
 
 const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'

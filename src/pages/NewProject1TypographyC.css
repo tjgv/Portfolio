@@ -14,17 +14,25 @@
   --np1c-text-sub-1: #a1a1a6;
   --np1c-muted: #d2d2d7;
 
-  /* Header-hero — SF Pro Display Semibold 80 / 105% / -0.015rem */
+  /* Hero-Bold — former Header-1 metrics (SF Pro Display Semibold 48 / 108% / -0.003rem)
+     Only used for the main hero title on Page C. */
+  --np1c-hero-bold-size: clamp(28px, 3.2vw, 48px);
+  --np1c-hero-bold-lh: 1.08;
+  --np1c-hero-bold-ls: -0.003rem;
+  --np1c-hero-bold-weight: 650;
+
+  /* Header-hero — legacy large display; unused by Page C hero title */
   --np1c-header-hero-size: clamp(40px, 5vw, 80px);
   --np1c-header-hero-lh: 1.05;
   --np1c-header-hero-ls: -0.015rem;
   --np1c-header-hero-weight: 590;
 
-  /* Header-1 — SF Pro Display Semibold 48 / 108% / -0.003rem */
-  --np1c-header-1-size: clamp(28px, 3.2vw, 48px);
+  /* Header-1 — SF Pro Display Semibold 40 / 108% / -0.003rem (−8px from original 48) */
+  --np1c-header-1-size: clamp(20px, 3.2vw, 40px);
   --np1c-header-1-lh: 1.08;
   --np1c-header-1-ls: -0.003rem;
   --np1c-header-1-weight: 650;
+  --np1c-header-1-color: #f5f5f7;
 
   /* Header-2 — SF Pro Display Semibold 24 / 28px / 0.009rem */
   --np1c-header-2-size: clamp(20px, 1.6vw, 24px);
@@ -50,8 +58,8 @@
   --np1c-body-hero-ls: 0.7px;
   --np1c-body-hero-weight: 400;
 
-  /* Body-1 — Inter Medium 21 / 25px / 0.23px */
-  --np1c-body-1-size: clamp(17px, 1.4vw, 21px);
+  /* Body-1 — Inter Medium 17 / 25px / 0.23px (−4px from 21) */
+  --np1c-body-1-size: clamp(13px, 1.4vw, 17px);
   --np1c-body-1-lh: 25px;
   --np1c-body-1-ls: 0.23px;
   --np1c-body-1-weight: 500;
@@ -74,4 +82,22 @@
 
   font-family: var(--np1c-font-body);
   color: var(--np1c-text);
+}
+
+/* Type classes — Page C only */
+.np1c-type-hero-bold {
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-hero-bold-size);
+  font-weight: var(--np1c-hero-bold-weight);
+  line-height: var(--np1c-hero-bold-lh);
+  letter-spacing: var(--np1c-hero-bold-ls);
+}
+
+.np1c-type-header-1 {
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-1-size);
+  font-weight: var(--np1c-header-1-weight);
+  line-height: var(--np1c-header-1-lh);
+  letter-spacing: var(--np1c-header-1-ls);
+  color: var(--np1c-header-1-color);
 }

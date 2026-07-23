@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--np1c-block-gap);
+  gap: var(--np1c-text-media-gap);
   width: 100%;
 }
 
@@ -66,7 +66,7 @@
   font-weight: var(--np1c-header-1-weight);
   line-height: var(--np1c-header-1-lh);
   letter-spacing: var(--np1c-header-1-ls);
-  color: var(--np1c-text-hero);
+  color: var(--np1c-header-1-color);
 }
 
 .np1c-audience-card__body {

@@ -3,7 +3,7 @@
 .np1c-guided-transitions__inner {
   display: flex;
   flex-direction: column;
-  gap: clamp(80px, 9.3vw, 160px);
+  gap: var(--np1c-text-media-gap);
 }
 
 .np1c-guided-transitions__copy {
@@ -20,7 +20,7 @@
   font-weight: var(--np1c-header-1-weight);
   line-height: var(--np1c-header-1-lh);
   letter-spacing: var(--np1c-header-1-ls);
-  color: var(--np1c-text-hero);
+  color: var(--np1c-header-1-color);
 }
 
 .np1c-guided-transitions__body {

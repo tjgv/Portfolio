@@ -216,8 +216,7 @@
   font-weight: var(--np1c-header-1-weight);
   line-height: var(--np1c-header-1-lh);
   letter-spacing: var(--np1c-header-1-ls);
-  color: #f5f5f7;
-  color: var(--np1c-text-hero);
+  color: var(--np1c-header-1-color);
 }
 
 .np1c-popup-overlay__hero-subhead {

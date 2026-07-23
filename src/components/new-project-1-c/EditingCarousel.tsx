@@ -1,5 +1,4 @@
 import ImageCarousel, { type CarouselSlide } from './ImageCarousel'
-import RevealGradient from './RevealGradient'
 import './EditingCarousel.css'
 
 const MVP_PRIORITY_CARDS = [
@@ -64,8 +63,6 @@ export default function EditingCarousel() {
       data-dev-section="editing-carousel"
       aria-label="MVP Priorities"
     >
-      <RevealGradient className="np1c-editing-carousel__gradient" />
-
       <div className="np1c-editing-carousel__inner">
         <div className="np1c-editing-carousel__intro">
           <p className="np1c-editing-carousel__label">MVP Priorities</p>

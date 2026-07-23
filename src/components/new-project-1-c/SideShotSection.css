@@ -5,7 +5,7 @@
     var(--np1c-content-padding-inline),
     calc((100vw - min(var(--np1c-content-max), 100vw)) / 2 + var(--np1c-content-padding-inline))
   );
-  --np1c-side-shot-text-gap: 75px;
+  --np1c-side-shot-text-gap: var(--np1c-text-media-gap);
   --np1c-side-shot-image-scale: 1;
   --np1c-side-shot-image-height: calc(75vh * var(--np1c-side-shot-image-scale));
 
@@ -77,7 +77,7 @@
   font-weight: var(--np1c-header-1-weight);
   line-height: var(--np1c-header-1-lh);
   letter-spacing: var(--np1c-header-1-ls);
-  color: var(--np1c-text-hero);
+  color: var(--np1c-header-1-color);
 }
 
 .np1c-side-shot__body {
@@ -172,7 +172,7 @@
 /* Stacked — text above centered mock, pill below */
 .np1c-side-shot--stacked {
   --np1c-side-shot-image-max-height: min(86.25vh, 943px);
-  --np1c-side-shot-stack-gap: 2vh;
+  --np1c-side-shot-stack-gap: var(--np1c-text-media-gap);
 }
 
 .np1c-side-shot--stacked .np1c-side-shot__inner {
@@ -222,7 +222,7 @@
 
 /* Pill-1 dock — below the mock in stacked sections */
 .np1c-side-shot--stacked .np1c-side-shot__stack:has(.np1c-pill1__dock) {
-  gap: clamp(40px, 5vh, 60px);
+  gap: var(--np1c-text-media-gap);
 }
 
 .np1c-side-shot--stacked .np1c-pill1__dock {
@@ -252,7 +252,7 @@
 @media (max-width: 960px) {
   .np1c-side-shot:not(.np1c-side-shot--stacked) {
     --np1c-side-shot-image-height: calc(55vh * var(--np1c-side-shot-image-scale, 1));
-    --np1c-side-shot-text-gap: 75px;
+    --np1c-side-shot-text-gap: var(--np1c-text-media-gap);
   }
 
   .np1c-side-shot:not(.np1c-side-shot--stacked) .np1c-side-shot__grid {
@@ -282,6 +282,6 @@
 
   .np1c-side-shot--stacked {
     --np1c-side-shot-image-max-height: min(63.25vh, 713px);
-    --np1c-side-shot-stack-gap: 2vh;
+    --np1c-side-shot-stack-gap: var(--np1c-text-media-gap);
   }
 }

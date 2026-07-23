@@ -21,8 +21,8 @@
 }
 
 .np1c-problem--b .np1c-problem__body {
-  width: 100%;
-  max-width: none;
+  width: 75%;
+  max-width: 75%;
   margin: var(--np1c-label-title-gap) 0 0;
   font-family: var(--np1c-font-display);
   font-size: var(--np1c-body-1-size);

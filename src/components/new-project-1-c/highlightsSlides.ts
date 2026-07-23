@@ -17,6 +17,8 @@ export type HighlightVideoSlide = {
   playbackRate?: number
   /** Narrower slide so a taller video matches the default frame height. */
   narrow?: boolean
+  /** Drop this many seconds from the end of playback (source file unchanged). */
+  endTrimSeconds?: number
 }
 
 export type HighlightSlide = HighlightImageSlide | HighlightVideoSlide

@@ -55,10 +55,10 @@
   margin: 0;
   padding: clamp(48px, 8vw, 120px) clamp(20px, 5vw, 100px);
   font-family: var(--np1c-font-display);
-  font-size: var(--np1c-header-hero-size);
-  font-weight: var(--np1c-header-hero-weight);
-  line-height: var(--np1c-header-hero-lh);
-  letter-spacing: var(--np1c-header-hero-ls);
+  font-size: var(--np1c-hero-bold-size);
+  font-weight: var(--np1c-hero-bold-weight);
+  line-height: var(--np1c-hero-bold-lh);
+  letter-spacing: var(--np1c-hero-bold-ls);
   text-align: center;
   color: var(--np1c-text-hero);
   pointer-events: none;

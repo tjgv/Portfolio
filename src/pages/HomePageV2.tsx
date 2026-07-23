@@ -6,7 +6,7 @@ import FigPalSign from '../components/FigPalSign'
 import { MediaLoader, ImgWithLoader } from '../components/MediaLoader'
 import CxProPage from './CxProPage'
 import Project2Page from './Project2Page'
-import NewProject1PageB, { NEW_PROJECT_1_META, NEW_PROJECT_1_ROUTE } from './NewProject1PageB'
+import NewProject1PageC, { NEW_PROJECT_1_META, NEW_PROJECT_1_ROUTE } from './NewProject1PageC'
 import CaseStudyPreviewNav from '../components/CaseStudyPreviewNav'
 import { CASE_STUDIES } from '../data/caseStudies'
 import './HomePageV2.css'
@@ -205,7 +205,7 @@ export function NewProject1Popup({ onClose }: { onClose: () => void }) {
             </div>
           </div>
           <div className="home-v2-popup-preview">
-            <NewProject1PageB embedded />
+            <NewProject1PageC embedded />
           </div>
           <div className="home-v2-popup-read-more-wrap">
             <Link to={NEW_PROJECT_1_ROUTE} className="home-v2-popup-read-more">
@@ -765,7 +765,7 @@ export default function HomePageV2() {
               <img src={figpalFollowState.accessoryUrl} alt="" className="figpal-parked-acc" />
             )}
           </div>
-        </div>
+        </div>KLe
       )}
       {figpalFollowState.enabled && !figpalParked && !isFigpalMobile && (
         <>
