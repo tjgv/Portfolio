@@ -429,13 +429,11 @@
   min-height: 0;
   min-width: 0;
   border: none;
-  border-radius: 0;
+  border-radius: 4px;
   cursor: pointer;
   overflow: hidden;
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.18),
-    0 6px 14px rgba(0, 0, 0, 0.22);
-  transition: box-shadow 0.25s ease, transform 0.22s ease;
+  box-shadow: none;
+  transition: transform 0.22s ease;
   display: flex;
   align-items: flex-end;
   padding: 0;
@@ -461,14 +459,10 @@
 }
 
 .home-v2-card:hover {
-  box-shadow:
-    0 3px 8px rgba(0, 0, 0, 0.22),
-    0 8px 18px rgba(0, 0, 0, 0.26);
   transform: scale(0.98);
 }
 
-/* Multi-colored pastel drop-shadow when video is playing – equal distance on all sides */
-/* Applied to card-wrap so glow isn't clipped by overflow; uses filter for reliable visibility */
+/* Multi-colored pastel glow when video is playing */
 .home-v2-card-wrap--playing {
   filter:
     drop-shadow(0 0 12px rgba(255, 182, 193, 0.166))
@@ -487,9 +481,7 @@
 }
 
 .home-v2-card--playing {
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.18),
-    0 6px 14px rgba(0, 0, 0, 0.22);
+  box-shadow: none;
 }
 
 .home-v2-card--apple {
@@ -516,9 +508,6 @@
 
 .home-v2-card--placeholder-interactive:hover {
   transform: scale(0.98);
-  box-shadow:
-    0 3px 8px rgba(0, 0, 0, 0.22),
-    0 8px 18px rgba(0, 0, 0, 0.26);
 }
 
 .home-v2-card--placeholder .home-v2-card-pill {
@@ -548,7 +537,8 @@
 .home-v2-card-wrap {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 4px;
+  padding: 0;
   min-width: 0; /* allow grid items to shrink below intrinsic size */
   opacity: 0;
   animation: home-v2-card-fall-in 1.7s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -556,42 +546,51 @@
   transition: filter 0.4s ease;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .home-v2-card-wrap {
-    opacity: 1;
-    animation: none;
-  }
+/* Caption under each card */
+.home-v2-card-caption-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* half of prior 4px wrap gap between description + sub */
+  padding: 0;
 }
 
-/* Hover line: overlays the bottom of the image over the fade */
-.home-v2-card-hover-line {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 18px;
-  z-index: 2;
-  display: block;
+.home-v2-card-caption {
   margin: 0;
   padding: 0;
   font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 16px;
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.005rem;
   line-height: 1.4;
-  color: #ffffff;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.22s ease, transform 0.22s ease;
-  pointer-events: none;
+  color: #1a1a1a;
   text-align: left;
 }
 
-.home-v2-card-wrap:hover .home-v2-card-hover-line,
-.home-v2-card:hover .home-v2-card-hover-line,
-.home-v2-card:focus-visible .home-v2-card-hover-line {
-  opacity: 1;
-  transform: translateY(0);
+.home-v2-card-caption-secondary {
+  margin: 0;
+  padding: 0;
+  /* Body-2 from Consumer CX Pro (Inter Regular 17 / 147% / -0.35px) */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: clamp(15px, 1.1vw, 17px);
+  font-weight: 400;
+  letter-spacing: -0.35px;
+  line-height: 1.47;
+  /* Greyer for white homepage (CX Pro keeps its own light body color) */
+  color: #8e8e93;
+  text-align: left;
+}
+
+.home-v2-card-wrap:nth-child(-n + 3) .home-v2-card-caption-secondary {
+  color: #15803d;
+  font-weight: 600;
+  font-size: clamp(14px, 1.1vw, 16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-v2-card-wrap {
+    opacity: 1;
+    animation: none;
+  }
 }
 
 .home-v2-card-pill {
@@ -656,13 +655,6 @@
     left: 12px;
     padding: 5px 12px;
     font-size: 15px; /* 25% larger than 12px */
-  }
-
-  .home-v2-card-hover-line {
-    left: 16px;
-    right: 16px;
-    bottom: 14px;
-    font-size: 14px;
   }
 }
 

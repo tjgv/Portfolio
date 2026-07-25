@@ -66,7 +66,6 @@ function MediaCycleCard({
   videoSrc,
   label,
   year,
-  hoverLine,
   visual,
   showVideo,
   onVideoEnded,
@@ -78,7 +77,6 @@ function MediaCycleCard({
   videoSrc: string
   label: string
   year: string
-  hoverLine: string
   visual: 'apple' | 'dark'
   showVideo: boolean
   onVideoEnded: () => void
@@ -134,7 +132,6 @@ function MediaCycleCard({
         <span className="home-v2-card-pill-label">{label}</span>
         <span className="home-v2-card-pill-year"> · {year}</span>
       </span>
-      <span className="home-v2-card-hover-line">{hoverLine}</span>
     </button>
   )
 }
@@ -362,7 +359,8 @@ const WORK_CARDS = [
     id: 'placeholder1',
     label: 'Consumer-Grade CX Pro',
     year: '2026',
-    hoverLine: 'Pitching a simpler direction for CX Pro.',
+    hoverLine: 'Simplifying CX Pro for Commercial Launch',
+    sub: 'Projected to generate $XM over 5 years.',
     bgStyle: { backgroundImage: 'url(/new-project-1/hero-bg.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'apple',
   },
@@ -370,7 +368,8 @@ const WORK_CARDS = [
     id: 'project1' as const,
     label: 'CX Pro: Concept to Commercialization',
     year: '2023-25',
-    hoverLine: 'Scaling 0→1 enterprise platform to commercial launch.',
+    hoverLine: 'Taking a live operations tool from 0 to 1.',
+    sub: 'Slashed operator training time by 66%',
     bgStyle: { backgroundImage: 'url(/project1-cx.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'apple',
   },
@@ -378,7 +377,8 @@ const WORK_CARDS = [
     id: 'project2' as const,
     label: 'Validus Overhaul',
     year: '2022',
-    hoverLine: 'Reviving a legacy product with +72% satisfaction.',
+    hoverLine: 'Re-designing the home page experience',
+    sub: 'User satisfaction increased +72%',
     bgStyle: { backgroundImage: 'url(/project2-events.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'dark',
   },
@@ -387,14 +387,16 @@ const WORK_CARDS = [
     label: 'NFL IQ',
     year: '2026',
     hoverLine: 'Auditing and transforming the NFL IQ user experience.',
+    sub: '2026 Take Home Challenge',
     bgStyle: { backgroundImage: 'url(/nfl-iq-cover.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'apple',
   },
   {
     id: 'placeholder2',
-    label: 'Coming soon',
+    label: 'Coming Soon',
     year: '—',
-    hoverLine: 'More work on the way.',
+    hoverLine: 'Iterating on mobile check out flows',
+    sub: 'Mobile ticket increased +17%',
     bgStyle: { backgroundImage: 'url(/project5-cosm-app.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'placeholder',
   },
@@ -403,6 +405,7 @@ const WORK_CARDS = [
     label: 'FigPal Forever',
     year: '2026',
     hoverLine: 'Create your own character. Customize and take it with you.',
+    sub: '2026',
     bgStyle: { backgroundImage: 'url(/figpal-cover.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'apple',
   },
@@ -613,7 +616,6 @@ export default function HomePageV2() {
                       videoSrc="/consumer-cx-cover.mp4"
                       label={card.label}
                       year={card.year}
-                      hoverLine={card.hoverLine}
                       visual="apple"
                       showVideo={heroShowVideo}
                       onVideoEnded={onHeroVideoEnded}
@@ -633,7 +635,6 @@ export default function HomePageV2() {
                       <span className="home-v2-card-pill-label">{card.label}</span>
                       <span className="home-v2-card-pill-year"> · {card.year}</span>
                     </span>
-                    <span className="home-v2-card-hover-line">{card.hoverLine}</span>
                   </button>
                 ) : card.id === 'project1' ? (
                   <MediaCycleCard
@@ -642,7 +643,6 @@ export default function HomePageV2() {
                     videoSrc="/clip-3-cosm.mov"
                     label="CX Pro"
                     year="2023-25"
-                    hoverLine={card.hoverLine}
                     visual="apple"
                     showVideo={project1ShowVideo}
                     onVideoEnded={onProject1VideoEnded}
@@ -655,7 +655,6 @@ export default function HomePageV2() {
                     videoSrc="/Vid2.mov"
                     label="Validus Overhaul"
                     year="2022"
-                    hoverLine={card.hoverLine}
                     visual="dark"
                     showVideo={project2ShowVideo}
                     onVideoEnded={onProject2VideoEnded}
@@ -673,7 +672,6 @@ export default function HomePageV2() {
                       <span className="home-v2-card-pill-label">{card.label}</span>
                       <span className="home-v2-card-pill-year"> · {card.year}</span>
                     </span>
-                    <span className="home-v2-card-hover-line">{card.hoverLine}</span>
                   </button>
                 ) : card.id === 'project4' ? (
                   <button
@@ -692,9 +690,12 @@ export default function HomePageV2() {
                       <span className="home-v2-card-pill-label">{card.label}</span>
                       <span className="home-v2-card-pill-year"> · {card.year}</span>
                     </span>
-                    <span className="home-v2-card-hover-line">{card.hoverLine}</span>
                   </button>
                 ) : null}
+                <div className="home-v2-card-caption-stack">
+                  <p className="home-v2-card-caption">{card.hoverLine}</p>
+                  <p className="home-v2-card-caption-secondary">{card.sub}</p>
+                </div>
               </div>
             )})}
           </div>
