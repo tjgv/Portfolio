@@ -2,6 +2,16 @@
 
 Personal portfolio (Vercel). React + TypeScript + Vite.
 
+## `/main` visit tracker
+
+Shareable homepage duplicate with pageview + unique-visitor counts (excludes your browser):
+
+- **`/main`** — tracked homepage
+- **`/main?me=1`** — mark this browser as you (excluded forever)
+- **`/main/stats`** — live totals
+
+Setup (Vercel Blob token): **[docs/MAIN_ANALYTICS.md](docs/MAIN_ANALYTICS.md)**
+
 ## Hidden NFL IQ prototype
 
 The Genius take-home NFL IQ app is hosted on this site (not linked from the homepage):

@@ -3,6 +3,8 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { useLayoutEffect, lazy, Suspense } from 'react'
 import HomePageV2 from './pages/HomePageV2'
 import HomePageV2Test from './pages/HomePageV2Test'
+import MainLanding from './pages/MainLanding'
+import MainStatsPage from './pages/MainStatsPage'
 import ContactPage from './pages/ContactPage'
 import RunOfShowPage from './pages/RunOfShowPage'
 import PromptView from './pages/PromptView'
@@ -43,6 +45,8 @@ export default function App() {
       <ScrollToTopOnNavigate />
       <Routes>
         <Route path="/" element={<HomePageV2 />} />
+        <Route path="/main" element={<MainLanding />} />
+        <Route path="/main/stats" element={<MainStatsPage />} />
         <Route path="/home-test" element={<HomePageV2Test />} />
         <Route path="/run-of-show" element={<RunOfShowPage />} />
         <Route path="/contact" element={<ContactPage />} />
