@@ -20,12 +20,12 @@ export default function EditingSideShotB() {
           <div className="np1c-h-text-stack np1c-h-text-stack--full">
             <p className="np1c-h-text-stack__label">MVP</p>
             <h2 className="np1c-h-text-stack__headline">
-              Choosing Build Mode as MVP
+              Taking Incremental Steps.
             </h2>
             <p className="np1c-editing-mvp__body">
-              The MVP had to be closer to current state CX Pro. Since the current state skewed
-              towards show building/editing features, I had to make this the starting place for
-              adding Show Running features and eventually a split view.
+              I achieved stakeholder alignment on the direction, but we needed to take baby steps
+              to get there. I had to figure out how to make meaningful progress towards the north
+              star while keeping the tool close to current state.
             </p>
           </div>
         </div>

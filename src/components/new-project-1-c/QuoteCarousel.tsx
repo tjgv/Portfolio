@@ -8,10 +8,11 @@ export type QuoteSlide = {
   role: string
 }
 
-const QUOTE_DURATION_MS = 8000
+const QUOTE_DURATION_MS = 16000
 
 const PROGRESS_RADIUS = 20
 const PROGRESS_CIRCUMFERENCE = 2 * Math.PI * PROGRESS_RADIUS
+const IN_VIEW_THRESHOLD = 0.35
 
 function FilledPauseIcon() {
   return (
@@ -113,8 +114,10 @@ export default function QuoteCarousel({
   const quoteCount = quotes.length
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
+  const [isInView, setIsInView] = useState(false)
   const [progress, setProgress] = useState(0)
 
+  const rootRef = useRef<HTMLDivElement>(null)
   const elapsedMsRef = useRef(0)
   const startTimeRef = useRef<number | null>(null)
   const rafRef = useRef<number | null>(null)
@@ -174,7 +177,33 @@ export default function QuoteCarousel({
   }, [])
 
   useEffect(() => {
-    if (!isPlaying || prefersReducedMotion.current || quoteCount <= 1) {
+    const el = rootRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting)
+      },
+      { threshold: IN_VIEW_THRESHOLD }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  // Freeze the timer when the carousel leaves the viewport.
+  useEffect(() => {
+    if (isInView) return
+    elapsedMsRef.current = progressRef.current * QUOTE_DURATION_MS
+    startTimeRef.current = null
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
+  }, [isInView])
+
+  useEffect(() => {
+    if (!isPlaying || !isInView || prefersReducedMotion.current || quoteCount <= 1) {
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current)
         rafRef.current = null
@@ -213,12 +242,15 @@ export default function QuoteCarousel({
         rafRef.current = null
       }
     }
-  }, [isPlaying, goToQuote, quoteCount])
+  }, [isPlaying, isInView, goToQuote, quoteCount])
 
   if (!activeQuote) return null
 
   return (
-    <div className={`np1c-quote-card-stack${className ? ` ${className}` : ''}`}>
+    <div
+      ref={rootRef}
+      className={`np1c-quote-card-stack${className ? ` ${className}` : ''}`}
+    >
       <div
         className="np1c-quote-card"
         data-dev-section={cardDevSectionId}

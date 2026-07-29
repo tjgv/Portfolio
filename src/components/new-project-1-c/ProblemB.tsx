@@ -4,7 +4,7 @@ import './ProblemB.css'
 const PROBLEM_IMAGE = '/new-project-1/problem-hero.png'
 const PROBLEM_LABEL = 'Insight & Problem'
 const PROBLEM_STATEMENT =
-  'CX Pro is too conceptually complex for newer users to grasp, making otherwise simple flows unintuitive.'
+  "CX Pro's learning curve is too high."
 const PROBLEM_BODY =
   'After speaking with users, I had learned that the central issue with the tool was conceptual clarity — what do buttons mean, how do layers work, what actions are instantaneous.'
 

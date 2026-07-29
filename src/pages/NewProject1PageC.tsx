@@ -106,6 +106,39 @@ function GlanceScheduleIcon() {
   )
 }
 
+function GlanceProblemIcon() {
+  return (
+    <svg viewBox="0 0 50 50" fill="none" aria-hidden focusable="false">
+      <path
+        fill="currentColor"
+        d="M25 45.8333C19.2361 45.8333 14.3229 43.7847 10.2604 39.6875C6.19792 35.5903 4.16667 30.6597 4.16667 24.8958C4.16667 19.1319 6.19792 14.2188 10.2604 10.1563C14.3229 6.09375 19.2361 4.0625 25 4.0625C30.7639 4.0625 35.6771 6.09375 39.7396 10.1563C43.8021 14.2188 45.8333 19.1319 45.8333 24.8958C45.8333 30.6597 43.8021 35.5903 39.7396 39.6875C35.6771 43.7847 30.7639 45.8333 25 45.8333ZM22.9167 35.4167H27.0833V31.25H22.9167V35.4167ZM22.9167 27.0833H27.0833V14.5833H22.9167V27.0833Z"
+      />
+    </svg>
+  )
+}
+
+function GlanceResultIcon() {
+  return (
+    <svg viewBox="0 0 50 50" fill="none" aria-hidden focusable="false">
+      <path
+        fill="currentColor"
+        d="M18.75 37.5L6.25 25L9.21875 22.0313L18.75 31.5625L40.7813 9.53125L43.75 12.5L18.75 37.5Z"
+      />
+    </svg>
+  )
+}
+
+function GlanceMetricsIcon() {
+  return (
+    <svg viewBox="0 0 50 50" fill="none" aria-hidden focusable="false">
+      <path
+        fill="currentColor"
+        d="M6.25 41.6667V37.5H43.75V41.6667H6.25ZM10.4167 33.3333V18.75H16.6667V33.3333H10.4167ZM21.875 33.3333V8.33333H28.125V33.3333H21.875ZM33.3333 33.3333V22.9167H39.5833V33.3333H33.3333Z"
+      />
+    </svg>
+  )
+}
+
 type GlanceBlock = {
   id: string
   icon: ReactNode
@@ -120,21 +153,15 @@ const GLANCE_BLOCKS: readonly GlanceBlock[] = [
     id: 'role',
     icon: <GlanceRoleIcon />,
     label: 'My Role',
-    value: 'Product Designer',
-    paragraph: (
-      <>
-        I was the <strong>sole designer</strong> for this project, contributing end-to-end
-        across research, design, and product strategy.
-      </>
-    ),
+    paragraph: 'Sole designer owning end-to-end research and design.',
   },
   {
     id: 'team',
     icon: <GlanceTeamIcon />,
     label: 'Team',
     pairs: [
-      { id: 'product-director', primary: 'Product Director', secondary: 'Anna R. / Weekly' },
-      { id: 'c-suite', primary: 'C-Suite Leadership', secondary: 'Devin P., Ryan K, Brian D. / Periodic' },
+      { id: 'product-director', primary: 'Product Director', secondary: 'Anna R.' },
+      { id: 'c-suite', primary: 'C-Suite Leadership', secondary: 'Devin P., Ryan K, Brian D.' },
     ],
   },
   {
@@ -142,6 +169,24 @@ const GLANCE_BLOCKS: readonly GlanceBlock[] = [
     icon: <GlanceScheduleIcon />,
     label: 'Timeline',
     value: '6\u20138 Months',
+  },
+  {
+    id: 'problem',
+    icon: <GlanceProblemIcon />,
+    label: 'Problem',
+    paragraph: 'CX Pro is too complex for casual users.',
+  },
+  {
+    id: 'result',
+    icon: <GlanceResultIcon />,
+    label: 'Result',
+    paragraph: 'Defined simpler direction which lowers learning curve.',
+  },
+  {
+    id: 'metrics',
+    icon: <GlanceMetricsIcon />,
+    label: 'Metrics',
+    paragraph: 'User validated, Stakeholder buy-in achieved',
   },
 ] as const
 
@@ -295,11 +340,11 @@ const UPCOMING_SECTIONS = [
   {
     label: 'Goal',
     title: 'Make CX Pro easy to pick up for casual users.',
-    body: 'CX Pro is designed for specialists, but will soon be picked up by a casual set of users. I need to figure out who these users are, what they need, and what this means for the direction of CX Pro.',
+    body: 'CX Pro is designed for specialists, but will soon be picked up by a casual set of users. Cosm needed to steer CX Pro into new direction that aligns with this shift towards casual users.',
   },
   { label: 'Audience', title: 'The target audience' },
   { label: 'Key Assumptions', title: 'Deducing User Needs' },
-  { label: 'Problem', title: 'CX Pro is too conceptually complex for newer users to grasp.' },
+  { label: 'Problem', title: "CX Pro's learning curve is too high." },
   { label: 'Hypothesis', title: 'Splitting the tool would improve comprehension and scalability.' },
   { label: 'Business Value', title: 'Results' },
 ] as const

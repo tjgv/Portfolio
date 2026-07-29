@@ -43,6 +43,7 @@ export default function HeroQuoteSection({
       aria-label={ariaLabel}
     >
       <div className="np1c-section__inner np1c-hero-quote__inner">
+        <h2 className="np1c-hero-quote__heading">Here&apos;s what users said:</h2>
         <QuoteCarousel quotes={HERO_QUOTES} cardDevSectionId={`${devSectionId}-card`} />
       </div>
     </section>
