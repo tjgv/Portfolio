@@ -1,24 +1,25 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { handleOptions, loadMainAnalytics, setCors } from './_lib/mainAnalytics'
+import { jsonResponse, loadMainAnalytics, optionsResponse } from './_lib/mainAnalytics'
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  setCors(res)
-  if (handleOptions(req, res)) return
+export const config = {
+  runtime: 'edge',
+}
 
-  if (req.method !== 'GET') {
-    res.status(405).json({ error: 'Method not allowed' })
-    return
-  }
-
+export default async function handler(request: Request): Promise<Response> {
   try {
+    if (request.method === 'OPTIONS') return optionsResponse()
+    if (request.method !== 'GET') {
+      return jsonResponse({ error: 'Method not allowed' }, 405)
+    }
+
     const store = await loadMainAnalytics()
-    res.status(200).json({
+    return jsonResponse({
       pageviews: store.pageviews,
       uniqueVisitors: store.visitorIds.length,
-      persistence: process.env.BLOB_READ_WRITE_TOKEN ? 'blob' : 'memory',
+      persistence: 'blob',
     })
   } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to load stats'
     console.error('[main-stats]', error)
-    res.status(500).json({ error: 'Failed to load stats' })
+    return jsonResponse({ error: message }, 500)
   }
 }

@@ -74,13 +74,20 @@ export type MainStats = {
 
 export async function fetchMainStats(): Promise<MainStats> {
   const res = await fetch('/api/main-stats', { cache: 'no-store' })
+  const payload = (await res.json().catch(() => null)) as
+    | (Partial<MainStats> & { error?: string })
+    | null
+
   if (!res.ok) {
-    throw new Error(`Stats request failed (${res.status})`)
+    throw new Error(payload?.error || `Stats request failed (${res.status})`)
   }
-  const data = (await res.json()) as Partial<MainStats>
+
   return {
-    pageviews: typeof data.pageviews === 'number' ? data.pageviews : 0,
-    uniqueVisitors: typeof data.uniqueVisitors === 'number' ? data.uniqueVisitors : 0,
-    persistence: data.persistence === 'blob' || data.persistence === 'memory' ? data.persistence : undefined,
+    pageviews: typeof payload?.pageviews === 'number' ? payload.pageviews : 0,
+    uniqueVisitors: typeof payload?.uniqueVisitors === 'number' ? payload.uniqueVisitors : 0,
+    persistence:
+      payload?.persistence === 'blob' || payload?.persistence === 'memory'
+        ? payload.persistence
+        : undefined,
   }
 }
