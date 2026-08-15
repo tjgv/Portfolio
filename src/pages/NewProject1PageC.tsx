@@ -23,6 +23,7 @@ import ProblemB from '../components/new-project-1-c/ProblemB'
 import EditingSideShotB from '../components/new-project-1-c/EditingSideShotB'
 import HypothesisB from '../components/new-project-1-c/HypothesisB'
 import Hypothesis2B from '../components/new-project-1-c/Hypothesis2B'
+import NorthStarSection from '../components/new-project-1-c/NorthStarSection'
 import EditingCarousel from '../components/new-project-1-c/EditingCarousel'
 import EndHeroSection from '../components/new-project-1-c/EndHeroSection'
 import ResultsSection from '../components/new-project-1-c/ResultsSection'
@@ -661,6 +662,7 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
                 <>
                   <HypothesisB key={section.label} />
                   <Hypothesis2B key={`${section.label}-2`} />
+                  <NorthStarSection key="north-star" />
                   <HowItAddressesSection key="how-it-addresses" />
                   <EditingSideShotB key="editing-side-shot" />
                   <EditingCarousel key="editing-carousel" />

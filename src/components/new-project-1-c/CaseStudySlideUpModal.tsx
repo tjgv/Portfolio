@@ -16,6 +16,7 @@ import SlideUpModalCompareTabs from './SlideUpModalCompareTabs'
 import ModalSectionTextStack from './ModalSectionTextStack'
 import SlideUpModalControlledVideo from './SlideUpModalControlledVideo'
 import ImageCarousel, { type CarouselSlide } from './ImageCarousel'
+import DesignInsightsPanel from './DesignInsightsPanel'
 import './CaseStudySlideUpModal.css'
 import './PopupGrowAnimation.css'
 import './ModalCloseControl.css'
@@ -59,7 +60,7 @@ export type SlideUpModalSubsection = {
   carouselAriaLabel?: string
 }
 
-export type SlideUpModalVariant = 'default' | 'compact' | 'short' | 'lightbox'
+export type SlideUpModalVariant = 'default' | 'compact' | 'short' | 'lightbox' | 'insights'
 
 export type CaseStudySlideUpModalProps = {
   open: boolean
@@ -99,6 +100,7 @@ export default function CaseStudySlideUpModal({
     useModalCloseGrowAnimation(closeAnimActive)
 
   const isLightbox = variant === 'lightbox'
+  const isInsights = variant === 'insights'
   const lightboxSlides = isLightbox ? subsections[0]?.carousel ?? [] : []
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -350,7 +352,7 @@ export default function CaseStudySlideUpModal({
   return createPortal(
     <div
       ref={overlayRef}
-      className={`np1c-popup-overlay np1c-popup-overlay--${phase}${variant === 'compact' ? ' np1c-popup-overlay--compact' : ''}${variant === 'short' ? ' np1c-popup-overlay--short' : ''}${hideHero ? ' np1c-popup-overlay--no-hero' : ''}`}
+      className={`np1c-popup-overlay np1c-popup-overlay--${phase}${variant === 'compact' ? ' np1c-popup-overlay--compact' : ''}${variant === 'short' ? ' np1c-popup-overlay--short' : ''}${isInsights ? ' np1c-popup-overlay--insights' : ''}${hideHero ? ' np1c-popup-overlay--no-hero' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-label={ariaLabel}
@@ -386,6 +388,7 @@ export default function CaseStudySlideUpModal({
           ) : null}
 
           <div className="np1c-popup-overlay__subsections" id="np1c-modal-subsections">
+            {isInsights ? <DesignInsightsPanel /> : null}
             {quotes.map((quote) => (
               <section
                 key={quote.id}
