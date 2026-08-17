@@ -38,12 +38,15 @@ export default function AssumptionsQuoteSection() {
             <p className="np1c-h-text-stack__label">Key Assumptions</p>
             <div className="np1c-h-text-stack__row">
               <h2 className="np1c-h-text-stack__headline">
-                Establishing a User Baseline
+                Establishing a User Through-line
               </h2>
               <div className="np1c-h-text-stack__body">
                 <p>
-                  I conducted user interviews on internal operators and their experiences that
-                  resembled who we&apos;re anticipating.
+                  I needed to balance needs of current venue operators (specialists) with new
+                  external users (casuals). So, I conducted user
+                  interviews on internal operators and their experiences, with added focus on the
+                  types of internal users that resembled those incoming new users we&apos;re
+                  anticipating.
                 </p>
                 <p>&nbsp;</p>
                 <p>New clients will:</p>

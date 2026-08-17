@@ -388,7 +388,7 @@ export default function CaseStudySlideUpModal({
           ) : null}
 
           <div className="np1c-popup-overlay__subsections" id="np1c-modal-subsections">
-            {isInsights ? <DesignInsightsPanel /> : null}
+            {isInsights ? <DesignInsightsPanel open={open} /> : null}
             {quotes.map((quote) => (
               <section
                 key={quote.id}

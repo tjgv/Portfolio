@@ -43,6 +43,10 @@ function sharesEqual(a: InsightShares, b: InsightShares): boolean {
   return INSIGHT_SEGMENTS.every((seg) => Math.abs(a[seg.id] - b[seg.id]) < 0.001)
 }
 
+function sharesKey(shares: InsightShares): string {
+  return INSIGHT_SEGMENTS.map((seg) => shares[seg.id]).join(',')
+}
+
 type AnimatedPieChartProps = {
   shares: InsightShares
   size?: 'large' | 'small'
@@ -51,21 +55,21 @@ type AnimatedPieChartProps = {
 
 export default function AnimatedPieChart({ shares, size = 'small', label }: AnimatedPieChartProps) {
   const [display, setDisplay] = useState(shares)
-  const fromRef = useRef(shares)
+  const displayRef = useRef(display)
   const rafRef = useRef<number | null>(null)
+  const key = sharesKey(shares)
+  displayRef.current = display
 
   useEffect(() => {
-    const from = fromRef.current
+    const from = displayRef.current
     if (sharesEqual(from, shares)) {
       setDisplay(shares)
-      fromRef.current = shares
       return
     }
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) {
       setDisplay(shares)
-      fromRef.current = shares
       return
     }
 
@@ -74,12 +78,10 @@ export default function AnimatedPieChart({ shares, size = 'small', label }: Anim
 
     const tick = (now: number) => {
       const t = easeOutCubic(Math.min(1, (now - start) / ANIM_MS))
-      const next = lerpShares(from, shares, t)
-      setDisplay(next)
+      setDisplay(lerpShares(from, shares, t))
       if (t < 1) {
         rafRef.current = requestAnimationFrame(tick)
       } else {
-        fromRef.current = shares
         rafRef.current = null
       }
     }
@@ -88,7 +90,7 @@ export default function AnimatedPieChart({ shares, size = 'small', label }: Anim
     return () => {
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current)
     }
-  }, [shares])
+  }, [key, shares])
 
   let cursor = START_OFFSET_DEG
   const slices = INSIGHT_SEGMENTS.map((seg) => {

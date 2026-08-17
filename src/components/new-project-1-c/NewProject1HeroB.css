@@ -1,4 +1,4 @@
-/* Hero variant B — single sticky frame: fade + image rise, then shrink + title */
+/* Hero variant B — single sticky frame: fade + image rise, then timed shrink + title */
 
 .np1c-hero-scroll--b {
   --np1c-hero-runway-title: 5vh;
@@ -50,6 +50,33 @@
   transition: none;
 }
 
+.np1c-hero-scroll--b .np1c-hero-video-loop__toggle {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.np1c-hero-scroll--b .np1c-hero-video-loop__play {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.55);
+  filter: drop-shadow(0 2px 16px rgba(0, 0, 0, 0.35));
+}
+
+.np1c-hero-scroll--b .np1c-hero-video-loop__play svg {
+  width: clamp(88px, 12vw, 160px);
+  height: clamp(88px, 12vw, 160px);
+}
+
 .np1c-hero-scroll--b .np1c-hero__fade-from-bottom {
   position: absolute;
   inset: 0;
@@ -68,6 +95,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  pointer-events: none;
 }
 
 /* Single rising device */
@@ -195,8 +223,8 @@
   }
 
   .np1c-hero-scroll--b .np1c-handoff-ipad {
-    /* Match SETTLE_SCALE (~1.137) */
-    transform: translateY(-5vh) scale(1.137) !important;
+    /* Match SETTLE_SCALE after 75% less shrink (~1.297) */
+    transform: translateY(-5vh) scale(1.297) !important;
   }
 
   .np1c-hero-scroll--b .np1c-hero__title--below-image {

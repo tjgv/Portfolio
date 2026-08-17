@@ -55,8 +55,8 @@ export const INSIGHT_LEGEND: readonly InsightSegmentId[] = [
 ] as const
 
 export const INSIGHT_TABS: readonly { id: InsightTabId; label: string }[] = [
-  { id: 'sports', label: 'Sports' },
-  { id: 'studios', label: 'Studios' },
+  { id: 'sports', label: 'Sports (Advanced)' },
+  { id: 'studios', label: 'Studios (Simple)' },
 ] as const
 
 export const INSIGHT_PERSONAS: readonly InsightPersona[] = [
@@ -78,8 +78,8 @@ export function insightSegment(id: InsightSegmentId) {
 /** Sports values taken from Figma frame 27104:155613 ellipse arcData. */
 const SPORTS_CHART: InsightShares = {
   monitoring: 50,
-  responding: 20,
-  setup: 20,
+  responding: 22,
+  setup: 18,
   transitioning: 5,
   adjust: 5,
 }
@@ -94,54 +94,23 @@ export const INSIGHT_DATA: Record<
 > = {
   sports: {
     final: SPORTS_CHART,
+    /** Time-spent shares. Mean of the four equals `final`. */
     personas: {
-      mark: SPORTS_CHART,
-      kimi: SPORTS_CHART,
-      sarah: SPORTS_CHART,
-      mario: SPORTS_CHART,
+      mark: { monitoring: 47, setup: 16, transitioning: 8, adjust: 7, responding: 22 },
+      kimi: { monitoring: 49, setup: 9, transitioning: 6, adjust: 6, responding: 30 },
+      sarah: { monitoring: 53, setup: 24, transitioning: 2, adjust: 2, responding: 19 },
+      mario: { monitoring: 51, setup: 22, transitioning: 4, adjust: 5, responding: 18 },
     },
     concerns: {
       mark: [
         { rank: 1, segmentId: 'transitioning' },
-        { rank: 1, segmentId: 'monitoring' },
+        { rank: 2, segmentId: 'monitoring' },
         { rank: 3, segmentId: 'setup' },
       ],
       kimi: [
         { rank: 1, segmentId: 'transitioning' },
-        { rank: 1, segmentId: 'monitoring' },
-        { rank: 3, segmentId: 'setup' },
-      ],
-      sarah: [
-        { rank: 1, segmentId: 'monitoring' },
-        { rank: 2, segmentId: 'transitioning' },
-        { rank: 3, segmentId: 'setup' },
-      ],
-      mario: [
-        { rank: 1, segmentId: 'monitoring' },
-        { rank: 2, segmentId: 'transitioning' },
-        { rank: 3, segmentId: 'setup' },
-      ],
-    },
-  },
-  studios: {
-    /** Aggregate from Figma 27101:155488 — modal colors kept. */
-    final: { transitioning: 40, monitoring: 30, adjust: 20, setup: 5, responding: 5 },
-    personas: {
-      mark: { monitoring: 30, setup: 28, responding: 14, transitioning: 18, adjust: 10 },
-      kimi: { monitoring: 32, setup: 24, responding: 18, transitioning: 16, adjust: 10 },
-      sarah: { monitoring: 38, setup: 22, responding: 16, transitioning: 12, adjust: 12 },
-      mario: { monitoring: 36, setup: 20, responding: 20, transitioning: 12, adjust: 12 },
-    },
-    concerns: {
-      mark: [
-        { rank: 1, segmentId: 'setup' },
-        { rank: 2, segmentId: 'transitioning' },
-        { rank: 3, segmentId: 'monitoring' },
-      ],
-      kimi: [
-        { rank: 1, segmentId: 'setup' },
         { rank: 2, segmentId: 'adjust' },
-        { rank: 3, segmentId: 'transitioning' },
+        { rank: 3, segmentId: 'monitoring' },
       ],
       sarah: [
         { rank: 1, segmentId: 'monitoring' },
@@ -149,8 +118,40 @@ export const INSIGHT_DATA: Record<
         { rank: 3, segmentId: 'responding' },
       ],
       mario: [
-        { rank: 1, segmentId: 'setup' },
-        { rank: 2, segmentId: 'monitoring' },
+        { rank: 1, segmentId: 'monitoring' },
+        { rank: 2, segmentId: 'setup' },
+        { rank: 3, segmentId: 'transitioning' },
+      ],
+    },
+  },
+  studios: {
+    /** Aggregate from Figma 27101:155488 — modal colors kept. */
+    final: { transitioning: 47, monitoring: 27, adjust: 13, setup: 4, responding: 9 },
+    /** Time-spent shares. Mean of the four equals `final`. */
+    personas: {
+      mark: { monitoring: 21, setup: 0, transitioning: 58, adjust: 7, responding: 14 },
+      kimi: { monitoring: 24, setup: 0, transitioning: 54, adjust: 17, responding: 5 },
+      sarah: { monitoring: 37, setup: 7, transitioning: 42, adjust: 5, responding: 9 },
+      mario: { monitoring: 26, setup: 8, transitioning: 34, adjust: 22, responding: 10 },
+    },
+    concerns: {
+      mark: [
+        { rank: 1, segmentId: 'transitioning' },
+        { rank: 2, segmentId: 'adjust' },
+        { rank: 3, segmentId: 'monitoring' },
+      ],
+      kimi: [
+        { rank: 1, segmentId: 'transitioning' },
+        { rank: 2, segmentId: 'responding' },
+        { rank: 3, segmentId: 'adjust' },
+      ],
+      sarah: [
+        { rank: 1, segmentId: 'monitoring' },
+        { rank: 2, segmentId: 'transitioning' },
+      ],
+      mario: [
+        { rank: 1, segmentId: 'monitoring' },
+        { rank: 2, segmentId: 'transitioning' },
         { rank: 3, segmentId: 'adjust' },
       ],
     },

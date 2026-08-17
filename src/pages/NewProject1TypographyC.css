@@ -27,8 +27,8 @@
   --np1c-header-hero-ls: -0.015rem;
   --np1c-header-hero-weight: 590;
 
-  /* Header-1 — SF Pro Display Semibold 40 / 108% / -0.003rem (−8px from original 48) */
-  --np1c-header-1-size: clamp(20px, 3.2vw, 40px);
+  /* Header-1 — SF Pro Display Semibold 38 / 108% / -0.003rem (−2px from 40) */
+  --np1c-header-1-size: clamp(20px, 3.2vw, 38px);
   --np1c-header-1-lh: 1.08;
   --np1c-header-1-ls: -0.003rem;
   --np1c-header-1-weight: 650;
@@ -46,8 +46,8 @@
   --np1c-subheader-hero-ls: 0.009rem;
   --np1c-subheader-hero-weight: 590;
 
-  /* Sub-header-1 — Inter Semi Bold 21 / 25px / 0.11px */
-  --np1c-subheader-1-size: clamp(17px, 1.4vw, 21px);
+  /* Sub-header-1 — Inter Semi Bold 20 / 25px / 0.11px (−1px from 21) */
+  --np1c-subheader-1-size: clamp(17px, 1.4vw, 20px);
   --np1c-subheader-1-lh: 25px;
   --np1c-subheader-1-ls: 0.11px;
   --np1c-subheader-1-weight: 600;
@@ -75,8 +75,8 @@
   --np1c-column-width: calc(1000px * var(--np1c-content-width-scale));
   --np1c-split-gap: clamp(40px, 5.4vw, 81px);
   --np1c-block-gap: clamp(40px, 4vw, 60px);
-  /* Shared vertical gap between a text stack and the media below it */
-  --np1c-text-media-gap: clamp(60px, 7vw, 120px);
+  /* Shared vertical gap between a text stack and the media below it (−15%) */
+  --np1c-text-media-gap: clamp(51px, 5.95vw, 102px);
   --np1c-label-title-gap: 24px;
   --np1c-split-body-weight: 510;
 

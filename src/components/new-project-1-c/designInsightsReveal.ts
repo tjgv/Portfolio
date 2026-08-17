@@ -1,8 +1,8 @@
 export const DESIGN_INSIGHTS_REVEAL = {
-  ctaLabel: 'View Design Insights',
-  buttonAriaLabel: 'Open design insights overlay',
+  ctaLabel: 'View Data Insights',
+  buttonAriaLabel: 'Open data insights overlay',
   modal: {
-    ariaLabel: 'Design insights',
+    ariaLabel: 'Data insights',
     hideHero: true,
     variant: 'insights' as const,
     subsections: [],

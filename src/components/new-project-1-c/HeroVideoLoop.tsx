@@ -28,6 +28,17 @@ function warmClip(video: HTMLVideoElement | null) {
   }
 }
 
+function GiantPlayIcon() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden>
+      <path
+        d="M4.5 2.75v10.5c0 .55.6.88 1.05.58l8.25-5.25a.75.75 0 0 0 0-1.26L5.55 2.17A.75.75 0 0 0 4.5 2.75Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
 /**
  * Instantly sequences three hero clips in a loop. Clip 1 starts immediately
  * with high fetch priority; only the *next* clip buffers while the current
@@ -36,8 +47,10 @@ function warmClip(video: HTMLVideoElement | null) {
 export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideoLoopProps) {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null])
   const activeIndexRef = useRef(0)
+  const isPausedRef = useRef(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [firstReady, setFirstReady] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
 
   const playIndex = useCallback((index: number) => {
     const videos = videoRefs.current
@@ -84,6 +97,22 @@ export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideo
 
   const markFirstReady = useCallback(() => {
     setFirstReady(true)
+  }, [])
+
+  const handleTogglePlay = useCallback(() => {
+    const active = videoRefs.current[activeIndexRef.current]
+    if (!active) return
+
+    if (isPausedRef.current) {
+      active.play().catch(() => {})
+      isPausedRef.current = false
+      setIsPaused(false)
+      return
+    }
+
+    active.pause()
+    isPausedRef.current = true
+    setIsPaused(true)
   }, [])
 
   useEffect(() => {
@@ -135,6 +164,7 @@ export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideo
           playsInline
           preload={index === 0 ? 'auto' : 'none'}
           onEnded={() => {
+            if (isPausedRef.current) return
             if (activeIndexRef.current === index) advance()
           }}
           onPlaying={() => {
@@ -150,6 +180,17 @@ export default function HeroVideoLoop({ className = '', opacity = 1 }: HeroVideo
           {...({ fetchPriority: index === 0 ? 'high' : 'low' } as object)}
         />
       ))}
+      <button
+        type="button"
+        className="np1c-hero-video-loop__toggle"
+        aria-label={isPaused ? 'Play video' : 'Pause video'}
+        onClick={handleTogglePlay}
+      />
+      {isPaused && (
+        <span className="np1c-hero-video-loop__play" aria-hidden style={{ opacity }}>
+          <GiantPlayIcon />
+        </span>
+      )}
     </div>
   )
 }

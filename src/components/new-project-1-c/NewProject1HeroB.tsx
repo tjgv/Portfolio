@@ -15,8 +15,8 @@ preload(HERO_DEVICE_IMAGE, { as: 'image', fetchPriority: 'low' })
 const PHASE1_RUNWAY_VH = 5
 /** Scroll distance for the device to rise from fully below → final rest. */
 const PHASE2_IPAD_SCROLL_VH = 47.5
-/** Scroll-driven shrink after the image lands. */
-const PHASE3_SHRINK_VH = 20
+/** Sticky runway after the image lands (title + shrink trigger lives here). */
+const PHASE3_SETTLE_VH = 20
 /**
  * Start just below the viewport so the tip of the image enters as soon as
  * the rise begins (synced with the shadow).
@@ -28,15 +28,19 @@ const FINAL_LIFT_VH = 7 - 12 + 10
 const START_SCALE = 1.35
 /** Prior settle; shrink amount cut by 50%, then +5% larger at rest. */
 const PREV_SETTLE_SCALE = 0.729 * 1.12
-const SETTLE_SCALE = (START_SCALE - (START_SCALE - PREV_SETTLE_SCALE) * 0.5) * 1.05
+const CURRENT_SETTLE_SCALE = (START_SCALE - (START_SCALE - PREV_SETTLE_SCALE) * 0.5) * 1.05
+/** 75% less shrink than the previous settle — rest size stays closer to start. */
+const SETTLE_SCALE = START_SCALE - (START_SCALE - CURRENT_SETTLE_SCALE) * 0.25
 /** Distance the title slides up during reveal (75% shorter than prior 56px). */
 const TITLE_SLIDE_OFFSET_PX = 14
-/** Shrink progress at which the title starts (before shrink fully finishes). */
+/** Progress through the post-land runway at which title + shrink start. */
 const TITLE_SHRINK_TRIGGER = 0.82
 /** Delay after title trigger before reveal starts (ms). */
 const TITLE_REVEAL_DELAY_MS = 0
 /** Fixed-duration title fade + slide-up (ms). */
 const TITLE_REVEAL_MS = 1200
+/** Fixed-duration shrink, played with the title rather than on scroll. */
+const SHRINK_REVEAL_MS = 1200
 
 function easeOutHeavy(t: number): number {
   return 1 - (1 - t) ** 9
@@ -63,17 +67,19 @@ function prefersReducedMotion(): boolean {
 }
 
 /**
- * Variant B hero — fade + device rise (scroll), then shrink (scroll), then
- * title reveal. Uses plain CSS sticky only — no reverse/fixed overlay.
+ * Variant B hero — fade + device rise (scroll), then a timed shrink + title
+ * reveal once the title trigger is reached. Uses plain CSS sticky only.
  */
 export default function NewProject1HeroB() {
   const scrollRef = useRef<HTMLElement>(null)
   const [scrollPx, setScrollPx] = useState(0)
   const [titleProgress, setTitleProgress] = useState(0)
+  const [shrinkProgress, setShrinkProgress] = useState(0)
 
   const titleAnimStartedRef = useRef(false)
   const titleRafRef = useRef<number | null>(null)
   const titleDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const shrinkRafRef = useRef<number | null>(null)
 
   useEffect(() => {
     let rafId = 0
@@ -107,7 +113,7 @@ export default function NewProject1HeroB() {
 
   const phase1EndPx = runwayPx(PHASE1_RUNWAY_VH)
   const ipadScrollPx = runwayPx(PHASE2_IPAD_SCROLL_VH)
-  const shrinkScrollPx = runwayPx(PHASE3_SHRINK_VH)
+  const settleScrollPx = runwayPx(PHASE3_SETTLE_VH)
   const riseEndPx = phase1EndPx + ipadScrollPx
 
   const riseProgress =
@@ -115,17 +121,11 @@ export default function NewProject1HeroB() {
       ? 0
       : Math.min(1, (scrollPx - phase1EndPx) / Math.max(1, ipadScrollPx))
 
-  const shrinkProgress =
-    scrollPx <= riseEndPx
-      ? 0
-      : Math.min(1, (scrollPx - riseEndPx) / Math.max(1, shrinkScrollPx))
-
   // Rise from below the fold → final rest.
   const entryOffsetPx = runwayPx(IPAD_ENTRY_OFFSET_VH)
   const finalLiftPx = runwayPx(FINAL_LIFT_VH)
   const ipadTranslateY = (1 - riseProgress) * entryOffsetPx - riseProgress * finalLiftPx
 
-  // Scroll-driven shrink (50% of prior delta).
   const easedShrink = easeOutQuint(shrinkProgress)
   const imageScale = START_SCALE - easedShrink * (START_SCALE - SETTLE_SCALE)
 
@@ -160,20 +160,24 @@ export default function NewProject1HeroB() {
     if (scrollPx > 0) return
     titleAnimStartedRef.current = false
     if (titleRafRef.current != null) cancelAnimationFrame(titleRafRef.current)
+    if (shrinkRafRef.current != null) cancelAnimationFrame(shrinkRafRef.current)
     if (titleDelayRef.current != null) clearTimeout(titleDelayRef.current)
     titleRafRef.current = null
+    shrinkRafRef.current = null
     titleDelayRef.current = null
     setTitleProgress(0)
+    setShrinkProgress(0)
   }, [scrollPx])
 
-  // Title: late in the shrink, slightly before it fully settles.
-  const titleReady = shrinkProgress >= TITLE_SHRINK_TRIGGER
+  // Title + shrink: timed, once the post-land trigger is reached.
+  const handoffReady = scrollPx >= riseEndPx + TITLE_SHRINK_TRIGGER * settleScrollPx
   useEffect(() => {
-    if (!titleReady || titleAnimStartedRef.current) return
+    if (!handoffReady || titleAnimStartedRef.current) return
 
     if (prefersReducedMotion()) {
       titleAnimStartedRef.current = true
       setTitleProgress(1)
+      setShrinkProgress(1)
       return
     }
 
@@ -181,12 +185,13 @@ export default function NewProject1HeroB() {
       if (titleAnimStartedRef.current) return
       titleAnimStartedRef.current = true
       runTimedProgress(setTitleProgress, titleRafRef, TITLE_REVEAL_MS)
+      runTimedProgress(setShrinkProgress, shrinkRafRef, SHRINK_REVEAL_MS)
     }, TITLE_REVEAL_DELAY_MS)
 
     return () => {
       if (titleDelayRef.current != null) clearTimeout(titleDelayRef.current)
     }
-  }, [titleReady])
+  }, [handoffReady])
 
   const washPresence = fadeOpacity
   const titleOpacity = easeOutHeavy(titleProgress) * washPresence
@@ -216,7 +221,7 @@ export default function NewProject1HeroB() {
     >
       <div className="np1c-hero-b-stage">
         <div className="np1c-hero-b-sticky">
-          <div className="np1c-hero__media" aria-hidden>
+          <div className="np1c-hero__media">
             <HeroVideoLoop opacity={videoOpacity} />
             <div
               className="np1c-hero__fade-from-bottom"
