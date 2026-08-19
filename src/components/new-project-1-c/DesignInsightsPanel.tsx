@@ -39,7 +39,7 @@ export default function DesignInsightsPanel({ open = true }: DesignInsightsPanel
         >
           <div className="np1c-insights">
             <header className="np1c-insights__header">
-              <h2 className="np1c-insights__title">Labor Distribution</h2>
+              <h2 className="np1c-insights__title">Labor Distribution.</h2>
               <div className="np1c-insights__tabs" role="tablist" aria-label="Venue type">
                 {INSIGHT_TABS.map((item) => {
                   const selected = tab === item.id

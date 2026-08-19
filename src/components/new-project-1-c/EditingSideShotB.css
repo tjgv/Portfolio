@@ -22,7 +22,7 @@
 .np1c-editing-mvp .np1c-hypothesis__inner {
   position: relative;
   z-index: 1;
-  gap: var(--np1c-text-media-gap);
+  gap: max(0px, calc(var(--np1c-text-media-gap) - 20px));
 }
 
 .np1c-editing-mvp .np1c-hypothesis__copy {

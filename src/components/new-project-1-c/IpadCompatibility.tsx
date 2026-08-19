@@ -13,7 +13,7 @@ export default function IpadCompatibility() {
       <div className="np1c-section__inner np1c-ipad-compat__inner">
         <header className="np1c-ipad-compat__header">
           <p className="np1c-ipad-compat__label">Phase 3</p>
-          <h2 className="np1c-ipad-compat__headline">Pitching iPad Compatibility</h2>
+          <h2 className="np1c-ipad-compat__headline">Pitching iPad Compatibility.</h2>
         </header>
 
         <div className="np1c-ipad-compat__split">

@@ -146,7 +146,7 @@
   }
 
   /* Hypothesis Edit/Run pair → vertical stack, full content width */
-  .np1c-page .np1c-media--xl.np1c-media--xl-pair {
+  .np1c-page .np1c-hypothesis--b .np1c-hypothesis__media--pair {
     grid-template-columns: 1fr;
   }
 

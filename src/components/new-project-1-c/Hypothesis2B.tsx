@@ -14,21 +14,32 @@ export default function Hypothesis2B() {
     >
       <div className="np1c-section__inner np1c-hypothesis__inner">
         <div className="np1c-hypothesis__copy">
-          <div className="np1c-h-text-stack np1c-h-text-stack--full">
+          <div className="np1c-h-text-stack">
             <p className="np1c-h-text-stack__label">Hypothesis</p>
-            <h2 className="np1c-h-text-stack__headline">
-              Splitting the tool into two modes would reduce the learning curve for new users while
-              improving the usability of both workflows.
-            </h2>
+            <div className="np1c-h-text-stack__row">
+              <h2 className="np1c-h-text-stack__headline">
+                Splitting the tool into 2 views will reduce the learning curve.
+              </h2>
+              <div className="np1c-h-text-stack__body">
+                <p>
+                  Most users will run through a show, far less users will create shows. Users that
+                  will only run shows are cognitively burdened with unnecessary features.
+                </p>
+                <p>
+                  Therefore, isolating the workflows should result in a lower learning curve for
+                  each respective job.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="np1c-hypothesis__media np1c-media--xl np1c-media--xl-hug np1c-media--xl-pair">
-          <div className="np1c-media-frame">
+        <div className="np1c-hypothesis__media np1c-hypothesis__media--content np1c-hypothesis__media--pair">
+          <div className="np1c-media-frame np1c-media-frame--edit">
             <ImgWithLoader src={EDIT_SHOW_IMAGE} alt="CX Pro Edit Show view" />
             <span className="np1c-media-tag np1c-media-tag--edit">Building &amp; Editing</span>
           </div>
-          <div className="np1c-media-frame">
+          <div className="np1c-media-frame np1c-media-frame--run">
             <ImgWithLoader src={RUN_SHOW_IMAGE} alt="CX Pro Run Show view" />
             <span className="np1c-media-tag np1c-media-tag--run">Show Running</span>
           </div>

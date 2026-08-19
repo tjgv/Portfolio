@@ -36,7 +36,7 @@ export default function NorthStarSection() {
         <div className="np1c-hypothesis__copy">
           <div className="np1c-h-text-stack np1c-h-text-stack--full">
             <p className="np1c-h-text-stack__label">Defining North Star</p>
-            <h2 className="np1c-h-text-stack__headline">Dedicated Show Running View</h2>
+            <h2 className="np1c-h-text-stack__headline">Dedicated Show Running View.</h2>
             <p className="np1c-editing-mvp__body">
               I took interview insights from all user types, with added weight on newer users, to
               define a vision for show running.

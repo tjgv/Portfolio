@@ -26,18 +26,25 @@ export default function HypothesisB() {
       ref={sectionRef}
       className="np1c-section np1c-hypothesis np1c-hypothesis--b"
       data-dev-section="challenge"
-      aria-label="Challenge"
+      aria-label="My argument"
     >
       <div className="np1c-section__inner np1c-hypothesis__inner">
         <div className="np1c-hypothesis__copy">
-          <div className="np1c-h-text-stack np1c-h-text-stack--full">
-            <p className="np1c-h-text-stack__label">Challenge</p>
-            <h2 className="np1c-h-text-stack__headline">
-              CX Pro combines{' '}
-              <span className="np1c-text-run">Show Running</span> and{' '}
-              <span className="np1c-text-edit">Building &amp; Editing</span> workflows into a
-              single interface. Balancing both workflows in one UI makes each harder to learn.
-            </h2>
+          <div className="np1c-h-text-stack">
+            <p className="np1c-h-text-stack__label">My argument</p>
+            <div className="np1c-h-text-stack__row">
+              <h2 className="np1c-h-text-stack__headline">
+                CX Pro is doing too much at once.
+              </h2>
+              <div className="np1c-h-text-stack__body">
+                <p>
+                  CX Pro combines{' '}
+                  <span className="np1c-text-run">Show Running</span> and{' '}
+                  <span className="np1c-text-edit">Building &amp; Editing</span> workflows into a
+                  single interface. Balancing both workflows in one UI makes each harder to learn.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

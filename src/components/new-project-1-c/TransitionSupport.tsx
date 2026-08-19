@@ -35,7 +35,7 @@ export default function TransitionSupport() {
   return (
     <SideShotSection
       label="Need"
-      title="Transition Support"
+      title="Transition Support."
       imagePosition="right"
       devSection="transition-support"
       ariaLabel="Transition Support"

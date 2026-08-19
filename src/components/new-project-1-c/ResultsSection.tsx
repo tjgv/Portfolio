@@ -14,7 +14,7 @@ export default function ResultsSection() {
           <div className="np1c-results__intro">
             <p className="np1c-results__label">Results</p>
             <h2 className="np1c-results__headline">
-              User Validation Received &amp; Stakeholders Aligned
+              User Validation Received &amp; Stakeholders Aligned.
             </h2>
             <p className="np1c-results__body">
               I re-interviewed internal CX Pro operators and received overwhelmingly positive

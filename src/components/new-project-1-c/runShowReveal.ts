@@ -20,21 +20,21 @@ export const RUN_SHOW_REVEAL = {
   pill: 'pill1' as const,
   modal: {
     ariaLabel: 'Show running mode',
-    headline: 'Designing for familiarity and ease',
+    headline: 'Designing for familiarity and ease.',
     heroImage: RUN_SHOW_MODAL_IMAGE,
     heroImageAlt: 'CX Pro run of show view',
     variant: 'compact' as const,
     subsections: [
       {
         id: 'calmer-cues',
-        headline: 'Smoothing out transitions',
+        headline: 'Smoothing out transitions.',
         body:
           'Transitions were the biggest pain point for operators, requiring multiple engine steps that could fail and needed to be repeatable. Transitions also had to remain individually accessible and available in both Edit and Run Show views.\n\nKeeping transitions in the toolbar would have been simpler and avoided duplication, but I felt the importance of this workflow should be reflected in the UI.\n\nI also pushed engineering to simplify the process, aligning on a near-term goal of combining two transition steps through automation.',
         compare: RUN_SHOW_COMPARE,
       },
       {
         id: 'run-of-show-view',
-        headline: 'Show Management Core',
+        headline: 'Show Management Core.',
         body:
           'The view is grounded by a library and queue system left/right rails. This allows users to prepare key beats of a show, while still keeping the door open to spontaneous scene switches.\n\nI chose to prioritize scene duration and transition color codes so show runners can plan accordingly.',
         video: RUN_OF_SHOW_VIDEO,
@@ -42,7 +42,7 @@ export const RUN_SHOW_REVEAL = {
       },
       {
         id: 'menu-planning',
-        headline: 'Advanced Workflow Compatibility',
+        headline: 'Advanced Workflow Compatibility.',
         body:
           'A key requirement for this project was improving the current Run Show experience in Cosm venues.\n\nAs a dome operator, I need to quickly cut to commercial, switch between live feeds, fine-tune media syncing, adjust audio, and more.\n\nThis video shows an operator using a new Quick Cut feature to jump to an unscheduled break, prepare feed changes, and return to the main event with minimal disruption.',
         video: MENU_PLANNING_VIDEO,

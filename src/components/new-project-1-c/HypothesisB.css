@@ -15,12 +15,25 @@
   overflow: visible;
 }
 
-/* Challenge media — content-column width (not XL full-bleed) */
 .np1c-hypothesis--b .np1c-hypothesis__media--content {
   width: 100%;
   aspect-ratio: auto;
   overflow: visible;
   border-radius: 12px;
+}
+
+/* Hypothesis Edit/Run pair — content-column width (matches North Star margins) */
+.np1c-hypothesis--b .np1c-hypothesis__media--pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.np1c-hypothesis--b .np1c-hypothesis__media--pair .np1c-media-frame {
+  position: relative;
+  width: 100%;
+  min-width: 0;
 }
 
 .np1c-hypothesis--b .np1c-hypothesis__media--content .media-with-loader-wrap,
@@ -29,6 +42,26 @@
   width: 100%;
   height: auto;
   object-fit: contain;
+}
+
+.np1c-hypothesis--b .np1c-hypothesis__media--pair .np1c-media-frame .media-with-loader-wrap,
+.np1c-hypothesis--b .np1c-hypothesis__media--pair .np1c-media-frame img {
+  border-radius: 12px;
+}
+
+.np1c-hypothesis--b .np1c-hypothesis__media--pair .np1c-media-frame--edit .media-with-loader-wrap,
+.np1c-hypothesis--b .np1c-hypothesis__media--pair .np1c-media-frame--edit img {
+  box-shadow: 0 0 0 1px #f317b0;
+}
+
+.np1c-hypothesis--b .np1c-hypothesis__media--pair .np1c-media-frame--run .media-with-loader-wrap,
+.np1c-hypothesis--b .np1c-hypothesis__media--pair .np1c-media-frame--run img {
+  box-shadow: 0 0 0 1px #0c8ce9;
+}
+
+.np1c-hypothesis--b .np1c-hypothesis__media--pair .np1c-media-tag {
+  transform: scale(1.25);
+  transform-origin: top left;
 }
 
 .np1c-hypothesis--b .np1c-hypothesis__media-block {
@@ -55,20 +88,6 @@
 /* Second hypothesis sits tighter under the first (no double 25vh stack) */
 .np1c-page .np1c-hypothesis--b + .np1c-hypothesis--b-follow {
   padding-top: 0;
-}
-
-.np1c-media--xl-pair .np1c-media-frame {
-  position: relative;
-  width: 100%;
-  min-width: 0;
-}
-
-.np1c-media--xl-pair .np1c-media-frame .media-with-loader-wrap,
-.np1c-media--xl-pair .np1c-media-frame img {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
 }
 
 .np1c-media-tag {

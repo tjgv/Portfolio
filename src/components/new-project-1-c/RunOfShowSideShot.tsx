@@ -5,7 +5,7 @@ export default function RunOfShowSideShot() {
   return (
     <SideShotSection
       label="Phase 2"
-      title="Run Show View"
+      title="Run Show View."
       imageSrc={RUN_SHOW_IMAGE}
       imageAlt="CX Pro run of show view"
       layout="stacked"

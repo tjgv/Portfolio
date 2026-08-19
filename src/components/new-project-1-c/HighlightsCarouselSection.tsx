@@ -638,9 +638,17 @@ export default function HighlightsCarouselSection({
     >
       <header className="np1c-carousel-section__header">
         <div className="np1c-section__inner np1c-carousel-section__copy">
-          {label ? <p className="np1c-carousel-section__label">{label}</p> : null}
-          <h2 className="np1c-carousel-section__headline">{headline}</h2>
-          {body ? <p className="np1c-carousel-section__lede">{body}</p> : null}
+          <div className="np1c-h-text-stack">
+            {label ? <p className="np1c-h-text-stack__label">{label}</p> : null}
+            <div className="np1c-h-text-stack__row">
+              <h2 className="np1c-h-text-stack__headline">{headline}</h2>
+              {body ? (
+                <div className="np1c-h-text-stack__body">
+                  <p>{body}</p>
+                </div>
+              ) : null}
+            </div>
+          </div>
         </div>
       </header>
 

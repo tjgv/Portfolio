@@ -5,7 +5,7 @@ const EDIT_SHOW_IMAGE = '/new-project-1/edit-show.png'
 export default function EditingSideShot() {
   return (
     <SideShotSection
-      title="Building Foundations for a Consumer Experience"
+      title="Building Foundations for a Consumer Experience."
       imageSrc={EDIT_SHOW_IMAGE}
       imageAlt="CX Pro editing view"
       imagePosition="right"

@@ -65,14 +65,20 @@ export default function EditingCarousel() {
     >
       <div className="np1c-editing-carousel__inner">
         <div className="np1c-editing-carousel__intro">
-          <p className="np1c-editing-carousel__label">MVP Priorities</p>
-          <h2 className="np1c-editing-carousel__headline">
-            Identifying highest impact upgrades for MVP
-          </h2>
-          <p className="np1c-editing-carousel__lede">
-            I prioritized four initiatives that improved the current editing experience while
-            laying the groundwork for future Show Running capabilities.
-          </p>
+          <div className="np1c-h-text-stack">
+            <p className="np1c-h-text-stack__label">MVP Priorities</p>
+            <div className="np1c-h-text-stack__row">
+              <h2 className="np1c-h-text-stack__headline">
+                Identifying highest impact upgrades for MVP.
+              </h2>
+              <div className="np1c-h-text-stack__body">
+                <p>
+                  I prioritized four initiatives that improved the current editing experience while
+                  laying the groundwork for future Show Running capabilities.
+                </p>
+              </div>
+            </div>
+          </div>
           <ul className="np1c-editing-carousel__cards">
             {MVP_PRIORITY_CARDS.map((card) => (
               <li key={card.id} className="np1c-editing-carousel__card">

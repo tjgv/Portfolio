@@ -219,7 +219,7 @@ type EmbedSection = {
 const EMBED_SECTIONS: readonly EmbedSection[] = [
   {
     id: 'hypothesis',
-    header: 'Hypothesis',
+    header: 'Hypothesis.',
     body: (
       <>
         <p className="np1c-embed-body">
@@ -243,7 +243,7 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
   },
   {
     id: 'editing-groundwork',
-    header: 'MVP Editing + Groundwork Targets',
+    header: 'MVP Editing + Groundwork Targets.',
     body: (
       <p className="np1c-embed-body">
         Beyond improving language and interactions, I focused on four changes to simplify
@@ -265,7 +265,7 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
   },
   {
     id: 'guided-transitions',
-    header: 'Simplified & Guided Transitions',
+    header: 'Simplified & Guided Transitions.',
     body: (
       <p className="np1c-embed-body">
         I designed the Run Show View based on the assumption that this view would be the
@@ -296,7 +296,7 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
   },
   {
     id: 'ipad-compatibility',
-    header: 'Pitching iPad Compatibility',
+    header: 'Pitching iPad Compatibility.',
     body: (
       <>
         <p className="np1c-embed-body">
@@ -323,7 +323,7 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
   },
   {
     id: 'business-value',
-    header: 'Results',
+    header: 'Results.',
     body: (
       <p className="np1c-embed-body">
         Cosm aligned around a phased CX Pro roadmap. By separating editing from show
@@ -343,11 +343,11 @@ const UPCOMING_SECTIONS = [
     title: 'Make CX Pro easy to pick up for casual users.',
     body: 'CX Pro is designed for specialists, but will soon be picked up by a casual set of users. Cosm needed to steer CX Pro into new direction that aligns with this shift towards casual users.',
   },
-  { label: 'Audience', title: 'The target audience' },
-  { label: 'Key Assumptions', title: 'Deducing User Needs' },
+  { label: 'Audience', title: 'The target audience.' },
+  { label: 'Key Assumptions', title: 'Deducing User Needs.' },
   { label: 'Problem', title: "CX Pro's learning curve is too high." },
   { label: 'Hypothesis', title: 'Splitting the tool would improve comprehension and scalability.' },
-  { label: 'Business Value', title: 'Results' },
+  { label: 'Business Value', title: 'Results.' },
 ] as const
 
 function scrollToTop() {
@@ -523,7 +523,7 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
           <section className="np1c-section np1c-glance" data-dev-section="at-a-glance" aria-label="At a glance">
             <div className="np1c-section__inner np1c-glance__inner">
               <div className="np1c-split">
-                <h2 className="np1c-split__headline">At a glance</h2>
+                <h2 className="np1c-split__headline">At a glance.</h2>
                 <div
                   ref={setGlanceBlocksRef}
                   className={`np1c-glance__blocks${glanceInView ? ' np1c-glance__blocks--in-view' : ''}`}

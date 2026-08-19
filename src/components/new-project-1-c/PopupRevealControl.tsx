@@ -16,7 +16,7 @@ import './PopupGrowAnimation.css'
 import './PopupRevealControl.css'
 
 const LEGACY_OVERLAY_IMAGE = '/new-project-1/intro-tablet.png'
-const LEGACY_OVERLAY_HEADLINE = 'What users said'
+const LEGACY_OVERLAY_HEADLINE = 'What users said.'
 const LEGACY_OVERLAY_SUBHEAD = 'Verbatim feedback from interns and newer venue operators.'
 
 export type Pill1Icon = 'plus' | 'arrow-up'

@@ -40,7 +40,7 @@ export default function GuidedTransitions() {
     >
       <div className="np1c-section__inner np1c-guided-transitions__inner">
         <div className="np1c-guided-transitions__copy">
-          <h2 className="np1c-guided-transitions__title">Simplified &amp; Guided Transitions</h2>
+          <h2 className="np1c-guided-transitions__title">Simplified &amp; Guided Transitions.</h2>
           <p className="np1c-guided-transitions__body">
             I worked with the Run Time engineeirng squad to simplify the transition process by
             combining the publish scene/start engine actions. Then, I decided to center the Run of

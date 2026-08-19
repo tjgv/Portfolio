@@ -98,6 +98,12 @@
   pointer-events: none;
 }
 
+.np1c-hero-scroll--b .np1c-handoff-devices,
+.np1c-hero-scroll--b .np1c-handoff-ipad,
+.np1c-hero-scroll--b .np1c-handoff-ipad__inner {
+  pointer-events: none;
+}
+
 /* Single rising device */
 .np1c-hero-scroll--b .np1c-handoff-devices {
   position: relative;

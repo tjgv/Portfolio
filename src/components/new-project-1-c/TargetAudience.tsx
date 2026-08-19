@@ -59,7 +59,7 @@ export default function TargetAudience() {
       aria-label="Target audience"
     >
       <div className="np1c-section__inner np1c-section__inner--wide np1c-audience__inner">
-        <h2 className="np1c-audience__heading">Who we&apos;re anticipating to pick up CX Pro:</h2>
+        <h2 className="np1c-audience__heading">Who we&apos;re anticipating to pick up CX Pro.</h2>
 
         <div className="np1c-audience__grid np1c-media--xl">
           {CARDS.map((card) =>

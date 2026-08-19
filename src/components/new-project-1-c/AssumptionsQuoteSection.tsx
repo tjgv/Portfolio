@@ -38,7 +38,7 @@ export default function AssumptionsQuoteSection() {
             <p className="np1c-h-text-stack__label">Key Assumptions</p>
             <div className="np1c-h-text-stack__row">
               <h2 className="np1c-h-text-stack__headline">
-                Establishing a User Through-line
+                Establishing a User Through-line.
               </h2>
               <div className="np1c-h-text-stack__body">
                 <p>
