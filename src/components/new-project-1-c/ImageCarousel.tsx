@@ -268,18 +268,15 @@ export default function ImageCarousel({
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
         goToSlide(index)
-        if (isAutoplay) setIsPlaying(false)
       } else if (event.key === 'ArrowLeft') {
         event.preventDefault()
         goToSlide(activeIndex - 1)
-        if (isAutoplay) setIsPlaying(false)
       } else if (event.key === 'ArrowRight') {
         event.preventDefault()
         goToSlide(activeIndex + 1)
-        if (isAutoplay) setIsPlaying(false)
       }
     },
-    [activeIndex, goToSlide, isAutoplay]
+    [activeIndex, goToSlide]
   )
 
   const handlePlayPause = useCallback(() => {
@@ -593,7 +590,6 @@ export default function ImageCarousel({
         style={controlStyle}
         arrowPinRootRef={galleryRef}
         onSelectSlide={goToSlide}
-        onPauseAutoplay={isAutoplay ? () => setIsPlaying(false) : undefined}
         onPlayPause={isAutoplay ? handlePlayPause : undefined}
         onDotKeyDown={handleDotKeyDown}
       />
