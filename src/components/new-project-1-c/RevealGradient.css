@@ -110,6 +110,46 @@
   );
 }
 
+/* North Star — blue / teal only; darker blues on the left */
+.np1c-reveal-gradient--teal .np1c-reveal-gradient__blue-fill {
+  background: #0a3d5c;
+}
+
+.np1c-reveal-gradient--teal .np1c-reveal-gradient__color-fill {
+  background: linear-gradient(
+    90deg,
+    #020810 0%,
+    #041018 10%,
+    #0a1f33 22%,
+    #0d3552 36%,
+    #0f5a7a 50%,
+    #1488a0 64%,
+    #1aadc0 78%,
+    #3bc9d4 90%,
+    #5ed9e0 100%
+  );
+}
+
+/* MVP — pink / red only; darker roses on the left */
+.np1c-reveal-gradient--rose .np1c-reveal-gradient__blue-fill {
+  background: #8a1440;
+}
+
+.np1c-reveal-gradient--rose .np1c-reveal-gradient__color-fill {
+  background: linear-gradient(
+    90deg,
+    #080206 0%,
+    #1a0810 10%,
+    #3d0a1c 22%,
+    #7a1030 36%,
+    #c41a4a 50%,
+    #e0245e 64%,
+    #e8408a 78%,
+    #d6299e 90%,
+    #e85aad 100%
+  );
+}
+
 .np1c-reveal-gradient--active .np1c-reveal-gradient__base {
   opacity: 1;
 }

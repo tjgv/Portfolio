@@ -13,7 +13,7 @@ export default function EditingSideShotB() {
       data-dev-section="editing-side-shot"
       aria-label="MVP"
     >
-      <RevealGradient className="np1c-editing-mvp__gradient" />
+      <RevealGradient className="np1c-editing-mvp__gradient" variant="rose" />
 
       <div className="np1c-section__inner np1c-hypothesis__inner">
         <div className="np1c-hypothesis__copy">

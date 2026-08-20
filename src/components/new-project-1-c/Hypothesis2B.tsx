@@ -50,8 +50,10 @@ export default function Hypothesis2B() {
               </h2>
               <div className="np1c-h-text-stack__body">
                 <p>
-                  Most users will run through a show, far less users will create shows. Users that
-                  will only run shows are cognitively burdened with unnecessary features.
+                  Most users will{' '}
+                  <span className="np1c-text-run">run through a show</span>, far less users{' '}
+                  <span className="np1c-text-edit">will create shows</span>. Users that will only
+                  run shows are cognitively burdened with unnecessary features.
                 </p>
                 <p>
                   Therefore, isolating the workflows should result in a lower learning curve for

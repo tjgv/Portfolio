@@ -30,7 +30,7 @@ export default function NorthStarSection() {
       data-dev-section="north-star"
       aria-label="Defining North Star"
     >
-      <RevealGradient className="np1c-editing-mvp__gradient" />
+      <RevealGradient className="np1c-editing-mvp__gradient" variant="teal" />
 
       <div className="np1c-section__inner np1c-hypothesis__inner">
         <div className="np1c-hypothesis__copy">

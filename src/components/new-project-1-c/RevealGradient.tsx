@@ -3,18 +3,28 @@ import './RevealGradient.css'
 
 const GRADIENT_MASK = '/new-project-1/hero-gradient-mask.png'
 
+export type RevealGradientVariant = 'spectrum' | 'teal' | 'rose'
+
 export type RevealGradientProps = {
   /** Sizing/positioning wrapper class — controls height for each placement. */
   className?: string
+  /**
+   * `spectrum` — pink→blue (default, end hero).
+   * `teal` — blue/teal family with darker blues on the left (North Star).
+   * `rose` — pink/red family with darker roses on the left (MVP).
+   */
+  variant?: RevealGradientVariant
 }
 
 /**
  * Full-bleed decorative gradient — a grayscale blob shape that fades in, then
- * colorizes with a blue sweep followed by a full-color sweep, both wiping in
- * from the left edge of the viewport. Shared by the closing hero section and
- * the "Built for editing" carousel section so both use the identical effect.
+ * colorizes with a solid sweep followed by a full-color sweep, both wiping in
+ * from the left edge of the viewport.
  */
-export default function RevealGradient({ className = '' }: RevealGradientProps) {
+export default function RevealGradient({
+  className = '',
+  variant = 'spectrum',
+}: RevealGradientProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(false)
 
@@ -50,10 +60,13 @@ export default function RevealGradient({ className = '' }: RevealGradientProps) 
     return () => observer.disconnect()
   }, [reveal])
 
+  const variantClass =
+    variant === 'spectrum' ? '' : ` np1c-reveal-gradient--${variant}`
+
   return (
     <div
       ref={rootRef}
-      className={`np1c-reveal-gradient${active ? ' np1c-reveal-gradient--active' : ''}${className ? ` ${className}` : ''}`}
+      className={`np1c-reveal-gradient${active ? ' np1c-reveal-gradient--active' : ''}${variantClass}${className ? ` ${className}` : ''}`}
       aria-hidden="true"
     >
       <div
