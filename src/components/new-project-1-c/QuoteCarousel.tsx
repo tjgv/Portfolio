@@ -10,13 +10,13 @@ export type QuoteSlide = {
 
 const QUOTE_DURATION_MS = 16000
 
-const PROGRESS_RADIUS = 20
+const PROGRESS_RADIUS = 15
 const PROGRESS_CIRCUMFERENCE = 2 * Math.PI * PROGRESS_RADIUS
 const IN_VIEW_THRESHOLD = 0.35
 
 function FilledPauseIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
+    <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden>
       <rect x="3" y="2" width="3.5" height="12" rx="0.75" fill="currentColor" />
       <rect x="9.5" y="2" width="3.5" height="12" rx="0.75" fill="currentColor" />
     </svg>
@@ -25,7 +25,7 @@ function FilledPauseIcon() {
 
 function FilledPlayIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
+    <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden>
       <path
         d="M4.5 2.75v10.5c0 .55.6.88 1.05.58l8.25-5.25a.75.75 0 0 0 0-1.26L5.55 2.17A.75.75 0 0 0 4.5 2.75Z"
         fill="currentColor"
@@ -36,7 +36,7 @@ function FilledPlayIcon() {
 
 function FilledChevronLeftIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden>
+    <svg width="12" height="12" viewBox="0 0 14 14" aria-hidden>
       <path
         d="M8.75 2.75 4.5 7l4.25 4.25a.875.875 0 0 1-1.237 1.237L2.513 7.618a.875.875 0 0 1 0-1.237L7.513 1.513a.875.875 0 1 1 1.237 1.237Z"
         fill="currentColor"
@@ -47,7 +47,7 @@ function FilledChevronLeftIcon() {
 
 function FilledChevronRightIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden>
+    <svg width="12" height="12" viewBox="0 0 14 14" aria-hidden>
       <path
         d="M5.25 2.75 9.5 7 5.25 11.25a.875.875 0 0 0 1.237 1.237l4.999-4.999a.875.875 0 0 0 0-1.237L6.487 1.513A.875.875 0 0 0 5.25 2.75Z"
         fill="currentColor"
@@ -73,12 +73,12 @@ function QuotePlaybackControl({ isPlaying, progress, onToggle, quoteLabel }: Quo
       onClick={onToggle}
       aria-label={isPlaying ? `Pause quote from ${quoteLabel}` : `Play quote from ${quoteLabel}`}
     >
-      <svg className="np1c-quote-card__progress" viewBox="0 0 48 48" aria-hidden>
-        <circle className="np1c-quote-card__progress-track" cx="24" cy="24" r={PROGRESS_RADIUS} />
+      <svg className="np1c-quote-card__progress" viewBox="0 0 36 36" aria-hidden>
+        <circle className="np1c-quote-card__progress-track" cx="18" cy="18" r={PROGRESS_RADIUS} />
         <circle
           className="np1c-quote-card__progress-fill"
-          cx="24"
-          cy="24"
+          cx="18"
+          cy="18"
           r={PROGRESS_RADIUS}
           strokeDasharray={PROGRESS_CIRCUMFERENCE}
           strokeDashoffset={strokeOffset}
@@ -251,62 +251,65 @@ export default function QuoteCarousel({
       ref={rootRef}
       className={`np1c-quote-card-stack${className ? ` ${className}` : ''}`}
     >
-      <div
-        className="np1c-quote-card"
-        data-dev-section={cardDevSectionId}
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        <div className="np1c-quote-card__viewport">
-          <div
-            className="np1c-quote-card__track"
-            style={{ transform: `translate3d(-${activeIndex * 100}%, 0, 0)` }}
+      <div className="np1c-quote-card-stack__row">
+        {quoteCount > 1 ? (
+          <button
+            type="button"
+            className="np1c-quote-card__side-arrow np1c-quote-card__side-arrow--prev"
+            onClick={goToPrevious}
+            aria-label="Previous quote"
           >
-            {quotes.map((quote) => (
-              <div key={quote.id} className="np1c-quote-card__slide">
-                <blockquote className="np1c-quote-card__quote">
-                  <p className="np1c-quote-card__quote-text">&ldquo;{quote.text}&rdquo;</p>
-                </blockquote>
+            <FilledChevronLeftIcon />
+          </button>
+        ) : null}
 
-                <div className="np1c-quote-card__attribution">
-                  <p className="np1c-quote-card__name">{quote.name}</p>
-                  <p className="np1c-quote-card__role">{quote.role}</p>
+        <div
+          className="np1c-quote-card"
+          data-dev-section={cardDevSectionId}
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <div className="np1c-quote-card__viewport">
+            <div
+              className="np1c-quote-card__track"
+              style={{ transform: `translate3d(-${activeIndex * 100}%, 0, 0)` }}
+            >
+              {quotes.map((quote) => (
+                <div key={quote.id} className="np1c-quote-card__slide">
+                  <blockquote className="np1c-quote-card__quote">
+                    <p className="np1c-quote-card__quote-text">&ldquo;{quote.text}&rdquo;</p>
+                  </blockquote>
+
+                  <div className="np1c-quote-card__attribution">
+                    <p className="np1c-quote-card__name">{quote.name}</p>
+                    <p className="np1c-quote-card__role">{quote.role}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
+          {quoteCount > 1 ? (
+            <QuotePlaybackControl
+              isPlaying={isPlaying}
+              progress={progress}
+              onToggle={togglePlayback}
+              quoteLabel={activeQuote.name}
+            />
+          ) : null}
         </div>
+
+        {quoteCount > 1 ? (
+          <button
+            type="button"
+            className="np1c-quote-card__side-arrow np1c-quote-card__side-arrow--next"
+            onClick={goToNext}
+            aria-label="Next quote"
+          >
+            <FilledChevronRightIcon />
+          </button>
+        ) : null}
       </div>
-
-      {quoteCount > 1 && (
-        <div className="np1c-quote-card__controls">
-          <QuotePlaybackControl
-            isPlaying={isPlaying}
-            progress={progress}
-            onToggle={togglePlayback}
-            quoteLabel={activeQuote.name}
-          />
-
-          <div className="np1c-quote-card__nav" aria-label="Quote navigation">
-            <button
-              type="button"
-              className="np1c-quote-card__nav-btn"
-              onClick={goToPrevious}
-              aria-label="Previous quote"
-            >
-              <FilledChevronLeftIcon />
-            </button>
-            <button
-              type="button"
-              className="np1c-quote-card__nav-btn"
-              onClick={goToNext}
-              aria-label="Next quote"
-            >
-              <FilledChevronRightIcon />
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

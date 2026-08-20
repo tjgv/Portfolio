@@ -137,7 +137,8 @@
 .np1c-hero-scroll--b .np1c-hero__title.np1c-hero__title--below-image {
   position: absolute;
   top: auto;
-  bottom: 13vh;
+  /* Was 13vh; lower title so image→text gap grows ~50% with the extra image lift */
+  bottom: calc(13vh / 1.5);
   left: 0;
   right: 0;
   z-index: 5;
@@ -229,8 +230,8 @@
   }
 
   .np1c-hero-scroll--b .np1c-handoff-ipad {
-    /* Match SETTLE_SCALE after 75% less shrink (~1.297) */
-    transform: translateY(-5vh) scale(1.297) !important;
+    /* Match SETTLE_SCALE + FINAL_LIFT_VH (7.5) */
+    transform: translateY(-7.5vh) scale(1.297) !important;
   }
 
   .np1c-hero-scroll--b .np1c-hero__title--below-image {

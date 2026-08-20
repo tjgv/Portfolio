@@ -1,22 +1,29 @@
-/* Shared quote carousel — hero-aligned text layout + edge-hugging controls */
+/* Shared quote carousel — card with overlayed play control + flanking arrows */
 
 .np1c-quote-card-stack {
   display: flex;
   flex-direction: column;
-  gap: clamp(20px, 2.5vw, 28px);
+  width: 100%;
+}
+
+.np1c-quote-card-stack__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   width: 100%;
 }
 
 .np1c-quote-card {
   position: relative;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
+  min-width: 0;
   /* Height comes from the tallest quote + equal padding on top/bottom */
   height: auto;
   padding: clamp(40px, 6vw, 80px);
   background: var(--np1c-card-bg);
   border-radius: 0;
-  overflow: hidden;
   box-sizing: border-box;
 }
 
@@ -88,22 +95,16 @@
   opacity: 0.5;
 }
 
-/* Controls flush to the quote card’s left / right edges */
-.np1c-quote-card__controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-inline: 0;
-}
-
+/* Play / pause — 25% smaller, top-right corner of the quote box */
 .np1c-quote-card__control {
-  position: relative;
-  flex-shrink: 0;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   margin: 0;
   padding: 0;
   border: none;
@@ -145,10 +146,36 @@
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
 }
 
+/* Small arrows flanking the quote box */
+.np1c-quote-card__side-arrow {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--np1c-text-hero);
+  cursor: pointer;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.np1c-quote-card__side-arrow:hover {
+  background: color-mix(in srgb, var(--np1c-text-hero) 10%, transparent);
+}
+
+.np1c-quote-card__side-arrow:active {
+  opacity: 0.75;
+}
+
+/* Shared pill nav — still used by CurrentToolUseCases */
 .np1c-quote-card__nav {
   display: inline-flex;
   align-items: center;
@@ -186,6 +213,19 @@
   .np1c-quote-card__slide {
     grid-template-columns: 1fr;
     align-content: center;
+  }
+
+  .np1c-quote-card-stack__row {
+    gap: 6px;
+  }
+
+  .np1c-quote-card {
+    padding: clamp(32px, 5vw, 48px);
+  }
+
+  .np1c-quote-card__control {
+    top: 12px;
+    right: 12px;
   }
 }
 

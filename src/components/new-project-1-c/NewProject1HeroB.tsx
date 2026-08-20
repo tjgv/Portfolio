@@ -22,8 +22,8 @@ const PHASE3_SETTLE_VH = 20
  * the rise begins (synced with the shadow).
  */
 const IPAD_ENTRY_OFFSET_VH = 88
-/** Final rest: prior was 5vh below center; raise endpoint by 10vh (5vh above center). */
-const FINAL_LIFT_VH = 7 - 12 + 10
+/** Final rest: prior lift; +50% to open more space above the title. */
+const FINAL_LIFT_VH = (7 - 12 + 10) * 1.5
 /** Pre-shrink size (35% larger than the original 1.0). */
 const START_SCALE = 1.35
 /** Prior settle; shrink amount cut by 50%, then +5% larger at rest. */
