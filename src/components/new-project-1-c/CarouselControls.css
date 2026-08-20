@@ -72,6 +72,10 @@
   cursor: default;
 }
 
+.np1c-carousel-edge-arrow[hidden] {
+  display: none;
+}
+
 .np1c-carousel-edge-arrows:not(.np1c-carousel-edge-arrows--visible) .np1c-carousel-edge-arrow {
   pointer-events: none;
 }
@@ -97,6 +101,11 @@
   width: 100%;
   padding-block: 24px;
   pointer-events: none;
+}
+
+/* Addressing Unmet Needs — dock handoff / sticky rest 15px lower */
+.np1c-section[data-dev-section='how-it-addresses'] .np1c-carousel-controls {
+  bottom: max(9px, env(safe-area-inset-bottom, 0px));
 }
 
 .np1c-carousel-aap--ready {

@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import ImageCarousel, { type CarouselSlide } from './ImageCarousel'
 import './EditingCarousel.css'
 
@@ -38,10 +39,17 @@ const SLIDES: CarouselSlide[] = [
     backText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   },
   {
-    id: 'editing-image-3',
-    type: 'image',
-    src: '/new-project-1/editing-image-3.png',
-    alt: 'Editing view overview',
+    id: 'editing-sequence',
+    type: 'video',
+    src: '/new-project-1/mvp-sequence-01.mp4',
+    caption: 'Designed scene visualizations that communicate asset combinations without pre-rendered scenes, giving editors a clear view of how a show comes together.',
+    backText: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+  },
+  {
+    id: 'editing-inspector',
+    type: 'panel',
+    videoSrc: '/new-project-1/mvp-insp-2-main.mov',
+    videoAlt: 'CX Pro inspector configuration view',
     narrow: true,
     caption: 'Worked with 2 engineering teams to barter a property priority system to filter out advanced properties. Then, I utilized progressive discourse to provide high-level view of configuration.',
     backText: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -57,8 +65,11 @@ const SLIDES: CarouselSlide[] = [
 ]
 
 export default function EditingCarousel() {
+  const sectionRef = useRef<HTMLElement>(null)
+
   return (
     <section
+      ref={sectionRef}
       className="np1c-section np1c-editing-carousel"
       data-dev-section="editing-carousel"
       aria-label="MVP Priorities"
@@ -99,7 +110,12 @@ export default function EditingCarousel() {
           </ul>
         </div>
 
-        <ImageCarousel slides={SLIDES} ariaLabel="Editing carousel slides" />
+        <ImageCarousel
+          slides={SLIDES}
+          ariaLabel="Editing carousel slides"
+          controlsVariant="autoplay"
+          pillGrowSectionRef={sectionRef}
+        />
       </div>
     </section>
   )

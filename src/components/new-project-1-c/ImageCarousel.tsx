@@ -1,8 +1,19 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type RefObject,
+} from 'react'
 import { Minus, Plus } from 'lucide-react'
 import { ImgWithLoader } from '../MediaLoader'
 import { VideoWithLoader } from '../MediaLoader/VideoWithLoader'
 import CarouselControls from './CarouselControls'
+import CarouselVideoReplayButton from './CarouselVideoReplayButton'
+import { useCarouselPillGrow } from './useCarouselPillGrow'
+import './carouselGrowAnimation.css'
 import './EditingCarousel.css'
 
 type SlideBase = {
@@ -13,9 +24,18 @@ type SlideBase = {
 }
 type VideoSlide = SlideBase & { type: 'video'; src: string }
 type ImageSlide = SlideBase & { type: 'image'; src: string; alt: string; narrow?: boolean }
-export type CarouselSlide = VideoSlide | ImageSlide
+/** Gradient panel with centered inset video (MVP inspector slide). */
+type PanelSlide = SlideBase & {
+  type: 'panel'
+  videoSrc: string
+  videoAlt: string
+  narrow?: boolean
+}
+export type CarouselSlide = VideoSlide | ImageSlide | PanelSlide
 
 const FLIP_BUTTON_ICON_SIZE = 16
+/** Dwell time for static image slides when autoplay controls are enabled. */
+const IMAGE_DWELL_MS = 10_000
 
 /**
  * SHELVED FEATURE — flip-to-reveal card details ("+" button in the top-right
@@ -24,6 +44,10 @@ const FLIP_BUTTON_ICON_SIZE = 16
  * and fully wired up — just flip this back to `true` to bring it back.
  */
 const SHOW_FLIP_DETAILS_BUTTON = false
+
+function slideHasVideo(slide: CarouselSlide): boolean {
+  return slide.type === 'video' || slide.type === 'panel'
+}
 
 /** Ease-in-out cubic — feels natural and slower at start/end */
 function easeInOutCubic(t: number) {
@@ -55,18 +79,60 @@ export function FilledChevronRightIcon() {
 export type ImageCarouselProps = {
   slides: readonly CarouselSlide[]
   ariaLabel: string
+  /**
+   * `autoplay` — Addressing Unmet Needs-style controls: play only the active
+   * video, advance on end (or 10s dwell for images), progress dots + play orb.
+   * `manual` — dots/arrows only (modal image carousels).
+   */
+  controlsVariant?: 'autoplay' | 'manual'
+  /** Section root used for the scroll-triggered pill grow/reveal animation. */
+  pillGrowSectionRef?: RefObject<HTMLElement | null>
 }
 
 /** Center-snap, trackpad-swipeable carousel with per-slide captions — shared by
  * the "Built for editing" page section and the "View Journey Maps" modal. */
-export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps) {
+export default function ImageCarousel({
+  slides,
+  ariaLabel,
+  controlsVariant = 'manual',
+  pillGrowSectionRef,
+}: ImageCarouselProps) {
+  const isAutoplay = controlsVariant === 'autoplay'
+  const fallbackSectionRef = useRef<HTMLElement | null>(null)
+  const sectionRef = pillGrowSectionRef ?? fallbackSectionRef
+  const { controlsReady, controlStyle: pillControlStyle } = useCarouselPillGrow(
+    sectionRef,
+    isAutoplay
+  )
+
   const galleryRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLUListElement>(null)
   const slideRefs = useRef<(HTMLLIElement | null)[]>([])
   const frameRefs = useRef<(HTMLDivElement | null)[]>([])
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const animRafRef = useRef<number | null>(null)
+  const pendingSlideIndexRef = useRef<number | null>(null)
+  const activeIndexRef = useRef(0)
+  const isPlayingRef = useRef(true)
+  const autoplayProgressRef = useRef(0)
+
   const [activeIndex, setActiveIndex] = useState(0)
   const [flippedIndices, setFlippedIndices] = useState<Set<number>>(() => new Set())
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [autoplayProgress, setAutoplayProgress] = useState(0)
+  const [ended, setEnded] = useState(false)
+  const didAutoStartRef = useRef(false)
+
+  activeIndexRef.current = activeIndex
+  isPlayingRef.current = isPlaying
+  autoplayProgressRef.current = autoplayProgress
+
+  // When the pill finishes growing in, start playback (same default as Addressing Unmet Needs).
+  useEffect(() => {
+    if (!isAutoplay || !controlsReady || ended || didAutoStartRef.current) return
+    didAutoStartRef.current = true
+    setIsPlaying(true)
+  }, [isAutoplay, controlsReady, ended])
 
   const toggleFlip = useCallback((index: number) => {
     setFlippedIndices((prev) => {
@@ -78,7 +144,11 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
   }, [])
   const slideCount = slides.length
   /** Index of the narrow slide — used for JS width measurement */
-  const NARROW_INDEX = slides.findIndex((s) => s.type === 'image' && (s as ImageSlide).narrow)
+  const NARROW_INDEX = slides.findIndex(
+    (s) => (s.type === 'image' || s.type === 'panel') && s.narrow
+  )
+
+  const controlStyle = isAutoplay ? pillControlStyle : undefined
 
   // Compute track padding so each slide can be fully centred in the gallery
   const updatePadding = useCallback(() => {
@@ -103,14 +173,16 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
     if (!slide) return
 
     requestAnimationFrame(() => {
-      const img = slide.querySelector<HTMLImageElement>('img')
-      if (!img || !img.naturalWidth) return
-      const rect = img.getBoundingClientRect()
+      const media = slide.querySelector<HTMLElement>(
+        '.np1c-editing-carousel__panel, .np1c-editing-carousel__image'
+      )
+      if (!media) return
+      const rect = media.getBoundingClientRect()
       if (rect.width > 0) {
         slide.style.width = `${Math.round(rect.width)}px`
-        // The narrow frame otherwise shrink-wraps the image (width/height:
+        // The narrow frame otherwise shrink-wraps the media (width/height:
         // auto), which breaks the absolutely-positioned flip back-face.
-        // Pin the frame to the image's rendered box so both faces (and the
+        // Pin the frame to the media's rendered box so both faces (and the
         // container) share one fixed size that never changes on flip.
         const frame = frameRefs.current[NARROW_INDEX]
         if (frame) {
@@ -145,7 +217,10 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
 
     const startLeft = gallery.scrollLeft
     const distance = targetLeft - startLeft
-    if (Math.abs(distance) < 1) return
+    if (Math.abs(distance) < 1) {
+      pendingSlideIndexRef.current = null
+      return
+    }
 
     let startTime: number | null = null
 
@@ -158,6 +233,7 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
         animRafRef.current = requestAnimationFrame(step)
       } else {
         animRafRef.current = null
+        pendingSlideIndexRef.current = null
       }
     }
 
@@ -178,7 +254,10 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
   const goToSlide = useCallback(
     (index: number) => {
       const next = Math.max(0, Math.min(slideCount - 1, index))
+      pendingSlideIndexRef.current = next
       setActiveIndex(next)
+      setAutoplayProgress(0)
+      setEnded(false)
       scrollToIndex(next)
     },
     [scrollToIndex, slideCount]
@@ -189,21 +268,47 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
         goToSlide(index)
+        if (isAutoplay) setIsPlaying(false)
       } else if (event.key === 'ArrowLeft') {
         event.preventDefault()
         goToSlide(activeIndex - 1)
+        if (isAutoplay) setIsPlaying(false)
       } else if (event.key === 'ArrowRight') {
         event.preventDefault()
         goToSlide(activeIndex + 1)
+        if (isAutoplay) setIsPlaying(false)
       }
     },
-    [activeIndex, goToSlide]
+    [activeIndex, goToSlide, isAutoplay]
   )
+
+  const handlePlayPause = useCallback(() => {
+    if (!isAutoplay) return
+    if (ended) {
+      goToSlide(0)
+      setEnded(false)
+      setIsPlaying(true)
+      setAutoplayProgress(0)
+      const video = videoRefs.current[0]
+      if (video) video.currentTime = 0
+      return
+    }
+    setIsPlaying((v) => !v)
+  }, [ended, goToSlide, isAutoplay])
+
+  const handleVideoRestart = useCallback(() => {
+    if (!isAutoplay) return
+    setEnded(false)
+    setIsPlaying(true)
+    setAutoplayProgress(0)
+  }, [isAutoplay])
 
   // Sync active index from native trackpad scroll (no snap, so read scroll position)
   const syncFromScroll = useCallback(() => {
     const gallery = galleryRef.current
     if (!gallery) return
+    if (pendingSlideIndexRef.current !== null) return
+
     const center = gallery.scrollLeft + gallery.clientWidth / 2
     let closest = 0
     let minDist = Infinity
@@ -211,9 +316,16 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
       if (!slide) return
       const sc = slide.offsetLeft + slide.offsetWidth / 2
       const dist = Math.abs(sc - center)
-      if (dist < minDist) { minDist = dist; closest = i }
+      if (dist < minDist) {
+        minDist = dist
+        closest = i
+      }
     })
-    setActiveIndex(closest)
+    if (closest !== activeIndexRef.current) {
+      setActiveIndex(closest)
+      setAutoplayProgress(0)
+      setEnded(false)
+    }
   }, [])
 
   useEffect(() => {
@@ -221,7 +333,10 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
     if (!gallery) return
     let rafId = 0
     const onScroll = () => {
-      if (!rafId) rafId = requestAnimationFrame(() => { rafId = 0; syncFromScroll() })
+      if (!rafId) rafId = requestAnimationFrame(() => {
+        rafId = 0
+        syncFromScroll()
+      })
     }
     gallery.addEventListener('scroll', onScroll, { passive: true })
     return () => {
@@ -229,6 +344,117 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
       if (rafId) cancelAnimationFrame(rafId)
     }
   }, [syncFromScroll])
+
+  // Play only the centered video; pause + reset the rest
+  useEffect(() => {
+    if (!isAutoplay) return
+
+    const syncPlayback = () => {
+      videoRefs.current.forEach((video, i) => {
+        if (!video) return
+        const shouldPlay =
+          i === activeIndex && isPlaying && controlsReady && !ended && slideHasVideo(slides[i]!)
+        if (shouldPlay) {
+          const playPromise = video.play()
+          if (playPromise) playPromise.catch(() => {})
+        } else {
+          video.pause()
+          if (i !== activeIndex) video.currentTime = 0
+        }
+      })
+    }
+
+    syncPlayback()
+
+    const activeVideo = videoRefs.current[activeIndex]
+    if (!activeVideo) return
+    activeVideo.addEventListener('loadeddata', syncPlayback)
+    activeVideo.addEventListener('canplay', syncPlayback)
+    return () => {
+      activeVideo.removeEventListener('loadeddata', syncPlayback)
+      activeVideo.removeEventListener('canplay', syncPlayback)
+    }
+  }, [activeIndex, isPlaying, controlsReady, ended, isAutoplay, slides])
+
+  // Drive progress + auto-advance from the active video
+  useEffect(() => {
+    if (!isAutoplay) return
+    const slide = slides[activeIndex]
+    if (!slide || !slideHasVideo(slide)) return
+    const video = videoRefs.current[activeIndex]
+    if (!video) return
+
+    let advanced = false
+
+    const advanceFromVideoEnd = () => {
+      if (advanced || !isPlayingRef.current) return
+      advanced = true
+      video.pause()
+      if (activeIndexRef.current >= slideCount - 1) {
+        setEnded(true)
+        setIsPlaying(false)
+        setAutoplayProgress(1)
+        return
+      }
+      goToSlide(activeIndexRef.current + 1)
+    }
+
+    const updateProgress = () => {
+      const duration = video.duration
+      if (!duration || !Number.isFinite(duration) || duration <= 0) return
+      setAutoplayProgress(Math.min(1, video.currentTime / duration))
+    }
+
+    const onEnded = () => {
+      advanceFromVideoEnd()
+    }
+
+    video.addEventListener('timeupdate', updateProgress)
+    video.addEventListener('ended', onEnded)
+    video.addEventListener('loadedmetadata', updateProgress)
+    updateProgress()
+
+    return () => {
+      video.removeEventListener('timeupdate', updateProgress)
+      video.removeEventListener('ended', onEnded)
+      video.removeEventListener('loadedmetadata', updateProgress)
+    }
+  }, [activeIndex, goToSlide, isAutoplay, slideCount, slides])
+
+  // 10s dwell for static image slides
+  useEffect(() => {
+    if (!isAutoplay) return
+    const slide = slides[activeIndex]
+    if (!slide || slide.type !== 'image') return
+    if (!isPlaying || ended) return
+
+    const progressAtStart = autoplayProgressRef.current
+    const startTime = performance.now()
+    let rafId = 0
+    let advanced = false
+
+    const tick = (now: number) => {
+      if (!isPlayingRef.current) return
+      const next = Math.min(1, progressAtStart + (now - startTime) / IMAGE_DWELL_MS)
+      setAutoplayProgress(next)
+      if (next >= 1) {
+        if (advanced) return
+        advanced = true
+        if (activeIndexRef.current >= slideCount - 1) {
+          setEnded(true)
+          setIsPlaying(false)
+          setAutoplayProgress(1)
+          return
+        }
+        goToSlide(activeIndexRef.current + 1)
+        return
+      }
+      rafId = requestAnimationFrame(tick)
+    }
+
+    rafId = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(rafId)
+  }, [activeIndex, isPlaying, ended, isAutoplay, goToSlide, slideCount, slides])
 
   // Clean up animation on unmount
   useEffect(() => () => {
@@ -247,7 +473,8 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
         <ul ref={trackRef} className="np1c-editing-carousel__track">
           {slides.map((slide, index) => {
             const isActive = index === activeIndex
-            const narrow = slide.type === 'image' && slide.narrow
+            const narrow =
+              (slide.type === 'image' || slide.type === 'panel') && slide.narrow
             const flipped = flippedIndices.has(index)
 
             return (
@@ -272,16 +499,47 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
                   >
                     <div className="np1c-editing-carousel__flip-face np1c-editing-carousel__flip-face--front">
                       {slide.type === 'video' ? (
-                        <VideoWithLoader
-                          className="np1c-editing-carousel__video"
-                          src={slide.src}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          onLoad={updatePadding}
-                          onLoadedMetadata={updatePadding}
-                        />
+                        <div className="np1c-editing-carousel__video-wrap">
+                          <VideoWithLoader
+                            ref={(node) => { videoRefs.current[index] = node }}
+                            className="np1c-editing-carousel__video"
+                            src={slide.src}
+                            muted
+                            playsInline
+                            preload="auto"
+                            onLoad={updatePadding}
+                            onLoadedMetadata={updatePadding}
+                          />
+                          <CarouselVideoReplayButton
+                            getVideo={() => videoRefs.current[index]}
+                            onRestart={() => {
+                              if (index !== activeIndexRef.current) goToSlide(index)
+                              handleVideoRestart()
+                            }}
+                          />
+                        </div>
+                      ) : slide.type === 'panel' ? (
+                        <div className="np1c-editing-carousel__panel">
+                          <div className="np1c-editing-carousel__video-wrap np1c-editing-carousel__video-wrap--panel">
+                            <VideoWithLoader
+                              ref={(node) => { videoRefs.current[index] = node }}
+                              className="np1c-editing-carousel__panel-video"
+                              src={slide.videoSrc}
+                              muted
+                              playsInline
+                              preload="auto"
+                              aria-label={slide.videoAlt}
+                              onLoadedMetadata={narrow ? syncNarrowWidth : updatePadding}
+                            />
+                            <CarouselVideoReplayButton
+                              getVideo={() => videoRefs.current[index]}
+                              onRestart={() => {
+                                if (index !== activeIndexRef.current) goToSlide(index)
+                                handleVideoRestart()
+                              }}
+                            />
+                          </div>
+                        </div>
                       ) : (
                         <ImgWithLoader
                           className="np1c-editing-carousel__image"
@@ -324,12 +582,19 @@ export default function ImageCarousel({ slides, ariaLabel }: ImageCarouselProps)
       </div>
 
       <CarouselControls
-        variant="manual"
+        variant={isAutoplay ? 'autoplay' : 'manual'}
         slides={slides}
         activeIndex={activeIndex}
+        isPlaying={isPlaying}
+        ended={ended}
+        autoplayProgress={autoplayProgress}
+        controlsReady={controlsReady}
         loop={false}
+        style={controlStyle}
         arrowPinRootRef={galleryRef}
         onSelectSlide={goToSlide}
+        onPauseAutoplay={isAutoplay ? () => setIsPlaying(false) : undefined}
+        onPlayPause={isAutoplay ? handlePlayPause : undefined}
         onDotKeyDown={handleDotKeyDown}
       />
     </div>

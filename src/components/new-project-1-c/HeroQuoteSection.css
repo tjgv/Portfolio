@@ -20,7 +20,7 @@
   margin: 0;
   width: 100%;
   font-family: var(--np1c-font-body);
-  font-size: var(--np1c-subheader-1-size);
+  font-size: calc(var(--np1c-subheader-1-size) - 2px);
   font-weight: var(--np1c-subheader-1-weight);
   line-height: var(--np1c-subheader-1-lh);
   letter-spacing: var(--np1c-subheader-1-ls);

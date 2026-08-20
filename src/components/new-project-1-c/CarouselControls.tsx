@@ -95,6 +95,7 @@ export default function CarouselControls({
           onClick={goPrev}
           disabled={!arrowsInteractive || !canPrev}
           aria-label="Previous slide"
+          hidden={!canPrev}
         >
           <ChevronLeft size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} aria-hidden />
         </button>
@@ -104,6 +105,7 @@ export default function CarouselControls({
           onClick={goNext}
           disabled={!arrowsInteractive || !canNext}
           aria-label="Next slide"
+          hidden={!canNext}
         >
           <ChevronRight size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} aria-hidden />
         </button>

@@ -33,6 +33,11 @@ export type PopupRevealControlProps = {
   modal?: InlinePillRevealModalConfig
   /** Fixed to viewport bottom while scrolling; releases into document flow when false. */
   pinned?: boolean
+  /**
+   * Pinned float inset from the viewport bottom (px). Defaults to the shared
+   * 24px CSS token when omitted.
+   */
+  dockBottomInset?: number
   overlayOpen?: boolean
   onOverlayOpenChange?: (open: boolean) => void
 }
@@ -54,6 +59,7 @@ export default function PopupRevealControl({
   icon = 'plus',
   modal,
   pinned = false,
+  dockBottomInset,
   overlayOpen: overlayOpenProp,
   onOverlayOpenChange,
 }: PopupRevealControlProps) {
@@ -269,7 +275,18 @@ export default function PopupRevealControl({
   const pinnedPortal =
     pinned && visible
       ? createPortal(
-          <div className="np1c-popup-reveal-portal-host">{controlEl}</div>,
+          <div
+            className="np1c-popup-reveal-portal-host"
+            style={
+              dockBottomInset != null
+                ? ({
+                    '--popup-control-bottom': `max(${dockBottomInset}px, env(safe-area-inset-bottom, 0px))`,
+                  } as CSSProperties)
+                : undefined
+            }
+          >
+            {controlEl}
+          </div>,
           document.body
         )
       : null

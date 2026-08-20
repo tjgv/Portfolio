@@ -1,4 +1,5 @@
 import { useCallback, useRef } from 'react'
+import { Plus } from 'lucide-react'
 import { ImgWithLoader } from '../MediaLoader'
 import Pill1 from './Pill1'
 import { CHALLENGE_FEATURES_REVEAL } from './challengeFeaturesReveal'
@@ -6,7 +7,7 @@ import { isSectionInViewport, isSectionOutOfViewport } from './growRevealScrollU
 import './Hypothesis.css'
 import './HypothesisB.css'
 
-const CHALLENGE_IMAGE = '/new-project-1/challenge-ui-annotated.png'
+const CHALLENGE_IMAGE = '/new-project-1/challenge-ui.png'
 
 export default function HypothesisB() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -26,12 +27,12 @@ export default function HypothesisB() {
       ref={sectionRef}
       className="np1c-section np1c-hypothesis np1c-hypothesis--b"
       data-dev-section="challenge"
-      aria-label="My argument"
+      aria-label="My Argument"
     >
       <div className="np1c-section__inner np1c-hypothesis__inner">
         <div className="np1c-hypothesis__copy">
           <div className="np1c-h-text-stack">
-            <p className="np1c-h-text-stack__label">My argument</p>
+            <p className="np1c-h-text-stack__label">My Argument</p>
             <div className="np1c-h-text-stack__row">
               <h2 className="np1c-h-text-stack__headline">
                 CX Pro is doing too much at once.
@@ -49,11 +50,23 @@ export default function HypothesisB() {
         </div>
 
         <div className="np1c-hypothesis__media-block">
-          <div className="np1c-hypothesis__media np1c-hypothesis__media--content">
-            <ImgWithLoader
-              src={CHALLENGE_IMAGE}
-              alt="CX Pro interface highlighting Show Running and Building & Editing feature areas"
-            />
+          <div className="np1c-hypothesis__media-stack">
+            <div className="np1c-hypothesis__tag-legend" aria-hidden>
+              <span className="np1c-media-tag np1c-media-tag--static np1c-media-tag--edit">
+                Building &amp; Editing
+              </span>
+              <Plus className="np1c-hypothesis__tag-plus" size={14} strokeWidth={2.5} />
+              <span className="np1c-media-tag np1c-media-tag--static np1c-media-tag--run">
+                Show Running
+              </span>
+            </div>
+
+            <div className="np1c-hypothesis__media np1c-hypothesis__media--content">
+              <ImgWithLoader
+                src={CHALLENGE_IMAGE}
+                alt="CX Pro interface highlighting Show Running and Building & Editing feature areas"
+              />
+            </div>
           </div>
 
           <Pill1
@@ -64,6 +77,7 @@ export default function HypothesisB() {
             modal={CHALLENGE_FEATURES_REVEAL.modal}
             isInAnimZone={isInAnimZone}
             shouldRetract={shouldRetract}
+            dockBottomInset={9}
           />
         </div>
       </div>

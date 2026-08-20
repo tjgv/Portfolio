@@ -268,6 +268,62 @@
   object-fit: unset;
 }
 
+/* Gradient panel + centered inset video (MVP inspector slide) */
+.np1c-editing-carousel__panel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #1d161e 0%, #281825 100%);
+  line-height: 0;
+  max-height: clamp(274px, 35.19vw, 567px);
+}
+
+.np1c-editing-carousel__video-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.np1c-editing-carousel__video-wrap--panel {
+  width: auto;
+  height: auto;
+  display: inline-block;
+  line-height: 0;
+  border-radius: 6px;
+  overflow: visible;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.np1c-editing-carousel__slide--narrow .np1c-editing-carousel__media-frame .np1c-editing-carousel__panel .np1c-editing-carousel__video-wrap--panel > .media-with-loader-wrap {
+  position: relative;
+  display: block;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  overflow: hidden;
+  background: none;
+  box-shadow: none;
+}
+
+.np1c-editing-carousel__panel-video,
+.np1c-editing-carousel__slide--narrow .np1c-editing-carousel__media-frame .np1c-editing-carousel__panel video {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: calc(clamp(274px, 35.19vw, 567px) - 24px);
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.np1c-editing-carousel__video-wrap .np1c-embed-video-reset {
+  /* Sit above the media-frame overflow clip */
+  z-index: 3;
+}
+
 /* VideoWithLoader wrap — fill frame; radius clips when preserve-3d breaks frame overflow */
 .np1c-editing-carousel__media-frame .media-with-loader-wrap {
   width: 100%;
@@ -349,11 +405,19 @@
 
   .np1c-editing-carousel__video,
   .np1c-editing-carousel__image,
-  .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__image {
+  .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__image,
+  .np1c-editing-carousel__panel,
+  .np1c-editing-carousel__panel-video,
+  .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__media-frame .np1c-editing-carousel__panel video {
     width: 100%;
     height: auto;
     max-height: none;
     object-fit: contain;
+  }
+
+  .np1c-editing-carousel__panel {
+    display: flex;
+    max-height: none;
   }
 
   .np1c-editing-carousel__carousel > .np1c-carousel-controls,

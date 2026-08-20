@@ -57,6 +57,7 @@ export default function NorthStarSection() {
             modal={DESIGN_INSIGHTS_REVEAL.modal}
             isInAnimZone={isInAnimZone}
             shouldRetract={shouldRetract}
+            dockBottomInset={9}
           />
         </div>
       </div>

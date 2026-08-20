@@ -148,6 +148,9 @@
   /* Hypothesis Edit/Run pair → vertical stack, full content width */
   .np1c-page .np1c-hypothesis--b .np1c-hypothesis__media--pair {
     grid-template-columns: 1fr;
+    width: 100%;
+    margin-inline: 0;
+    justify-items: center;
   }
 
   /* Drop desktop text max-widths so copy fills to the gutter */

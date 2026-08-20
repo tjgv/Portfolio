@@ -47,10 +47,17 @@ const PHASES: Phase[] = [
 const CIRCLE_FADE_MS = 550
 const CIRCLE_STAGGER_MS = 260
 const STROKE_START_DELAY_MS = 350
-const STROKE_DURATION_MS = 1600
+/** Long enough that the ease-out tail can settle; start still feels snappy. */
+const STROKE_DURATION_MS = 1800
 
 function clamp01(value: number): number {
   return Math.min(1, Math.max(0, value))
+}
+
+/** Ease-out quart — covers ground quickly, then decelerates into the end. */
+function easeOutPronounced(t: number): number {
+  const inv = 1 - t
+  return 1 - inv * inv * inv * inv
 }
 
 /**
@@ -121,7 +128,7 @@ export default function ResultsPhasesAnimation({
 
     const tick = (now: number) => {
       const elapsed = now - startTime
-      const p = clamp01(elapsed / STROKE_DURATION_MS)
+      const p = easeOutPronounced(clamp01(elapsed / STROKE_DURATION_MS))
       setStrokeProgress(p)
 
       PHASES.forEach((phase, i) => {

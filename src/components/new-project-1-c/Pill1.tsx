@@ -18,6 +18,11 @@ export type Pill1Props = {
   isInAnimZone?: (section: HTMLElement) => boolean
   /** Override when the grow animation should retract (default: section leaves viewport). */
   shouldRetract?: (section: HTMLElement) => boolean
+  /**
+   * Pinned float + dock handoff inset from the viewport bottom (default 24).
+   * Lower values move the absolute→static handoff down.
+   */
+  dockBottomInset?: number
 }
 
 /** Pill-1 — fixed to viewport bottom until docked, then in-flow at rest position. */
@@ -30,6 +35,7 @@ export default function Pill1({
   align = 'center',
   isInAnimZone: isInAnimZoneProp,
   shouldRetract: shouldRetractProp,
+  dockBottomInset,
 }: Pill1Props) {
   const pillDockRef = useRef<HTMLDivElement>(null)
 
@@ -38,6 +44,7 @@ export default function Pill1({
     dockRef: pillDockRef,
     isInAnimZone: isInAnimZoneProp,
     shouldRetract: shouldRetractProp,
+    dockBottomInset,
   })
 
   const { openProgress, controlsReady, growOrbCssVars } = useGrowRevealScrollAnimation({
@@ -71,6 +78,7 @@ export default function Pill1({
           buttonAriaLabel={buttonAriaLabel}
           icon={icon}
           modal={modal}
+          dockBottomInset={dockBottomInset}
         />
       </div>
     </div>

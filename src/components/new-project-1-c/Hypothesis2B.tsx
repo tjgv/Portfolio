@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+import { Split } from 'lucide-react'
 import { ImgWithLoader } from '../MediaLoader'
 import './Hypothesis.css'
 import './HypothesisB.css'
@@ -6,6 +8,32 @@ const EDIT_SHOW_IMAGE = '/new-project-1/hypothesis-edit-show.png'
 const RUN_SHOW_IMAGE = '/new-project-1/hypothesis-run-show.png'
 
 export default function Hypothesis2B() {
+  const pairRef = useRef<HTMLDivElement>(null)
+  const [pairInView, setPairInView] = useState(false)
+
+  useEffect(() => {
+    const el = pairRef.current
+    if (!el) return
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setPairInView(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setPairInView(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.28, rootMargin: '0px 0px -8% 0px' }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section
       className="np1c-section np1c-hypothesis np1c-hypothesis--b np1c-hypothesis--b-follow"
@@ -34,11 +62,21 @@ export default function Hypothesis2B() {
           </div>
         </div>
 
-        <div className="np1c-hypothesis__media np1c-hypothesis__media--content np1c-hypothesis__media--pair">
+        <div
+          ref={pairRef}
+          className={`np1c-hypothesis__media np1c-hypothesis__media--content np1c-hypothesis__media--pair${
+            pairInView ? ' np1c-hypothesis__media--pair-in-view' : ''
+          }`}
+        >
           <div className="np1c-media-frame np1c-media-frame--edit">
             <ImgWithLoader src={EDIT_SHOW_IMAGE} alt="CX Pro Edit Show view" />
             <span className="np1c-media-tag np1c-media-tag--edit">Building &amp; Editing</span>
           </div>
+
+          <div className="np1c-hypothesis__pair-split" aria-hidden>
+            <Split size={28} strokeWidth={2} />
+          </div>
+
           <div className="np1c-media-frame np1c-media-frame--run">
             <ImgWithLoader src={RUN_SHOW_IMAGE} alt="CX Pro Run Show view" />
             <span className="np1c-media-tag np1c-media-tag--run">Show Running</span>

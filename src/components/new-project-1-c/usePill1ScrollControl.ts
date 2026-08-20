@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react'
 import { isSectionInViewport, isSectionOutOfViewport } from './growRevealScrollUtils'
 
-const PILL_DOCK_BOTTOM_INSET = 24
+const DEFAULT_PILL_DOCK_BOTTOM_INSET = 24
 
 export type Pill1ScrollControlConfig = {
   sectionRef: RefObject<HTMLElement | null>
@@ -10,6 +10,11 @@ export type Pill1ScrollControlConfig = {
   isInAnimZone?: (section: HTMLElement) => boolean
   /** When true, run the close animation. Defaults to section leaving the viewport. */
   shouldRetract?: (section: HTMLElement) => boolean
+  /**
+   * Distance from the viewport bottom used for the pinned float and dock handoff.
+   * Defaults to 24. Lower values dock the pill lower on screen.
+   */
+  dockBottomInset?: number
 }
 
 export function usePill1ScrollControl({
@@ -17,6 +22,7 @@ export function usePill1ScrollControl({
   dockRef,
   isInAnimZone: isInAnimZoneProp,
   shouldRetract: shouldRetractProp,
+  dockBottomInset = DEFAULT_PILL_DOCK_BOTTOM_INSET,
 }: Pill1ScrollControlConfig) {
   const [controlsShown, setControlsShown] = useState(false)
   const [controlsPinned, setControlsPinned] = useState(false)
@@ -67,7 +73,7 @@ export function usePill1ScrollControl({
 
       const dockRect = dock.getBoundingClientRect()
       const dockHeight = dock.offsetHeight || dock.getBoundingClientRect().height
-      const pinLine = window.innerHeight - PILL_DOCK_BOTTOM_INSET - dockHeight
+      const pinLine = window.innerHeight - dockBottomInset - dockHeight
       const atDock = dockRect.top <= pinLine + 0.5
 
       if (atDock) {
@@ -87,7 +93,7 @@ export function usePill1ScrollControl({
       window.removeEventListener('scroll', sync)
       window.removeEventListener('resize', sync)
     }
-  }, [sectionRef, dockRef, isInAnimZone])
+  }, [sectionRef, dockRef, isInAnimZone, dockBottomInset])
 
   return {
     controlsShown,

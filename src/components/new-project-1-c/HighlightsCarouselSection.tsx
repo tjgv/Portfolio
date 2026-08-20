@@ -18,6 +18,7 @@ import {
 } from './carouselGrowAnimation'
 import { computeCarouselRevealVars } from './carouselRevealAnimation'
 import CarouselControls from './CarouselControls'
+import CarouselVideoReplayButton from './CarouselVideoReplayButton'
 import './carouselGrowAnimation.css'
 import './HighlightsCarouselSection.css'
 
@@ -621,6 +622,12 @@ export default function HighlightsCarouselSection({
     setIsPlaying((v) => !v)
   }
 
+  const handleVideoRestart = () => {
+    setEnded(false)
+    setIsPlaying(true)
+    setAutoplayProgress(0)
+  }
+
   const handleDotKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
@@ -690,26 +697,32 @@ export default function HighlightsCarouselSection({
                     className={`np1c-carousel-section__media${slide.kind === 'video' ? ' np1c-carousel-section__media--video' : ''}`}
                   >
                     {slide.kind === 'video' ? (
-                      <VideoWithLoader
-                        ref={(node) => {
-                          videoRefs.current[index] = node
-                        }}
-                        className="np1c-carousel-section__video"
-                        src={slide.src}
-                        aria-label={slide.ariaLabel}
-                        style={
-                          slide.objectPosition ? { objectPosition: slide.objectPosition } : undefined
-                        }
-                        muted
-                        playsInline
-                        preload="auto"
-                        onLoadedData={(e) => {
-                          if (slide.playbackRate) {
-                            e.currentTarget.playbackRate = slide.playbackRate
-                            e.currentTarget.defaultPlaybackRate = slide.playbackRate
+                      <div className="np1c-carousel-section__video-wrap">
+                        <VideoWithLoader
+                          ref={(node) => {
+                            videoRefs.current[index] = node
+                          }}
+                          className="np1c-carousel-section__video"
+                          src={slide.src}
+                          aria-label={slide.ariaLabel}
+                          style={
+                            slide.objectPosition ? { objectPosition: slide.objectPosition } : undefined
                           }
-                        }}
-                      />
+                          muted
+                          playsInline
+                          preload="auto"
+                          onLoadedData={(e) => {
+                            if (slide.playbackRate) {
+                              e.currentTarget.playbackRate = slide.playbackRate
+                              e.currentTarget.defaultPlaybackRate = slide.playbackRate
+                            }
+                          }}
+                        />
+                        <CarouselVideoReplayButton
+                          getVideo={() => videoRefs.current[index]}
+                          onRestart={handleVideoRestart}
+                        />
+                      </div>
                     ) : (
                       <ImgWithLoader
                         className="np1c-carousel-section__image"

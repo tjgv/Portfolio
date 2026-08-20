@@ -29,8 +29,8 @@ const START_SCALE = 1.35
 /** Prior settle; shrink amount cut by 50%, then +5% larger at rest. */
 const PREV_SETTLE_SCALE = 0.729 * 1.12
 const CURRENT_SETTLE_SCALE = (START_SCALE - (START_SCALE - PREV_SETTLE_SCALE) * 0.5) * 1.05
-/** 75% less shrink than the previous settle — rest size stays closer to start. */
-const SETTLE_SCALE = START_SCALE - (START_SCALE - CURRENT_SETTLE_SCALE) * 0.25
+/** 75% less shrink than the previous settle, then +15% more shrink on the rest size. */
+const SETTLE_SCALE = START_SCALE - (START_SCALE - CURRENT_SETTLE_SCALE) * 0.25 * 1.15
 /** Distance the title slides up during reveal (75% shorter than prior 56px). */
 const TITLE_SLIDE_OFFSET_PX = 14
 /** Progress through the post-land runway at which title + shrink start. */

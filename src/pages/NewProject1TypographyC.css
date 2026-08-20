@@ -40,6 +40,13 @@
   --np1c-header-2-ls: 0.009rem;
   --np1c-header-2-weight: 590;
 
+  /* Header-3 — Header-1 metrics, −4px size (horizontal text-spread headlines) */
+  --np1c-header-3-size: calc(var(--np1c-header-1-size) - 4px);
+  --np1c-header-3-lh: 1.08;
+  --np1c-header-3-ls: -0.003rem;
+  --np1c-header-3-weight: 650;
+  --np1c-header-3-color: #f5f5f7;
+
   /* Sub-header-hero — SF Pro Display Semibold 24 / 116% / 0.009rem */
   --np1c-subheader-hero-size: clamp(20px, 1.6vw, 24px);
   --np1c-subheader-hero-lh: 1.16;
@@ -51,6 +58,13 @@
   --np1c-subheader-1-lh: 25px;
   --np1c-subheader-1-ls: 0.11px;
   --np1c-subheader-1-weight: 600;
+
+  /* Sub-header-3 — Sub-header-1 metrics; soft off-white (horizontal text sections) */
+  --np1c-subheader-3-size: var(--np1c-subheader-1-size);
+  --np1c-subheader-3-lh: var(--np1c-subheader-1-lh);
+  --np1c-subheader-3-ls: var(--np1c-subheader-1-ls);
+  --np1c-subheader-3-weight: var(--np1c-subheader-1-weight);
+  --np1c-subheader-3-color: #e8e8ed;
 
   /* Body-hero — Inter Regular 28 / 114% / 0.7px */
   --np1c-body-hero-size: clamp(18px, 1.6vw, 28px);
@@ -77,7 +91,7 @@
   --np1c-block-gap: clamp(40px, 4vw, 60px);
   /* Shared vertical gap between a text stack and the media below it (−15%) */
   --np1c-text-media-gap: clamp(51px, 5.95vw, 102px);
-  --np1c-label-title-gap: 24px;
+  --np1c-label-title-gap: 19.2px;
   --np1c-split-body-weight: 510;
 
   font-family: var(--np1c-font-body);
@@ -100,4 +114,22 @@
   line-height: var(--np1c-header-1-lh);
   letter-spacing: var(--np1c-header-1-ls);
   color: var(--np1c-header-1-color);
+}
+
+.np1c-type-header-3 {
+  font-family: var(--np1c-font-display);
+  font-size: var(--np1c-header-3-size);
+  font-weight: var(--np1c-header-3-weight);
+  line-height: var(--np1c-header-3-lh);
+  letter-spacing: var(--np1c-header-3-ls);
+  color: var(--np1c-header-3-color);
+}
+
+.np1c-type-subheader-3 {
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-subheader-3-size);
+  font-weight: var(--np1c-subheader-3-weight);
+  line-height: var(--np1c-subheader-3-lh);
+  letter-spacing: var(--np1c-subheader-3-ls);
+  color: var(--np1c-subheader-3-color);
 }
