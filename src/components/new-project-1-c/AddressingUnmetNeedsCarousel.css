@@ -126,6 +126,38 @@
   object-position: center;
 }
 
+/* Hero-style click-to-toggle play/pause */
+.np1c-aun-carousel__toggle {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.np1c-aun-carousel__play {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.55);
+  filter: drop-shadow(0 2px 16px rgba(0, 0, 0, 0.35));
+}
+
+.np1c-aun-carousel__play svg {
+  width: clamp(88px, 12vw, 160px);
+  height: clamp(88px, 12vw, 160px);
+}
+
+.np1c-aun-carousel__video-wrap .np1c-embed-video-reset--carousel {
+  z-index: 3;
+}
+
 .np1c-aun-carousel__media--scaled .np1c-aun-carousel__video-wrap,
 .np1c-aun-carousel__media--scaled .np1c-aun-carousel__image {
   width: 85%;
