@@ -1,0 +1,28 @@
+/* Key Assumptions section chrome — quote card/controls live in QuoteCarousel.css */
+
+.np1c-section.np1c-assumptions-quote {
+  position: relative;
+  background: var(--np1c-bg);
+  /* Kill shared .np1c-section 25vh block padding — spacing is owned here */
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.np1c-assumptions-quote__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: clamp(64px, 6.6vw, 100px);
+  /* 50px from end of quote stack to section bottom edge */
+  padding-bottom: 50px;
+}
+
+.np1c-assumptions-quote__copy {
+  width: 100%;
+  margin-bottom: var(--np1c-text-media-gap);
+}
+
+.np1c-assumptions-quote__copy .np1c-h-text-stack__body .np1c-text-emphasis {
+  color: var(--np1c-text-hero);
+  font-weight: calc(var(--np1c-split-body-weight) + 100);
+}

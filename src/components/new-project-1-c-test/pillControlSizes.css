@@ -1,0 +1,26 @@
+/* Shared pill / grow-orb dimensions — import where popup, carousel, or modal close controls render */
+
+.np1c-popup-aap,
+.np1c-carousel-aap,
+.np1c-carousel-edge-arrows,
+.np1c-modal-close-aap {
+  --np1c-pill-seed: 75px;
+  --np1c-pill-action: 55px;
+  --np1c-pill-pulse: 54px;
+  --np1c-pill-pad: 10px;
+  --np1c-pill-inner-gap: 20px;
+  --np1c-pill-pad-expand-left: 30px;
+  --np1c-pill-cta-max: 275px;
+  --np1c-pill-text-slide: 25px;
+  --np1c-pill-target-max: 350px;
+  --np1c-pill-close-icon: 30px;
+  --np1c-carousel-nav-circle: 66px;
+  --np1c-carousel-nav-gap: 13px;
+  --np1c-carousel-nav-gap-mobile: 9px;
+  --np1c-carousel-nav-pad: 21px;
+  --np1c-carousel-nav-pad-mobile: 15px;
+  --np1c-carousel-dot: 13px;
+  --np1c-carousel-dot-active: 61px;
+  --np1c-carousel-dot-active-mobile: 49px;
+  --np1c-carousel-stage-max: 480px;
+}

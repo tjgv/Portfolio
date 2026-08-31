@@ -1,39 +1,37 @@
 /**
- * Consumer CX Pro — primary case study page
+ * Consumer CX Pro — experimental test page (isolated copy)
  *
- * Route: /consumer-cx-pro
- * Legacy sandbox URL /consumer-cx-pro-C redirects here.
- * Prior Page B checkpoint: git tag checkpoint-1-consumer-cx-pro
+ * Route: /consumer-cx-pro-test
+ * Components live in `new-project-1-c-test/` — changes here do not affect /consumer-cx-pro.
  */
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { ImgWithLoader } from '../components/MediaLoader'
-import EmbedControlledVideo from '../components/new-project-1-c/EmbedControlledVideo'
-import ResultsPhasesAnimation from '../components/new-project-1-c/ResultsPhasesAnimation'
-import CaseStudyNavSection from '../components/new-project-1-c/CaseStudyNavSection'
+import EmbedControlledVideo from '../components/new-project-1-c-test/EmbedControlledVideo'
+import ResultsPhasesAnimation from '../components/new-project-1-c-test/ResultsPhasesAnimation'
+import CaseStudyNavSection from '../components/new-project-1-c-test/CaseStudyNavSection'
 import ScrollToTopButton from '../components/case-study/ScrollToTopButton'
 import { useScrollToTopReveal } from '../hooks/useScrollToTopReveal'
-import NewProject1HeroB from '../components/new-project-1-c/NewProject1HeroB'
-import HeroQuoteSection from '../components/new-project-1-c/HeroQuoteSection'
-import ContextSection from '../components/new-project-1-c/ContextSection'
-import HowItAddressesSection from '../components/new-project-1-c/HowItAddressesSection'
-import ProblemB from '../components/new-project-1-c/ProblemB'
-import EditingSideShotB from '../components/new-project-1-c/EditingSideShotB'
-import HypothesisB from '../components/new-project-1-c/HypothesisB'
-import Hypothesis2B from '../components/new-project-1-c/Hypothesis2B'
-import NorthStarSection from '../components/new-project-1-c/NorthStarSection'
-import EditingCarousel from '../components/new-project-1-c/EditingCarousel'
-import EndHeroSection from '../components/new-project-1-c/EndHeroSection'
-import ResultsSection from '../components/new-project-1-c/ResultsSection'
-import TargetAudience from '../components/new-project-1-c/TargetAudience'
-import DeducingUserNeeds from '../components/new-project-1-c/DeducingUserNeeds'
-import './NewProject1PageCBase.css'
-import './NewProject1PageC.css'
+import NewProject1HeroB from '../components/new-project-1-c-test/NewProject1HeroB'
+import HeroQuoteSection from '../components/new-project-1-c-test/HeroQuoteSection'
+import ContextSection from '../components/new-project-1-c-test/ContextSection'
+import HowItAddressesSection from '../components/new-project-1-c-test/HowItAddressesSection'
+import ProblemB from '../components/new-project-1-c-test/ProblemB'
+import EditingSideShotB from '../components/new-project-1-c-test/EditingSideShotB'
+import HypothesisB from '../components/new-project-1-c-test/HypothesisB'
+import Hypothesis2B from '../components/new-project-1-c-test/Hypothesis2B'
+import NorthStarSection from '../components/new-project-1-c-test/NorthStarSection'
+import EditingCarousel from '../components/new-project-1-c-test/EditingCarousel'
+import EndHeroSection from '../components/new-project-1-c-test/EndHeroSection'
+import ResultsSection from '../components/new-project-1-c-test/ResultsSection'
+import TargetAudience from '../components/new-project-1-c-test/TargetAudience'
+import DeducingUserNeeds from '../components/new-project-1-c-test/DeducingUserNeeds'
+import './NewProject1PageCTestBase.css'
+import './NewProject1PageCTest.css'
 
-export const NEW_PROJECT_1_ROUTE = '/consumer-cx-pro'
-export const NEW_PROJECT_1_C_ROUTE = '/consumer-cx-pro'
+export const NEW_PROJECT_1_TEST_ROUTE = '/consumer-cx-pro-test'
 
 const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
@@ -356,11 +354,11 @@ function scrollToTop() {
   document.body.scrollTop = 0
 }
 
-export interface NewProject1PageCProps {
+export interface NewProject1PageCTestProps {
   embedded?: boolean
 }
 
-export default function NewProject1PageC({ embedded = false }: NewProject1PageCProps = {}) {
+export default function NewProject1PageCTest({ embedded = false }: NewProject1PageCTestProps = {}) {
   const pageRef = useRef<HTMLDivElement>(null)
   const scrollRevealRef = useRef<HTMLElement>(null)
   const goalRevealRef = useRef<HTMLDivElement>(null)
@@ -466,10 +464,12 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
   useEffect(() => () => glanceObserverRef.current?.disconnect(), [])
 
   return (
-    <div
-      ref={pageRef}
-      className={`np1c-page${embedded ? ' cx-pro-page--embedded' : ''}`}
-    >
+    <>
+      {!embedded && <div className="np1c-test-verify-dot" aria-hidden />}
+      <div
+        ref={pageRef}
+        className={`np1c-page${embedded ? ' cx-pro-page--embedded' : ''}`}
+      >
       {!embedded && (
         <nav className="np1c-nav" aria-label="Main navigation">
           <Link to="/" className="np1c-nav__back" aria-label="Back to home">
@@ -714,5 +714,6 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
         </div>
       </main>
     </div>
+    </>
   )
 }

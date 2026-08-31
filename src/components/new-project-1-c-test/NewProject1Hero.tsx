@@ -1,0 +1,170 @@
+import { useEffect, useRef, useState } from 'react'
+import { preload } from 'react-dom'
+import { ImgWithLoader, VideoWithLoader } from '../MediaLoader'
+import './NewProject1Hero.css'
+
+const HERO_VIDEO = '/new-project-1/hero-video.mp4'
+const INTRO_TABLET = '/new-project-1/intro-tablet.png'
+
+// Both assets are needed early in the scroll (video is visible immediately;
+// the iPad image only mounts once the user scrolls into the handoff phase,
+// so without an explicit hint the browser wouldn't start fetching it until
+// then). Hinting both as high priority means the iPad image is already
+// cached by the time it scrolls into view.
+preload(HERO_VIDEO, { as: 'video', fetchPriority: 'high' })
+preload(INTRO_TABLET, { as: 'image', fetchPriority: 'high' })
+
+const TITLE_SLIDE_OFFSET_PX = 120
+const PHASE1_RUNWAY_VH = 75
+const PHASE2_IPAD_SCROLL_VH = 72
+const IPAD_ENTRY_OFFSET_VH = 52
+
+function easeOutCubic(t: number): number {
+  return 1 - (1 - t) ** 3
+}
+
+function easeOutQuint(t: number): number {
+  return 1 - (1 - t) ** 5
+}
+
+function runwayPx(vh: number): number {
+  return (window.innerHeight * vh) / 100
+}
+
+/**
+ * Full case study page hero only — scroll-jacking video reveal + title
+ * handoff + iPad scroll-in. The preview modal renders its own plain banner
+ * image directly in NewProject1Page instead of using this component.
+ */
+export default function NewProject1Hero() {
+  const scrollRef = useRef<HTMLElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [scrollPx, setScrollPx] = useState(0)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    video.play().catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    let rafId = 0
+
+    const update = () => {
+      rafId = 0
+      const el = scrollRef.current
+      if (!el) return
+      const scrollable = el.offsetHeight - window.innerHeight
+      if (scrollable <= 0) {
+        setScrollPx(0)
+        return
+      }
+      const scrolled = Math.min(Math.max(-el.getBoundingClientRect().top, 0), scrollable)
+      setScrollPx(scrolled)
+    }
+
+    const onScroll = () => {
+      if (!rafId) rafId = requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', update)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
+  }, [])
+
+  const phase1EndPx = runwayPx(PHASE1_RUNWAY_VH)
+  const ipadScrollPx = runwayPx(PHASE2_IPAD_SCROLL_VH)
+  const handoffEndPx = phase1EndPx + ipadScrollPx
+
+  const phase1Progress = Math.min(1, scrollPx / phase1EndPx)
+
+  const phase2Progress =
+    scrollPx <= phase1EndPx ? 0 : Math.min(1, (scrollPx - phase1EndPx) / ipadScrollPx)
+
+  const eased1 = easeOutCubic(phase1Progress)
+  const eased2 = easeOutCubic(phase2Progress)
+  const easedIpad = easeOutQuint(phase2Progress)
+
+  const inTitleHandoff = scrollPx >= phase1EndPx && scrollPx < handoffEndPx
+  const handoffComplete = scrollPx >= handoffEndPx
+
+  const ipadEntryOffsetPx = runwayPx(IPAD_ENTRY_OFFSET_VH)
+  const ipadTranslateY = Math.max(0, (1 - easedIpad) * ipadEntryOffsetPx)
+
+  const videoOpacityPhase1 = 1 - eased1 * 0.75
+  const videoOpacity = phase2Progress > 0 ? videoOpacityPhase1 * (1 - eased2) : videoOpacityPhase1
+
+  const titleOpacityPhase1 = eased1
+  const titleTranslateYPhase1 = (1 - eased1) * TITLE_SLIDE_OFFSET_PX
+
+  const titleStyle = handoffComplete
+    ? { opacity: 0, transform: 'translateY(-24px)' }
+    : {
+        opacity: titleOpacityPhase1,
+        transform: `translateY(${titleTranslateYPhase1}px)`,
+      }
+
+  return (
+    <section
+      ref={scrollRef}
+      className="np1c-hero-scroll"
+      data-dev-section="hero"
+      aria-label="Hero"
+    >
+      <div className="np1c-hero np1c-hero--video np1c-video-stage" data-dev-section="video">
+        <div className="np1c-video-sticky">
+          <div className="np1c-hero__media" aria-hidden>
+            <VideoWithLoader
+              ref={videoRef}
+              className="np1c-hero__video"
+              src={HERO_VIDEO}
+              style={{ opacity: videoOpacity }}
+              fill
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+            />
+          </div>
+          {!handoffComplete && (
+            <h1 className="np1c-hero__title np1c-hero__title--in-video" style={titleStyle}>
+              Finding Familiarity in Complexity
+            </h1>
+          )}
+        </div>
+      </div>
+
+      <div className="np1c-hero np1c-hero--ipad np1c-handoff-stage" data-dev-section="ipad">
+        <div className="np1c-handoff-sticky">
+          <div className="np1c-handoff-stack">
+            {(inTitleHandoff || handoffComplete) && (
+              <>
+                <div className="np1c-handoff-stack__title-spacer" aria-hidden />
+                <div
+                  className="np1c-handoff-ipad"
+                  style={{
+                    transform: `translateY(${ipadTranslateY}px)`,
+                  }}
+                >
+                  <div className="np1c-handoff-ipad__inner">
+                    <ImgWithLoader
+                      src={INTRO_TABLET}
+                      alt="Hands holding CX Pro on tablet"
+                      fetchPriority="high"
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

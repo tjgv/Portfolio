@@ -1,0 +1,28 @@
+import {
+  PILL_ACTION_SIZE,
+  PILL_CTA_MAX_WIDTH,
+  PILL_INNER_GAP,
+  PILL_LUCIDE_ICON_SIZE,
+  PILL_MEASURE_BUFFER,
+  PILL_MIN_TARGET_WIDTH,
+  PILL_PAD,
+  PILL_SEED_SIZE,
+  PILL_TARGET_MAX_WIDTH,
+  PILL_WIDTH_FALLBACK,
+} from './pillControlSizes'
+
+/** Side-shot inline pills only — 35% smaller than shared popup controls. */
+export const INLINE_PILL_SCALE = 0.65
+
+const scalePx = (value: number) => Math.round(value * INLINE_PILL_SCALE * 100) / 100
+
+export const INLINE_PILL_SEED_SIZE = scalePx(PILL_SEED_SIZE)
+export const INLINE_PILL_ACTION_SIZE = scalePx(PILL_ACTION_SIZE)
+export const INLINE_PILL_LUCIDE_ICON_SIZE = scalePx(PILL_LUCIDE_ICON_SIZE)
+export const INLINE_PILL_WIDTH_FALLBACK = scalePx(PILL_WIDTH_FALLBACK)
+export const INLINE_PILL_MIN_TARGET_WIDTH = scalePx(PILL_MIN_TARGET_WIDTH)
+export const INLINE_PILL_INNER_GAP = scalePx(PILL_INNER_GAP)
+export const INLINE_PILL_PAD = scalePx(PILL_PAD)
+export const INLINE_PILL_CTA_MAX_WIDTH = scalePx(PILL_CTA_MAX_WIDTH)
+export const INLINE_PILL_TARGET_MAX_WIDTH = scalePx(PILL_TARGET_MAX_WIDTH)
+export const INLINE_PILL_MEASURE_BUFFER = PILL_MEASURE_BUFFER

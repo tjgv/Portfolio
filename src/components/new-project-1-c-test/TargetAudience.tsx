@@ -1,0 +1,94 @@
+import { useCallback } from 'react'
+import { VideoWithLoader } from '../MediaLoader'
+import './TargetAudience.css'
+
+const AUDIENCE_VIDEO = '/new-project-1/audience-educators.mp4'
+const PLAYBACK_RATE = 0.75
+const VIDEO_START_SEC = 2
+
+const CARDS = [
+  {
+    id: 'educators',
+    title: 'Educators',
+    body: "Professors, TA's, Speakers, and those who use the tool as an extension of their work.",
+  },
+  {
+    id: 'media',
+    video: AUDIENCE_VIDEO,
+    videoLabel: 'Educator presenting immersive dome content to an audience',
+  },
+  {
+    id: 'students',
+    title: 'Students',
+    body: 'From club organizers running movie night, to 3D engineering students who want to make the most of our technology.',
+  },
+  {
+    id: 'staff',
+    title: 'Staff',
+    body: 'Dedicated broadcast professionals who run routine events.',
+  },
+] as const
+
+export default function TargetAudience() {
+  const prepareVideo = useCallback((video: HTMLVideoElement) => {
+    video.defaultPlaybackRate = PLAYBACK_RATE
+    video.playbackRate = PLAYBACK_RATE
+
+    if (video.currentTime < VIDEO_START_SEC) {
+      if (video.fastSeek) {
+        video.fastSeek(VIDEO_START_SEC)
+      } else {
+        video.currentTime = VIDEO_START_SEC
+      }
+    }
+  }, [])
+
+  const handleEnded = useCallback(
+    (e: React.SyntheticEvent<HTMLVideoElement>) => {
+      const video = e.currentTarget
+      prepareVideo(video)
+      void video.play()
+    },
+    [prepareVideo]
+  )
+
+  return (
+    <section
+      className="np1c-section np1c-audience"
+      data-dev-section="audience"
+      aria-label="Target audience"
+    >
+      <div className="np1c-section__inner np1c-section__inner--wide np1c-audience__inner">
+        <h2 className="np1c-audience__heading">Who we&apos;re anticipating to pick up CX Pro.</h2>
+
+        <div className="np1c-audience__grid np1c-media--xl">
+          {CARDS.map((card) =>
+            'video' in card ? (
+              <article key={card.id} className="np1c-audience-card np1c-audience-card--media">
+                <div className="np1c-audience-card__media">
+                  <VideoWithLoader
+                    fill
+                    src={card.video}
+                    aria-label={card.videoLabel}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    onLoadedData={(e) => prepareVideo(e.currentTarget)}
+                    onCanPlay={(e) => prepareVideo(e.currentTarget)}
+                    onEnded={handleEnded}
+                  />
+                </div>
+              </article>
+            ) : (
+              <article key={card.id} className="np1c-audience-card">
+                <h3 className="np1c-audience-card__title">{card.title}</h3>
+                <p className="np1c-audience-card__body">{card.body}</p>
+              </article>
+            )
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}

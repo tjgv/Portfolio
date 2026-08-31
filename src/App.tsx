@@ -12,6 +12,7 @@ import PromptsPage from './pages/PromptsPage'
 import CxProPage from './pages/CxProPage'
 import Project2Page from './pages/Project2Page'
 import NewProject1PageC from './pages/NewProject1PageC'
+import NewProject1PageCTest from './pages/NewProject1PageCTest'
 // Lazy-load Workflow Builder (isolates @xyflow/react) – no impact on main site
 const WorkflowBuilderPage = lazy(() => import('./pages/WorkflowBuilderPage'))
 
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/run-of-show" element={<RunOfShowPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/consumer-cx-pro" element={<NewProject1PageC />} />
+        <Route path="/consumer-cx-pro-test" element={<NewProject1PageCTest />} />
         <Route path="/consumer-cx-pro-b" element={<Navigate to="/consumer-cx-pro" replace />} />
         <Route path="/consumer-cx-pro-C" element={<Navigate to="/consumer-cx-pro" replace />} />
         <Route path="/cx-pro-c2c" element={<CxProPage />} />
