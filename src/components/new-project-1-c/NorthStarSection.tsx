@@ -28,14 +28,14 @@ export default function NorthStarSection() {
       ref={sectionRef}
       className="np1c-section np1c-hypothesis np1c-hypothesis--b np1c-editing-mvp"
       data-dev-section="north-star"
-      aria-label="Defining North Star"
+      aria-label="Pitching North Star"
     >
       <RevealGradient className="np1c-editing-mvp__gradient" variant="teal" />
 
       <div className="np1c-section__inner np1c-hypothesis__inner">
         <div className="np1c-hypothesis__copy">
           <div className="np1c-h-text-stack np1c-h-text-stack--full">
-            <p className="np1c-h-text-stack__label">Defining North Star</p>
+            <p className="np1c-h-text-stack__label">Pitching North Star</p>
             <h2 className="np1c-h-text-stack__headline">Dedicated Show Running View.</h2>
             <p className="np1c-editing-mvp__body">
               I took interview insights from all user types, with added weight on newer users, to

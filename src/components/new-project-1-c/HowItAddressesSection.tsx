@@ -1,15 +1,5 @@
-import HighlightsCarouselSection from './HighlightsCarouselSection'
-import { SOLUTION_VIDEO_SLIDES } from './solutionVideoSlides'
+import AddressingUnmetNeedsCarousel from './AddressingUnmetNeedsCarousel'
 
 export default function HowItAddressesSection() {
-  return (
-    <HighlightsCarouselSection
-      devSectionId="how-it-addresses"
-      ariaLabel="Addressing Unmet Needs"
-      label="Addressing Unmet Needs"
-      headline="A Shorter Path Towards Show Running Mastery."
-      body="Most users only need to run shows, not build them. By separating Show Running into its own mode, I created space to better support live operations while giving new users a simpler workflow to master."
-      slides={SOLUTION_VIDEO_SLIDES}
-    />
-  )
+  return <AddressingUnmetNeedsCarousel />
 }
