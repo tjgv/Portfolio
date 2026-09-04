@@ -247,8 +247,8 @@ const EMBED_SECTIONS: readonly EmbedSection[] = [
         Beyond improving language and interactions, I focused on four changes to simplify
         editing and early show running: <strong>Asset Visualizations</strong> for clearer
         scene building, <strong>Scene Visualizations</strong> to represent asset
-        combinations without pre-rendered scenes, <strong>Layering Support</strong> to
-        communicate hierarchy and unique layer behaviors, and{' '}
+        combinations without pre-rendered scenes, <strong>Simpler Properties</strong> to
+        prioritize what users need to see, and{' '}
         <strong>Auto-Play Scenes</strong> to move toward a click-and-go show running
         experience.
       </p>

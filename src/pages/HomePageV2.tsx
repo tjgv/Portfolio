@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef, lazy, Suspense } from 'react'
+import { useCallback, useEffect, useState, useRef, useMemo, lazy, Suspense } from 'react'
 import { ArrowUpRight, Gamepad2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import type { FigPalFollowState, FigPalBuilderState } from '../components/FigPalCharacterBuilder'
@@ -17,10 +17,16 @@ const FigPalFloatingCharacter = lazy(() =>
 )
 
 
-type CaseStudyId = 'placeholder1' | 'project1' | 'project2' | 'project3' | 'project4' | null
+type CaseStudyId = 'placeholder1' | 'project1' | 'project2' | 'project3' | 'project4' | 'lab37' | null
 
 const PROJECT3_FIGMA_EMBED =
   'https://embed.figma.com/design/kfYbHeyfx7kIagEc0BxvMb/Genius-Sports--Copy-?node-id=56-1067&embed-host=share'
+
+const LAB37_SLIDE_COUNT = 38
+const LAB37_SLIDES = Array.from(
+  { length: LAB37_SLIDE_COUNT },
+  (_, i) => `/lab37/slides/slide-${String(i + 1).padStart(2, '0')}.jpg`
+)
 
 const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
@@ -354,6 +360,162 @@ function Project3FigmaPopup({ onClose }: { onClose: () => void }) {
   )
 }
 
+/* Lab37 take-home — slide deck with looping left/right navigation */
+function Lab37SlideDeckPopup({ onClose }: { onClose: () => void }) {
+  const slideCount = LAB37_SLIDES.length
+  // Extended track: [last clone, ...slides, first clone] so wrap animates forward/back one step
+  const trackSlides = useMemo(
+    () => [LAB37_SLIDES[slideCount - 1], ...LAB37_SLIDES, LAB37_SLIDES[0]],
+    [slideCount]
+  )
+  // Position on the extended track (1 = first real slide)
+  const [trackIndex, setTrackIndex] = useState(1)
+  const [animate, setAnimate] = useState(true)
+  const settlingRef = useRef(false)
+
+  const logicalIndex = ((trackIndex - 1) % slideCount + slideCount) % slideCount
+
+  const goPrev = useCallback(() => {
+    if (settlingRef.current) return
+    setAnimate(true)
+    setTrackIndex((i) => i - 1)
+  }, [])
+
+  const goNext = useCallback(() => {
+    if (settlingRef.current) return
+    setAnimate(true)
+    setTrackIndex((i) => i + 1)
+  }, [])
+
+  const handleTransitionEnd = useCallback(() => {
+    if (trackIndex === 0) {
+      // Landed on last-clone while going prev from first — snap to real last
+      settlingRef.current = true
+      setAnimate(false)
+      setTrackIndex(slideCount)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          settlingRef.current = false
+          setAnimate(true)
+        })
+      })
+      return
+    }
+    if (trackIndex === slideCount + 1) {
+      // Landed on first-clone while going next from last — snap to real first
+      settlingRef.current = true
+      setAnimate(false)
+      setTrackIndex(1)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          settlingRef.current = false
+          setAnimate(true)
+        })
+      })
+    }
+  }, [trackIndex, slideCount])
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowLeft') goPrev()
+      if (e.key === 'ArrowRight') goNext()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose, goPrev, goNext])
+
+  // Prefetch neighbors (and wrap targets)
+  useEffect(() => {
+    const neighbors = [
+      (logicalIndex - 1 + slideCount) % slideCount,
+      (logicalIndex + 1) % slideCount,
+    ]
+    neighbors.forEach((i) => {
+      const img = new Image()
+      img.src = LAB37_SLIDES[i]
+    })
+  }, [logicalIndex, slideCount])
+
+  return (
+    <div
+      className="home-v2-popup-backdrop home-v2-popup-backdrop--slide-deck"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Lab37 take home assignment slides"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div className="home-v2-popup home-v2-popup--slide-deck" onClick={(e) => e.stopPropagation()}>
+        <nav className="home-v2-popup-nav home-v2-popup-nav--slide-deck" aria-label="Slide deck actions">
+          <span className="home-v2-popup-slide-deck-title">Lab37</span>
+          <div className="home-v2-popup-nav-actions">
+            <span className="home-v2-popup-slide-deck-count" aria-live="polite">
+              {logicalIndex + 1} / {slideCount}
+            </span>
+            <button
+              type="button"
+              className="home-v2-popup-close"
+              onClick={onClose}
+              aria-label="Close slide deck"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </nav>
+
+        <div className="home-v2-popup-slide-deck-stage">
+          <button
+            type="button"
+            className="home-v2-popup-slide-deck-arrow home-v2-popup-slide-deck-arrow--prev"
+            onClick={goPrev}
+            aria-label="Previous slide"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          <div className="home-v2-popup-slide-deck-frame">
+            <div
+              className={`home-v2-popup-slide-deck-track${animate ? '' : ' home-v2-popup-slide-deck-track--no-anim'}`}
+              style={{ transform: `translateX(-${trackIndex * 100}%)` }}
+              onTransitionEnd={handleTransitionEnd}
+            >
+              {trackSlides.map((src, i) => (
+                <div key={`${src}-${i}`} className="home-v2-popup-slide-deck-slide">
+                  <img
+                    className="home-v2-popup-slide-deck-image"
+                    src={src}
+                    alt={
+                      i === 0 || i === trackSlides.length - 1
+                        ? ''
+                        : `Lab37 slide ${i} of ${slideCount}`
+                    }
+                    draggable={false}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="home-v2-popup-slide-deck-arrow home-v2-popup-slide-deck-arrow--next"
+            onClick={goNext}
+            aria-label="Next slide"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const WORK_CARDS = [
   {
     id: 'placeholder1',
@@ -381,6 +543,15 @@ const WORK_CARDS = [
     sub: 'User satisfaction increased +72%',
     bgStyle: { backgroundImage: 'url(/project2-events.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'dark',
+  },
+  {
+    id: 'lab37' as const,
+    label: 'Lab37',
+    year: '2026',
+    hoverLine: 'Creating an error framework system to process any kind of obstacle.',
+    sub: '2026 Take Home Challenge',
+    bgStyle: { backgroundImage: 'url(/lab37-cover.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' },
+    visual: 'apple',
   },
   {
     id: 'project3' as const,
@@ -660,6 +831,19 @@ export default function HomePageV2() {
                     onVideoEnded={onProject2VideoEnded}
                     videoPreload="metadata"
                   />
+                ) : card.id === 'lab37' ? (
+                  <button
+                    type="button"
+                    className={`home-v2-card home-v2-card--${card.visual} home-v2-card--has-bg`}
+                    style={'bgStyle' in card ? card.bgStyle : undefined}
+                    onClick={() => openPopup('lab37')}
+                    aria-label="Open Lab37 slide deck"
+                  >
+                    <span className="home-v2-card-pill">
+                      <span className="home-v2-card-pill-label">{card.label}</span>
+                      <span className="home-v2-card-pill-year"> · {card.year}</span>
+                    </span>
+                  </button>
                 ) : card.id === 'project3' ? (
                   <button
                     type="button"
@@ -742,6 +926,8 @@ export default function HomePageV2() {
             onStateChange={setFigpalBuilderState}
           />
         </Suspense>
+      ) : popupCaseStudy === 'lab37' ? (
+        <Lab37SlideDeckPopup onClose={closePopup} />
       ) : popupCaseStudy === 'project3' ? (
         <Project3FigmaPopup onClose={closePopup} />
       ) : null}

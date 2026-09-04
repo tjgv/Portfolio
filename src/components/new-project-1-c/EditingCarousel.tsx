@@ -18,8 +18,8 @@ const MVP_PRIORITY_CARDS = [
   {
     id: 'layering-support',
     icon: '/new-project-1/icons/layering-support.svg',
-    title: 'Layering Support',
-    body: 'Communicate layer hierarchy and the unique behaviors of each layer type. The challenge was designing a consistent layer system where each layer behaves differently.',
+    title: 'Simpler Properties',
+    body: 'Create a system to prioritize properties so that users have a more focused view of just what they need.',
   },
   {
     id: 'auto-play-scenes',
