@@ -27,6 +27,8 @@ const LAB37_SLIDES = Array.from(
   { length: LAB37_SLIDE_COUNT },
   (_, i) => `/lab37/slides/slide-${String(i + 1).padStart(2, '0')}.jpg`
 )
+/** Set true to show Lab37 on the homepage again. Card, modal, and assets stay in place. */
+const SHOW_LAB37_CARD = false
 
 const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
@@ -764,7 +766,7 @@ export default function HomePageV2() {
         </header>
         <main className="home-v2-main home-v2-main--work">
           <div className="home-v2-cards">
-            {WORK_CARDS.map((card, index) => {
+            {WORK_CARDS.filter((card) => SHOW_LAB37_CARD || card.id !== 'lab37').map((card, index) => {
               const isPlaying =
                 (card.id === 'placeholder1' && heroShowVideo) ||
                 (card.id === 'project1' && project1ShowVideo) ||
