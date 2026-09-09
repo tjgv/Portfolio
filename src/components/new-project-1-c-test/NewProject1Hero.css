@@ -51,10 +51,18 @@
 }
 
 @media (max-width: 767px) {
-  /* Full-bleed width; contain so the 16:9 reel isn’t cropped/blown up in a tall viewport */
+  /* Video occupies the top half of the sticky viewport */
+  .np1c-hero__media {
+    inset: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50vh;
+  }
+
   .np1c-hero__video {
-    object-fit: contain;
-    object-position: center;
+    object-fit: cover;
+    object-position: center center;
   }
 
   .np1c-video-sticky {

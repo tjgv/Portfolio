@@ -215,12 +215,38 @@
     align-content: center;
   }
 
+  .np1c-quote-card-stack {
+    width: 100%;
+  }
+
+  /* Card full width (within section margins); arrows under the box at its edges */
   .np1c-quote-card-stack__row {
-    gap: 6px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'card card'
+      'prev next';
+    align-items: center;
+    column-gap: 0;
+    row-gap: 12px;
+    width: 100%;
   }
 
   .np1c-quote-card {
+    grid-area: card;
+    width: 100%;
+    flex: none;
     padding: clamp(32px, 5vw, 48px);
+  }
+
+  .np1c-quote-card__side-arrow--prev {
+    grid-area: prev;
+    justify-self: start;
+  }
+
+  .np1c-quote-card__side-arrow--next {
+    grid-area: next;
+    justify-self: end;
   }
 
   .np1c-quote-card__quote-text {

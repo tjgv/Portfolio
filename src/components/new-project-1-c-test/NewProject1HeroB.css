@@ -209,6 +209,21 @@
     min-height: 0;
   }
 
+  .np1c-hero-scroll--b .np1c-hero__media {
+    inset: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50vh;
+  }
+
+  /* Center of the lower half (50–100vh → 75vh) */
+  .np1c-hero-scroll-cue {
+    top: 75%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+
   .np1c-hero-scroll--b .np1c-handoff-ipad {
     width: min(70%, 420px);
   }

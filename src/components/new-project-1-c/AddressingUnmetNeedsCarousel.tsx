@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type TouchEvent } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { ImgWithLoader, VideoWithLoader } from '../MediaLoader'
 import CarouselVideoReplayButton from './CarouselVideoReplayButton'
@@ -6,6 +6,9 @@ import { SOLUTION_VIDEO_SLIDES } from './solutionVideoSlides'
 import { type HighlightSlide } from './highlightsSlides'
 import { PILL_LUCIDE_ICON_SIZE } from './pillControlSizes'
 import './AddressingUnmetNeedsCarousel.css'
+
+/** First slide aspect — locks media frame height on mobile for every slide. */
+const FIRST_SLIDE_ASPECT = SOLUTION_VIDEO_SLIDES[0]?.aspectRatio ?? '1920 / 1046'
 
 function GiantPlayIcon() {
   return (
@@ -25,6 +28,8 @@ export default function AddressingUnmetNeedsCarousel() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const activeIndexRef = useRef(0)
   const isPlayingRef = useRef(true)
+  const touchStartX = useRef<number | null>(null)
+  const touchStartY = useRef<number | null>(null)
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
@@ -50,6 +55,26 @@ export default function AddressingUnmetNeedsCarousel() {
 
   const handleVideoRestart = () => {
     setIsPlaying(true)
+  }
+
+  const handleTouchStart = (e: TouchEvent) => {
+    const touch = e.touches[0]
+    if (!touch) return
+    touchStartX.current = touch.clientX
+    touchStartY.current = touch.clientY
+  }
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    if (touchStartX.current == null || touchStartY.current == null) return
+    const touch = e.changedTouches[0]
+    if (!touch) return
+    const dx = touch.clientX - touchStartX.current
+    const dy = touch.clientY - touchStartY.current
+    touchStartX.current = null
+    touchStartY.current = null
+    if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.2) return
+    if (dx < 0) goNext()
+    else goPrev()
   }
 
   useEffect(() => {
@@ -128,7 +153,12 @@ export default function AddressingUnmetNeedsCarousel() {
       <div className="np1c-aun-section__stack">
         <div
           className="np1c-aun-carousel"
-          style={{ ['--np1c-aun-slide-count' as string]: slideCount }}
+          style={
+            {
+              ['--np1c-aun-slide-count' as string]: slideCount,
+              ['--np1c-aun-first-aspect' as string]: FIRST_SLIDE_ASPECT,
+            } as CSSProperties
+          }
           role="region"
           aria-roledescription="carousel"
           aria-label="Addressing Unmet Needs feature highlights"
@@ -157,7 +187,11 @@ export default function AddressingUnmetNeedsCarousel() {
             <ChevronRight size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} aria-hidden />
           </button>
 
-          <div className="np1c-aun-carousel__content">
+          <div
+            className="np1c-aun-carousel__content"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <div className="np1c-aun-carousel__media-stack">
               <div
                 className="np1c-aun-carousel__track"
@@ -187,6 +221,30 @@ export default function AddressingUnmetNeedsCarousel() {
             <p className="np1c-aun-carousel__caption" aria-live="polite">
               {activeSlide.caption}
             </p>
+
+            {slideCount > 1 ? (
+              <div
+                className="np1c-aun-carousel__dots"
+                role="tablist"
+                aria-label="Choose selling point slide"
+              >
+                {slides.map((slide, index) => {
+                  const selected = index === activeIndex
+                  return (
+                    <button
+                      key={slide.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={selected}
+                      aria-label={`Go to slide ${index + 1}`}
+                      aria-controls={`np1c-aun-slide-${slide.id}`}
+                      className={`np1c-aun-carousel__dot${selected ? ' np1c-aun-carousel__dot--active' : ''}`}
+                      onClick={() => goToSlide(index)}
+                    />
+                  )
+                })}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

@@ -226,6 +226,10 @@
   display: none;
 }
 
+.np1c-aun-carousel__dots {
+  display: none;
+}
+
 @media (max-width: 767px) {
   .np1c-section.np1c-aun-section {
     min-height: 0;
@@ -236,35 +240,56 @@
   }
 
   .np1c-aun-section__stack {
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
+    padding-inline: var(--np1c-content-padding-inline, 16px);
+    box-sizing: border-box;
   }
 
   .np1c-aun-carousel {
-    --np1c-aun-pad: 12px;
-    --np1c-aun-side: calc(var(--np1c-aun-pad) + var(--np1c-aun-arrow-size) + 8px);
-    --np1c-aun-media-w: calc(100vw - 2 * var(--np1c-aun-side));
-    --np1c-aun-media-h: calc(var(--np1c-aun-media-w) * 1046 / 1920);
+    --np1c-aun-pad: 0px;
+    --np1c-aun-side: 0px;
+    /* Lock every slide to the first video’s aspect (1920 / 1046) */
+    --np1c-aun-first-aspect: 1920 / 1046;
+    display: flex;
+    flex-direction: column;
     height: auto;
     max-height: none;
     border-radius: 0;
     overflow: visible;
   }
 
+  .np1c-aun-carousel__arrow {
+    display: none !important;
+  }
+
+  .np1c-aun-carousel__overlay-label {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    z-index: auto;
+    flex: 0 0 auto;
+    margin: 0 0 12px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   .np1c-aun-carousel__content {
     position: relative;
     inset: auto;
     width: 100%;
-    padding: var(--np1c-aun-pad) var(--np1c-aun-side);
+    padding: 0;
     box-sizing: border-box;
     gap: 12px;
+    touch-action: pan-y;
   }
 
   .np1c-aun-carousel__media-stack {
     flex: 0 0 auto;
     width: 100%;
     height: auto;
-    aspect-ratio: 1920 / 1046;
+    aspect-ratio: var(--np1c-aun-first-aspect);
   }
 
   .np1c-aun-carousel__track,
@@ -278,7 +303,6 @@
     height: 100%;
   }
 
-  /* Fill the frame — no 85% inset that leaves empty chrome around the video */
   .np1c-aun-carousel__media--scaled .np1c-aun-carousel__video-wrap,
   .np1c-aun-carousel__media--scaled .np1c-aun-carousel__image {
     width: 100%;
@@ -294,26 +318,40 @@
     width: 100%;
     margin: 0;
     min-height: 0;
-    /* Let the full caption wrap — 2-line clamp was clipping on small phones */
     display: block;
     -webkit-line-clamp: unset;
     overflow: visible;
   }
 
-  .np1c-aun-carousel__arrow--prev,
-  .np1c-aun-carousel__arrow--next {
-    /* Vertically center on the video frame, not the full viewport */
-    top: calc(var(--np1c-aun-pad) + var(--np1c-aun-media-h) / 2);
-    bottom: auto;
-    transform: translateY(-50%);
+  .np1c-aun-carousel__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 4px 0 0;
+    padding: 0;
   }
 
-  .np1c-aun-carousel__arrow--prev {
-    left: max(8px, env(safe-area-inset-left, 0px));
+  .np1c-aun-carousel__dot {
+    width: 8px;
+    height: 8px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.28);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
   }
 
-  .np1c-aun-carousel__arrow--next {
-    right: max(8px, env(safe-area-inset-right, 0px));
+  .np1c-aun-carousel__dot--active {
+    background: rgba(255, 255, 255, 0.92);
+    transform: scale(1.15);
+  }
+
+  .np1c-aun-carousel__dot:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 3px;
   }
 }
 

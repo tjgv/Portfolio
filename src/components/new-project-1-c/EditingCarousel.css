@@ -375,22 +375,25 @@
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 767px) {
   .np1c-editing-carousel__carousel {
-    /* Bleed past page gutters so edge arrows can sit on the screen edges */
-    width: 100vw;
-    max-width: 100vw;
-    margin-inline: calc(50% - 50vw);
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
     padding-inline: 0;
     box-sizing: border-box;
   }
 
-  .np1c-editing-carousel__carousel > .np1c-carousel-edge-arrows {
-    left: 0;
-    right: 0;
+  .np1c-editing-carousel__slide {
+    --np1c-ec-slide-width: 100%;
   }
 
-  /* No scroll-triggered pill on mobile — edge arrows are enough */
+  .np1c-editing-carousel__track {
+    gap: 0;
+    width: 100%;
+  }
+
+  /* Dots for jump-to-slide; edge arrows are hidden on mobile */
   .np1c-editing-carousel__carousel > .np1c-carousel-controls {
-    display: none;
+    display: flex;
   }
 }
 
