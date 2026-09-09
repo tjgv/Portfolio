@@ -249,6 +249,18 @@
   }
 }
 
+@media (max-width: 767px) {
+  .np1c-results__intro {
+    width: 100%;
+    max-width: none;
+  }
+
+  .np1c-results__body {
+    width: 100%;
+    max-width: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .np1c-results__item {
     opacity: 1;

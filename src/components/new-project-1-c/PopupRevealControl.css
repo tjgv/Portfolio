@@ -137,7 +137,7 @@
   -webkit-backdrop-filter: blur(calc(var(--popup-glass, 0) * 20px)) saturate(160%);
   box-shadow: 0 calc(var(--popup-glass, 0) * 8px) calc(var(--popup-glass, 0) * 32px) rgba(0, 0, 0, 0.35);
   transform: translate(-50%, calc(var(--grow-seed-y, 0) - 50%));
-  overflow: hidden;
+  overflow: visible;
   visibility: hidden;
   pointer-events: none;
   white-space: nowrap;
@@ -182,7 +182,7 @@
   flex: 0 1 auto;
   max-width: calc(var(--popup-expand, 0) * var(--np1c-pill-cta-max));
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
   font-size: clamp(18px, 1.69vw, 21px);
   font-weight: 500;
   line-height: 1.25;
@@ -344,8 +344,22 @@
     width: min(calc(100vw - 24px), 360px);
   }
 
+  /* Measure with the same type size + left-pad gap as the visible pill so
+     width isn’t oversized (which used to dump leftover space between text and +). */
+  .np1c-popup-aap__morph-pill--measure {
+    gap: var(--np1c-pill-pad-expand-left);
+  }
+
+  .np1c-popup-aap__morph-pill--measure .np1c-popup-aap__label {
+    font-size: 16px;
+  }
+
   .np1c-popup-aap__morph-pill--expanding .np1c-popup-aap__label {
     font-size: 16px;
+  }
+
+  .np1c-popup-aap__morph-pill--expanding .np1c-popup-aap__action {
+    margin-left: 0;
   }
 }
 

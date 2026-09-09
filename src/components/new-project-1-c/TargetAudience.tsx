@@ -6,16 +6,11 @@ const AUDIENCE_VIDEO = '/new-project-1/audience-educators.mp4'
 const PLAYBACK_RATE = 0.75
 const VIDEO_START_SEC = 2
 
-const CARDS = [
+const TEXT_CARDS = [
   {
     id: 'educators',
     title: 'Educators',
     body: "Professors, TA's, Speakers, and those who use the tool as an extension of their work.",
-  },
-  {
-    id: 'media',
-    video: AUDIENCE_VIDEO,
-    videoLabel: 'Educator presenting immersive dome content to an audience',
   },
   {
     id: 'students',
@@ -62,31 +57,31 @@ export default function TargetAudience() {
         <h2 className="np1c-audience__heading">Who we&apos;re anticipating to pick up CX Pro.</h2>
 
         <div className="np1c-audience__grid np1c-media--xl">
-          {CARDS.map((card) =>
-            'video' in card ? (
-              <article key={card.id} className="np1c-audience-card np1c-audience-card--media">
-                <div className="np1c-audience-card__media">
-                  <VideoWithLoader
-                    fill
-                    src={card.video}
-                    aria-label={card.videoLabel}
-                    autoPlay
-                    muted
-                    playsInline
-                    preload="auto"
-                    onLoadedData={(e) => prepareVideo(e.currentTarget)}
-                    onCanPlay={(e) => prepareVideo(e.currentTarget)}
-                    onEnded={handleEnded}
-                  />
-                </div>
-              </article>
-            ) : (
+          <article className="np1c-audience-card np1c-audience-card--media">
+            <div className="np1c-audience-card__media">
+              <VideoWithLoader
+                fill
+                src={AUDIENCE_VIDEO}
+                aria-label="Educator presenting immersive dome content to an audience"
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+                onLoadedData={(e) => prepareVideo(e.currentTarget)}
+                onCanPlay={(e) => prepareVideo(e.currentTarget)}
+                onEnded={handleEnded}
+              />
+            </div>
+          </article>
+
+          <div className="np1c-audience__text-cards">
+            {TEXT_CARDS.map((card) => (
               <article key={card.id} className="np1c-audience-card">
                 <h3 className="np1c-audience-card__title">{card.title}</h3>
                 <p className="np1c-audience-card__body">{card.body}</p>
               </article>
-            )
-          )}
+            ))}
+          </div>
         </div>
       </div>
     </section>

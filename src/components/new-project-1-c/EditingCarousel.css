@@ -374,54 +374,22 @@
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 767px) {
-  /* Carousel → vertical media stack (no swipe / controls) */
-  .np1c-editing-carousel__gallery {
-    overflow: visible;
+  .np1c-editing-carousel__carousel {
+    /* Bleed past page gutters so edge arrows can sit on the screen edges */
+    width: 100vw;
+    max-width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: 0;
+    box-sizing: border-box;
   }
 
-  .np1c-editing-carousel__track {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    gap: clamp(20px, 4vh, 32px);
-  }
-
-  .np1c-editing-carousel__slide,
-  .np1c-editing-carousel__slide--narrow {
-    flex: 0 0 auto;
-    width: 85% !important;
-    --np1c-ec-slide-width: 85%;
-  }
-
-  .np1c-editing-carousel__media-frame,
-  .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__media-frame {
-    width: 100% !important;
-    height: auto !important;
-    max-height: none;
-  }
-
-  .np1c-editing-carousel__video,
-  .np1c-editing-carousel__image,
-  .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__image,
-  .np1c-editing-carousel__panel,
-  .np1c-editing-carousel__panel-video,
-  .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__media-frame .np1c-editing-carousel__panel video {
-    width: 100%;
-    height: auto;
-    max-height: none;
-    object-fit: contain;
-  }
-
-  .np1c-editing-carousel__panel {
-    display: flex;
-    max-height: none;
-  }
-
-  .np1c-editing-carousel__carousel > .np1c-carousel-controls,
   .np1c-editing-carousel__carousel > .np1c-carousel-edge-arrows {
+    left: 0;
+    right: 0;
+  }
+
+  /* No scroll-triggered pill on mobile — edge arrows are enough */
+  .np1c-editing-carousel__carousel > .np1c-carousel-controls {
     display: none;
   }
 }

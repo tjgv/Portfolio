@@ -72,15 +72,15 @@
   --np1c-body-hero-ls: 0.7px;
   --np1c-body-hero-weight: 400;
 
-  /* Body-1 — Inter Medium 17 / 25px / 0.23px (−4px from 21) */
+  /* Body-1 — Inter Medium 17 / 18.75px / 0.23px (lh −25% from 25px) */
   --np1c-body-1-size: clamp(13px, 1.4vw, 17px);
-  --np1c-body-1-lh: 25px;
+  --np1c-body-1-lh: 18.75px;
   --np1c-body-1-ls: 0.23px;
   --np1c-body-1-weight: 500;
 
-  /* Body-2 — Inter Regular 17 / 147% / -0.35px */
+  /* Body-2 — Inter Regular 17 / 110.25% / -0.35px (lh −25% from 147%) */
   --np1c-body-2-size: clamp(15px, 1.1vw, 17px);
-  --np1c-body-2-lh: 1.47;
+  --np1c-body-2-lh: 1.1025;
   --np1c-body-2-ls: -0.35px;
   --np1c-body-2-weight: 400;
 

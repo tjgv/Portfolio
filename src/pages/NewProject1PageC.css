@@ -157,11 +157,13 @@
     max-width: none;
   }
 
-  /* Stacked carousel media shares the same 16px inset as text */
+  /* Full-bleed carousel so edge arrows can sit on the screen edges */
   .np1c-page .np1c-carousel-section__body,
   .np1c-page .np1c-editing-carousel__carousel {
-    width: 100%;
-    padding-inline: var(--np1c-wide-padding-inline);
+    width: 100vw;
+    max-width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: 0;
     box-sizing: border-box;
   }
 
@@ -177,7 +179,12 @@
   .np1c-page .np1c-audience-card__body,
   .np1c-page .np1c-stub--goal .np1c-stub__body,
   .np1c-page .np1c-h-text-stack__headline,
-  .np1c-page .np1c-h-text-stack__body {
+  .np1c-page .np1c-h-text-stack__body,
+  .np1c-page .np1c-problem--b .np1c-problem__body,
+  .np1c-page .np1c-problem__copy-inner,
+  .np1c-page .np1c-results__intro,
+  .np1c-page .np1c-results__body,
+  .np1c-page .np1c-editing-mvp__body {
     max-width: none;
     width: 100%;
   }

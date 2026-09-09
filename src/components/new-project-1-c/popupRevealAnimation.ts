@@ -58,6 +58,10 @@ export function computePopupRevealVars(
 
   const padLeft = expand > 0 ? lerp(PILL_PAD_CENTER, 30, expand) : PILL_PAD_CENTER
   const padRight = expand > 0 ? lerp(PILL_PAD_CENTER, PILL_PAD / 2, expand) : PILL_PAD_CENTER
+  /* Mobile: text↔button gap matches text↔left-edge (padLeft). Desktop keeps PILL_INNER_GAP. */
+  const isMobile =
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches
+  const gapTarget = isMobile ? 30 : PILL_INNER_GAP
 
   return {
     expand,
@@ -69,7 +73,7 @@ export function computePopupRevealVars(
       '--popup-action-size': `${ACTION_SIZE}px`,
       '--popup-pad-left': `${padLeft}px`,
       '--popup-pad-right': `${padRight}px`,
-      '--popup-pill-gap': `${lerp(0, PILL_INNER_GAP, expand)}px`,
+      '--popup-pill-gap': `${lerp(0, gapTarget, expand)}px`,
       '--popup-glass': glass,
       '--popup-btn-opacity': btnFade,
       '--popup-text-opacity': expand,

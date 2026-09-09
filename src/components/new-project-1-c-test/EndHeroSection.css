@@ -58,3 +58,30 @@
   max-width: 100%;
   object-fit: contain;
 }
+
+@media (max-width: 767px) {
+  .np1c-section.np1c-end-hero {
+    height: auto;
+    min-height: 0;
+    padding-block: clamp(32px, 6vh, 64px);
+  }
+
+  .np1c-end-hero__stage,
+  .np1c-end-hero__inner {
+    height: auto;
+  }
+
+  .np1c-end-hero__inner .media-with-loader-wrap {
+    height: auto;
+    width: 100%;
+  }
+
+  .np1c-end-hero__image {
+    width: 100%;
+    height: auto;
+  }
+
+  .np1c-end-hero__gradient {
+    height: 100%;
+  }
+}

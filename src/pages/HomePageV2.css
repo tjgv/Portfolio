@@ -245,8 +245,9 @@
   margin-left: auto;
 }
 
+/* Mobile hamburger lives in SiteMainNav — do not force full-width chip row */
 @media (max-width: 639px) {
-  .home-v2-nav {
+  .home-v2-nav:not(.site-main-nav) {
     margin-left: 0;
     margin-top: 4px;
     width: 100%;
@@ -639,6 +640,17 @@
   color: #86efac;
   background: rgba(15, 71, 38, 0.7);
   border: 1px solid #86efac;
+}
+
+.home-v2-card-chip--soon {
+  color: rgba(245, 245, 247, 0.92);
+  background: rgba(58, 58, 60, 0.72);
+  border: 1px solid rgba(245, 245, 247, 0.28);
+}
+
+.home-v2-card:disabled {
+  cursor: default;
+  pointer-events: none;
 }
 
 @media (max-width: 479px) {

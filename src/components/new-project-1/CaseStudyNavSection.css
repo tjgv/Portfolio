@@ -143,18 +143,54 @@
   color: rgba(74, 74, 74, 0.75);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .np1-case-study-nav__row {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .np1-case-study-nav__card {
+    flex: 1 1 0;
+    gap: 10px;
+    padding: 16px max(12px, env(safe-area-inset-right, 0px)) 16px
+      max(12px, env(safe-area-inset-left, 0px));
+  }
+
+  .np1-case-study-nav__card--prev {
+    justify-content: flex-start;
+    text-align: left;
+    padding-right: 8px;
   }
 
   .np1-case-study-nav__card--next {
-    justify-content: flex-start;
-    text-align: left;
+    justify-content: flex-end;
+    text-align: right;
+    padding-left: 8px;
   }
 
   .np1-case-study-nav__card--next .np1-case-study-nav__cta-row {
-    justify-content: flex-start;
+    justify-content: flex-end;
+  }
+
+  .np1-case-study-nav__title {
+    font-size: var(--np1-body-2-size);
+    font-weight: var(--np1-body-2-weight);
+    line-height: var(--np1-body-2-lh);
+    letter-spacing: var(--np1-body-2-ls);
+  }
+
+  .np1-case-study-nav__thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+  }
+
+  /* When both neighbors show, drop thumbs so titles fit on one row */
+  .np1-case-study-nav__row:has(.np1-case-study-nav__card--prev):has(
+      .np1-case-study-nav__card--next
+    )
+    .np1-case-study-nav__thumb {
+    display: none;
   }
 
   .np1-case-study-nav__spacer {

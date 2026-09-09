@@ -8,7 +8,6 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
 import { ImgWithLoader } from '../components/MediaLoader'
 import EmbedControlledVideo from '../components/new-project-1-c/EmbedControlledVideo'
 import ResultsPhasesAnimation from '../components/new-project-1-c/ResultsPhasesAnimation'
@@ -29,34 +28,12 @@ import EndHeroSection from '../components/new-project-1-c/EndHeroSection'
 import ResultsSection from '../components/new-project-1-c/ResultsSection'
 import TargetAudience from '../components/new-project-1-c/TargetAudience'
 import DeducingUserNeeds from '../components/new-project-1-c/DeducingUserNeeds'
+import SiteMainNav from '../components/SiteMainNav'
 import './NewProject1PageCBase.css'
 import './NewProject1PageC.css'
 
 export const NEW_PROJECT_1_ROUTE = '/consumer-cx-pro'
 export const NEW_PROJECT_1_C_ROUTE = '/consumer-cx-pro'
-
-const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
-const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
-
-/* Diagonal arrow that slides up-and-out on hover, replaced by a duplicate
-   sliding in from the opposite corner — signals "opens in a new tab".
-   Mirrors the homepage nav's NavExternalArrow. */
-function NavExternalArrow() {
-  return (
-    <span className="np1c-nav__arrow" aria-hidden="true">
-      <ArrowUpRight
-        className="np1c-nav__arrow-icon np1c-nav__arrow-icon--primary"
-        size={13}
-        strokeWidth={2.25}
-      />
-      <ArrowUpRight
-        className="np1c-nav__arrow-icon np1c-nav__arrow-icon--secondary"
-        size={13}
-        strokeWidth={2.25}
-      />
-    </span>
-  )
-}
 
 export const NEW_PROJECT_1_META = {
   title: 'Finding Familiarity in Complexity',
@@ -471,36 +448,14 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
       className={`np1c-page${embedded ? ' cx-pro-page--embedded' : ''}`}
     >
       {!embedded && (
-        <nav className="np1c-nav" aria-label="Main navigation">
+        <div className="np1c-nav">
           <Link to="/" className="np1c-nav__back" aria-label="Back to home">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </Link>
-          <div className="np1c-nav__links">
-            <Link to="/" className="np1c-nav__link">Work</Link>
-            <Link to="/contact" className="np1c-nav__link">About</Link>
-            <span className="np1c-nav__divider" aria-hidden="true" />
-            <a
-              href={RESUME_PDF_PATH}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="np1c-nav__link np1c-nav__link--external"
-            >
-              Resume
-              <NavExternalArrow />
-            </a>
-            <a
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="np1c-nav__link np1c-nav__link--external"
-            >
-              LinkedIn
-              <NavExternalArrow />
-            </a>
-          </div>
-        </nav>
+          <SiteMainNav theme="dark" active="work" />
+        </div>
       )}
 
       <main className={`project-main${embedded ? ' project-main--embedded' : ''}`}>

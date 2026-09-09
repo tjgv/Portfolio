@@ -8,6 +8,10 @@ import CxProPage from './CxProPage'
 import Project2Page from './Project2Page'
 import NewProject1PageC, { NEW_PROJECT_1_META, NEW_PROJECT_1_ROUTE } from './NewProject1PageC'
 import CaseStudyPreviewNav from '../components/CaseStudyPreviewNav'
+import SiteMainNav, {
+  SITE_LINKEDIN_URL,
+  SITE_RESUME_PDF_PATH,
+} from '../components/SiteMainNav'
 import { CASE_STUDIES } from '../data/caseStudies'
 import './HomePageV2.css'
 
@@ -27,11 +31,9 @@ const LAB37_SLIDES = Array.from(
   { length: LAB37_SLIDE_COUNT },
   (_, i) => `/lab37/slides/slide-${String(i + 1).padStart(2, '0')}.jpg`
 )
-/** Set true to show Lab37 on the homepage again. Card, modal, and assets stay in place. */
-const SHOW_LAB37_CARD = false
 
-const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
-const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
+const RESUME_PDF_PATH = SITE_RESUME_PDF_PATH
+const LINKEDIN_URL = SITE_LINKEDIN_URL
 
 /* Diagonal arrow that slides up-and-out on hover, replaced by a duplicate
    sliding in from the opposite corner — signals "opens in a new tab". */
@@ -524,7 +526,7 @@ const WORK_CARDS = [
     label: 'Consumer-Grade CX Pro',
     year: '2026',
     hoverLine: 'Simplifying CX Pro for Commercial Launch',
-    sub: 'Projected to generate $XM over 5 years.',
+    sub: 'Projected to generate $X00K over 5 years.',
     bgStyle: { backgroundImage: 'url(/new-project-1/hero-bg.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'apple',
   },
@@ -547,21 +549,21 @@ const WORK_CARDS = [
     visual: 'dark',
   },
   {
-    id: 'lab37' as const,
-    label: 'Lab37',
-    year: '2026',
-    hoverLine: 'Creating an error framework system to process any kind of obstacle.',
-    sub: '2026 Take Home Challenge',
-    bgStyle: { backgroundImage: 'url(/lab37-cover.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' },
-    visual: 'apple',
-  },
-  {
     id: 'project3' as const,
     label: 'NFL IQ',
     year: '2026',
     hoverLine: 'Auditing and transforming the NFL IQ user experience.',
     sub: '2026 Take Home Challenge',
     bgStyle: { backgroundImage: 'url(/nfl-iq-cover.png)', backgroundSize: 'cover', backgroundPosition: 'center' },
+    visual: 'apple',
+  },
+  {
+    id: 'lab37' as const,
+    label: 'Lab37',
+    year: '2026',
+    hoverLine: 'Creating an error framework system to process any kind of obstacle.',
+    sub: '2026 Take Home Challenge',
+    bgStyle: { backgroundImage: 'url(/lab37-cover.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' },
     visual: 'apple',
   },
   {
@@ -738,35 +740,13 @@ export default function HomePageV2() {
                   Product designer with a speciality in crafting simple workflows based on complex systems.
                 </p>
               </div>
-              <nav className="home-v2-nav" aria-label="Main">
-                <button type="button" className="home-v2-nav-item home-v2-nav-item--active">Work</button>
-                <Link to="/contact" className="home-v2-nav-item">About</Link>
-                <span className="home-v2-nav-divider" aria-hidden="true" />
-                <a
-                  href={RESUME_PDF_PATH}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="home-v2-nav-item home-v2-nav-item--external"
-                >
-                  Resume
-                  <NavExternalArrow />
-                </a>
-                <a
-                  href={LINKEDIN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="home-v2-nav-item home-v2-nav-item--external"
-                >
-                  LinkedIn
-                  <NavExternalArrow />
-                </a>
-              </nav>
+              <SiteMainNav theme="light" active="work" />
             </div>
           </div>
         </header>
         <main className="home-v2-main home-v2-main--work">
           <div className="home-v2-cards">
-            {WORK_CARDS.filter((card) => SHOW_LAB37_CARD || card.id !== 'lab37').map((card, index) => {
+            {WORK_CARDS.map((card, index) => {
               const isPlaying =
                 (card.id === 'placeholder1' && heroShowVideo) ||
                 (card.id === 'project1' && project1ShowVideo) ||
@@ -838,9 +818,10 @@ export default function HomePageV2() {
                     type="button"
                     className={`home-v2-card home-v2-card--${card.visual} home-v2-card--has-bg`}
                     style={'bgStyle' in card ? card.bgStyle : undefined}
-                    onClick={() => openPopup('lab37')}
-                    aria-label="Open Lab37 slide deck"
+                    disabled
+                    aria-label="Lab37 — Coming Soon"
                   >
+                    <span className="home-v2-card-chip home-v2-card-chip--soon">Coming Soon</span>
                     <span className="home-v2-card-pill">
                       <span className="home-v2-card-pill-label">{card.label}</span>
                       <span className="home-v2-card-pill-year"> · {card.year}</span>

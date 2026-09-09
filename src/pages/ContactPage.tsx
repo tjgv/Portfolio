@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom'
 import { MapPin, GraduationCap, ArrowUpRight } from 'lucide-react'
+import SiteMainNav, {
+  SITE_LINKEDIN_URL,
+  SITE_RESUME_PDF_PATH,
+} from '../components/SiteMainNav'
 import './HomePageV2.css'
 import './ContactPage.css'
 
-const RESUME_PDF_PATH = '/resume/TJ-Gomez-Vidal-Resume.pdf'
-const LINKEDIN_URL = 'https://www.linkedin.com/in/trent-gomez-vidal/?skipRedirect=true'
+const RESUME_PDF_PATH = SITE_RESUME_PDF_PATH
+const LINKEDIN_URL = SITE_LINKEDIN_URL
 
-/* Diagonal arrow that slides up-and-out on hover, replaced by a duplicate
-   sliding in from the opposite corner — signals "opens in a new tab".
-   Mirrors the homepage nav's NavExternalArrow. */
+/* Diagonal arrow for footer external links */
 function NavExternalArrow() {
   return (
     <span className="home-v2-nav-arrow" aria-hidden="true">
@@ -43,29 +45,7 @@ export default function ContactPage() {
                   Product designer with a speciality in crafting simple workflows based on complex systems.
                 </p>
               </div>
-              <nav className="home-v2-nav" aria-label="Main">
-                <Link to="/" className="home-v2-nav-item">Work</Link>
-                <span className="home-v2-nav-item home-v2-nav-item--active">About</span>
-                <span className="home-v2-nav-divider" aria-hidden="true" />
-                <a
-                  href={RESUME_PDF_PATH}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="home-v2-nav-item home-v2-nav-item--external"
-                >
-                  Resume
-                  <NavExternalArrow />
-                </a>
-                <a
-                  href={LINKEDIN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="home-v2-nav-item home-v2-nav-item--external"
-                >
-                  LinkedIn
-                  <NavExternalArrow />
-                </a>
-              </nav>
+              <SiteMainNav theme="light" active="about" />
             </div>
           </div>
         </header>

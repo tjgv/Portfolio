@@ -56,11 +56,28 @@
 }
 
 .np1c-carousel-edge-arrow--prev {
-  left: 5vw;
+  left: max(12px, env(safe-area-inset-left, 0px));
 }
 
 .np1c-carousel-edge-arrow--next {
-  right: 5vw;
+  right: max(12px, env(safe-area-inset-right, 0px));
+}
+
+@media (max-width: 767px) {
+  /* Pin to the viewport edges even when the carousel body has side padding */
+  .np1c-carousel-edge-arrows {
+    left: calc(-1 * var(--np1c-wide-padding-inline, 16px));
+    right: calc(-1 * var(--np1c-wide-padding-inline, 16px));
+    width: auto;
+  }
+
+  .np1c-carousel-edge-arrow--prev {
+    left: max(8px, env(safe-area-inset-left, 0px));
+  }
+
+  .np1c-carousel-edge-arrow--next {
+    right: max(8px, env(safe-area-inset-right, 0px));
+  }
 }
 
 .np1c-carousel-edge-arrow:hover:not(:disabled) {

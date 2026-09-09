@@ -92,13 +92,21 @@
 
 @media (max-width: 767px) {
   .np1c-audience__grid {
-    grid-template-rows: 22vh 22vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
     width: 100%;
   }
 
   .np1c-audience-card {
+    height: auto;
     padding: 16px;
     gap: 10px;
+  }
+
+  .np1c-audience-card--media {
+    order: -1;
+    min-height: 42vw;
+    aspect-ratio: 16 / 10;
   }
 
   .np1c-audience-card__title {

@@ -205,6 +205,10 @@
 }
 
 @media (max-width: 767px) {
+  .np1c-hero-b-sticky {
+    min-height: 0;
+  }
+
   .np1c-hero-scroll--b .np1c-handoff-ipad {
     width: min(70%, 420px);
   }

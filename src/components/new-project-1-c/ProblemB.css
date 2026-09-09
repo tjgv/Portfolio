@@ -31,3 +31,10 @@
   letter-spacing: var(--np1c-body-1-ls);
   color: var(--np1c-text-sub-hero);
 }
+
+@media (max-width: 767px) {
+  .np1c-problem--b .np1c-problem__body {
+    width: 100%;
+    max-width: none;
+  }
+}

@@ -75,3 +75,26 @@
   color: var(--np1c-header-1-color);
 }
 
+@media (max-width: 767px) {
+  /* Show the full hero image; section height hugs the media */
+  .np1c-problem__stage {
+    min-height: 0;
+    height: auto;
+    line-height: 0;
+  }
+
+  .np1c-problem__image {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .np1c-problem__copy-inner {
+    width: 100%;
+    max-width: none;
+  }
+}
+

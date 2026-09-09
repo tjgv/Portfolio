@@ -50,6 +50,18 @@
   will-change: opacity;
 }
 
+@media (max-width: 767px) {
+  /* Full-bleed width; contain so the 16:9 reel isn’t cropped/blown up in a tall viewport */
+  .np1c-hero__video {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .np1c-video-sticky {
+    min-height: 0;
+  }
+}
+
 .np1c-hero__title {
   max-width: calc(960px * var(--np1c-content-width-scale));
   margin: 0;
