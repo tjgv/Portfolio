@@ -559,8 +559,8 @@ const WORK_CARDS = [
   },
   {
     id: 'lab37' as const,
-    label: 'Lab37',
-    year: '2026',
+    label: 'Coming Soon',
+    year: '—',
     hoverLine: 'Creating an error framework system to process any kind of obstacle.',
     sub: '2026 Take Home Challenge',
     bgStyle: { backgroundImage: 'url(/lab37-cover.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' },
@@ -819,9 +819,8 @@ export default function HomePageV2() {
                     className={`home-v2-card home-v2-card--${card.visual} home-v2-card--has-bg`}
                     style={'bgStyle' in card ? card.bgStyle : undefined}
                     disabled
-                    aria-label="Lab37 — Coming Soon"
+                    aria-label={card.label}
                   >
-                    <span className="home-v2-card-chip home-v2-card-chip--soon">Coming Soon</span>
                     <span className="home-v2-card-pill">
                       <span className="home-v2-card-pill-label">{card.label}</span>
                       <span className="home-v2-card-pill-year"> · {card.year}</span>
