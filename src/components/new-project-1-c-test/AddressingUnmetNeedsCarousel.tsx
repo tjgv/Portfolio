@@ -8,7 +8,11 @@ import { PILL_LUCIDE_ICON_SIZE } from './pillControlSizes'
 import './AddressingUnmetNeedsCarousel.css'
 
 /** First slide aspect — locks media frame height on mobile for every slide. */
-const FIRST_SLIDE_ASPECT = SOLUTION_VIDEO_SLIDES[0]?.aspectRatio ?? '1920 / 1046'
+const FIRST_SLIDE = SOLUTION_VIDEO_SLIDES[0]
+const FIRST_SLIDE_ASPECT =
+  FIRST_SLIDE?.kind === 'video' && FIRST_SLIDE.aspectRatio
+    ? FIRST_SLIDE.aspectRatio
+    : '1920 / 1046'
 
 function GiantPlayIcon() {
   return (
