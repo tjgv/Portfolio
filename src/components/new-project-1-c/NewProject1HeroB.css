@@ -207,6 +207,11 @@
 @media (max-width: 767px) {
   .np1c-hero-b-sticky {
     min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
   }
 
   .np1c-hero-scroll--b .np1c-hero__media {
@@ -215,6 +220,20 @@
     left: 0;
     right: 0;
     height: 50vh;
+  }
+
+  .np1c-hero-scroll--b .np1c-handoff-stack--b {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  /* 25px below the device image (flex gap), not pinned to the viewport bottom */
+  .np1c-hero-scroll--b .np1c-hero__title.np1c-hero__title--below-image {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    margin: 0;
   }
 
   /* Center of the lower half (50–100vh → 75vh) */

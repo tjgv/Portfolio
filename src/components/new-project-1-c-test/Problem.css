@@ -92,6 +92,11 @@
     object-position: left center;
   }
 
+  .np1c-problem__copy {
+    padding-top: 25px;
+    padding-bottom: var(--np1c-content-padding);
+  }
+
   .np1c-problem__copy-inner {
     width: 100%;
     max-width: none;
