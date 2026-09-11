@@ -21,6 +21,8 @@ export type HighlightVideoSlide = {
   narrow?: boolean
   /** Drop this many seconds from the end of playback (source file unchanged). */
   endTrimSeconds?: number
+  /** Inset crop as % of the source frame (top / right / bottom / left). */
+  crop?: { top: number; right: number; bottom: number; left: number }
 }
 
 export type HighlightSlide = HighlightImageSlide | HighlightVideoSlide

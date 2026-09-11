@@ -3,9 +3,10 @@
 .np1c-hero-quote {
   display: flex;
   align-items: center;
-  min-height: 60vh;
+  min-height: 0;
+  height: auto;
   background: var(--np1c-bg);
-  padding-block: clamp(48px, 8vh, 96px);
+  padding-block: var(--np1c-content-padding);
 }
 
 .np1c-hero-quote__inner {

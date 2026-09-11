@@ -2,7 +2,19 @@ import { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react
 import { Link } from 'react-router-dom'
 import { ImgWithLoader } from '../components/MediaLoader'
 import CaseStudyNavSection from '../components/new-project-1/CaseStudyNavSection'
+import SiteMainNav from '../components/SiteMainNav'
+import NavStudyProgress, { type NavCheckpoint } from '../components/new-project-1-c/NavStudyProgress'
+import { useCaseStudyNavCondense } from '../hooks/useCaseStudyNavCondense'
+import '../components/case-study/CaseStudyCondensedNav.css'
 import './CxProPage.css'
+
+const VALIDUS_NAV_CHECKPOINTS: readonly NavCheckpoint[] = [
+  { id: 'intro', label: 'Intro', selector: '.validus-page .cx-hero-intro' },
+  { id: 'context', label: 'Context', selector: '[data-nav-stop="context"]' },
+  { id: 'research', label: 'Research', selector: '[data-nav-stop="research"]' },
+  { id: 'design', label: 'Design', selector: '[data-nav-stop="design"]' },
+  { id: 'testing', label: 'Testing', selector: '[data-nav-stop="testing"]' },
+]
 
 const VALIDUS_IMAGES = '/validus-images'
 
@@ -127,6 +139,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
   const [s28InView, setS28InView] = useState(false)
   const s2Ref = useRef<HTMLDivElement>(null)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
+  const navCondensed = useCaseStudyNavCondense(!embedded)
   useEffect(() => {
     const update = () => {
       const s2 = s2Ref.current
@@ -205,17 +218,15 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         <CxLightbox items={lightbox.items} initialIndex={lightbox.index} onClose={closeLightbox} />
       )}
       {!embedded && (
-      <nav className="navbar-glass" aria-label="Main navigation">
-        <div className="navbar-content">
-          <Link to="/" className="nav-brand nav-brand-back" aria-label="Back to home">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <div className={`np1c-nav np1c-nav--light${navCondensed ? ' np1c-nav--condensed' : ''}`}>
+          <Link to="/" className="np1c-nav__back" aria-label="Back to home">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
           </Link>
-          <div className="nav-links">
-            <a href="https://www.linkedin.com/in/trent-gomez-vidal/" target="_blank" rel="noopener noreferrer" className="nav-link">LinkedIn</a>
-            <Link to="/contact" className="nav-link">Contact</Link>
-          </div>
+          <NavStudyProgress checkpoints={VALIDUS_NAV_CHECKPOINTS} />
+          <SiteMainNav theme="light" active="work" condensed={navCondensed} />
         </div>
-      </nav>
       )}
 
       <main className={`project-main${embedded ? ' project-main--embedded' : ''}`}>
@@ -252,7 +263,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         )}
 
         {/* 3. (2x1) Col1: "Context" | Col2: paragraph + placeholder image – same format as Problem Solved */}
-        <div ref={s2Ref} data-section="s2" className="cx-section validus-preview-context">        <div className="cx-block">
+        <div ref={s2Ref} data-section="s2" data-nav-stop="context" className="cx-section validus-preview-context">        <div className="cx-block">
           <div className="cx-block__col1">
             <h2 className="header-2">Context</h2>
           </div>
@@ -554,7 +565,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
 
         {/* XL header: "User Research" – col1 empty, col2 XL text only */}
         {!embedded && (
-        <div className="cx-section cx-header-xl-section">        <div className="cx-block">
+        <div className="cx-section cx-header-xl-section" data-nav-stop="research">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="header-xl">User Research</h2>
@@ -643,7 +654,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         </div>
 
         {/* XL header: "Design" – col1 empty, col2 XL text only */}
-        <div className="cx-section cx-header-xl-section">        <div className="cx-block">
+        <div className="cx-section cx-header-xl-section" data-nav-stop="design">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="header-xl">Design</h2>
@@ -729,7 +740,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
 
         {/* XL header: "Usability Testing" – col1 empty, col2 XL text only */}
         {!embedded && (
-        <div className="cx-section cx-header-xl-section">        <div className="cx-block">
+        <div className="cx-section cx-header-xl-section" data-nav-stop="testing">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="header-xl">Usability Testing</h2>

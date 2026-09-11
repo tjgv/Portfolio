@@ -15,12 +15,9 @@ export const SOLUTION_VIDEO_SLIDES: HighlightSlide[] = [
     kind: 'video',
     caption:
       'Simplified, guided transitions reduce the multi-step engine sequence operators had to memorize for every scene change.',
-    src: '/new-project-1/feature-guided-transitions.mp4',
+    src: '/new-project-1/cut-3.mov',
     ariaLabel: 'CX Pro simplified and guided transitions — proposed experience',
-    aspectRatio: '1681 / 1046',
-    narrow: true,
-    offsetY: 20,
-    endTrimSeconds: 10,
+    aspectRatio: '2576 / 1682',
   },
   {
     id: 'menu-planning',

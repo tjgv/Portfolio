@@ -38,7 +38,7 @@ export default function HeroQuoteSection({
   return (
     <section
       ref={sectionRef}
-      className="np1c-section np1c-hero-quote"
+      className="np1c-section np1c-hero-quote np1c-section-size-1"
       data-dev-section={devSectionId}
       aria-label={ariaLabel}
     >

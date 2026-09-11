@@ -9,7 +9,7 @@ const EDIT_SHOW_IMAGE = '/new-project-1/edit-show.png'
 export default function EditingSideShotB() {
   return (
     <section
-      className="np1c-section np1c-hypothesis np1c-hypothesis--b np1c-editing-mvp"
+      className="np1c-section np1c-hypothesis np1c-hypothesis--b np1c-editing-mvp np1c-section-size-1"
       data-dev-section="editing-side-shot"
       aria-label="MVP"
     >

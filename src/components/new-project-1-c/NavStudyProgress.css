@@ -1,0 +1,141 @@
+.np1c-nav-progress {
+  position: relative;
+  flex: 0 1 0;
+  width: 0;
+  min-width: 0;
+  height: 34px;
+  margin: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease, flex-grow 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.np1c-nav--condensed .np1c-nav-progress {
+  flex: 1 1 auto;
+  width: auto;
+  margin-inline: 0;
+  opacity: 1;
+  overflow: visible;
+  pointer-events: auto;
+}
+
+.np1c-nav-progress__track {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 11px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.np1c-nav-progress__fill {
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  background: #0091FF;
+  will-change: transform;
+}
+
+.np1c-nav-progress__dots {
+  position: absolute;
+  inset: 0 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.np1c-nav-progress__stop {
+  position: absolute;
+  top: 12px;
+  transform: translate(-50%, -50%);
+}
+
+.np1c-nav-progress__dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: rgba(8, 8, 10, 0.55);
+  box-shadow: 0 0 0 2px rgba(8, 8, 10, 0.35);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.np1c-nav-progress__dot--reached {
+  background: #0091FF;
+  border-color: #0091FF;
+  animation: np1c-nav-progress-dot-pop 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes np1c-nav-progress-dot-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.55);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.np1c-nav-progress__dot:hover,
+.np1c-nav-progress__dot:focus-visible {
+  transform: scale(1.25);
+}
+
+.np1c-nav-progress__dot:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.55);
+  outline-offset: 2px;
+}
+
+.np1c-nav-progress__label {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(245, 245, 247, 0.48);
+  font-family: var(--np1c-font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.np1c-nav-progress__dot--reached + .np1c-nav-progress__label {
+  color: #0091FF;
+}
+
+.np1c-nav-progress__stop:first-child .np1c-nav-progress__label {
+  left: 0;
+  transform: none;
+}
+
+.np1c-nav-progress__stop:last-child .np1c-nav-progress__label {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.np1c-nav--condensed .site-main-nav.np1c-nav__links-wrap {
+  margin-left: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np1c-nav-progress,
+  .np1c-nav-progress__dot {
+    transition: none;
+  }
+
+  .np1c-nav-progress__dot--reached {
+    animation: none;
+  }
+}

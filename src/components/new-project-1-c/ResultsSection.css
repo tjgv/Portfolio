@@ -2,7 +2,7 @@
 
 .np1c-results {
   background: var(--np1c-bg);
-  padding-block: clamp(64px, 10vh, 128px);
+  padding-block: var(--np1c-content-padding);
   overflow: hidden;
 }
 

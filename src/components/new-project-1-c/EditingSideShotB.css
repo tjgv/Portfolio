@@ -3,7 +3,7 @@
 .np1c-section.np1c-editing-mvp {
   position: relative;
   overflow: hidden;
-  padding-top: 100px;
+  padding-block: var(--np1c-content-padding);
 }
 
 /* Beat .np1c-reveal-gradient { position: relative } so this is a true

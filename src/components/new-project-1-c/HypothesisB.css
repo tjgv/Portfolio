@@ -22,15 +22,15 @@
   border-radius: 12px;
 }
 
-/* Hypothesis Edit/Run pair — 15% wider than the content column */
+/* Hypothesis Edit/Run pair — fills the standard content column */
 .np1c-hypothesis--b .np1c-hypothesis__media--pair {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   gap: 12px;
   align-items: center;
-  width: 115%;
+  width: 100%;
   max-width: none;
-  margin-inline: -7.5%;
+  margin-inline: 0;
 }
 
 .np1c-hypothesis--b .np1c-hypothesis__media--pair .np1c-media-frame {
@@ -172,11 +172,6 @@
     transition: none;
     will-change: auto;
   }
-}
-
-/* Second hypothesis sits tighter under the first (no double 25vh stack) */
-.np1c-page .np1c-hypothesis--b + .np1c-hypothesis--b-follow {
-  padding-top: 0;
 }
 
 .np1c-media-tag {

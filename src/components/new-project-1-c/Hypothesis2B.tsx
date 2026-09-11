@@ -36,7 +36,7 @@ export default function Hypothesis2B() {
 
   return (
     <section
-      className="np1c-section np1c-hypothesis np1c-hypothesis--b np1c-hypothesis--b-follow"
+      className="np1c-section np1c-hypothesis np1c-hypothesis--b np1c-hypothesis--b-follow np1c-section-size-1"
       data-dev-section="hypothesis-2"
       aria-label="Hypothesis"
     >

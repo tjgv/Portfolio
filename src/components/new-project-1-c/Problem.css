@@ -1,7 +1,7 @@
 /* Problem — Figma node 25802:34475 */
 
 .np1c-problem {
-  padding: 0;
+  padding-block: var(--np1c-content-padding);
 }
 
 .np1c-problem__stage {
@@ -33,7 +33,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding-block: var(--np1c-content-padding);
+  padding-block: 0;
   background: var(--np1c-bg);
 }
 
@@ -45,13 +45,6 @@
   gap: 0;
   width: min(calc(var(--np1c-content-max) * 0.8), 80%);
   text-align: center;
-}
-
-/* The copy band carries the full vertical breathing room above and below the
-   problem statement — drop Hypothesis's default section top padding so the
-   distance from the statement to the next section matches the image-to-copy gap. */
-.np1c-page .np1c-problem + .np1c-hypothesis {
-  padding-top: 0;
 }
 
 .np1c-problem__label {

@@ -1,27 +1,27 @@
 /* Target audience — simple 2×2 rectangles */
 
 .np1c-audience {
-  padding-block: clamp(80px, 12vh, 180px);
+  padding-block: var(--np1c-content-padding);
 }
 
 .np1c-audience__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--np1c-text-media-gap);
+  gap: 16px;
   width: 100%;
 }
 
 .np1c-audience__heading {
   margin: 0;
   width: 100%;
-  font-family: var(--np1c-font-display);
-  font-size: var(--np1c-header-3-size);
-  font-weight: var(--np1c-header-3-weight);
-  line-height: var(--np1c-header-3-lh);
-  letter-spacing: var(--np1c-header-3-ls);
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-subheader-1-size);
+  font-weight: var(--np1c-subheader-1-weight);
+  line-height: var(--np1c-subheader-1-lh);
+  letter-spacing: var(--np1c-subheader-1-ls);
   text-align: center;
-  color: var(--np1c-header-3-color);
+  color: var(--np1c-text-hero);
 }
 
 .np1c-audience__grid {
@@ -29,7 +29,8 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 40vh 40vh;
   gap: clamp(16px, 1.7vw, 25px);
-  /* width + margin-inline come from .np1c-media--xl (nav-edge gutters) */
+  width: 100%;
+  margin-inline: 0;
 }
 
 /* Text cards flow into the parent 2×2 on desktop */

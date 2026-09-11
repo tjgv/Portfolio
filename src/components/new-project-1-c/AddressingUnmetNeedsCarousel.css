@@ -1,26 +1,30 @@
 @import './pillControlSizes.css';
 
-/* Addressing Unmet Needs — viewport-framed carousel (test page) */
-
 .np1c-section.np1c-aun-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
   width: 100vw;
   max-width: none;
   margin-inline: calc(50% - 50vw);
-  padding: 0;
+  padding: var(--np1c-section-size-1-pad, 10vh) 5vw;
+  height: 100vh;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  max-height: 100vh;
   background: #000;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
 .np1c-aun-section__stack {
-  display: flex;
-  flex-direction: column;
-  width: 98vw;
-  max-width: 98vw;
-  flex: 0 0 auto;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
 }
 
 .np1c-aun-carousel {
@@ -33,115 +37,59 @@
 
   position: relative;
   box-sizing: border-box;
-  width: 100%;
-  height: 98vh;
-  max-width: 100%;
-  max-height: 98vh;
-  flex: 0 0 auto;
-  min-height: 0;
-  border-radius: 18px;
-  background: #000;
-  overflow: hidden;
-}
-
-.np1c-aun-carousel__overlay-label {
-  position: absolute;
-  top: var(--np1c-aun-pad);
-  left: calc(var(--np1c-aun-pad) + var(--np1c-aun-arrow-size) + 12px);
-  right: calc(var(--np1c-aun-pad) + var(--np1c-aun-arrow-size) + 12px);
-  z-index: 3;
-  margin: 0;
-  text-align: center;
-  pointer-events: none;
-}
-
-.np1c-aun-carousel__content {
-  position: absolute;
-  top: var(--np1c-aun-pad);
-  bottom: var(--np1c-aun-pad);
-  left: calc(var(--np1c-aun-pad) + var(--np1c-aun-arrow-size) + 12px);
-  right: calc(var(--np1c-aun-pad) + var(--np1c-aun-arrow-size) + 12px);
-  display: flex;
-  flex-direction: column;
-  gap: max(0px, calc(12px - 15px));
-  min-width: 0;
-  min-height: 0;
-}
-
-.np1c-aun-carousel__media-stack {
-  position: relative;
-  flex: 1 1 auto;
-  min-height: 0;
-  width: 100%;
-  overflow: hidden;
-}
-
-.np1c-aun-carousel__track {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-.np1c-aun-carousel__panel {
-  flex: 0 0 calc(100% / var(--np1c-aun-slide-count, 4));
-  width: calc(100% / var(--np1c-aun-slide-count, 4));
-  height: 100%;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.np1c-aun-carousel__media {
-  flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 0;
-  margin: 0;
-  border-radius: 12px;
+  height: 100%;
+  border-radius: 24px;
+  border: 1px solid transparent;
+  background-color: #000;
+  background-image:
+    radial-gradient(ellipse at center, #000 0%, #000 42%, #161616 100%),
+    linear-gradient(180deg, #4a4a4a 0%, #1a1a1a 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
   overflow: hidden;
-  background: #000;
 }
 
-.np1c-aun-carousel__media .media-with-loader-wrap {
-  width: 100%;
-  height: 100%;
-}
-
-.np1c-aun-carousel__video-wrap {
+.np1c-aun-carousel__clip {
   position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.np1c-aun-carousel__video,
-.np1c-aun-carousel__image {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
-/* Hero-style click-to-toggle play/pause */
-.np1c-aun-carousel__toggle {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+  width: auto;
+  height: 60vh;
   margin: 0;
   padding: 0;
-  border: none;
-  background: transparent;
   cursor: pointer;
+}
+
+.np1c-aun-carousel__clip[hidden] {
+  display: none;
+}
+
+.np1c-aun-carousel__clip--rounded,
+.np1c-aun-carousel__clip--rounded .np1c-aun-carousel__video {
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.np1c-aun-carousel .media-with-loader-wrap {
+  display: block;
+  width: auto;
+  height: 60vh;
+  margin: 0;
+}
+
+.np1c-aun-carousel__video {
+  display: block;
+  height: 60vh;
+  width: auto;
+  margin: 0;
 }
 
 .np1c-aun-carousel__play {
   position: absolute;
   inset: 0;
-  z-index: 2;
   display: grid;
   place-items: center;
   pointer-events: none;
@@ -154,21 +102,24 @@
   height: clamp(88px, 12vw, 160px);
 }
 
-.np1c-aun-carousel__video-wrap .np1c-embed-video-reset--carousel {
+.np1c-aun-carousel > .np1c-embed-video-reset--carousel {
+  top: var(--np1c-aun-pad);
+  right: var(--np1c-aun-pad);
+  z-index: 4;
+}
+
+.np1c-aun-carousel > .np1c-aun-carousel__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--np1c-aun-pad);
   z-index: 3;
-}
-
-.np1c-aun-carousel__media--scaled .np1c-aun-carousel__video-wrap,
-.np1c-aun-carousel__media--scaled .np1c-aun-carousel__image {
-  width: 85%;
-  height: 85%;
-}
-
-.np1c-aun-carousel__caption {
-  flex: 0 0 auto;
-  width: 85%;
-  margin: -3px auto 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
   min-height: var(--np1c-aun-caption-block);
+  margin: 0;
+  padding: 0;
   font-family: var(--np1c-font-body);
   font-size: var(--np1c-aun-caption-size);
   font-weight: var(--np1c-body-2-weight, 400);
@@ -176,10 +127,8 @@
   letter-spacing: var(--np1c-body-2-ls, 0);
   color: rgba(255, 255, 255, 0.82);
   text-align: center;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
+  display: block;
+  pointer-events: none;
 }
 
 .np1c-aun-carousel__arrow {
@@ -234,129 +183,38 @@
   .np1c-section.np1c-aun-section {
     min-height: 0;
     height: auto;
-    padding-block: clamp(20px, 3vh, 32px);
-    padding-bottom: clamp(28px, 4vh, 40px);
-    align-items: stretch;
+    max-height: none;
+    padding: var(--np1c-section-size-1-pad, 10vh) var(--np1c-content-padding-inline, 16px);
+    overflow: visible;
   }
 
   .np1c-aun-section__stack {
-    width: 100%;
-    max-width: 100%;
-    padding-inline: var(--np1c-content-padding-inline, 16px);
-    box-sizing: border-box;
+    height: auto;
+    flex: 0 0 auto;
   }
 
   .np1c-aun-carousel {
     --np1c-aun-pad: 0px;
-    --np1c-aun-side: 0px;
-    /* Lock every slide to the first video’s aspect (1920 / 1046) */
-    --np1c-aun-first-aspect: 1920 / 1046;
-    display: flex;
-    flex-direction: column;
     height: auto;
     max-height: none;
-    border-radius: 0;
-    overflow: visible;
+    flex-direction: column;
   }
 
   .np1c-aun-carousel__arrow {
     display: none !important;
   }
 
-  .np1c-aun-carousel__overlay-label {
+  .np1c-aun-carousel__caption {
     position: relative;
-    top: auto;
     left: auto;
     right: auto;
-    z-index: auto;
-    flex: 0 0 auto;
-    margin: 0 0 12px;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  .np1c-aun-carousel__content {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    padding: 0;
-    box-sizing: border-box;
-    gap: 12px;
-    touch-action: pan-y;
-  }
-
-  .np1c-aun-carousel__media-stack {
-    flex: 0 0 auto;
-    width: 100%;
-    height: auto;
-    aspect-ratio: var(--np1c-aun-first-aspect);
-  }
-
-  .np1c-aun-carousel__track,
-  .np1c-aun-carousel__panel {
-    height: 100%;
-  }
-
-  .np1c-aun-carousel__media {
-    flex: none;
-    width: 100%;
-    height: 100%;
-  }
-
-  .np1c-aun-carousel__media--scaled .np1c-aun-carousel__video-wrap,
-  .np1c-aun-carousel__media--scaled .np1c-aun-carousel__image {
-    width: 100%;
-    height: 100%;
-  }
-
-  .np1c-aun-carousel__video,
-  .np1c-aun-carousel__image {
-    object-fit: contain;
-  }
-
-  .np1c-aun-carousel__caption {
-    width: 100%;
-    margin: 0;
-    min-height: 0;
-    display: block;
-    -webkit-line-clamp: unset;
-    overflow: visible;
-  }
-
-  .np1c-aun-carousel__dots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 4px 0 0;
-    padding: 0;
-  }
-
-  .np1c-aun-carousel__dot {
-    width: 8px;
-    height: 8px;
-    margin: 0;
-    padding: 0;
-    border: none;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.28);
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-  }
-
-  .np1c-aun-carousel__dot--active {
-    background: rgba(255, 255, 255, 0.92);
-    transform: scale(1.15);
-  }
-
-  .np1c-aun-carousel__dot:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.7);
-    outline-offset: 3px;
+    bottom: auto;
+    padding: 12px 0 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .np1c-aun-carousel__track {
+  .np1c-aun-carousel__video {
     transition: none;
   }
 }

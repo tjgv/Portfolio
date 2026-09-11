@@ -1,16 +1,9 @@
 /* EditingCarousel — center-snap swipeable carousel with per-slide captions */
 
+.np1c-section.np1c-mvp-priorities,
 .np1c-section.np1c-editing-carousel {
   padding: var(--np1c-content-padding) 0;
   background: var(--np1c-bg);
-}
-
-.np1c-editing-carousel__inner {
-  display: flex;
-  flex-direction: column;
-  gap: var(--np1c-text-media-gap);
-  padding-top: 0;
-  padding-bottom: 0;
 }
 
 .np1c-editing-carousel__intro {

@@ -47,13 +47,6 @@
   text-align: center;
 }
 
-/* The copy band carries the full vertical breathing room above and below the
-   problem statement — drop Hypothesis's default section top padding so the
-   distance from the statement to the next section matches the image-to-copy gap. */
-.np1c-page .np1c-problem + .np1c-hypothesis {
-  padding-top: 0;
-}
-
 .np1c-problem__label {
   margin: 0 0 var(--np1c-label-title-gap);
   font-family: var(--np1c-font-display);

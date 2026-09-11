@@ -197,29 +197,21 @@ export default function AddressingUnmetNeedsCarousel() {
             onTouchEnd={handleTouchEnd}
           >
             <div className="np1c-aun-carousel__media-stack">
-              <div
-                className="np1c-aun-carousel__track"
-                style={{
-                  width: `${slideCount * 100}%`,
-                  transform: `translateX(-${(activeIndex * 100) / slideCount}%)`,
-                }}
-              >
-                {slides.map((slide, index) => (
-                  <SlidePanel
-                    key={slide.id}
-                    slide={slide}
-                    index={index}
-                    active={index === activeIndex}
-                    isPaused={isPaused && index === activeIndex}
-                    onTogglePlay={handleTogglePlay}
-                    getVideo={() => videoRefs.current[index]}
-                    videoRef={(node) => {
-                      videoRefs.current[index] = node
-                    }}
-                    onVideoRestart={handleVideoRestart}
-                  />
-                ))}
-              </div>
+              {slides.map((slide, index) => (
+                <SlidePanel
+                  key={slide.id}
+                  slide={slide}
+                  index={index}
+                  active={index === activeIndex}
+                  isPaused={isPaused && index === activeIndex}
+                  onTogglePlay={handleTogglePlay}
+                  getVideo={() => videoRefs.current[index]}
+                  videoRef={(node) => {
+                    videoRefs.current[index] = node
+                  }}
+                  onVideoRestart={handleVideoRestart}
+                />
+              ))}
             </div>
 
             <p className="np1c-aun-carousel__caption" aria-live="polite">

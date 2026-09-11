@@ -11,31 +11,36 @@
   pointer-events: none;
 }
 
-/* Addressing Unmet Needs test carousel — full viewport frame */
+/* Addressing Unmet Needs — fill leftover height inside Size-1 margins */
 .np1c-page .np1c-content > .np1c-section.np1c-aun-section {
   width: 100vw;
   max-width: none;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   margin-inline: calc(50% - 50vw);
-  padding-block: 0;
+  padding-block: var(--np1c-section-size-1-pad, 10vh);
 }
 
 .np1c-page .np1c-aun-section__stack {
-  width: 98vw;
-  max-width: 98vw;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
 }
 
 .np1c-page .np1c-aun-carousel {
   width: 100%;
-  height: 98vh;
+  height: 100%;
   max-width: 100%;
-  max-height: 98vh;
+  max-height: 100%;
 }
 /* Page B — unified wide content gutters (matches Target Audience section),
    tightened 15% vs the shared wide standard. */
 .np1c-page {
-  --np1c-wide-max: calc(2200px * var(--np1c-content-width-scale) * 0.85);
-  /* 12vw → 17.7vw keeps content ≈ 85% of the previous column width */
-  --np1c-wide-padding-inline: clamp(0px, 17.7vw, 376px);
+  --np1c-column-width: calc(1000px * var(--np1c-content-width-scale) * 1.15);
+  --np1c-wide-max: calc(2200px * var(--np1c-content-width-scale) * 0.85 * 1.15);
+  --np1c-wide-padding-inline: 12.85vw;
 }
 
 .np1c-page .np1c-content .np1c-section__inner {

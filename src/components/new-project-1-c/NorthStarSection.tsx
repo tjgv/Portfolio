@@ -26,7 +26,7 @@ export default function NorthStarSection() {
   return (
     <section
       ref={sectionRef}
-      className="np1c-section np1c-hypothesis np1c-hypothesis--b np1c-editing-mvp"
+      className="np1c-section np1c-hypothesis np1c-hypothesis--b np1c-editing-mvp np1c-section-size-1"
       data-dev-section="north-star"
       aria-label="Pitching North Star"
     >

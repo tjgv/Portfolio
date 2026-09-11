@@ -25,7 +25,7 @@ export default function HypothesisB() {
   return (
     <section
       ref={sectionRef}
-      className="np1c-section np1c-hypothesis np1c-hypothesis--b"
+      className="np1c-section np1c-hypothesis np1c-hypothesis--b np1c-section-size-1"
       data-dev-section="challenge"
       aria-label="My Argument"
     >

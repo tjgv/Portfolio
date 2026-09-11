@@ -6,7 +6,7 @@ export default function ResultsSection() {
   return (
     <>
       <section
-        className="np1c-section np1c-results"
+        className="np1c-section np1c-results np1c-section-size-1"
         data-dev-section="business-value"
         aria-label="Results"
       >

@@ -65,17 +65,16 @@ const SLIDES: CarouselSlide[] = [
 ]
 
 export default function EditingCarousel() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const carouselSectionRef = useRef<HTMLElement>(null)
 
   return (
-    <section
-      ref={sectionRef}
-      className="np1c-section np1c-editing-carousel"
-      data-dev-section="editing-carousel"
-      aria-label="MVP Priorities"
-    >
-      <div className="np1c-editing-carousel__inner">
-        <div className="np1c-editing-carousel__intro">
+    <>
+      <section
+        className="np1c-section np1c-mvp-priorities np1c-section-size-1"
+        data-dev-section="mvp-priorities"
+        aria-label="MVP Priorities"
+      >
+        <div className="np1c-section__inner np1c-editing-carousel__intro">
           <div className="np1c-h-text-stack">
             <p className="np1c-h-text-stack__label">MVP Priorities</p>
             <div className="np1c-h-text-stack__row">
@@ -109,14 +108,21 @@ export default function EditingCarousel() {
             ))}
           </ul>
         </div>
+      </section>
 
+      <section
+        ref={carouselSectionRef}
+        className="np1c-section np1c-editing-carousel np1c-section-size-1"
+        data-dev-section="editing-carousel"
+        aria-label="Editing carousel"
+      >
         <ImageCarousel
           slides={SLIDES}
           ariaLabel="Editing carousel slides"
           controlsVariant="autoplay"
-          pillGrowSectionRef={sectionRef}
+          pillGrowSectionRef={carouselSectionRef}
         />
-      </div>
-    </section>
+      </section>
+    </>
   )
 }

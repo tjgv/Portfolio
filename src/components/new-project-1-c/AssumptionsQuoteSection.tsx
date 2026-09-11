@@ -28,7 +28,7 @@ const USER_QUOTES: readonly QuoteSlide[] = [
 export default function AssumptionsQuoteSection() {
   return (
     <section
-      className="np1c-section np1c-assumptions-quote"
+      className="np1c-section np1c-assumptions-quote np1c-section-size-1"
       data-dev-section="key-assumptions"
       aria-label="Deducing user needs"
     >

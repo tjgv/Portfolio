@@ -2,7 +2,18 @@ import { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react
 import { Link } from 'react-router-dom'
 import { ImgWithLoader, VideoWithLoader } from '../components/MediaLoader'
 import CaseStudyNavSection from '../components/new-project-1/CaseStudyNavSection'
+import SiteMainNav from '../components/SiteMainNav'
+import NavStudyProgress, { type NavCheckpoint } from '../components/new-project-1-c/NavStudyProgress'
+import { useCaseStudyNavCondense } from '../hooks/useCaseStudyNavCondense'
+import '../components/case-study/CaseStudyCondensedNav.css'
 import './CxProPage.css'
+
+const CX_PRO_NAV_CHECKPOINTS: readonly NavCheckpoint[] = [
+  { id: 'intro', label: 'Intro', selector: '.cx-pro-page .cx-hero-intro' },
+  { id: 'context', label: 'Context', selector: '[data-nav-stop="context"]' },
+  { id: 'design', label: 'Design', selector: '[data-nav-stop="design"]' },
+  { id: 'impact', label: 'Impact', selector: '[data-nav-stop="impact"]' },
+]
 
 const CX_IMAGES = '/cx-pro-images'
 /** Bump this when you replace section 21 images (same filenames) to avoid cache */
@@ -251,6 +262,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
   const pageTopRef = useRef<HTMLDivElement>(null)
   const s2Ref = useRef<HTMLDivElement>(null)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
+  const navCondensed = useCaseStudyNavCondense(!embedded)
 
   useEffect(() => {
     const update = () => {
@@ -311,17 +323,15 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         <CxLightbox items={lightbox.items} initialIndex={lightbox.index} onClose={closeLightbox} />
       )}
       {!embedded && (
-        <nav className="navbar-glass" aria-label="Main navigation">
-          <div className="navbar-content">
-            <Link to="/" className="nav-brand nav-brand-back" aria-label="Back to home">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            </Link>
-            <div className="nav-links">
-              <a href="https://www.linkedin.com/in/trent-gomez-vidal/" target="_blank" rel="noopener noreferrer" className="nav-link">LinkedIn</a>
-              <Link to="/contact" className="nav-link">Contact</Link>
-            </div>
-          </div>
-        </nav>
+        <div className={`np1c-nav np1c-nav--light${navCondensed ? ' np1c-nav--condensed' : ''}`}>
+          <Link to="/" className="np1c-nav__back" aria-label="Back to home">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </Link>
+          <NavStudyProgress checkpoints={CX_PRO_NAV_CHECKPOINTS} />
+          <SiteMainNav theme="light" active="work" condensed={navCondensed} />
+        </div>
       )}
 
       <main className={`project-main${embedded ? ' project-main--embedded' : ''}`}>
@@ -344,7 +354,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         </section>
 
         {/* XL header: "Context" – col1 empty, col2 XL text only */}
-        <div className="cx-section cx-header-xl-section cx-header-xl-section--context">        <div className="cx-block">
+        <div className="cx-section cx-header-xl-section cx-header-xl-section--context" data-nav-stop="context">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="header-xl">Context</h2>
@@ -707,7 +717,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         )}
 
         {/* XL header: "Design" – col1 empty, col2 XL text only */}
-        <div className="cx-section cx-header-xl-section">        <div className="cx-block">
+        <div className="cx-section cx-header-xl-section" data-nav-stop="design">        <div className="cx-block">
           <div className="cx-block__col1" />
           <div className="cx-block__col2">
             <h2 className="header-xl">Design</h2>
@@ -937,7 +947,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         {/* ----- Section: Impact (31-33) – background #e7e7e7, grey extends halfway behind image above ----- */}
         <section className="cx-section-gray cx-section-gray--overlap-prev">
           {/* XL header: "Impact" – col1 empty, col2 XL text only */}
-          <div className="cx-section cx-header-xl-section">          <div className="cx-block">
+          <div className="cx-section cx-header-xl-section" data-nav-stop="impact">          <div className="cx-block">
             <div className="cx-block__col1" />
             <div className="cx-block__col2">
               <h2 className="header-xl">Impact</h2>

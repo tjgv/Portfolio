@@ -29,6 +29,7 @@ import ResultsSection from '../components/new-project-1-c/ResultsSection'
 import TargetAudience from '../components/new-project-1-c/TargetAudience'
 import DeducingUserNeeds from '../components/new-project-1-c/DeducingUserNeeds'
 import SiteMainNav from '../components/SiteMainNav'
+import NavStudyProgress from '../components/new-project-1-c/NavStudyProgress'
 import './NewProject1PageCBase.css'
 import './NewProject1PageC.css'
 
@@ -344,6 +345,7 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
   const goalObserverRef = useRef<IntersectionObserver | null>(null)
   const [goalInView, setGoalInView] = useState(false)
   const [glanceInView, setGlanceInView] = useState(false)
+  const [navCondensed, setNavCondensed] = useState(false)
   const showScrollToTop = useScrollToTopReveal(scrollRevealRef)
   const glanceObserverRef = useRef<IntersectionObserver | null>(null)
 
@@ -352,6 +354,47 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
     scrollToTop()
     const id = requestAnimationFrame(scrollToTop)
     return () => cancelAnimationFrame(id)
+  }, [embedded])
+
+  useEffect(() => {
+    if (embedded) return
+
+    const readY = () =>
+      Math.max(
+        window.scrollY || 0,
+        document.documentElement.scrollTop || 0,
+        pageRef.current?.scrollTop || 0,
+      )
+
+    const update = () => {
+      const image = document.querySelector('.np1c-handoff-ipad')
+      if (!image) {
+        const y = readY()
+        const fallback = (window.innerHeight || 1) * 0.5
+        setNavCondensed((prev) => (prev ? y > fallback - 32 : y >= fallback))
+        return
+      }
+
+      const rect = image.getBoundingClientRect()
+      const imageCenter = rect.top + rect.height / 2
+      const viewCenter = window.innerHeight / 2
+      setNavCondensed((prev) =>
+        prev ? imageCenter <= viewCenter + 24 : imageCenter <= viewCenter,
+      )
+    }
+
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    document.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    const page = pageRef.current
+    page?.addEventListener('scroll', update, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', update)
+      document.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+      page?.removeEventListener('scroll', update)
+    }
   }, [embedded])
 
   useEffect(() => {
@@ -448,13 +491,14 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
       className={`np1c-page${embedded ? ' cx-pro-page--embedded' : ''}`}
     >
       {!embedded && (
-        <div className="np1c-nav">
+        <div className={`np1c-nav${navCondensed ? ' np1c-nav--condensed' : ''}`}>
           <Link to="/" className="np1c-nav__back" aria-label="Back to home">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </Link>
-          <SiteMainNav theme="dark" active="work" />
+          <NavStudyProgress />
+          <SiteMainNav theme="dark" active="work" condensed={navCondensed} />
         </div>
       )}
 
@@ -475,7 +519,7 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
         {!embedded && <HeroQuoteSection sectionRef={scrollRevealRef} />}
 
         {!embedded && (
-          <section className="np1c-section np1c-glance" data-dev-section="at-a-glance" aria-label="At a glance">
+          <section className="np1c-section np1c-glance np1c-section-size-1" data-dev-section="at-a-glance" aria-label="At a glance">
             <div className="np1c-section__inner np1c-glance__inner">
               <div className="np1c-split">
                 <h2 className="np1c-split__headline">At a glance.</h2>
@@ -524,7 +568,7 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
         {!embedded && <ContextSection />}
 
         {embedded && (
-          <section className="np1c-section np1c-intro" data-dev-section="intro" aria-label="Introduction">
+          <section className="np1c-section np1c-intro np1c-section-size-1" data-dev-section="intro" aria-label="Introduction">
             <div className="np1c-section__inner np1c-intro__inner">
               <div className="np1c-embed-block__text np1c-embed-block__text--lead">
                 <div className="np1c-split">
@@ -632,7 +676,7 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
             return (
               <section
                 key={section.label}
-                className={`np1c-section np1c-stub${isGoal ? ' np1c-stub--goal' : ''}${isGoal && goalInView ? ' np1c-stub--goal-in-view' : ''}`}
+                className={`np1c-section np1c-stub${isGoal ? ' np1c-stub--goal np1c-section-size-hero' : ' np1c-section-size-1'}${isGoal && goalInView ? ' np1c-stub--goal-in-view' : ''}`}
                 data-dev-section={section.label.toLowerCase().replace(/\s+/g, '-')}
                 aria-label={section.label}
               >
@@ -652,7 +696,6 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
 
         {!embedded && <EndHeroSection />}
         {!embedded && <CaseStudyNavSection currentSlug="consumer-cx-pro" />}
-        {!embedded && <ScrollToTopButton visible={showScrollToTop} />}
 
         {!embedded && (
           <footer className="np1c-footer" data-dev-section="footer">
@@ -668,6 +711,8 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
         )}
         </div>
       </main>
+
+      {!embedded && <ScrollToTopButton visible={showScrollToTop} />}
     </div>
   )
 }

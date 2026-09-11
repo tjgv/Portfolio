@@ -11,7 +11,7 @@ const PROBLEM_BODY =
 export default function ProblemB() {
   return (
     <section
-      className="np1c-section np1c-problem np1c-problem--b"
+      className="np1c-section np1c-problem np1c-problem--b np1c-section-size-1"
       data-dev-section="problem"
       aria-label="Insight & Problem"
     >

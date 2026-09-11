@@ -1,18 +1,10 @@
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type TouchEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type TouchEvent } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { ImgWithLoader, VideoWithLoader } from '../MediaLoader'
+import { VideoWithLoader } from '../MediaLoader'
 import CarouselVideoReplayButton from './CarouselVideoReplayButton'
 import { SOLUTION_VIDEO_SLIDES } from './solutionVideoSlides'
-import { type HighlightSlide } from './highlightsSlides'
 import { PILL_LUCIDE_ICON_SIZE } from './pillControlSizes'
 import './AddressingUnmetNeedsCarousel.css'
-
-/** First slide aspect — locks media frame height on mobile for every slide. */
-const FIRST_SLIDE = SOLUTION_VIDEO_SLIDES[0]
-const FIRST_SLIDE_ASPECT =
-  FIRST_SLIDE?.kind === 'video' && FIRST_SLIDE.aspectRatio
-    ? FIRST_SLIDE.aspectRatio
-    : '1920 / 1046'
 
 function GiantPlayIcon() {
   return (
@@ -150,25 +142,19 @@ export default function AddressingUnmetNeedsCarousel() {
 
   return (
     <section
-      className="np1c-section np1c-aun-section"
+      className="np1c-section np1c-aun-section np1c-section-size-1"
       data-dev-section="how-it-addresses"
       aria-label="Addressing Unmet Needs"
     >
       <div className="np1c-aun-section__stack">
         <div
           className="np1c-aun-carousel"
-          style={
-            {
-              ['--np1c-aun-slide-count' as string]: slideCount,
-              ['--np1c-aun-first-aspect' as string]: FIRST_SLIDE_ASPECT,
-            } as CSSProperties
-          }
           role="region"
           aria-roledescription="carousel"
           aria-label="Addressing Unmet Needs feature highlights"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
-          <p className="np1c-aun-carousel__overlay-label np1c-type-subheader-3">Selling Points</p>
-
           <button
             type="button"
             className="np1c-aun-carousel__arrow np1c-aun-carousel__arrow--prev"
@@ -191,142 +177,52 @@ export default function AddressingUnmetNeedsCarousel() {
             <ChevronRight size={PILL_LUCIDE_ICON_SIZE} strokeWidth={2} aria-hidden />
           </button>
 
-          <div
-            className="np1c-aun-carousel__content"
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-          >
-            <div className="np1c-aun-carousel__media-stack">
-              <div
-                className="np1c-aun-carousel__track"
-                style={{
-                  width: `${slideCount * 100}%`,
-                  transform: `translateX(-${(activeIndex * 100) / slideCount}%)`,
-                }}
-              >
-                {slides.map((slide, index) => (
-                  <SlidePanel
-                    key={slide.id}
-                    slide={slide}
-                    index={index}
-                    active={index === activeIndex}
-                    isPaused={isPaused && index === activeIndex}
-                    onTogglePlay={handleTogglePlay}
-                    getVideo={() => videoRefs.current[index]}
-                    videoRef={(node) => {
-                      videoRefs.current[index] = node
-                    }}
-                    onVideoRestart={handleVideoRestart}
-                  />
-                ))}
-              </div>
-            </div>
+          <CarouselVideoReplayButton
+            getVideo={() => videoRefs.current[activeIndex]}
+            onRestart={handleVideoRestart}
+          />
 
-            <p className="np1c-aun-carousel__caption" aria-live="polite">
-              {activeSlide.caption}
-            </p>
-
-            {slideCount > 1 ? (
+          {slides.map((slide, index) => {
+            if (slide.kind !== 'video') return null
+            const active = index === activeIndex
+            return (
               <div
-                className="np1c-aun-carousel__dots"
-                role="tablist"
-                aria-label="Choose selling point slide"
+                key={slide.id}
+                className={`np1c-aun-carousel__clip${index === 3 ? ' np1c-aun-carousel__clip--rounded' : ''}`}
+                hidden={!active}
+                onClick={handleTogglePlay}
               >
-                {slides.map((slide, index) => {
-                  const selected = index === activeIndex
-                  return (
-                    <button
-                      key={slide.id}
-                      type="button"
-                      role="tab"
-                      aria-selected={selected}
-                      aria-label={`Go to slide ${index + 1}`}
-                      aria-controls={`np1c-aun-slide-${slide.id}`}
-                      className={`np1c-aun-carousel__dot${selected ? ' np1c-aun-carousel__dot--active' : ''}`}
-                      onClick={() => goToSlide(index)}
-                    />
-                  )
-                })}
+                <VideoWithLoader
+                  ref={(node) => {
+                    videoRefs.current[index] = node
+                  }}
+                  className="np1c-aun-carousel__video"
+                  src={slide.src}
+                  aria-label={slide.ariaLabel}
+                  muted
+                  playsInline
+                  preload="auto"
+                  onLoadedData={(e) => {
+                    if (slide.playbackRate) {
+                      e.currentTarget.playbackRate = slide.playbackRate
+                      e.currentTarget.defaultPlaybackRate = slide.playbackRate
+                    }
+                  }}
+                />
+                {isPaused && active ? (
+                  <span className="np1c-aun-carousel__play" aria-hidden>
+                    <GiantPlayIcon />
+                  </span>
+                ) : null}
               </div>
-            ) : null}
-          </div>
+            )
+          })}
+
+          <p className="np1c-aun-carousel__caption" aria-live="polite">
+            {activeSlide.caption}
+          </p>
         </div>
       </div>
     </section>
-  )
-}
-
-type SlidePanelProps = {
-  slide: HighlightSlide
-  index: number
-  active: boolean
-  isPaused: boolean
-  onTogglePlay: () => void
-  getVideo: () => HTMLVideoElement | null
-  videoRef: (node: HTMLVideoElement | null) => void
-  onVideoRestart: () => void
-}
-
-function SlidePanel({
-  slide,
-  index,
-  active,
-  isPaused,
-  onTogglePlay,
-  getVideo,
-  videoRef,
-  onVideoRestart,
-}: SlidePanelProps) {
-  return (
-    <div
-      className="np1c-aun-carousel__panel"
-      id={`np1c-aun-slide-${slide.id}`}
-      role="group"
-      aria-roledescription="slide"
-      aria-label={`Slide ${index + 1} of ${SOLUTION_VIDEO_SLIDES.length}`}
-      aria-hidden={!active}
-    >
-      <figure className="np1c-aun-carousel__media np1c-aun-carousel__media--scaled">
-        {slide.kind === 'video' ? (
-          <div className="np1c-aun-carousel__video-wrap">
-            <VideoWithLoader
-              ref={videoRef}
-              fill
-              className="np1c-aun-carousel__video"
-              src={slide.src}
-              aria-label={slide.ariaLabel}
-              muted
-              playsInline
-              preload="auto"
-              onLoadedData={(e) => {
-                if (slide.playbackRate) {
-                  e.currentTarget.playbackRate = slide.playbackRate
-                  e.currentTarget.defaultPlaybackRate = slide.playbackRate
-                }
-              }}
-            />
-            <button
-              type="button"
-              className="np1c-aun-carousel__toggle"
-              aria-label={isPaused ? 'Play video' : 'Pause video'}
-              tabIndex={active ? 0 : -1}
-              onClick={onTogglePlay}
-            />
-            {isPaused ? (
-              <span className="np1c-aun-carousel__play" aria-hidden>
-                <GiantPlayIcon />
-              </span>
-            ) : null}
-            <CarouselVideoReplayButton getVideo={getVideo} onRestart={onVideoRestart} />
-          </div>
-        ) : (
-          <ImgWithLoader
-            className="np1c-aun-carousel__image"
-            src={slide.image}
-            alt={slide.imageAlt}
-          />
-        )}
-      </figure>
-    </div>
   )
 }

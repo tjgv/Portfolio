@@ -11,7 +11,7 @@ export default function EndHeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="np1c-section np1c-end-hero"
+      className="np1c-section np1c-end-hero np1c-section-size-1"
       data-dev-section="end-hero"
       aria-label="Closing"
     >

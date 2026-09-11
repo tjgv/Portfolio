@@ -15,6 +15,8 @@ type SiteMainNavProps = {
   active?: SiteMainNavActive
   /** Include the A.I. Prompts item (Prompts page) */
   showPrompts?: boolean
+  /** Desktop: collapse inline links into the hamburger (case-study scroll). */
+  condensed?: boolean
   className?: string
   'aria-label'?: string
 }
@@ -37,15 +39,18 @@ export default function SiteMainNav({
   theme = 'light',
   active = 'work',
   showPrompts = false,
+  condensed = false,
   className = '',
   'aria-label': ariaLabel = 'Main',
 }: SiteMainNavProps) {
   const [open, setOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const panelId = useId()
   const rootRef = useRef<HTMLElement>(null)
 
   const close = useCallback(() => setOpen(false), [])
   const toggle = useCallback(() => setOpen((v) => !v), [])
+  const toggleVisible = isMobile || condensed
 
   useEffect(() => {
     if (!open) return
@@ -80,6 +85,18 @@ export default function SiteMainNav({
     }
   }, [open])
 
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    const sync = () => setIsMobile(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  useEffect(() => {
+    if (!condensed) setOpen(false)
+  }, [condensed])
+
   const itemClass =
     theme === 'light' ? 'home-v2-nav-item' : 'np1c-nav__link'
   const externalClass =
@@ -95,8 +112,8 @@ export default function SiteMainNav({
     <nav
       ref={rootRef}
       className={`site-main-nav site-main-nav--${theme}${open ? ' site-main-nav--open' : ''}${
-        theme === 'light' ? ' home-v2-nav' : ' np1c-nav__links-wrap'
-      } ${className}`.trim()}
+        condensed ? ' site-main-nav--condensed' : ''
+      }${theme === 'light' ? ' home-v2-nav' : ' np1c-nav__links-wrap'} ${className}`.trim()}
       aria-label={ariaLabel}
     >
       <button
@@ -105,6 +122,8 @@ export default function SiteMainNav({
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-hidden={!toggleVisible}
+        tabIndex={toggleVisible ? 0 : -1}
         onClick={toggle}
       >
         {open ? <X size={22} strokeWidth={2.25} aria-hidden /> : <Menu size={22} strokeWidth={2.25} aria-hidden />}

@@ -49,14 +49,16 @@ export default function TargetAudience() {
 
   return (
     <section
-      className="np1c-section np1c-audience"
+      className="np1c-section np1c-audience np1c-section-size-1"
       data-dev-section="audience"
       aria-label="Target audience"
     >
       <div className="np1c-section__inner np1c-section__inner--wide np1c-audience__inner">
-        <h2 className="np1c-audience__heading">Who we&apos;re anticipating to pick up CX Pro.</h2>
+        <h2 className="np1c-h-text-stack__label np1c-type-subheader-3 np1c-audience__heading">
+          Who we&apos;re anticipating to pick up CX Pro:
+        </h2>
 
-        <div className="np1c-audience__grid np1c-media--xl">
+        <div className="np1c-audience__grid">
           <article className="np1c-audience-card np1c-audience-card--media">
             <div className="np1c-audience-card__media">
               <VideoWithLoader
