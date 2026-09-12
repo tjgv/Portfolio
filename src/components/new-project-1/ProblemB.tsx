@@ -1,7 +1,7 @@
 import './Problem.css'
 import './ProblemB.css'
 
-const PROBLEM_IMAGE = '/new-project-1/problem-hero.png'
+const PROBLEM_IMAGE = '/new-project-1/problem-hero.jpg'
 const PROBLEM_LABEL = 'Insight & Problem'
 const PROBLEM_STATEMENT =
   'CX Pro is too conceptually complex for newer users to grasp, making otherwise simple flows unintuitive.'

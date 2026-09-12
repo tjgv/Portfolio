@@ -553,7 +553,7 @@
   }
 
   .np1c-page .np1c-aun-mobile-carousel .np1c-editing-carousel__media-frame {
-    height: calc(clamp(274px, 35.19vw, 567px) * 0.9);
+    height: clamp(246.6px, 31.671vw, 510.3px);
   }
 
   /* Editing carousel — same 10% shrink + gap as Selling Points */
@@ -567,17 +567,17 @@
   }
 
   .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__media-frame {
-    height: calc(clamp(274px, 35.19vw, 567px) * 0.9);
+    height: clamp(246.6px, 31.671vw, 510.3px);
   }
 
   .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__image,
   .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__panel {
-    max-height: calc(clamp(274px, 35.19vw, 567px) * 0.9);
+    max-height: clamp(246.6px, 31.671vw, 510.3px);
   }
 
   .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__panel-video,
   .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__media-frame .np1c-editing-carousel__panel video {
-    max-height: calc(clamp(274px, 35.19vw, 567px) * 0.9 - 24px);
+    max-height: clamp(222.6px, calc(31.671vw - 24px), 486.3px);
   }
 
   .np1c-page .np1c-glance__blocks {

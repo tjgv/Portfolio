@@ -1,7 +1,7 @@
 import './Problem.css'
 import './ProblemB.css'
 
-const PROBLEM_IMAGE = '/new-project-1/problem-hero.png'
+const PROBLEM_IMAGE = '/new-project-1/problem-hero.jpg'
 const PROBLEM_LABEL = 'Insight & Problem'
 const PROBLEM_STATEMENT =
   "CX Pro's learning curve is too high."
@@ -21,7 +21,8 @@ export default function ProblemB() {
           src={PROBLEM_IMAGE}
           alt=""
           aria-hidden
-          loading="lazy"
+          fetchPriority="high"
+          loading="eager"
           decoding="async"
         />
         <div className="np1c-problem__fade" aria-hidden />
