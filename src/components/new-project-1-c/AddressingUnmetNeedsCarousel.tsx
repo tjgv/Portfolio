@@ -2,9 +2,32 @@ import { useCallback, useEffect, useRef, useState, type TouchEvent } from 'react
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { VideoWithLoader } from '../MediaLoader'
 import CarouselVideoReplayButton from './CarouselVideoReplayButton'
+import ImageCarousel, { type CarouselSlide } from './ImageCarousel'
 import { SOLUTION_VIDEO_SLIDES } from './solutionVideoSlides'
 import { PILL_LUCIDE_ICON_SIZE } from './pillControlSizes'
 import './AddressingUnmetNeedsCarousel.css'
+
+const MOBILE_SLIDES: CarouselSlide[] = SOLUTION_VIDEO_SLIDES.flatMap((slide) =>
+  slide.kind === 'video'
+    ? [{ id: slide.id, type: 'video' as const, src: slide.src, caption: slide.caption }]
+    : [],
+)
+
+function useIsPhone() {
+  const [isPhone, setIsPhone] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches,
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    const sync = () => setIsPhone(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  return isPhone
+}
 
 function GiantPlayIcon() {
   return (
@@ -17,7 +40,33 @@ function GiantPlayIcon() {
   )
 }
 
+function AddressingUnmetNeedsCarouselMobile() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  return (
+    <section
+      ref={sectionRef}
+      className="np1c-section np1c-editing-carousel np1c-section-size-1 np1c-aun-mobile-carousel"
+      data-dev-section="how-it-addresses"
+      aria-label="Addressing Unmet Needs"
+    >
+      <ImageCarousel
+        slides={MOBILE_SLIDES}
+        ariaLabel="Addressing Unmet Needs feature highlights"
+        controlsVariant="autoplay"
+        pillGrowSectionRef={sectionRef}
+      />
+    </section>
+  )
+}
+
 export default function AddressingUnmetNeedsCarousel() {
+  const isPhone = useIsPhone()
+  if (isPhone) return <AddressingUnmetNeedsCarouselMobile />
+  return <AddressingUnmetNeedsCarouselDesktop />
+}
+
+function AddressingUnmetNeedsCarouselDesktop() {
   const slides = SOLUTION_VIDEO_SLIDES
   const slideCount = slides.length
 

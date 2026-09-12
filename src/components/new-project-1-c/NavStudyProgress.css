@@ -129,6 +129,12 @@
   margin-left: 0;
 }
 
+@media (max-width: 767px) {
+  .np1c-nav-progress__label {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .np1c-nav-progress,
   .np1c-nav-progress__dot {

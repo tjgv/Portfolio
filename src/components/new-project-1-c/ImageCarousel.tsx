@@ -300,11 +300,9 @@ export default function ImageCarousel({
     setAutoplayProgress(0)
   }, [isAutoplay])
 
-  // Sync active index from native trackpad scroll (no snap, so read scroll position)
-  const syncFromScroll = useCallback(() => {
+  const nearestSlideIndex = useCallback(() => {
     const gallery = galleryRef.current
-    if (!gallery) return
-    if (pendingSlideIndexRef.current !== null) return
+    if (!gallery) return 0
 
     const center = gallery.scrollLeft + gallery.clientWidth / 2
     let closest = 0
@@ -318,29 +316,109 @@ export default function ImageCarousel({
         closest = i
       }
     })
+    return closest
+  }, [])
+
+  // Sync active index from native trackpad / touch scroll
+  const syncFromScroll = useCallback(() => {
+    if (pendingSlideIndexRef.current !== null) return
+    const closest = nearestSlideIndex()
     if (closest !== activeIndexRef.current) {
       setActiveIndex(closest)
       setAutoplayProgress(0)
       setEnded(false)
     }
-  }, [])
+  }, [nearestSlideIndex])
+
+  const snapToNearest = useCallback(() => {
+    if (pendingSlideIndexRef.current !== null) return
+    const gallery = galleryRef.current
+    const closest = nearestSlideIndex()
+    const slide = slideRefs.current[closest]
+    if (!gallery || !slide) return
+
+    const target = Math.max(0, slide.offsetLeft - (gallery.clientWidth - slide.offsetWidth) / 2)
+    if (Math.abs(gallery.scrollLeft - target) < 2) {
+      if (closest !== activeIndexRef.current) {
+        setActiveIndex(closest)
+        setAutoplayProgress(0)
+        setEnded(false)
+      }
+      return
+    }
+
+    pendingSlideIndexRef.current = closest
+    setActiveIndex(closest)
+    setAutoplayProgress(0)
+    setEnded(false)
+    scrollToIndex(closest)
+  }, [nearestSlideIndex, scrollToIndex])
 
   useEffect(() => {
     const gallery = galleryRef.current
     if (!gallery) return
+
     let rafId = 0
-    const onScroll = () => {
-      if (!rafId) rafId = requestAnimationFrame(() => {
-        rafId = 0
-        syncFromScroll()
-      })
+    let snapTimer = 0
+    let pointerDown = false
+
+    const clearSnap = () => {
+      if (snapTimer) {
+        window.clearTimeout(snapTimer)
+        snapTimer = 0
+      }
     }
+
+    const scheduleSnap = () => {
+      if (pointerDown || pendingSlideIndexRef.current !== null) return
+      clearSnap()
+      snapTimer = window.setTimeout(() => {
+        snapTimer = 0
+        if (!pointerDown) snapToNearest()
+      }, 140)
+    }
+
+    const onScroll = () => {
+      if (!rafId) {
+        rafId = requestAnimationFrame(() => {
+          rafId = 0
+          syncFromScroll()
+        })
+      }
+      scheduleSnap()
+    }
+
+    const onScrollEnd = () => {
+      if (pointerDown || pendingSlideIndexRef.current !== null) return
+      clearSnap()
+      snapToNearest()
+    }
+
+    const onPointerDown = () => {
+      pointerDown = true
+      clearSnap()
+    }
+
+    const onPointerUp = () => {
+      pointerDown = false
+      scheduleSnap()
+    }
+
     gallery.addEventListener('scroll', onScroll, { passive: true })
+    gallery.addEventListener('scrollend', onScrollEnd)
+    gallery.addEventListener('pointerdown', onPointerDown)
+    window.addEventListener('pointerup', onPointerUp)
+    window.addEventListener('pointercancel', onPointerUp)
     return () => {
       gallery.removeEventListener('scroll', onScroll)
+      gallery.removeEventListener('scrollend', onScrollEnd)
+      gallery.removeEventListener('pointerdown', onPointerDown)
+      window.removeEventListener('pointerup', onPointerUp)
+      window.removeEventListener('pointercancel', onPointerUp)
       if (rafId) cancelAnimationFrame(rafId)
+      clearSnap()
     }
-  }, [syncFromScroll])
+  }, [syncFromScroll, snapToNearest])
 
   // Play only the centered video; pause + reset the rest
   useEffect(() => {
