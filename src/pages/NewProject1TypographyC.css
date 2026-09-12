@@ -98,6 +98,19 @@
   color: var(--np1c-text);
 }
 
+@media (max-width: 767px) {
+  .np1c-page,
+  .np1c-case-study-nav,
+  .np1c-popup-overlay,
+  .np1c-popup-reveal-portal-host {
+    --np1c-label-title-gap: 4px;
+    --np1c-subheader-1-size: 13px;
+    --np1c-subheader-3-size: 13px;
+    --np1c-subheader-1-lh: 1.15;
+    --np1c-subheader-3-lh: 1.15;
+  }
+}
+
 /* Type classes — Page C only */
 .np1c-type-hero-bold {
   font-family: var(--np1c-font-display);

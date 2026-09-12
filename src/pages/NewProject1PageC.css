@@ -450,6 +450,44 @@
 }
 
 @media (max-width: 767px) {
+  .np1c-page {
+    --np1c-label-title-gap: 4px !important;
+    --np1c-subheader-1-size: 13px !important;
+    --np1c-subheader-3-size: 13px !important;
+    --np1c-subheader-1-lh: 1.15 !important;
+    --np1c-subheader-3-lh: 1.15 !important;
+  }
+
+  .np1c-page .np1c-h-text-stack {
+    gap: 4px !important;
+  }
+
+  .np1c-page .np1c-h-text-stack__label,
+  .np1c-page .np1c-h-text-stack:has(.np1c-h-text-stack__row) .np1c-h-text-stack__label,
+  .np1c-page .np1c-problem__label,
+  .np1c-page .np1c-problem--b .np1c-problem__label,
+  .np1c-page .np1c-audience__heading,
+  .np1c-page .np1c-stub__label,
+  .np1c-page .np1c-stub--goal .np1c-stub__label,
+  .np1c-page .np1c-side-shot__label,
+  .np1c-page .np1c-user-needs__label {
+    font-size: 13px !important;
+    line-height: 1.15 !important;
+    opacity: 0.8;
+  }
+
+  .np1c-page .np1c-problem__label,
+  .np1c-page .np1c-problem--b .np1c-problem__label,
+  .np1c-page .np1c-stub__label,
+  .np1c-page .np1c-stub--goal .np1c-stub__label,
+  .np1c-page .np1c-side-shot__label {
+    margin-bottom: 4px !important;
+  }
+
+  .np1c-page .np1c-stub--goal.np1c-stub--goal-in-view .np1c-stub__label {
+    opacity: 0.8;
+  }
+
   .np1c-page .np1c-content > .np1c-section.np1c-aun-section.np1c-section-size-1 {
     height: auto;
     min-height: 0;
@@ -509,6 +547,23 @@
 
   .np1c-page .np1c-h-text-stack__row {
     grid-template-columns: 1fr;
+  }
+
+  /* Match Insight & Problem: stacked label is subheader-1, headline is header-1 */
+  .np1c-page .np1c-h-text-stack:has(.np1c-h-text-stack__row) .np1c-h-text-stack__label {
+    font-size: var(--np1c-subheader-1-size);
+    font-weight: var(--np1c-subheader-1-weight);
+    line-height: var(--np1c-subheader-1-lh);
+    letter-spacing: var(--np1c-subheader-1-ls);
+    color: var(--np1c-text-hero);
+  }
+
+  .np1c-page .np1c-h-text-stack__row .np1c-h-text-stack__headline {
+    font-size: var(--np1c-header-1-size);
+    font-weight: var(--np1c-header-1-weight);
+    line-height: var(--np1c-header-1-lh);
+    letter-spacing: var(--np1c-header-1-ls);
+    color: var(--np1c-header-1-color);
   }
 
   /* Centered / stacked copy fills the content column (16px gutters stay) */
@@ -594,5 +649,11 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .np1c-page .np1c-stub--goal .np1c-stub__label {
+    opacity: 0.8;
   }
 }
