@@ -54,7 +54,10 @@ export default function TargetAudience() {
       aria-label="Target audience"
     >
       <div className="np1c-section__inner np1c-section__inner--wide np1c-audience__inner">
-        <h2 className="np1c-h-text-stack__label np1c-type-subheader-3 np1c-audience__heading">
+        <h2
+          id="np1c-audience-heading"
+          className="np1c-h-text-stack__label np1c-type-subheader-3 np1c-audience__heading"
+        >
           Who we&apos;re anticipating to pick up CX Pro:
         </h2>
 

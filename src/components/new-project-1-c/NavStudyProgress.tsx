@@ -5,14 +5,29 @@ export type NavCheckpoint = {
   id: string
   label: string
   selector: string
+  /**
+   * 0–1. How far into the viewport (from the bottom) the target should be
+   * before this stop is reached. `1` = target at the top (default).
+   */
+  inView?: number
 }
 
 export const CONSUMER_CX_PRO_CHECKPOINTS: readonly NavCheckpoint[] = [
   { id: 'context', label: 'Context', selector: '[data-dev-section="hero"]' },
-  { id: 'audience', label: 'Research', selector: '[data-dev-section="audience"]' },
+  {
+    id: 'audience',
+    label: 'Research',
+    selector: '#np1c-audience-heading',
+    inView: 0.2,
+  },
   { id: 'hypothesis', label: 'Hypothesis', selector: '[data-dev-section="challenge"]' },
   { id: 'design', label: 'Design', selector: '[data-dev-section="north-star"]' },
-  { id: 'results', label: 'Results', selector: '[data-dev-section="business-value"]' },
+  {
+    id: 'results',
+    label: 'Results',
+    selector: '[data-dev-section="business-value"]',
+    inView: 0.25,
+  },
 ]
 
 type NavStudyProgressProps = {
@@ -48,11 +63,15 @@ export default function NavStudyProgress({
     if (!startEl || !endEl) return
 
     const start = documentTop(startEl)
-    const end = documentTop(endEl)
+    const lastInView = checkpoints[checkpoints.length - 1]?.inView ?? 1
+    const end = documentTop(endEl) - (1 - lastInView) * window.innerHeight
     const span = Math.max(end - start, 1)
-    const nextStops = nodes.map((node) => {
+    const vh = window.innerHeight
+    const nextStops = nodes.map((node, index) => {
       if (!node) return 0
-      return Math.min(1, Math.max(0, (documentTop(node) - start) / span))
+      const inView = checkpoints[index]?.inView ?? 1
+      const triggerY = documentTop(node) - (1 - inView) * vh
+      return Math.min(1, Math.max(0, (triggerY - start) / span))
     })
     nextStops[0] = 0
     nextStops[nextStops.length - 1] = 1

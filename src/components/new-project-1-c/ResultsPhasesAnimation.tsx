@@ -82,6 +82,7 @@ export default function ResultsPhasesAnimation({
   const listRef = useRef<HTMLUListElement>(null)
   const strokeRef = useRef<HTMLDivElement>(null)
   const [strokeMaxWidth, setStrokeMaxWidth] = useState<number | null>(null)
+  const [strokeLeftPx, setStrokeLeftPx] = useState<number | null>(null)
 
   const [visibleCount, setVisibleCount] = useState(0)
   const [strokeProgress, setStrokeProgress] = useState(0)
@@ -233,16 +234,30 @@ export default function ResultsPhasesAnimation({
     if (width > 0) setStrokeMaxWidth(width)
   }, [])
 
+  const measureStrokeOrigin = useCallback(() => {
+    const phasesEl = sectionRef.current
+    if (!phasesEl) return
+    if (capStrokeAtLastCircle) {
+      measureStrokeMaxWidth()
+      return
+    }
+    /* Pin to the visible viewport left — same in Chrome and Safari. */
+    setStrokeLeftPx(-phasesEl.getBoundingClientRect().left)
+  }, [capStrokeAtLastCircle, measureStrokeMaxWidth])
+
   useEffect(() => {
-    if (!capStrokeAtLastCircle) return
-    measureStrokeMaxWidth()
+    measureStrokeOrigin()
 
     const container = sectionRef.current
     if (!container || typeof ResizeObserver === 'undefined') return
-    const ro = new ResizeObserver(() => measureStrokeMaxWidth())
+    const ro = new ResizeObserver(() => measureStrokeOrigin())
     ro.observe(container)
-    return () => ro.disconnect()
-  }, [capStrokeAtLastCircle, measureStrokeMaxWidth])
+    window.addEventListener('resize', measureStrokeOrigin)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measureStrokeOrigin)
+    }
+  }, [measureStrokeOrigin])
 
   return (
     <div
@@ -257,7 +272,9 @@ export default function ResultsPhasesAnimation({
           transform: `scaleX(${strokeProgress})`,
           ...(capStrokeAtLastCircle && strokeMaxWidth != null
             ? { width: `${strokeMaxWidth}px`, right: 'auto' }
-            : null),
+            : strokeLeftPx != null
+              ? { left: `${strokeLeftPx}px` }
+              : null),
         }}
       />
 

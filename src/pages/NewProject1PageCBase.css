@@ -742,7 +742,7 @@
 
 .np1c-stub--goal .np1c-stub__body {
   margin: 0;
-  max-width: calc(1312px * var(--np1c-content-width-scale) * 0.85 * 0.8 * 0.75);
+  max-width: 50vw;
   font-family: var(--np1c-font-display);
   font-size: var(--np1c-body-1-size);
   font-weight: var(--np1c-split-body-weight);

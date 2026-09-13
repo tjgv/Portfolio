@@ -47,14 +47,14 @@
   --np1c-header-3-weight: 650;
   --np1c-header-3-color: #f5f5f7;
 
-  /* Sub-header-hero — SF Pro Display Semibold 24 / 116% / 0.009rem */
-  --np1c-subheader-hero-size: clamp(20px, 1.6vw, 24px);
+  /* Sub-header-hero — SF Pro Display Semibold (−4px) */
+  --np1c-subheader-hero-size: calc(clamp(20px, 1.6vw, 24px) - 2px);
   --np1c-subheader-hero-lh: 1.16;
   --np1c-subheader-hero-ls: 0.009rem;
   --np1c-subheader-hero-weight: 590;
 
-  /* Sub-header-1 — Inter Semi Bold 20 / 25px / 0.11px (−1px from 21) */
-  --np1c-subheader-1-size: clamp(17px, 1.4vw, 20px);
+  /* Sub-header-1 — Inter Semi Bold (−4px from 17–20) */
+  --np1c-subheader-1-size: calc(clamp(17px, 1.4vw, 20px) - 2px);
   --np1c-subheader-1-lh: 25px;
   --np1c-subheader-1-ls: 0.11px;
   --np1c-subheader-1-weight: 600;

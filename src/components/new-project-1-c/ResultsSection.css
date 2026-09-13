@@ -21,12 +21,9 @@
 
 /* ── Phase timeline ──────────────────────────────────────────── */
 .np1c-results__phases {
-  /* Total inset from the true viewport edge to this container's content edge —
-     used to let the stroke bleed past the section's own padding. */
-  --np1c-results-edge-inset: max(
-    var(--np1c-content-padding-inline),
-    calc((100vw - min(var(--np1c-content-max), 100vw)) / 2 + var(--np1c-content-padding-inline))
-  );
+  /* Embed / fallback only. The full-page stroke pins to the viewport with
+     `50% - 50vw` so Chrome's 100vw-includes-scrollbar math cannot leave a gap. */
+  --np1c-results-edge-inset: var(--np1c-wide-padding-inline, var(--np1c-content-padding-inline));
 
   position: relative;
   display: flex;
@@ -40,8 +37,9 @@
 .np1c-results__stroke {
   position: absolute;
   top: 50%;
-  /* Ignore container padding — start from the true left edge of the viewport */
-  left: calc(-1 * var(--np1c-results-edge-inset));
+  /* Viewport left edge. 50% is this centered box; 50vw is half the viewport.
+     Do not use 100vw − content-max — Chrome counts the scrollbar in 100vw. */
+  left: calc(50% - 50vw);
   right: 0;
   height: 5px;
   background: #f5f5f7;
@@ -50,6 +48,11 @@
   transform: scaleX(0);
   z-index: 1;
   will-change: transform;
+}
+
+/* Preview modal — stay inside the padded card, not the browser viewport */
+.np1c-results__phases.np1c-embed-results-phases .np1c-results__stroke {
+  left: calc(-1 * var(--np1c-results-edge-inset));
 }
 
 .np1c-results__list {

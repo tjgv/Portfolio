@@ -56,6 +56,9 @@
   --np1c-section-size-1-pad: 10vh;
   --np1c-section-size-hero-pad: 25vh;
   --np1c-section-size-hero-pad-bottom: 35vh;
+  --np1c-subheader-hero-size: calc(clamp(20px, 1.6vw, 24px) - 2px) !important;
+  --np1c-subheader-1-size: calc(clamp(17px, 1.4vw, 20px) - 2px) !important;
+  --np1c-subheader-3-size: var(--np1c-subheader-1-size) !important;
 }
 
 .np1c-page .np1c-content > .np1c-section,
@@ -458,11 +461,32 @@
   color: var(--np1c-text-hero);
 }
 
-.np1c-page .np1c-stub--goal .np1c-stub__body {
+.np1c-page .np1c-stub--goal .np1c-stub__body,
+.np1c-page .np1c-problem--b .np1c-problem__body,
+.np1c-page .np1c-editing-mvp__body {
   width: 100%;
-  max-width: none;
-  margin: var(--np1c-label-title-gap) 0 0;
+  max-width: 50vw !important;
+  margin-inline: auto;
+}
+
+.np1c-page .np1c-stub--goal .np1c-stub__body {
+  margin-top: var(--np1c-label-title-gap);
+  margin-bottom: 0;
   color: var(--np1c-text-sub-hero);
+}
+
+/* Centered stacks — half the label→title gap (16px → 8px). Mobile keeps 4px. */
+.np1c-page .np1c-stub--goal .np1c-stub__label,
+.np1c-page .np1c-problem--b .np1c-problem__label {
+  margin-bottom: calc(var(--np1c-label-title-gap) / 2) !important;
+}
+
+.np1c-page .np1c-editing-mvp .np1c-h-text-stack--full {
+  gap: calc(var(--np1c-label-title-gap) / 2);
+}
+
+.np1c-page .np1c-editing-mvp .np1c-h-text-stack__headline {
+  margin-bottom: calc(var(--np1c-label-title-gap) / 2);
 }
 
 /* At a glance — three equal blocks in one row */
@@ -632,6 +656,14 @@
     opacity: 0.8;
   }
 
+  .np1c-page .np1c-editing-mvp .np1c-h-text-stack--full {
+    gap: var(--np1c-label-title-gap);
+  }
+
+  .np1c-page .np1c-editing-mvp .np1c-h-text-stack__headline {
+    margin-bottom: 0;
+  }
+
   .np1c-page .np1c-content > .np1c-section.np1c-aun-section.np1c-section-size-1 {
     height: auto;
     min-height: 0;
@@ -784,6 +816,12 @@
   .np1c-page .np1c-glance-block {
     grid-column: auto;
   }
+}
+
+/* Results stroke — pin to the viewport edge. Test CSS still uses a 100vw
+   inset that Chrome computes short of the page edge (scrollbar in 100vw). */
+.np1c-page:not(.cx-pro-page--embedded) .np1c-results__stroke {
+  left: calc(50% - 50vw);
 }
 
 @media (prefers-reduced-motion: reduce) {
