@@ -36,23 +36,19 @@ const SLIDES: CarouselSlide[] = [
     type: 'video',
     src: '/new-project-1/editing-clip-1.mp4',
     caption: 'Worked with content teams to develop a Thumbnail System for layer assets, and introduced layer-priority logic to use the thumbnails as the key-identifier for a scene.',
-    backText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   },
   {
     id: 'editing-sequence',
     type: 'video',
     src: '/new-project-1/mvp-sequence-01.mp4',
     caption: 'Designed scene visualizations that communicate asset combinations without pre-rendered scenes, giving editors a clear view of how a show comes together.',
-    backText: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
   },
   {
     id: 'editing-inspector',
-    type: 'panel',
-    videoSrc: '/new-project-1/mvp-insp-2-main.mov',
-    videoAlt: 'CX Pro inspector configuration view',
-    narrow: true,
+    type: 'video',
+    src: '/new-project-1/mvp-insp-2-main.mp4',
+    fit: 'contain',
     caption: 'Worked with 2 engineering teams to barter a property priority system to filter out advanced properties. Then, I utilized progressive discourse to provide high-level view of configuration.',
-    backText: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   },
   {
     id: 'editing-image-2',
@@ -60,7 +56,6 @@ const SLIDES: CarouselSlide[] = [
     src: '/new-project-1/editing-image-2.png',
     alt: 'CX Pro editing interface detail',
     caption: 'Found home for optional auto-play functionality, leveraging new sequencer (scene library top bar) to allow users the ability to enable auto-play in between scenes. For certain types of shows, this can eliminate transitions all together.',
-    backText: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
   },
 ]
 

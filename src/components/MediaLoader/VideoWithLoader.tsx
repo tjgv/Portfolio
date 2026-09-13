@@ -12,10 +12,12 @@ export const VideoWithLoader = forwardRef<HTMLVideoElement, VideoWithLoaderProps
     variant = 'video',
     fill = false,
     onLoadedData,
+    onLoadedMetadata,
     onCanPlay,
     onPlaying,
     className = '',
     style,
+    poster,
     ...videoProps
   },
   ref
@@ -25,6 +27,14 @@ export const VideoWithLoader = forwardRef<HTMLVideoElement, VideoWithLoaderProps
   const markLoaded = useCallback(() => {
     setLoaded(true)
   }, [])
+
+  const handleLoadedMetadata = useCallback(
+    (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+      markLoaded()
+      onLoadedMetadata?.(e)
+    },
+    [markLoaded, onLoadedMetadata]
+  )
 
   const handleLoadedData = useCallback(
     (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
@@ -62,12 +72,14 @@ export const VideoWithLoader = forwardRef<HTMLVideoElement, VideoWithLoaderProps
         {...videoProps}
         ref={ref}
         className={className}
+        poster={poster}
+        onLoadedMetadata={handleLoadedMetadata}
         onLoadedData={handleLoadedData}
         onCanPlay={handleCanPlay}
         onPlaying={handlePlaying}
         style={{
           ...style,
-          opacity: loaded ? targetOpacity : 0,
+          opacity: loaded || poster ? targetOpacity : 0,
           transition: 'opacity 0.45s ease',
         }}
       />

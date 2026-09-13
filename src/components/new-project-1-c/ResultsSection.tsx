@@ -16,7 +16,7 @@ export default function ResultsSection() {
               <p className="np1c-h-text-stack__label">Results</p>
               <div className="np1c-h-text-stack__row">
                 <h2 className="np1c-h-text-stack__headline">
-                  User Validation Received &amp; Stakeholders Aligned.
+                  Users Validated, Stakeholders Aligned.
                 </h2>
                 <div className="np1c-h-text-stack__body">
                   <p>

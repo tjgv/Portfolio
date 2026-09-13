@@ -9,7 +9,7 @@ export type NavCheckpoint = {
 
 export const CONSUMER_CX_PRO_CHECKPOINTS: readonly NavCheckpoint[] = [
   { id: 'context', label: 'Context', selector: '[data-dev-section="hero"]' },
-  { id: 'audience', label: 'Audience', selector: '[data-dev-section="audience"]' },
+  { id: 'audience', label: 'Research', selector: '[data-dev-section="audience"]' },
   { id: 'hypothesis', label: 'Hypothesis', selector: '[data-dev-section="challenge"]' },
   { id: 'design', label: 'Design', selector: '[data-dev-section="north-star"]' },
   { id: 'results', label: 'Results', selector: '[data-dev-section="business-value"]' },

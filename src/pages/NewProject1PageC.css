@@ -102,7 +102,7 @@
   padding-block: var(--np1c-section-size-1-pad);
   padding-inline: 5vw;
   background: #000;
-  overflow: hidden;
+  overflow: visible;
   box-sizing: border-box;
 }
 
@@ -118,19 +118,22 @@
   flex: 1 1 auto;
   min-width: 0;
   min-height: 0;
-  border-radius: 24px;
-  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.05);
+  overflow: visible;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .np1c-page .np1c-content > .np1c-section.np1c-aun-section .np1c-aun-carousel {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  flex: 1 1 auto;
+  align-self: center;
+  width: 75%;
+  height: 90%;
+  max-width: 75%;
+  max-height: 90%;
+  flex: 0 0 90%;
   min-height: 0;
+  margin-inline: auto;
   border-radius: 24px;
   border: 1px solid transparent;
   background-color: #000;
@@ -147,32 +150,54 @@
 
 .np1c-page .np1c-content > .np1c-section.np1c-aun-section .np1c-aun-carousel {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   justify-content: center;
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.05);
+}
+
+.np1c-page .np1c-aun-carousel__viewport {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.np1c-page .np1c-aun-carousel__track {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 .np1c-page .np1c-aun-carousel__clip {
-  display: block;
-  width: auto;
-  height: 60vh;
-  margin: 0;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
 }
 
 .np1c-page .np1c-aun-carousel__clip[hidden] {
-  display: none;
+  display: flex !important;
 }
 
 .np1c-page .np1c-aun-carousel .media-with-loader-wrap,
 .np1c-page .np1c-aun-carousel .media-with-loader-wrap--fill {
   display: block;
   width: auto;
-  height: 60vh;
+  height: 54vh;
   margin: 0;
 }
 
 .np1c-page .np1c-aun-carousel__video {
   display: block;
-  height: 60vh;
+  height: 54vh;
   width: auto;
   margin: 0;
   object-fit: contain;
@@ -191,6 +216,20 @@
   text-align: center;
   display: block;
   pointer-events: none;
+}
+
+.np1c-page .np1c-aun-section .np1c-aun-section__stack > .np1c-carousel-controls {
+  position: absolute !important;
+  top: calc(50% + 45%) !important;
+  bottom: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  padding: 16px 0 0 !important;
+}
+
+.np1c-page .np1c-aun-section .np1c-aun-section__stack > .np1c-carousel-edge-arrows {
+  top: 0 !important;
+  height: 100% !important;
 }
 
 .np1c-page .np1c-aun-carousel > .np1c-embed-video-reset--carousel {
@@ -313,6 +352,24 @@
   margin-inline: auto;
   padding-inline: 12.85vw;
   box-sizing: border-box;
+}
+
+/* Safari: height:100% on these cards resolves against a tall ancestor and
+   stretches all 4 boxes. Hug content; grid stretch still evens a row. */
+.np1c-page .np1c-mvp-priorities,
+.np1c-page .np1c-mvp-priorities .np1c-editing-carousel__intro,
+.np1c-page .np1c-mvp-priorities .np1c-editing-carousel__cards {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+.np1c-page .np1c-mvp-priorities .np1c-editing-carousel__cards {
+  align-content: start !important;
+}
+
+.np1c-page .np1c-mvp-priorities .np1c-editing-carousel__card {
+  height: auto !important;
 }
 
 .np1c-page .np1c-problem--b .np1c-problem__copy-inner--b {
@@ -447,6 +504,93 @@
 .np1c-page .np1c-glance__blocks--in-view .np1c-glance-block {
   opacity: 1;
   transform: translateX(0);
+}
+
+.np1c-page .np1c-editing-carousel__slide--inspector {
+  --np1c-insp-width: 35vw;
+  flex: 0 0 var(--np1c-insp-width) !important;
+  width: var(--np1c-insp-width) !important;
+  max-width: var(--np1c-insp-width) !important;
+}
+
+.np1c-page .np1c-editing-carousel__slide--inspector .np1c-editing-carousel__media-frame {
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: clamp(274px, 35.19vw, 567px) !important;
+  padding: 12px 0 !important;
+  background: linear-gradient(180deg, #1d161e 0%, #281825 100%) !important;
+}
+
+.np1c-page .np1c-editing-carousel__slide--inspector .media-with-loader-wrap {
+  position: relative !important;
+  display: block !important;
+  width: auto !important;
+  height: 100% !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+
+.np1c-page .np1c-editing-carousel__slide--inspector video {
+  width: auto !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  border-radius: 10px !important;
+}
+
+.np1c-page .np1c-editing-carousel__slide--inspector .media-with-loader-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px #5c5c60;
+  pointer-events: none;
+}
+
+.np1c-page .np1c-editing-carousel__slide--inspector .np1c-editing-carousel__caption {
+  width: 100% !important;
+}
+
+.np1c-page .np1c-editing-carousel__slide--inspector .np1c-embed-video-reset {
+  display: none !important;
+}
+
+/*
+  Safari collapses this carousel's used height (overflow-x scrollport +
+  leaked perspective/preserve-3d), then still paints the videos — so they
+  sit on top of MVP Priorities. Chrome measures the frames correctly.
+  Pin a definite frame height and keep the gallery in normal flow.
+*/
+.np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] {
+  --np1c-ec-frame-h: clamp(274px, 35.19vw, 567px);
+  position: relative;
+  isolation: isolate;
+}
+
+.np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__gallery {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  min-height: calc(var(--np1c-ec-frame-h) + 25px + 4.5em) !important;
+}
+
+.np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__track,
+.np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide {
+  min-height: var(--np1c-ec-frame-h) !important;
+}
+
+.np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__media-frame {
+  height: var(--np1c-ec-frame-h) !important;
+  min-height: var(--np1c-ec-frame-h) !important;
+  max-height: var(--np1c-ec-frame-h) !important;
+  perspective: none !important;
+  transform: none !important;
+  transform-style: flat !important;
+  -webkit-transform-style: flat !important;
 }
 
 @media (max-width: 767px) {
@@ -621,18 +765,16 @@
     gap: 24px;
   }
 
-  .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__media-frame {
-    height: clamp(246.6px, 31.671vw, 510.3px);
+  .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] {
+    --np1c-ec-frame-h: clamp(246.6px, 31.671vw, 510.3px);
   }
 
-  .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__image,
-  .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__panel {
-    max-height: clamp(246.6px, 31.671vw, 510.3px);
-  }
-
-  .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__panel-video,
-  .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide--narrow .np1c-editing-carousel__media-frame .np1c-editing-carousel__panel video {
-    max-height: clamp(222.6px, calc(31.671vw - 24px), 486.3px);
+  .np1c-page .np1c-editing-carousel[data-dev-section="editing-carousel"] .np1c-editing-carousel__slide--inspector {
+    --np1c-insp-width: 90vw;
+    --np1c-ec-slide-width: var(--np1c-insp-width);
+    flex: 0 0 var(--np1c-insp-width);
+    width: var(--np1c-insp-width);
+    max-width: var(--np1c-insp-width);
   }
 
   .np1c-page .np1c-glance__blocks {

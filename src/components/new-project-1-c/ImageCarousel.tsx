@@ -7,7 +7,6 @@ import {
   type KeyboardEvent,
   type RefObject,
 } from 'react'
-import { Minus, Plus } from 'lucide-react'
 import { ImgWithLoader } from '../MediaLoader'
 import { VideoWithLoader } from '../MediaLoader/VideoWithLoader'
 import CarouselControls from './CarouselControls'
@@ -19,34 +18,28 @@ import './EditingCarousel.css'
 type SlideBase = {
   id: string
   caption: string
-  /** Body-2 paragraph shown on the card's flipped-over back face. */
-  backText?: string
 }
-type VideoSlide = SlideBase & { type: 'video'; src: string }
+type VideoSlide = SlideBase & {
+  type: 'video'
+  src: string
+  poster?: string
+  fit?: 'cover' | 'contain'
+}
 type ImageSlide = SlideBase & { type: 'image'; src: string; alt: string; narrow?: boolean }
-/** Gradient panel with centered inset video (MVP inspector slide). */
-type PanelSlide = SlideBase & {
-  type: 'panel'
-  videoSrc: string
-  videoAlt: string
-  narrow?: boolean
-}
-export type CarouselSlide = VideoSlide | ImageSlide | PanelSlide
+export type CarouselSlide = VideoSlide | ImageSlide
 
-const FLIP_BUTTON_ICON_SIZE = 16
 /** Dwell time for static image slides when autoplay controls are enabled. */
 const IMAGE_DWELL_MS = 10_000
-
+/** Idle time after the last scroll event before a snap is considered. */
+const SNAP_IDLE_MS = 320
 /**
- * SHELVED FEATURE — flip-to-reveal card details ("+" button in the top-right
- * corner of each slide, flips the media to a text-only back face). Revisit
- * later; the button, back-face markup, and CSS below are all still intact
- * and fully wired up — just flip this back to `true` to bring it back.
+ * Snap only when the nearest slide center is within this fraction of the
+ * spacing to its neighbor. Mid-swipe stays free; no snap-back / jitter.
  */
-const SHOW_FLIP_DETAILS_BUTTON = false
+const SNAP_WINDOW_RATIO = 0.22
 
 function slideHasVideo(slide: CarouselSlide): boolean {
-  return slide.type === 'video' || slide.type === 'panel'
+  return slide.type === 'video'
 }
 
 /** Ease-in-out cubic — feels natural and slower at start/end */
@@ -117,7 +110,6 @@ export default function ImageCarousel({
   const autoplayProgressRef = useRef(0)
 
   const [activeIndex, setActiveIndex] = useState(0)
-  const [flippedIndices, setFlippedIndices] = useState<Set<number>>(() => new Set())
   const [isPlaying, setIsPlaying] = useState(true)
   const [autoplayProgress, setAutoplayProgress] = useState(0)
   const [ended, setEnded] = useState(false)
@@ -134,19 +126,8 @@ export default function ImageCarousel({
     setIsPlaying(true)
   }, [isAutoplay, controlsReady, ended])
 
-  const toggleFlip = useCallback((index: number) => {
-    setFlippedIndices((prev) => {
-      const next = new Set(prev)
-      if (next.has(index)) next.delete(index)
-      else next.add(index)
-      return next
-    })
-  }, [])
   const slideCount = slides.length
-  /** Index of the narrow slide — used for JS width measurement */
-  const NARROW_INDEX = slides.findIndex(
-    (s) => (s.type === 'image' || s.type === 'panel') && s.narrow
-  )
+  const NARROW_INDEX = slides.findIndex((s) => s.type === 'image' && s.narrow)
 
   const controlStyle = isAutoplay ? pillControlStyle : undefined
 
@@ -173,17 +154,11 @@ export default function ImageCarousel({
     if (!slide) return
 
     requestAnimationFrame(() => {
-      const media = slide.querySelector<HTMLElement>(
-        '.np1c-editing-carousel__panel, .np1c-editing-carousel__image'
-      )
+      const media = slide.querySelector<HTMLElement>('.np1c-editing-carousel__image')
       if (!media) return
       const rect = media.getBoundingClientRect()
       if (rect.width > 0) {
         slide.style.width = `${Math.round(rect.width)}px`
-        // The narrow frame otherwise shrink-wraps the media (width/height:
-        // auto), which breaks the absolutely-positioned flip back-face.
-        // Pin the frame to the media's rendered box so both faces (and the
-        // container) share one fixed size that never changes on flip.
         const frame = frameRefs.current[NARROW_INDEX]
         if (frame) {
           frame.style.width = `${Math.round(rect.width)}px`
@@ -300,42 +275,68 @@ export default function ImageCarousel({
     setAutoplayProgress(0)
   }, [isAutoplay])
 
-  const nearestSlideIndex = useCallback(() => {
+  const nearestSlideMetrics = useCallback(() => {
     const gallery = galleryRef.current
-    if (!gallery) return 0
+    if (!gallery) return { index: 0, dist: Infinity, threshold: 0 }
 
     const center = gallery.scrollLeft + gallery.clientWidth / 2
+    const centers = slideRefs.current.map((slide) =>
+      slide ? slide.offsetLeft + slide.offsetWidth / 2 : Number.NaN
+    )
+
     let closest = 0
     let minDist = Infinity
-    slideRefs.current.forEach((slide, i) => {
-      if (!slide) return
-      const sc = slide.offsetLeft + slide.offsetWidth / 2
+    centers.forEach((sc, i) => {
+      if (!Number.isFinite(sc)) return
       const dist = Math.abs(sc - center)
       if (dist < minDist) {
         minDist = dist
         closest = i
       }
     })
-    return closest
+
+    const here = centers[closest]
+    const prev = centers[closest - 1]
+    const next = centers[closest + 1]
+    const spacing =
+      Number.isFinite(here) && Number.isFinite(prev) && Number.isFinite(next)
+        ? Math.min(Math.abs(here - prev), Math.abs(next - here))
+        : Number.isFinite(here) && Number.isFinite(next)
+          ? Math.abs(next - here)
+          : Number.isFinite(here) && Number.isFinite(prev)
+            ? Math.abs(here - prev)
+            : gallery.clientWidth
+
+    return { index: closest, dist: minDist, threshold: spacing * SNAP_WINDOW_RATIO }
+  }, [])
+
+  const cancelScrollAnim = useCallback(() => {
+    if (animRafRef.current !== null) {
+      cancelAnimationFrame(animRafRef.current)
+      animRafRef.current = null
+    }
+    pendingSlideIndexRef.current = null
   }, [])
 
   // Sync active index from native trackpad / touch scroll
   const syncFromScroll = useCallback(() => {
     if (pendingSlideIndexRef.current !== null) return
-    const closest = nearestSlideIndex()
+    const { index: closest } = nearestSlideMetrics()
     if (closest !== activeIndexRef.current) {
       setActiveIndex(closest)
       setAutoplayProgress(0)
       setEnded(false)
     }
-  }, [nearestSlideIndex])
+  }, [nearestSlideMetrics])
 
   const snapToNearest = useCallback(() => {
     if (pendingSlideIndexRef.current !== null) return
     const gallery = galleryRef.current
-    const closest = nearestSlideIndex()
+    const { index: closest, dist, threshold } = nearestSlideMetrics()
     const slide = slideRefs.current[closest]
     if (!gallery || !slide) return
+    // Mid-swipe: leave the track alone until a card is actually near center.
+    if (dist > threshold) return
 
     const target = Math.max(0, slide.offsetLeft - (gallery.clientWidth - slide.offsetWidth) / 2)
     if (Math.abs(gallery.scrollLeft - target) < 2) {
@@ -352,7 +353,7 @@ export default function ImageCarousel({
     setAutoplayProgress(0)
     setEnded(false)
     scrollToIndex(closest)
-  }, [nearestSlideIndex, scrollToIndex])
+  }, [nearestSlideMetrics, scrollToIndex])
 
   useEffect(() => {
     const gallery = galleryRef.current
@@ -375,7 +376,7 @@ export default function ImageCarousel({
       snapTimer = window.setTimeout(() => {
         snapTimer = 0
         if (!pointerDown) snapToNearest()
-      }, 140)
+      }, SNAP_IDLE_MS)
     }
 
     const onScroll = () => {
@@ -397,6 +398,7 @@ export default function ImageCarousel({
     const onPointerDown = () => {
       pointerDown = true
       clearSnap()
+      cancelScrollAnim()
     }
 
     const onPointerUp = () => {
@@ -404,21 +406,27 @@ export default function ImageCarousel({
       scheduleSnap()
     }
 
+    const onWheel = () => {
+      cancelScrollAnim()
+    }
+
     gallery.addEventListener('scroll', onScroll, { passive: true })
     gallery.addEventListener('scrollend', onScrollEnd)
     gallery.addEventListener('pointerdown', onPointerDown)
+    gallery.addEventListener('wheel', onWheel, { passive: true })
     window.addEventListener('pointerup', onPointerUp)
     window.addEventListener('pointercancel', onPointerUp)
     return () => {
       gallery.removeEventListener('scroll', onScroll)
       gallery.removeEventListener('scrollend', onScrollEnd)
       gallery.removeEventListener('pointerdown', onPointerDown)
+      gallery.removeEventListener('wheel', onWheel)
       window.removeEventListener('pointerup', onPointerUp)
       window.removeEventListener('pointercancel', onPointerUp)
       if (rafId) cancelAnimationFrame(rafId)
       clearSnap()
     }
-  }, [syncFromScroll, snapToNearest])
+  }, [syncFromScroll, snapToNearest, cancelScrollAnim])
 
   // Play only the centered video; pause + reset the rest
   useEffect(() => {
@@ -548,9 +556,8 @@ export default function ImageCarousel({
         <ul ref={trackRef} className="np1c-editing-carousel__track">
           {slides.map((slide, index) => {
             const isActive = index === activeIndex
-            const narrow =
-              (slide.type === 'image' || slide.type === 'panel') && slide.narrow
-            const flipped = flippedIndices.has(index)
+            const narrow = slide.type === 'image' && slide.narrow
+            const inspector = slide.id === 'editing-inspector'
 
             return (
               <li
@@ -561,7 +568,7 @@ export default function ImageCarousel({
                   'np1c-editing-carousel__slide',
                   isActive && 'np1c-editing-carousel__slide--active',
                   narrow && 'np1c-editing-carousel__slide--narrow',
-                  flipped && 'np1c-editing-carousel__slide--flipped',
+                  inspector && 'np1c-editing-carousel__slide--inspector',
                 ].filter(Boolean).join(' ')}
                 aria-hidden={!isActive}
               >
@@ -569,81 +576,34 @@ export default function ImageCarousel({
                   className="np1c-editing-carousel__media-frame"
                   ref={(node) => { frameRefs.current[index] = node }}
                 >
-                  <div
-                    className={`np1c-editing-carousel__flip${flipped ? ' np1c-editing-carousel__flip--back' : ''}`}
-                  >
-                    <div className="np1c-editing-carousel__flip-face np1c-editing-carousel__flip-face--front">
-                      {slide.type === 'video' ? (
-                        <div className="np1c-editing-carousel__video-wrap">
-                          <VideoWithLoader
-                            ref={(node) => { videoRefs.current[index] = node }}
-                            className="np1c-editing-carousel__video"
-                            src={slide.src}
-                            muted
-                            playsInline
-                            preload="auto"
-                            onLoad={updatePadding}
-                            onLoadedMetadata={updatePadding}
-                          />
-                          <CarouselVideoReplayButton
-                            getVideo={() => videoRefs.current[index]}
-                            onRestart={() => {
-                              if (index !== activeIndexRef.current) goToSlide(index)
-                              handleVideoRestart()
-                            }}
-                          />
-                        </div>
-                      ) : slide.type === 'panel' ? (
-                        <div className="np1c-editing-carousel__panel">
-                          <div className="np1c-editing-carousel__video-wrap np1c-editing-carousel__video-wrap--panel">
-                            <VideoWithLoader
-                              ref={(node) => { videoRefs.current[index] = node }}
-                              className="np1c-editing-carousel__panel-video"
-                              src={slide.videoSrc}
-                              muted
-                              playsInline
-                              preload="auto"
-                              aria-label={slide.videoAlt}
-                              onLoadedMetadata={narrow ? syncNarrowWidth : updatePadding}
-                            />
-                            <CarouselVideoReplayButton
-                              getVideo={() => videoRefs.current[index]}
-                              onRestart={() => {
-                                if (index !== activeIndexRef.current) goToSlide(index)
-                                handleVideoRestart()
-                              }}
-                            />
-                          </div>
-                        </div>
-                      ) : (
-                        <ImgWithLoader
-                          className="np1c-editing-carousel__image"
-                          src={slide.src}
-                          alt={slide.alt}
-                          onLoad={narrow ? syncNarrowWidth : updatePadding}
-                        />
-                      )}
-                    </div>
-
-                    <div className="np1c-editing-carousel__flip-face np1c-editing-carousel__flip-face--back">
-                      <p className="np1c-editing-carousel__flip-text">{slide.backText}</p>
-                    </div>
-                  </div>
-
-                  {SHOW_FLIP_DETAILS_BUTTON && (
-                    <button
-                      type="button"
-                      className="np1c-editing-carousel__flip-btn"
-                      onClick={() => toggleFlip(index)}
-                      aria-label={flipped ? 'Show media' : 'Show details'}
-                      aria-pressed={flipped}
-                    >
-                      {flipped ? (
-                        <Minus size={FLIP_BUTTON_ICON_SIZE} strokeWidth={2.25} aria-hidden />
-                      ) : (
-                        <Plus size={FLIP_BUTTON_ICON_SIZE} strokeWidth={2.25} aria-hidden />
-                      )}
-                    </button>
+                  {slide.type === 'video' ? (
+                    <>
+                      <VideoWithLoader
+                        ref={(node) => { videoRefs.current[index] = node }}
+                        className={`np1c-editing-carousel__video${slide.fit === 'contain' ? ' np1c-editing-carousel__video--contain' : ''}`}
+                        src={slide.src}
+                        poster={slide.poster}
+                        muted
+                        playsInline
+                        preload="auto"
+                        onLoad={updatePadding}
+                        onLoadedMetadata={updatePadding}
+                      />
+                      <CarouselVideoReplayButton
+                        getVideo={() => videoRefs.current[index]}
+                        onRestart={() => {
+                          if (index !== activeIndexRef.current) goToSlide(index)
+                          handleVideoRestart()
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <ImgWithLoader
+                      className="np1c-editing-carousel__image"
+                      src={slide.src}
+                      alt={slide.alt}
+                      onLoad={narrow ? syncNarrowWidth : updatePadding}
+                    />
                   )}
                 </div>
 
