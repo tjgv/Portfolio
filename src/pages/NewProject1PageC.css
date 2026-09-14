@@ -422,8 +422,8 @@
 .np1c-page .np1c-audience .np1c-section__inner.np1c-audience__inner {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  row-gap: 16px;
+  gap: 28px;
+  row-gap: 28px;
 }
 
 .np1c-page .np1c-audience .np1c-audience__heading {
