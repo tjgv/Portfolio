@@ -74,7 +74,7 @@ export default function EditingCarousel() {
             <p className="np1c-h-text-stack__label">MVP Priorities</p>
             <div className="np1c-h-text-stack__row">
               <h2 className="np1c-h-text-stack__headline">
-                Identifying highest impact upgrades for MVP.
+                High Impact, Low Effort Items For Rapid Rollout
               </h2>
               <div className="np1c-h-text-stack__body">
                 <p>
