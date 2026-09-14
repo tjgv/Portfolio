@@ -94,8 +94,8 @@ export default function EditingCarousel() {
                   src={card.icon}
                   alt=""
                   aria-hidden
-                  width={24}
-                  height={24}
+                  width={30}
+                  height={30}
                 />
                 <div className="np1c-editing-carousel__card-text">
                   <h3 className="np1c-editing-carousel__card-title">{card.title}</h3>
