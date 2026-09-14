@@ -79,7 +79,9 @@ export default function EditingCarousel() {
               <div className="np1c-h-text-stack__body">
                 <p>
                   I prioritized four initiatives that improved the current editing experience while
-                  laying the groundwork for future Show Running capabilities.
+                  laying the groundwork for future Show Running capabilities. These initiatives were
+                  selected based on what could realistically be shipped within a quarter to get the
+                  ball moving in this new direction.
                 </p>
               </div>
             </div>

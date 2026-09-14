@@ -252,6 +252,9 @@ function AddressingUnmetNeedsCarouselDesktop() {
                     key={slide.id}
                     id={`np1c-carousel-slide-${slide.id}`}
                     className={`np1c-aun-carousel__clip${index === 3 ? ' np1c-aun-carousel__clip--rounded' : ''}`}
+                    style={{
+                      ['--np1c-aun-video-aspect' as string]: slide.aspectRatio ?? '1920 / 1046',
+                    }}
                     aria-hidden={!active}
                     onClick={handleTogglePlay}
                   >
@@ -284,7 +287,7 @@ function AddressingUnmetNeedsCarouselDesktop() {
           </div>
 
           <p className="np1c-aun-carousel__caption" aria-live="polite">
-            {activeSlide.caption}
+            <span>{activeSlide.caption}</span>
           </p>
         </div>
 
