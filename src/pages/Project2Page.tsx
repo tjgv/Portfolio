@@ -371,7 +371,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 Often, a string of alerts are related to each other, which creates tedious and duplicative workflows. Bulk Actions enables users to work on a multiple alerts simultaneously.
               </p>
               <div className="cx-full-width">
-                <ImgWithLoader src={`${VALIDUS_IMAGES}/16-bulk-actions.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} />
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/16-investigate.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/16-investigate.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/16-investigate.png`], 0)} />
               </div>
             </div>
           </div>
@@ -417,21 +417,6 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
 
           <div className="cx-section">        <div className="cx-block cx-block--divider">
             <div className="cx-block__col1">
-              <h2 className="header-2">Testing Satisfaction</h2>
-            </div>
-            <div className="cx-block__col2 cx-stack">
-              <p className="paragraph-text">
-                Q: If you had to use this dashboard and design flow for the next six months instead of the dashboard you have now, how would you feel?
-              </p>
-              <div className="cx-full-width">
-                <ImgWithLoader src={`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} />
-              </div>
-            </div>
-          </div>
-          </div>
-
-          <div className="cx-section">        <div className="cx-block cx-block--divider">
-            <div className="cx-block__col1">
               <h2 className="header-2">Task Completion Metrics</h2>
             </div>
             <div className="cx-block__col2 cx-stack">
@@ -457,6 +442,21 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                   <div className="cx-stat-card-divider" aria-hidden />
                   <p className="paragraph-text">This feature had initial comprehension hurdles but quickly grew on users once figured out.</p>
                 </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div className="cx-section">        <div className="cx-block cx-block--divider">
+            <div className="cx-block__col1">
+              <h2 className="header-2">Testing Satisfaction</h2>
+            </div>
+            <div className="cx-block__col2 cx-stack">
+              <p className="paragraph-text">
+                Q: If you had to use this dashboard and design flow for the next six months instead of the dashboard you have now, how would you feel?
+              </p>
+              <div className="cx-full-width">
+                <ImgWithLoader src={`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} />
               </div>
             </div>
           </div>
@@ -716,7 +716,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
               Often, a string of alerts are related to each other, which creates tedious and duplicative workflows. Bulk Actions enables users to work on a multiple alerts simultaneously.
             </p>
             <div className="cx-full-width">
-              <ImgWithLoader src={`${VALIDUS_IMAGES}/16-bulk-actions.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/16-bulk-actions.png`], 0)} />
+              <ImgWithLoader src={`${VALIDUS_IMAGES}/16-investigate.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/16-investigate.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/16-investigate.png`], 0)} />
             </div>
           </div>
         </div>
@@ -826,23 +826,7 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
         </div>
         </div>
 
-        {/* 23. (2x1) Has divider. Col1: "Testing Satisfaction" H2 | Col2: Q paragraph + image */}
-        <div className="cx-section">        <div className="cx-block cx-block--divider">
-          <div className="cx-block__col1">
-            <h2 className="header-2">Testing Satisfaction</h2>
-          </div>
-          <div className="cx-block__col2 cx-stack">
-            <p className="paragraph-text">
-              Q: If you had to use this dashboard and design flow for the next six months instead of the dashboard you have now, how would you feel?
-            </p>
-            <div className="cx-full-width">
-              <ImgWithLoader src={`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} />
-            </div>
-          </div>
-        </div>
-        </div>
-
-        {/* 24. (2x1) Has divider. Col1: "Task Completion Metrics" H2 | Col2: paragraph + 2 stat cards (speed icon on line 1) */}
+        {/* 23. (2x1) Has divider. Col1: "Task Completion Metrics" H2 | Col2: paragraph + 2 stat cards (speed icon on line 1) */}
         <div className="cx-section">        <div className="cx-block cx-block--divider">
           <div className="cx-block__col1">
             <h2 className="header-2">Task Completion Metrics</h2>
@@ -870,6 +854,22 @@ export default function Project2Page({ embedded = false }: Project2PageProps = {
                 <div className="cx-stat-card-divider" aria-hidden />
                 <p className="paragraph-text">This feature had initial comprehension hurdles but quickly grew on users once figured out.</p>
               </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        {/* 24. (2x1) Has divider. Col1: "Testing Satisfaction" H2 | Col2: Q paragraph + image */}
+        <div className="cx-section">        <div className="cx-block cx-block--divider">
+          <div className="cx-block__col1">
+            <h2 className="header-2">Testing Satisfaction</h2>
+          </div>
+          <div className="cx-block__col2 cx-stack">
+            <p className="paragraph-text">
+              Q: If you had to use this dashboard and design flow for the next six months instead of the dashboard you have now, how would you feel?
+            </p>
+            <div className="cx-full-width">
+              <ImgWithLoader src={`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${VALIDUS_IMAGES}/6924b480886cc2d4f122e99b_2o.png`], 0)} />
             </div>
           </div>
         </div>
