@@ -103,6 +103,8 @@ export default function AnimatedPieChart({ shares, size = 'small', label }: Anim
     <svg
       className={`np1c-insight-pie np1c-insight-pie--${size}`}
       viewBox={`0 0 ${VIEW} ${VIEW}`}
+      width={VIEW}
+      height={VIEW}
       role="img"
       aria-label={label}
     >

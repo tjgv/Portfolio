@@ -185,13 +185,14 @@
 
 .np1c-insights__col--left {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
   min-width: 0;
   min-height: 0;
   overflow: visible;
+  container-type: size;
 }
 
 .np1c-insights__aggregate-label {
@@ -211,22 +212,18 @@
 
 .np1c-insights__aggregate-chart {
   position: relative;
-  flex: 1 1 0;
-  min-width: 0;
-  min-height: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
+  min-width: 160px;
+  min-height: 160px;
+  display: grid;
+  place-items: center;
 }
 
 .np1c-insights__aggregate-chart .np1c-insight-pie {
   display: block;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
 }
 
 .np1c-insights__col--right {

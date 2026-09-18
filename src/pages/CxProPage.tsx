@@ -21,7 +21,7 @@ const CX_SECTION_21_CACHE = 2
 const CX_SLIDE_DURATION_MS = 500
 const CX_SLIDE_EASING = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
 
-type CarouselItem = { id: string; imageUrl?: string; caption?: string }
+type CarouselItem = { id: string; imageUrl?: string; caption?: string; date?: string }
 
 /* Full-screen image lightbox – CX Pro project only */
 const LIGHTBOX_FADEOUT_MS = 220
@@ -109,40 +109,126 @@ function CxCarousel({
   onOpenLightbox,
   cardWidth: _cardWidth,
   cardGap: _cardGap,
+  variant = 'default',
 }: {
   items: CarouselItem[]
   onOpenLightbox?: (urls: string[], index: number) => void
   cardWidth?: number
   cardGap?: number
+  variant?: 'default' | 'timeline'
 }) {
   const [index, setIndex] = useState(0)
   const [isSliding, setIsSliding] = useState(false)
   const imageUrls = items.map((i) => i.imageUrl).filter((u): u is string => !!u)
   const n = items.length
+  const isTimeline = variant === 'timeline'
 
   if (items.length === 0) return null
 
-  const goPrev = () => {
-    if (isSliding || n <= 1) return
+  const goTo = (next: number) => {
+    if (isSliding || n <= 1 || next === index) return
     setIsSliding(true)
-    setIndex((i) => (i - 1 + n) % n)
+    setIndex(next)
     setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
   }
 
-  const goNext = () => {
-    if (isSliding || n <= 1) return
-    setIsSliding(true)
-    setIndex((i) => (i + 1) % n)
-    setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
-  }
+  const goPrev = () => goTo((index - 1 + n) % n)
+  const goNext = () => goTo((index + 1) % n)
 
-  const handleSlideClick = () => {
+  const handleSlideClick = (i: number) => {
     if (isSliding) return
+    if (isTimeline && i !== index) {
+      goTo(i)
+      return
+    }
     if (onOpenLightbox && imageUrls.length > 0) onOpenLightbox(imageUrls, index)
   }
 
   /* Square viewport, one slide at a time; track slides left/right so next/prev slides in from right/left */
   const trackTranslatePercent = n > 0 ? (index * 100) / n : 0
+  const activeItem = items[index]
+  const trackTransition = `transform ${CX_SLIDE_DURATION_MS}ms ${CX_SLIDE_EASING}`
+
+  if (isTimeline) {
+    return (
+      <div
+        className="cx-carousel-wrapper cx-timeline"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="CX Pro evolution timeline"
+      >
+        <div className="cx-timeline__stage">
+          {n > 1 && (
+            <>
+              <button type="button" className="cx-carousel-arrow cx-carousel-arrow-left" onClick={goPrev} aria-label="Previous slide" disabled={isSliding}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M15 18l-6-6 6-6" /></svg>
+              </button>
+              <button type="button" className="cx-carousel-arrow cx-carousel-arrow-right" onClick={goNext} aria-label="Next slide" disabled={isSliding}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M9 18l6-6-6-6" /></svg>
+              </button>
+            </>
+          )}
+          <div className="cx-timeline__viewport">
+            <div
+              className="cx-timeline__track"
+              style={{
+                transform: `translateX(calc(-1 * ${index} * (var(--cx-tl-slide) + var(--cx-tl-gap))))`,
+                transition: trackTransition,
+              }}
+            >
+              {items.map((item, i) => (
+                <div
+                  key={item.id}
+                  className={`cx-timeline__slide${i === index ? ' cx-timeline__slide--active' : ''}`}
+                  role={item.imageUrl ? 'button' : undefined}
+                  tabIndex={item.imageUrl ? 0 : -1}
+                  onClick={() => handleSlideClick(i)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSlideClick(i)}
+                  aria-hidden={i !== index}
+                  aria-label={item.date ? `${item.date}${item.caption ? `, ${item.caption}` : ''}` : item.caption}
+                >
+                  <div className="cx-timeline__slide-inner">
+                    {item.imageUrl ? (
+                      <ImgWithLoader src={item.imageUrl} alt="" className="cx-carousel-card-img" />
+                    ) : (
+                      <span className="cx-carousel-placeholder">Image {i + 1}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="cx-timeline__meta">
+          <p className="cx-timeline__date" aria-live="polite">
+            <span key={activeItem.date ?? index} className="cx-timeline__date-text">
+              {activeItem.date ?? ''}
+            </span>
+          </p>
+          {activeItem.caption != null && (
+            <p className="cx-carousel-caption-below cx-timeline__caption">{activeItem.caption}</p>
+          )}
+        </div>
+        {n > 1 && (
+          <div className="cx-carousel-indicators" role="tablist" aria-label="Timeline slides">
+            <div className="cx-carousel-indicators-pill">
+              {items.map((item, i) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === index}
+                  aria-label={item.date ?? `Slide ${i + 1}`}
+                  className={`cx-carousel-dot ${i === index ? 'cx-carousel-dot--active' : ''}`}
+                  onClick={() => goTo(i)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="cx-carousel-wrapper">
@@ -172,8 +258,8 @@ function CxCarousel({
               style={{ width: `${100 / n}%` }}
               role={item.imageUrl ? 'button' : undefined}
               tabIndex={item.imageUrl ? 0 : -1}
-              onClick={handleSlideClick}
-              onKeyDown={(e) => e.key === 'Enter' && handleSlideClick()}
+              onClick={() => handleSlideClick(i)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSlideClick(i)}
               aria-hidden={i !== index}
             >
               <div className="cx-carousel-slide-inner">
@@ -203,14 +289,7 @@ function CxCarousel({
               aria-selected={i === index}
               aria-label={`Slide ${i + 1}`}
               className={`cx-carousel-dot ${i === index ? 'cx-carousel-dot--active' : ''}`}
-              onClick={() => {
-                if (isSliding) return
-                if (i !== index) {
-                  setIsSliding(true)
-                  setIndex(i)
-                  setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
-                }
-              }}
+              onClick={() => goTo(i)}
             />
           ))}
           </div>
@@ -546,18 +625,19 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         {!embedded && (
         <>
         {/* 6. Carousel of images (Problems Solved) */}
-        <div className="cx-section">          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
+        <div className="cx-section cx-section--timeline">
+          <div className="cx-carousel-bleed cx-carousel-bleed--timeline">
             <CxCarousel
+              variant="timeline"
               items={[
-                { id: '6.1', imageUrl: `${CX_IMAGES}/6.1.png`, caption: 'Engineering Mock – Starting point reference' },
-                { id: '6.2', imageUrl: `${CX_IMAGES}/6.2.png`, caption: 'Initial concept mock – Post Initial Discussions' },
-                { id: '6.3', imageUrl: `${CX_IMAGES}/6.3.png`, caption: 'Version 1.0 – Venue Launch MVP' },
-                { id: '6.4', imageUrl: `${CX_IMAGES}/6.4.png`, caption: 'Version 2.0 – Post-Launch Upgrades' },
-                { id: '6.5', imageUrl: `${CX_IMAGES}/6.5.png`, caption: 'Version 3.0 – Pre B2B2C Launch' },
+                { id: '6.1', imageUrl: `${CX_IMAGES}/6.1.png`, caption: 'Engineering Mock – Starting point reference', date: 'Dec 2023' },
+                { id: '6.2', imageUrl: `${CX_IMAGES}/6.2.png`, caption: 'Initial concept mock – Post Initial Discussions', date: 'Jan 2024' },
+                { id: '6.3', imageUrl: `${CX_IMAGES}/6.3.png`, caption: 'Version 1.0 – Venue Launch MVP', date: 'Jun 2024' },
+                { id: '6.4', imageUrl: `${CX_IMAGES}/6.4.png`, caption: 'Version 2.0 – Post-Launch Upgrades', date: 'Oct 2024' },
+                { id: '6.5', imageUrl: `${CX_IMAGES}/6.5.png`, caption: 'Version 3.0 – Pre B2B2C Launch', date: 'Mar 2025' },
+                { id: '6.6', imageUrl: '/new-project-1/ros3.png', caption: 'Dedicated Show Running View – North Star', date: 'Jun 2025' },
               ]}
               onOpenLightbox={openLightbox}
-              cardWidth={CX_CAROUSEL_SECTION6_CARD_WIDTH}
-              cardGap={CX_CAROUSEL_SECTION6_GAP}
             />
           </div>
         </div>

@@ -884,6 +884,28 @@
   }
 }
 
+/* Aggregate pie — SVG used to collapse to 0 in the flex/grid modal.
+   Modal portals to body, so this cannot be scoped only to .np1c-page. */
+.np1c-popup-overlay--insights .np1c-insights__col--left,
+.np1c-page .np1c-insights__col--left {
+  container-type: size;
+  height: 100%;
+}
+
+.np1c-popup-overlay--insights .np1c-insights__aggregate-chart,
+.np1c-page .np1c-insights__aggregate-chart {
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
+  min-width: 160px;
+  min-height: 160px;
+}
+
+.np1c-popup-overlay--insights .np1c-insights__aggregate-chart .np1c-insight-pie,
+.np1c-page .np1c-insights__aggregate-chart .np1c-insight-pie {
+  width: 100%;
+  height: 100%;
+}
+
 /* Results stroke — pin to the viewport edge. Test CSS still uses a 100vw
    inset that Chrome computes short of the page edge (scrollbar in 100vw). */
 .np1c-page:not(.cx-pro-page--embedded) .np1c-results__stroke {
