@@ -13,6 +13,7 @@ import CxProPage from './pages/CxProPage'
 import Project2Page from './pages/Project2Page'
 import NewProject1PageC from './pages/NewProject1PageC'
 import NewProject1PageCTest from './pages/NewProject1PageCTest'
+import AnimationPreview from './pages/AnimationPreview'
 // Lazy-load Workflow Builder (isolates @xyflow/react) – no impact on main site
 const WorkflowBuilderPage = lazy(() => import('./pages/WorkflowBuilderPage'))
 
@@ -61,6 +62,7 @@ export default function App() {
         <Route path="/project1" element={<Navigate to="/cx-pro-c2c" replace />} />
         <Route path="/project2" element={<Navigate to="/validus-redesign" replace />} />
         <Route path="/workflow" element={<Suspense fallback={null}><WorkflowBuilderPage /></Suspense>} />
+        <Route path="/animation" element={<AnimationPreview />} />
         <Route path="/ai" element={<PromptsPage />} />
         <Route path="/prompts/:slug" element={<PromptView />} />
       </Routes>
