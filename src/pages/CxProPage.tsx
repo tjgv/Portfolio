@@ -938,9 +938,9 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         </div>
         )}
 
-        {/* 11. Full width image (Table - replaced Figma embed) */}
+        {/* 11. Full width image under Learning and Alignment */}
         <div className="cx-section">        <div className="cx-full-width">
-          <ImgWithLoader src={`${CX_IMAGES}/Table.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/Table.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/Table.png`], 0)} />
+          <ImgWithLoader src={`${CX_IMAGES}/frame-20.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/frame-20.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/frame-20.png`], 0)} />
         </div>
         </div>
 
@@ -995,9 +995,6 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
             preload="auto"
             aria-hidden
           />
-          <div className="cx-video-backdrop__overlay" aria-hidden>
-            VENUE LAUNCH
-          </div>
         </div>
         </div>
         )}
@@ -1126,9 +1123,9 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
                 />
               </div>
               <figcaption className="paragraph-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                The undo button being enabled signals to users that a change has been made, but not
+                saved. The pending change system gives users a trail of recent activity to ensure
+                publishing isn&apos;t made with unintentional changes.
               </figcaption>
             </figure>
             <figure className="cx-project1-video-block">
@@ -1145,9 +1142,10 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
                 />
               </div>
               <figcaption className="paragraph-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                The Parent State/Child State system gives users the flexibility of making sweeping
+                changes across many scenes without sacrificing the intentional differences each
+                scene has. Users can make a change directly to a child scene to lock it (orange),
+                which will preserve its value when making a global change from the parent.
               </figcaption>
             </figure>
           </div>
