@@ -1097,6 +1097,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         <div className="cx-section">          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
             <CxCarousel
               items={[
+                { id: '21.4', imageUrl: `${CX_IMAGES}/how-it-works.png` },
                 { id: '21.1', imageUrl: `${CX_IMAGES}/21.1.png?v=${CX_SECTION_21_CACHE}` },
                 { id: '21.2', imageUrl: `${CX_IMAGES}/21.2.png?v=${CX_SECTION_21_CACHE}` },
                 { id: '21.3', imageUrl: `${CX_IMAGES}/21.3.png?v=${CX_SECTION_21_CACHE}` },
@@ -1105,6 +1106,50 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
               cardWidth={CX_CAROUSEL_SECTION6_CARD_WIDTH}
               cardGap={CX_CAROUSEL_SECTION6_GAP}
             />
+          </div>
+        </div>
+
+        {/* 21b. Sequence videos under Project #1 carousel */}
+        <div className="cx-section">
+          <div className="cx-project1-videos">
+            <figure className="cx-project1-video-block">
+              <div className="cx-project1-video-wrap">
+                <VideoWithLoader
+                  className="cx-project1-video"
+                  src={`${CX_IMAGES}/sequence-01-4.mp4`}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  aria-label="Global Controls sequence 1"
+                />
+              </div>
+              <figcaption className="paragraph-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </figcaption>
+            </figure>
+            <figure className="cx-project1-video-block">
+              <div className="cx-project1-video-wrap">
+                <VideoWithLoader
+                  className="cx-project1-video"
+                  src={`${CX_IMAGES}/sequence-01-6.mp4`}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  aria-label="Global Controls sequence 2"
+                />
+              </div>
+              <figcaption className="paragraph-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+                in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              </figcaption>
+            </figure>
           </div>
         </div>
 

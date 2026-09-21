@@ -2069,6 +2069,46 @@
 }
 
 
+/* Project #1 — stacked sequence videos under the carousel */
+.cx-project1-videos {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  margin: 8px 0 32px;
+}
+
+.cx-project1-video-block {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cx-project1-video-wrap {
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid #efefef;
+}
+
+.cx-project1-video-wrap .media-with-loader-wrap {
+  display: block;
+  width: 100%;
+}
+
+.cx-project1-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+}
+
+.cx-project1-video-block .paragraph-text {
+  margin: 0;
+}
+
 /* Validus project 2 – looping video */
 .validus-video-wrap {
   width: 100%;

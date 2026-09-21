@@ -559,8 +559,8 @@ const WORK_CARDS = [
   },
   {
     id: 'lab37' as const,
-    label: 'Coming Soon',
-    year: '—',
+    label: 'Lab37',
+    year: '2026',
     hoverLine: 'Creating an error framework system to process any kind of obstacle.',
     sub: '2026 Take Home Challenge',
     bgStyle: { backgroundImage: 'url(/lab37-cover.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' },
@@ -818,8 +818,8 @@ export default function HomePageV2() {
                     type="button"
                     className={`home-v2-card home-v2-card--${card.visual} home-v2-card--has-bg`}
                     style={'bgStyle' in card ? card.bgStyle : undefined}
-                    disabled
-                    aria-label={card.label}
+                    onClick={() => openPopup('lab37')}
+                    aria-label="Open Lab37 case study"
                   >
                     <span className="home-v2-card-pill">
                       <span className="home-v2-card-pill-label">{card.label}</span>
