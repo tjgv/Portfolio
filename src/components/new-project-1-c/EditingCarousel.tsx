@@ -1,5 +1,3 @@
-import { useRef } from 'react'
-import ImageCarousel, { type CarouselSlide } from './ImageCarousel'
 import './EditingCarousel.css'
 
 const MVP_PRIORITY_CARDS = [
@@ -29,46 +27,13 @@ const MVP_PRIORITY_CARDS = [
   },
 ] as const
 
-// Thin image (Image2) is in the center slot so it can be centered with overflow on both sides
-const SLIDES: CarouselSlide[] = [
-  {
-    id: 'editing-video',
-    type: 'video',
-    src: '/new-project-1/editing-clip-1.mp4',
-    caption: 'Worked with content teams to develop a Thumbnail System for layer assets, and introduced layer-priority logic to use the thumbnails as the key-identifier for a scene.',
-  },
-  {
-    id: 'editing-sequence',
-    type: 'video',
-    src: '/new-project-1/mvp-sequence-01.mp4',
-    caption: 'Designed scene visualizations that communicate asset combinations without pre-rendered scenes, giving editors a clear view of how a show comes together.',
-  },
-  {
-    id: 'editing-inspector',
-    type: 'video',
-    src: '/new-project-1/mvp-insp-2-main.mp4',
-    fit: 'contain',
-    caption: 'Worked with 2 engineering teams to barter a property priority system to filter out advanced properties. Then, I utilized progressive discourse to provide high-level view of configuration.',
-  },
-  {
-    id: 'editing-image-2',
-    type: 'image',
-    src: '/new-project-1/editing-image-2.png',
-    alt: 'CX Pro editing interface detail',
-    caption: 'Found home for optional auto-play functionality, leveraging new sequencer (scene library top bar) to allow users the ability to enable auto-play in between scenes. For certain types of shows, this can eliminate transitions all together.',
-  },
-]
-
 export default function EditingCarousel() {
-  const carouselSectionRef = useRef<HTMLElement>(null)
-
   return (
-    <>
-      <section
-        className="np1c-section np1c-mvp-priorities np1c-section-size-1"
-        data-dev-section="mvp-priorities"
-        aria-label="MVP Priorities"
-      >
+    <section
+      className="np1c-section np1c-mvp-priorities np1c-section-size-1"
+      data-dev-section="mvp-priorities"
+      aria-label="MVP Priorities"
+    >
         <div className="np1c-section__inner np1c-editing-carousel__intro">
           <div className="np1c-h-text-stack">
             <p className="np1c-h-text-stack__label">MVP Priorities</p>
@@ -105,21 +70,6 @@ export default function EditingCarousel() {
             ))}
           </ul>
         </div>
-      </section>
-
-      <section
-        ref={carouselSectionRef}
-        className="np1c-section np1c-editing-carousel np1c-section-size-1"
-        data-dev-section="editing-carousel"
-        aria-label="Editing carousel"
-      >
-        <ImageCarousel
-          slides={SLIDES}
-          ariaLabel="Editing carousel slides"
-          controlsVariant="autoplay"
-          pillGrowSectionRef={carouselSectionRef}
-        />
-      </section>
-    </>
+    </section>
   )
 }

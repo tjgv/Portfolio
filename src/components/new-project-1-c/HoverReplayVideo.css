@@ -1,0 +1,22 @@
+.np1c-hover-replay {
+  position: relative;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.np1c-hover-replay__play {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.55);
+  filter: drop-shadow(0 2px 16px rgba(0, 0, 0, 0.35));
+}
+
+.np1c-hover-replay__play svg {
+  width: clamp(56px, 8vw, 88px);
+  height: clamp(56px, 8vw, 88px);
+}

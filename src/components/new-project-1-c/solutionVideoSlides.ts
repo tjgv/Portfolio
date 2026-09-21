@@ -30,12 +30,10 @@ export const SOLUTION_VIDEO_SLIDES: HighlightSlide[] = [
   },
   {
     id: 'ipad-compat',
-    kind: 'video',
+    kind: 'image',
     caption:
       'An iPad gives speakers direct control of their shows, lets event staff multitask more freely, and makes the product more accessible.',
-    src: '/new-project-1/ipad-trim2.mov',
-    ariaLabel: 'CX Pro iPad compatibility demonstration',
-    aspectRatio: '1920 / 1472',
-    narrow: true,
+    image: '/new-project-1/intro.png',
+    imageAlt: 'CX Pro home schedule and show library',
   },
 ]

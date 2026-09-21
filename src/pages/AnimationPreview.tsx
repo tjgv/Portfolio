@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './AnimationPreview.css'
 
 type AnimationPreset = 'brightness-cascade' | 'stretch-in' | 'rotate-cascade' | null
@@ -35,6 +35,20 @@ const RETRACT_WAVE_MS = ENTER_MS + LAST_ENTER_MS
 const SHRINK_MS = 520
 const STRETCH_END_MS =
   RETRACT_WAVE_MS + (RING_PLAY_ORDER.length - 1) * PAIR_STAGGER_MS + CONDENSE_MS
+const HIGHLIGHT_MS = 1400
+const HIGHLIGHT_STAGGER_MS = 160
+const HIGHLIGHT_START_MS = STRETCH_END_MS + 120
+const HIGHLIGHT_FADE_AT = 0.52
+const FADE_TAIL_MS = 280
+const FADE_START_MS = HIGHLIGHT_START_MS + HIGHLIGHT_MS * HIGHLIGHT_FADE_AT
+const FADE_MS =
+  HIGHLIGHT_START_MS +
+  (RING_PLAY_ORDER.length - 1) * HIGHLIGHT_STAGGER_MS +
+  HIGHLIGHT_MS +
+  FADE_TAIL_MS -
+  FADE_START_MS
+const PINK = '#ff4d8d'
+const BLUE = '#4d8fff'
 const RIGHT_EDGE_MIN = 26.5
 
 const FLUSH_STOPS = [
@@ -57,6 +71,10 @@ function enterDelayFor(id: RingId) {
 function retractDelayFor(id: RingId) {
   const index = RING_PLAY_ORDER.indexOf(id)
   return RETRACT_WAVE_MS + index * PAIR_STAGGER_MS
+}
+
+function cascadeDelayFor(id: RingId) {
+  return HIGHLIGHT_START_MS + RING_PLAY_ORDER.indexOf(id) * HIGHLIGHT_STAGGER_MS
 }
 
 function rotateDelayFor(id: RingId) {
@@ -108,6 +126,43 @@ function FlushGradient({
   )
 }
 
+function StretchFlushGradient({
+  id,
+  retractDelayMs,
+}: {
+  id: string
+  retractDelayMs: number
+}) {
+  return (
+    <linearGradient
+      id={id}
+      gradientUnits="objectBoundingBox"
+      x1="0"
+      y1="0.5"
+      x2="1"
+      y2="0.5"
+      gradientTransform="translate(1 0)"
+    >
+      <stop offset="0" stopColor={PINK} />
+      <stop offset="0.52" stopColor={PINK} />
+      <stop offset="0.52" stopColor={BLUE} />
+      <stop offset="1" stopColor={BLUE} />
+      <animateTransform
+        attributeName="gradientTransform"
+        type="translate"
+        from="1 0"
+        to="-1 0"
+        begin={`${retractDelayMs}ms`}
+        dur={`${CONDENSE_MS}ms`}
+        fill="freeze"
+        calcMode="spline"
+        keyTimes="0;1"
+        keySplines="0.45 0 0.55 1"
+      />
+    </linearGradient>
+  )
+}
+
 function stretchToViewportRight(markWidth: number, markLeft: number) {
   if (markWidth <= 0) return 0
   const unitPx = markWidth / VIEWBOX_WIDTH
@@ -118,7 +173,7 @@ function stretchToViewportRight(markWidth: number, markLeft: number) {
 function estimateStretchToViewportRight() {
   if (typeof window === 'undefined') return 60
   const viewport = window.innerWidth
-  const markWidth = Math.min(viewport * 0.62, 310)
+  const markWidth = Math.min(viewport * 0.93, 465)
   const markLeft = (viewport - markWidth) / 2
   return stretchToViewportRight(markWidth, markLeft)
 }
@@ -219,11 +274,10 @@ function StretchRing({
   }
 
   const gradientId = `stretch-flush-${id}`
-  const stretchedRight = REST_RIGHT_X + stretchAmount
 
   return (
     <svg
-      className="animation-preview__mark animation-preview__stretch-ring"
+      className={`animation-preview__mark animation-preview__stretch-ring animation-preview__stretch-ring--${id}`}
       style={{ animationDelay: `${enterDelayMs}ms` }}
       width="31"
       height="27"
@@ -233,13 +287,7 @@ function StretchRing({
       aria-hidden="true"
     >
       <defs>
-        <FlushGradient
-          id={gradientId}
-          enterDelayMs={enterDelayMs}
-          colorOutDelayMs={STRETCH_END_MS}
-          colorOutMs={SHRINK_MS}
-          x2={stretchedRight}
-        />
+        <StretchFlushGradient id={gradientId} retractDelayMs={retractDelayMs} />
       </defs>
       <path
         className={`animation-preview__ring animation-preview__ring--${id}`}
@@ -264,6 +312,14 @@ function StretchRing({
           calcMode="spline"
           keyTimes="0;1"
           keySplines="0.45 0 0.55 1"
+        />
+        <animate
+          attributeName="fill"
+          values={`${BLUE};${PINK};${PINK};${BLUE};${BLUE};#ffffff`}
+          keyTimes="0;0.12;0.4;0.52;0.8;1"
+          begin={`${cascadeDelayFor(id)}ms`}
+          dur={`${HIGHLIGHT_MS}ms`}
+          fill="freeze"
         />
       </path>
     </svg>
@@ -359,20 +415,28 @@ function AnimationMark({
     return (
       <div
         key={playGeneration}
-        ref={markStackRef}
-        className="animation-preview__mark-stack animation-preview__stretch-stack"
-        style={{ animationDelay: `${STRETCH_END_MS}ms` }}
+        className="animation-preview__stretch-fade"
+        style={{
+          ['--fade-delay' as string]: `${FADE_START_MS}ms`,
+          ['--fade-ms' as string]: `${FADE_MS}ms`,
+        }}
       >
-        {RING_DRAW_ORDER.map((id) => (
-          <StretchRing
-            key={id}
-            id={id}
-            enterDelayMs={enterDelayFor(id)}
-            retractDelayMs={retractDelayFor(id)}
-            playing={playingStretch}
-            stretchAmount={stretchAmount}
-          />
-        ))}
+        <div
+          ref={markStackRef}
+          className="animation-preview__mark-stack animation-preview__stretch-stack"
+          style={{ animationDelay: `${STRETCH_END_MS}ms` }}
+        >
+          {RING_DRAW_ORDER.map((id) => (
+            <StretchRing
+              key={id}
+              id={id}
+              enterDelayMs={enterDelayFor(id)}
+              retractDelayMs={retractDelayFor(id)}
+              playing={playingStretch}
+              stretchAmount={stretchAmount}
+            />
+          ))}
+        </div>
       </div>
     )
   }
@@ -441,6 +505,34 @@ export default function AnimationPreview() {
     },
   ])
   const [activeTabId, setActiveTabId] = useState(3)
+  const [tabMenu, setTabMenu] = useState<{ tabId: number; x: number; y: number } | null>(null)
+  const tabMenuRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!tabMenu) return
+
+    function closeMenu() {
+      setTabMenu(null)
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') closeMenu()
+    }
+
+    function onPointerDown(event: MouseEvent) {
+      if (tabMenuRef.current?.contains(event.target as Node)) return
+      closeMenu()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('mousedown', onPointerDown)
+    window.addEventListener('scroll', closeMenu, true)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('mousedown', onPointerDown)
+      window.removeEventListener('scroll', closeMenu, true)
+    }
+  }, [tabMenu])
 
   function addTab() {
     const tab = newBlankTab(nextIds.current.id, nextIds.current.number)
@@ -460,6 +552,27 @@ export default function AnimationPreview() {
       }
       return next
     })
+  }
+
+  function duplicateTab(sourceId: number) {
+    const source = tabs.find((tab) => tab.id === sourceId)
+    if (!source) return
+
+    const tab: PreviewTab = {
+      id: nextIds.current.id,
+      label: `Tab ${nextIds.current.number}`,
+      isPlaying: true,
+      playGeneration: 0,
+      animation: source.animation,
+    }
+    nextIds.current = { id: tab.id + 1, number: nextIds.current.number + 1 }
+    setTabs((current) => {
+      const index = current.findIndex((item) => item.id === sourceId)
+      if (index === -1) return [...current, tab]
+      return [...current.slice(0, index + 1), tab, ...current.slice(index + 1)]
+    })
+    setActiveTabId(tab.id)
+    setTabMenu(null)
   }
 
   function replayActive() {
@@ -486,6 +599,12 @@ export default function AnimationPreview() {
                 aria-selected={selected}
                 tabIndex={selected ? 0 : -1}
                 onClick={() => setActiveTabId(tab.id)}
+                onContextMenu={(event) => {
+                  if (tab.animation !== 'stretch-in') return
+                  event.preventDefault()
+                  setActiveTabId(tab.id)
+                  setTabMenu({ tabId: tab.id, x: event.clientX, y: event.clientY })
+                }}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault()
@@ -523,6 +642,24 @@ export default function AnimationPreview() {
             </svg>
           </button>
         </div>
+
+        {tabMenu && (
+          <div
+            ref={tabMenuRef}
+            className="animation-preview__menu"
+            style={{ left: tabMenu.x, top: tabMenu.y }}
+            role="menu"
+          >
+            <button
+              type="button"
+              className="animation-preview__menu-item"
+              role="menuitem"
+              onClick={() => duplicateTab(tabMenu.tabId)}
+            >
+              Duplicate
+            </button>
+          </div>
+        )}
 
         <button type="button" className="animation-preview__replay" onClick={replayActive}>
           <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">

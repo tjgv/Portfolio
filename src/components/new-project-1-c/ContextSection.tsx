@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { VideoWithLoader } from '../MediaLoader'
+import HoverReplayVideo from './HoverReplayVideo'
 import './ContextSection.css'
 
 const CONTEXT_VIDEO = '/new-project-1/context-1-final.mp4'
@@ -34,7 +34,7 @@ export default function ContextSection() {
         </div>
 
         <div className="np1c-context__media">
-          <VideoWithLoader
+          <HoverReplayVideo
             src={CONTEXT_VIDEO}
             aria-label="CX Pro controlling immersive displays"
             autoPlay

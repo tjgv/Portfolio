@@ -18,12 +18,14 @@ import NewProject1HeroB from '../components/new-project-1-c/NewProject1HeroB'
 import HeroQuoteSection from '../components/new-project-1-c/HeroQuoteSection'
 import ContextSection from '../components/new-project-1-c/ContextSection'
 import HowItAddressesSection from '../components/new-project-1-c/HowItAddressesSection'
+import SequenceSection from '../components/new-project-1-c/SequenceSection'
 import ProblemB from '../components/new-project-1-c/ProblemB'
 import EditingSideShotB from '../components/new-project-1-c/EditingSideShotB'
 import HypothesisB from '../components/new-project-1-c/HypothesisB'
 import Hypothesis2B from '../components/new-project-1-c/Hypothesis2B'
 import NorthStarSection from '../components/new-project-1-c/NorthStarSection'
 import EditingCarousel from '../components/new-project-1-c/EditingCarousel'
+import EditingGridSection from '../components/new-project-1-c/EditingGridSection'
 import EndHeroSection from '../components/new-project-1-c/EndHeroSection'
 import ResultsSection from '../components/new-project-1-c/ResultsSection'
 import TargetAudience from '../components/new-project-1-c/TargetAudience'
@@ -663,8 +665,10 @@ export default function NewProject1PageC({ embedded = false }: NewProject1PageCP
                   <Hypothesis2B key={`${section.label}-2`} />
                   <NorthStarSection key="north-star" />
                   <HowItAddressesSection key="how-it-addresses" />
+                  <SequenceSection key="sequence" />
                   <EditingSideShotB key="editing-side-shot" />
                   <EditingCarousel key="editing-carousel" />
+                  <EditingGridSection key="editing-grid" />
                 </>
               )
             }

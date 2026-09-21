@@ -84,6 +84,12 @@
   --np1c-body-2-ls: calc(-0.35px + 0.01em);
   --np1c-body-2-weight: 400;
 
+  /* Body-3 — one step smaller than Body-2 */
+  --np1c-body-3-size: calc(var(--np1c-body-2-size) - 2px);
+  --np1c-body-3-lh: 1.25;
+  --np1c-body-3-ls: calc(-0.2px + 0.01em);
+  --np1c-body-3-weight: 400;
+
   /* Layout — Figma MacBook 14" frame 26303:66443 */
   --np1c-content-width-scale: 1.15;
   --np1c-column-width: calc(1000px * var(--np1c-content-width-scale));

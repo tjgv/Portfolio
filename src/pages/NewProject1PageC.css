@@ -62,9 +62,11 @@
   --np1c-body-hero-ls: calc(0.7px + 0.01em) !important;
   --np1c-body-1-ls: calc(0.23px + 0.01em) !important;
   --np1c-body-2-ls: calc(-0.35px + 0.01em) !important;
+  --np1c-body-3-ls: calc(-0.2px + 0.01em) !important;
   --np1c-body-hero-lh: 1.25 !important;
   --np1c-body-1-lh: 1.25 !important;
   --np1c-body-2-lh: 1.25 !important;
+  --np1c-body-3-lh: 1.25 !important;
 }
 
 .np1c-page .np1c-content > .np1c-section,

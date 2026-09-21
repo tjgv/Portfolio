@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type TouchEvent } from 'react'
-import { VideoWithLoader } from '../MediaLoader'
+import { ImgWithLoader, VideoWithLoader } from '../MediaLoader'
 import CarouselControls from './CarouselControls'
 import CarouselVideoReplayButton from './CarouselVideoReplayButton'
 import ImageCarousel, { type CarouselSlide } from './ImageCarousel'
@@ -7,10 +7,12 @@ import { SOLUTION_VIDEO_SLIDES } from './solutionVideoSlides'
 import { useCarouselPillGrow } from './useCarouselPillGrow'
 import './AddressingUnmetNeedsCarousel.css'
 
-const MOBILE_SLIDES: CarouselSlide[] = SOLUTION_VIDEO_SLIDES.flatMap((slide) =>
+const IMAGE_DWELL_MS = 10_000
+
+const MOBILE_SLIDES: CarouselSlide[] = SOLUTION_VIDEO_SLIDES.map((slide) =>
   slide.kind === 'video'
-    ? [{ id: slide.id, type: 'video' as const, src: slide.src, caption: slide.caption }]
-    : [],
+    ? { id: slide.id, type: 'video' as const, src: slide.src, caption: slide.caption }
+    : { id: slide.id, type: 'image' as const, src: slide.image, alt: slide.imageAlt, caption: slide.caption },
 )
 
 function useIsPhone() {
@@ -215,6 +217,30 @@ function AddressingUnmetNeedsCarouselDesktop() {
     }
   }, [activeIndex, goToSlide, slideCount, slides])
 
+  useEffect(() => {
+    const slide = slides[activeIndex]
+    if (!slide || slide.kind !== 'image' || !isPlaying || ended || !controlsReady) return
+
+    const started = performance.now()
+    let raf = 0
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - started) / IMAGE_DWELL_MS)
+      setAutoplayProgress(t)
+      if (t >= 1) {
+        if (activeIndex < slideCount - 1) goToSlide(activeIndex + 1)
+        else {
+          setEnded(true)
+          setIsPlaying(false)
+          setAutoplayProgress(1)
+        }
+        return
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [activeIndex, controlsReady, ended, goToSlide, isPlaying, slideCount, slides])
+
   const activeSlide = slides[activeIndex]
   const isPaused = !isPlaying
 
@@ -234,10 +260,12 @@ function AddressingUnmetNeedsCarouselDesktop() {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <CarouselVideoReplayButton
-            getVideo={() => videoRefs.current[activeIndex]}
-            onRestart={handleVideoRestart}
-          />
+          {activeSlide.kind === 'video' ? (
+            <CarouselVideoReplayButton
+              getVideo={() => videoRefs.current[activeIndex]}
+              onRestart={handleVideoRestart}
+            />
+          ) : null}
 
           <div className="np1c-aun-carousel__viewport">
             <div
@@ -245,37 +273,48 @@ function AddressingUnmetNeedsCarouselDesktop() {
               style={{ transform: `translate3d(-${activeIndex * 100}%, 0, 0)` }}
             >
               {slides.map((slide, index) => {
-                if (slide.kind !== 'video') return null
                 const active = index === activeIndex
+                const aspect =
+                  slide.kind === 'video'
+                    ? slide.aspectRatio ?? '1920 / 1046'
+                    : '3840 / 2160'
                 return (
                   <div
                     key={slide.id}
                     id={`np1c-carousel-slide-${slide.id}`}
                     className={`np1c-aun-carousel__clip${index === 3 ? ' np1c-aun-carousel__clip--rounded' : ''}`}
                     style={{
-                      ['--np1c-aun-video-aspect' as string]: slide.aspectRatio ?? '1920 / 1046',
+                      ['--np1c-aun-video-aspect' as string]: aspect,
                     }}
                     aria-hidden={!active}
                     onClick={handleTogglePlay}
                   >
-                    <VideoWithLoader
-                      ref={(node) => {
-                        videoRefs.current[index] = node
-                      }}
-                      className="np1c-aun-carousel__video"
-                      src={slide.src}
-                      aria-label={slide.ariaLabel}
-                      muted
-                      playsInline
-                      preload="auto"
-                      onLoadedData={(e) => {
-                        if (slide.playbackRate) {
-                          e.currentTarget.playbackRate = slide.playbackRate
-                          e.currentTarget.defaultPlaybackRate = slide.playbackRate
-                        }
-                      }}
-                    />
-                    {isPaused && active ? (
+                    {slide.kind === 'video' ? (
+                      <VideoWithLoader
+                        ref={(node) => {
+                          videoRefs.current[index] = node
+                        }}
+                        className="np1c-aun-carousel__video"
+                        src={slide.src}
+                        aria-label={slide.ariaLabel}
+                        muted
+                        playsInline
+                        preload="auto"
+                        onLoadedData={(e) => {
+                          if (slide.playbackRate) {
+                            e.currentTarget.playbackRate = slide.playbackRate
+                            e.currentTarget.defaultPlaybackRate = slide.playbackRate
+                          }
+                        }}
+                      />
+                    ) : (
+                      <ImgWithLoader
+                        className="np1c-aun-carousel__image"
+                        src={slide.image}
+                        alt={slide.imageAlt}
+                      />
+                    )}
+                    {slide.kind === 'video' && isPaused && active ? (
                       <span className="np1c-aun-carousel__play" aria-hidden>
                         <GiantPlayIcon />
                       </span>

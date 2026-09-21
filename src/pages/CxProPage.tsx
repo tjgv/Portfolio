@@ -20,6 +20,10 @@ const CX_IMAGES = '/cx-pro-images'
 const CX_SECTION_21_CACHE = 2
 const CX_SLIDE_DURATION_MS = 500
 const CX_SLIDE_EASING = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
+const CX_TL_SIDE_SCALE = 0.53
+const CX_TL_SIDE_OPACITY = 0.72
+const CX_TL_SNAP_IDLE_MS = 280
+const CX_TL_SNAP_WINDOW = 0.14
 
 type CarouselItem = { id: string; imageUrl?: string; caption?: string; date?: string }
 
@@ -119,21 +123,236 @@ function CxCarousel({
 }) {
   const [index, setIndex] = useState(0)
   const [isSliding, setIsSliding] = useState(false)
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const railLineRef = useRef<HTMLSpanElement>(null)
+  const railProgressRef = useRef<HTMLSpanElement>(null)
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([])
+  const bodyRefs = useRef<(HTMLDivElement | null)[]>([])
+  const markerRefs = useRef<(HTMLDivElement | null)[]>([])
+  const indexRef = useRef(0)
+  const snapTimerRef = useRef(0)
+  const snappingRef = useRef(false)
+  const prevDotXRef = useRef<number[]>([])
+  indexRef.current = index
   const imageUrls = items.map((i) => i.imageUrl).filter((u): u is string => !!u)
   const n = items.length
   const isTimeline = variant === 'timeline'
 
+  const timelineMetrics = useCallback(() => {
+    const viewport = viewportRef.current
+    const slides = slideRefs.current
+    if (!viewport || slides.length === 0) {
+      return { index: 0, dist: Infinity, threshold: 0, minScroll: 0, maxScroll: 0, spacing: 1 }
+    }
+
+    const center = viewport.scrollLeft + viewport.clientWidth / 2
+    const centers = slides.map((slide) =>
+      slide ? slide.offsetLeft + slide.offsetWidth / 2 : Number.NaN
+    )
+
+    let closest = 0
+    let minDist = Infinity
+    centers.forEach((sc, i) => {
+      if (!Number.isFinite(sc)) return
+      const dist = Math.abs(sc - center)
+      if (dist < minDist) {
+        minDist = dist
+        closest = i
+      }
+    })
+
+    const here = centers[closest]
+    const prev = centers[closest - 1]
+    const next = centers[closest + 1]
+    const spacing =
+      Number.isFinite(here) && Number.isFinite(next) ? Math.abs(next - here)
+      : Number.isFinite(here) && Number.isFinite(prev) ? Math.abs(here - prev)
+      : viewport.clientWidth
+
+    const first = slides[0]
+    const last = slides[n - 1]
+    const minScroll = first
+      ? Math.max(0, first.offsetLeft - (viewport.clientWidth - first.offsetWidth) / 2)
+      : 0
+    const maxScroll = last
+      ? Math.max(minScroll, last.offsetLeft - (viewport.clientWidth - last.offsetWidth) / 2)
+      : minScroll
+
+    return {
+      index: closest,
+      dist: minDist,
+      threshold: spacing * CX_TL_SNAP_WINDOW,
+      minScroll,
+      maxScroll,
+      spacing: Math.max(1, spacing),
+    }
+  }, [n])
+
+  const applyTimelineScroll = useCallback(() => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+    const vpRect = viewport.getBoundingClientRect()
+    const centerX = vpRect.left + vpRect.width / 2
+    const { index: closest, spacing } = timelineMetrics()
+
+    slideRefs.current.forEach((slide, i) => {
+      if (!slide) return
+      const rect = slide.getBoundingClientRect()
+      const dist = Math.abs(rect.left + rect.width / 2 - centerX)
+      const t = Math.max(0, 1 - dist / spacing)
+      const eased = t * t * (3 - 2 * t)
+      const body = bodyRefs.current[i]
+      if (body) {
+        body.style.transform = `scale(${CX_TL_SIDE_SCALE + (1 - CX_TL_SIDE_SCALE) * eased})`
+        body.style.opacity = String(CX_TL_SIDE_OPACITY + (1 - CX_TL_SIDE_OPACITY) * eased)
+      }
+      slide.classList.toggle('cx-timeline__slide--active', i === closest)
+    })
+
+    const firstDot = markerRefs.current[0]
+    const lastDot = markerRefs.current[n - 1]
+    const line = railLineRef.current
+    const progress = railProgressRef.current
+    if (firstDot && lastDot && line && progress) {
+      const first = firstDot.getBoundingClientRect()
+      const last = lastDot.getBoundingClientRect()
+      const firstX = first.left + first.width / 2
+      const lastX = last.left + last.width / 2
+      const trackStart = Math.min(Math.max(firstX, vpRect.left), vpRect.right)
+      const trackEnd = Math.min(Math.max(lastX, vpRect.left), vpRect.right)
+      const playhead = Math.min(Math.max(centerX, firstX), lastX)
+      const progressEnd = Math.min(Math.max(playhead, vpRect.left), vpRect.right)
+      line.style.left = `${trackStart - vpRect.left}px`
+      line.style.width = `${Math.max(0, trackEnd - trackStart)}px`
+      progress.style.left = `${trackStart - vpRect.left}px`
+      progress.style.width = `${Math.max(0, progressEnd - trackStart)}px`
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const pulseDot = (dot: HTMLElement) => {
+        if (reduceMotion) return
+        dot.classList.remove('cx-timeline__dot--pulse')
+        void dot.offsetWidth
+        dot.classList.add('cx-timeline__dot--pulse')
+      }
+
+      markerRefs.current.forEach((marker, i) => {
+        if (!marker) return
+        const dot = marker.querySelector<HTMLElement>('.cx-timeline__dot')
+        if (!dot) return
+        const x = marker.getBoundingClientRect().left + marker.offsetWidth / 2
+        const reached = playhead + 2 >= x
+        dot.classList.toggle('cx-timeline__dot--reached', reached)
+        slideRefs.current[i]
+          ?.querySelector('.cx-timeline__date')
+          ?.classList.toggle('cx-timeline__date--reached', reached)
+        const prevX = prevDotXRef.current[i]
+        const crossedPlayhead =
+          prevX != null &&
+          prevX !== x &&
+          (prevX - playhead) * (x - playhead) <= 0 &&
+          Math.abs(x - playhead) < spacing * 0.3
+        if (crossedPlayhead) pulseDot(dot)
+        prevDotXRef.current[i] = x
+      })
+    }
+
+    if (closest !== indexRef.current) setIndex(closest)
+  }, [n, timelineMetrics])
+
+  const scrollTimelineTo = useCallback((i: number, behavior: ScrollBehavior = 'smooth') => {
+    const viewport = viewportRef.current
+    const slide = slideRefs.current[i]
+    if (!viewport || !slide) return
+    snappingRef.current = true
+    const { minScroll, maxScroll } = timelineMetrics()
+    const left = Math.min(
+      maxScroll,
+      Math.max(minScroll, slide.offsetLeft - (viewport.clientWidth - slide.offsetWidth) / 2)
+    )
+    viewport.scrollTo({ left, behavior })
+    window.setTimeout(() => {
+      snappingRef.current = false
+    }, CX_SLIDE_DURATION_MS + 80)
+  }, [timelineMetrics])
+
+  useEffect(() => {
+    if (!isTimeline) return
+    const viewport = viewportRef.current
+    if (!viewport) return
+
+    const clearSnap = () => {
+      if (snapTimerRef.current) {
+        window.clearTimeout(snapTimerRef.current)
+        snapTimerRef.current = 0
+      }
+    }
+
+    const scheduleSnap = () => {
+      if (snappingRef.current) return
+      clearSnap()
+      snapTimerRef.current = window.setTimeout(() => {
+        snapTimerRef.current = 0
+        const { index: closest, dist, threshold } = timelineMetrics()
+        if (dist <= threshold) scrollTimelineTo(closest, 'smooth')
+      }, CX_TL_SNAP_IDLE_MS)
+    }
+
+    const onScroll = () => {
+      applyTimelineScroll()
+      if (!snappingRef.current) scheduleSnap()
+    }
+
+    const onScrollEnd = () => {
+      snappingRef.current = false
+      applyTimelineScroll()
+    }
+
+    const onWheel = (e: WheelEvent) => {
+      snappingRef.current = false
+      const absX = Math.abs(e.deltaX)
+      const absY = Math.abs(e.deltaY)
+      const isHorizontal = absX > absY * 1.5
+      if (!isHorizontal) {
+        e.preventDefault()
+        window.scrollBy(0, e.deltaY)
+        return
+      }
+      scheduleSnap()
+    }
+
+    applyTimelineScroll()
+    viewport.addEventListener('scroll', onScroll, { passive: true })
+    viewport.addEventListener('scrollend', onScrollEnd)
+    viewport.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('resize', applyTimelineScroll)
+    return () => {
+      clearSnap()
+      viewport.removeEventListener('scroll', onScroll)
+      viewport.removeEventListener('scrollend', onScrollEnd)
+      viewport.removeEventListener('wheel', onWheel)
+      window.removeEventListener('resize', applyTimelineScroll)
+    }
+  }, [isTimeline, n, applyTimelineScroll, scrollTimelineTo, timelineMetrics])
+
   if (items.length === 0) return null
 
   const goTo = (next: number) => {
-    if (isSliding || n <= 1 || next === index) return
+    if (n <= 1) return
+    const target = isTimeline ? Math.max(0, Math.min(n - 1, next)) : next
+    if (target === index && !isTimeline) return
+    if (isTimeline) {
+      scrollTimelineTo(target)
+      setIndex(target)
+      return
+    }
+    if (isSliding || target === index) return
     setIsSliding(true)
-    setIndex(next)
+    setIndex(target)
     setTimeout(() => setIsSliding(false), CX_SLIDE_DURATION_MS)
   }
 
-  const goPrev = () => goTo((index - 1 + n) % n)
-  const goNext = () => goTo((index + 1) % n)
+  const goPrev = () => goTo(isTimeline ? index - 1 : (index - 1 + n) % n)
+  const goNext = () => goTo(isTimeline ? index + 1 : (index + 1) % n)
 
   const handleSlideClick = (i: number) => {
     if (isSliding) return
@@ -146,7 +365,6 @@ function CxCarousel({
 
   /* Square viewport, one slide at a time; track slides left/right so next/prev slides in from right/left */
   const trackTranslatePercent = n > 0 ? (index * 100) / n : 0
-  const activeItem = items[index]
   const trackTransition = `transform ${CX_SLIDE_DURATION_MS}ms ${CX_SLIDE_EASING}`
 
   if (isTimeline) {
@@ -160,25 +378,25 @@ function CxCarousel({
         <div className="cx-timeline__stage">
           {n > 1 && (
             <>
-              <button type="button" className="cx-carousel-arrow cx-carousel-arrow-left" onClick={goPrev} aria-label="Previous slide" disabled={isSliding}>
+              <button type="button" className="cx-carousel-arrow cx-timeline__arrow cx-timeline__arrow--prev" onClick={goPrev} aria-label="Previous slide">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M15 18l-6-6 6-6" /></svg>
               </button>
-              <button type="button" className="cx-carousel-arrow cx-carousel-arrow-right" onClick={goNext} aria-label="Next slide" disabled={isSliding}>
+              <button type="button" className="cx-carousel-arrow cx-timeline__arrow cx-timeline__arrow--next" onClick={goNext} aria-label="Next slide">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M9 18l6-6-6-6" /></svg>
               </button>
             </>
           )}
-          <div className="cx-timeline__viewport">
-            <div
-              className="cx-timeline__track"
-              style={{
-                transform: `translateX(calc(-1 * ${index} * (var(--cx-tl-slide) + var(--cx-tl-gap))))`,
-                transition: trackTransition,
-              }}
-            >
+          <div className="cx-timeline__rail" aria-hidden>
+            <span ref={railLineRef} className="cx-timeline__rail-line" />
+            <span ref={railProgressRef} className="cx-timeline__rail-progress" />
+          </div>
+          <div ref={viewportRef} className="cx-timeline__viewport">
+            <div className="cx-timeline__track">
+              <div className="cx-timeline__spacer" aria-hidden />
               {items.map((item, i) => (
                 <div
                   key={item.id}
+                  ref={(node) => { slideRefs.current[i] = node }}
                   className={`cx-timeline__slide${i === index ? ' cx-timeline__slide--active' : ''}`}
                   role={item.imageUrl ? 'button' : undefined}
                   tabIndex={item.imageUrl ? 0 : -1}
@@ -187,45 +405,34 @@ function CxCarousel({
                   aria-hidden={i !== index}
                   aria-label={item.date ? `${item.date}${item.caption ? `, ${item.caption}` : ''}` : item.caption}
                 >
-                  <div className="cx-timeline__slide-inner">
-                    {item.imageUrl ? (
-                      <ImgWithLoader src={item.imageUrl} alt="" className="cx-carousel-card-img" />
-                    ) : (
-                      <span className="cx-carousel-placeholder">Image {i + 1}</span>
+                  <div
+                    ref={(node) => { markerRefs.current[i] = node }}
+                    className="cx-timeline__marker"
+                  >
+                    <span className="cx-timeline__dot" aria-hidden />
+                  </div>
+                  <p className="cx-timeline__date">{item.date ?? ''}</p>
+                  <div
+                    ref={(node) => { bodyRefs.current[i] = node }}
+                    className="cx-timeline__body"
+                  >
+                    <div className="cx-timeline__slide-inner">
+                      {item.imageUrl ? (
+                        <ImgWithLoader src={item.imageUrl} alt="" className="cx-carousel-card-img" />
+                      ) : (
+                        <span className="cx-carousel-placeholder">Image {i + 1}</span>
+                      )}
+                    </div>
+                    {item.caption != null && (
+                      <p className="cx-carousel-caption-below cx-timeline__caption">{item.caption}</p>
                     )}
                   </div>
                 </div>
               ))}
+              <div className="cx-timeline__spacer" aria-hidden />
             </div>
           </div>
         </div>
-        <div className="cx-timeline__meta">
-          <p className="cx-timeline__date" aria-live="polite">
-            <span key={activeItem.date ?? index} className="cx-timeline__date-text">
-              {activeItem.date ?? ''}
-            </span>
-          </p>
-          {activeItem.caption != null && (
-            <p className="cx-carousel-caption-below cx-timeline__caption">{activeItem.caption}</p>
-          )}
-        </div>
-        {n > 1 && (
-          <div className="cx-carousel-indicators" role="tablist" aria-label="Timeline slides">
-            <div className="cx-carousel-indicators-pill">
-              {items.map((item, i) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === index}
-                  aria-label={item.date ?? `Slide ${i + 1}`}
-                  className={`cx-carousel-dot ${i === index ? 'cx-carousel-dot--active' : ''}`}
-                  onClick={() => goTo(i)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     )
   }
@@ -635,7 +842,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
                 { id: '6.3', imageUrl: `${CX_IMAGES}/6.3.png`, caption: 'Version 1.0 – Venue Launch MVP', date: 'Jun 2024' },
                 { id: '6.4', imageUrl: `${CX_IMAGES}/6.4.png`, caption: 'Version 2.0 – Post-Launch Upgrades', date: 'Oct 2024' },
                 { id: '6.5', imageUrl: `${CX_IMAGES}/6.5.png`, caption: 'Version 3.0 – Pre B2B2C Launch', date: 'Mar 2025' },
-                { id: '6.6', imageUrl: '/new-project-1/ros3.png', caption: 'Dedicated Show Running View – North Star', date: 'Jun 2025' },
+                { id: '6.6', imageUrl: '/new-project-1/ros3.png', caption: 'Dedicated Show Running View – North Star', date: 'Q2 2026' },
               ]}
               onOpenLightbox={openLightbox}
             />

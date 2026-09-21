@@ -1,0 +1,55 @@
+.np1c-sequence__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.np1c-sequence__media {
+  position: relative;
+  width: 85%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+}
+
+.np1c-sequence__media .np1c-embed-video-reset {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 0.2s ease, background 0.15s ease;
+}
+
+.np1c-sequence__media:hover .np1c-embed-video-reset,
+.np1c-sequence__media:focus-within .np1c-embed-video-reset {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.np1c-sequence__media .media-with-loader-wrap {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 7 / 5;
+}
+
+.np1c-sequence__media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.np1c-sequence__body {
+  margin: 0;
+  width: 85%;
+  box-sizing: border-box;
+  padding-inline: 12px;
+  font-family: var(--np1c-font-body);
+  font-size: var(--np1c-body-1-size);
+  font-weight: var(--np1c-body-1-weight);
+  line-height: var(--np1c-body-1-lh);
+  letter-spacing: var(--np1c-body-1-ls);
+  color: var(--np1c-text-sub-hero);
+  text-align: center;
+}
