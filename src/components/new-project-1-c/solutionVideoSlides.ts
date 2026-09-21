@@ -28,12 +28,4 @@ export const SOLUTION_VIDEO_SLIDES: HighlightSlide[] = [
     ariaLabel: 'CX Pro menu planning demonstration',
     aspectRatio: '1920 / 1046',
   },
-  {
-    id: 'ipad-compat',
-    kind: 'image',
-    caption:
-      'An iPad gives speakers direct control of their shows, lets event staff multitask more freely, and makes the product more accessible.',
-    image: '/new-project-1/intro.png',
-    imageAlt: 'CX Pro home schedule and show library',
-  },
 ]

@@ -1,7 +1,7 @@
 import HoverReplayVideo from './HoverReplayVideo'
 import './SequenceSection.css'
 
-const SEQUENCE_VIDEO = '/new-project-1/sequence-01.mp4'
+const SEQUENCE_VIDEO = '/new-project-1/sequence-01-2.mp4'
 
 export default function SequenceSection() {
   return (

@@ -282,7 +282,7 @@ function AddressingUnmetNeedsCarouselDesktop() {
                   <div
                     key={slide.id}
                     id={`np1c-carousel-slide-${slide.id}`}
-                    className={`np1c-aun-carousel__clip${index === 3 ? ' np1c-aun-carousel__clip--rounded' : ''}`}
+                    className="np1c-aun-carousel__clip"
                     style={{
                       ['--np1c-aun-video-aspect' as string]: aspect,
                     }}
