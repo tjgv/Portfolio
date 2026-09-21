@@ -365,7 +365,6 @@ function CxCarousel({
 
   /* Square viewport, one slide at a time; track slides left/right so next/prev slides in from right/left */
   const trackTranslatePercent = n > 0 ? (index * 100) / n : 0
-  const trackTransition = `transform ${CX_SLIDE_DURATION_MS}ms ${CX_SLIDE_EASING}`
 
   if (isTimeline) {
     return (
