@@ -69,6 +69,14 @@ function useFigpalMobileViewport() {
   return isMobile
 }
 
+type VideoCardId = 'placeholder1' | 'project1' | 'project2'
+
+const VIDEO_CARD_NEXT: Record<VideoCardId, VideoCardId> = {
+  placeholder1: 'project1',
+  project1: 'project2',
+  project2: 'placeholder1',
+}
+
 /* Card with image/video – controlled by parent for alternating sync */
 function MediaCycleCard({
   onClick,
@@ -81,6 +89,8 @@ function MediaCycleCard({
   onVideoEnded,
   videoPreload,
   onImageLoaded,
+  onHoverStart,
+  onHoverEnd,
 }: {
   onClick: () => void
   imgSrc: string
@@ -92,6 +102,8 @@ function MediaCycleCard({
   onVideoEnded: () => void
   videoPreload?: 'auto' | 'metadata' | 'none'
   onImageLoaded?: () => void
+  onHoverStart?: () => void
+  onHoverEnd?: () => void
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [imgLoaded, setImgLoaded] = useState(false)
@@ -101,7 +113,11 @@ function MediaCycleCard({
 
   useEffect(() => {
     const video = videoRef.current
-    if (!showVideo || !video) return
+    if (!video) return
+    if (!showVideo) {
+      video.pause()
+      return
+    }
 
     video.currentTime = 0
     video.play().catch(() => {})
@@ -112,6 +128,8 @@ function MediaCycleCard({
       type="button"
       className={`home-v2-card home-v2-card--${visual}${showVideo ? ' home-v2-card--playing' : ''}`}
       onClick={onClick}
+      onMouseEnter={onHoverStart}
+      onMouseLeave={onHoverEnd}
       aria-label={`Open ${label} case study`}
     >
       <div className="home-v2-card-media">
@@ -684,45 +702,76 @@ export default function HomePageV2() {
     setFigpalParked(true)
   }, [])
 
+  const switchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hoveredVideoCardRef = useRef<VideoCardId | null>(null)
+  const playingCardRef = useRef<VideoCardId | null>(null)
+
+  const clearSwitchTimeout = useCallback(() => {
+    if (switchTimeoutRef.current) {
+      clearTimeout(switchTimeoutRef.current)
+      switchTimeoutRef.current = null
+    }
+  }, [])
+
+  const setPlayingCard = useCallback((id: VideoCardId | null) => {
+    playingCardRef.current = id
+    setHeroShowVideo(id === 'placeholder1')
+    setProject1ShowVideo(id === 'project1')
+    setProject2ShowVideo(id === 'project2')
+  }, [])
+
+  const scheduleNext = useCallback((from: VideoCardId) => {
+    clearSwitchTimeout()
+    const next = VIDEO_CARD_NEXT[from]
+    switchTimeoutRef.current = setTimeout(() => setPlayingCard(next), 5000)
+  }, [clearSwitchTimeout, setPlayingCard])
+
+  const playVideoCard = useCallback((id: VideoCardId) => {
+    clearSwitchTimeout()
+    setHeroInitialVideoStarted(true)
+    setPlayingCard(id)
+  }, [clearSwitchTimeout, setPlayingCard])
+
+  const onHoverVideoCard = useCallback((id: VideoCardId) => {
+    hoveredVideoCardRef.current = id
+    playVideoCard(id)
+  }, [playVideoCard])
+
+  const onLeaveVideoCard = useCallback((id: VideoCardId) => {
+    if (hoveredVideoCardRef.current !== id) return
+    hoveredVideoCardRef.current = null
+    if (playingCardRef.current == null) scheduleNext(id)
+  }, [scheduleNext])
+
+  const onVideoCardEnded = useCallback((id: VideoCardId) => {
+    setPlayingCard(null)
+    if (hoveredVideoCardRef.current === id) return
+    scheduleNext(id)
+  }, [setPlayingCard, scheduleNext])
+
   /* Ensure on page load: hero card image shows first, then video starts and the 3-way loop begins. */
   useEffect(() => {
-    setHeroShowVideo(false)
-    setProject1ShowVideo(false)
-    setProject2ShowVideo(false)
-  }, [])
+    setPlayingCard(null)
+  }, [setPlayingCard])
 
   useEffect(() => {
     if (!heroImageLoaded || heroInitialVideoStarted) return
     const delayId = setTimeout(() => {
-      setHeroShowVideo(true)
+      if (hoveredVideoCardRef.current) {
+        setHeroInitialVideoStarted(true)
+        return
+      }
+      setPlayingCard('placeholder1')
       setHeroInitialVideoStarted(true)
     }, 2000)
     return () => clearTimeout(delayId)
-  }, [heroImageLoaded, heroInitialVideoStarted])
-
-  const switchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  /* Rotation order: hero card -> project1 -> project2 -> back to hero card. */
-  const onHeroVideoEnded = useCallback(() => {
-    setHeroShowVideo(false)
-    switchTimeoutRef.current = setTimeout(() => setProject1ShowVideo(true), 5000)
-  }, [])
-
-  const onProject1VideoEnded = useCallback(() => {
-    setProject1ShowVideo(false)
-    switchTimeoutRef.current = setTimeout(() => setProject2ShowVideo(true), 5000)
-  }, [])
-
-  const onProject2VideoEnded = useCallback(() => {
-    setProject2ShowVideo(false)
-    switchTimeoutRef.current = setTimeout(() => setHeroShowVideo(true), 5000)
-  }, [])
+  }, [heroImageLoaded, heroInitialVideoStarted, setPlayingCard])
 
   useEffect(() => {
     return () => {
-      if (switchTimeoutRef.current) clearTimeout(switchTimeoutRef.current)
+      clearSwitchTimeout()
     }
-  }, [])
+  }, [clearSwitchTimeout])
 
   return (
     <div className="home-v2">
@@ -771,9 +820,11 @@ export default function HomePageV2() {
                       year={card.year}
                       visual="apple"
                       showVideo={heroShowVideo}
-                      onVideoEnded={onHeroVideoEnded}
+                      onVideoEnded={() => onVideoCardEnded('placeholder1')}
                       videoPreload="auto"
                       onImageLoaded={() => setHeroImageLoaded(true)}
+                      onHoverStart={() => onHoverVideoCard('placeholder1')}
+                      onHoverEnd={() => onLeaveVideoCard('placeholder1')}
                     />
                   </div>
                 ) : card.id === 'placeholder2' ? (
@@ -798,8 +849,10 @@ export default function HomePageV2() {
                     year="2023-25"
                     visual="apple"
                     showVideo={project1ShowVideo}
-                    onVideoEnded={onProject1VideoEnded}
+                    onVideoEnded={() => onVideoCardEnded('project1')}
                     videoPreload="auto"
+                    onHoverStart={() => onHoverVideoCard('project1')}
+                    onHoverEnd={() => onLeaveVideoCard('project1')}
                   />
                 ) : card.id === 'project2' ? (
                   <MediaCycleCard
@@ -810,8 +863,10 @@ export default function HomePageV2() {
                     year="2022"
                     visual="dark"
                     showVideo={project2ShowVideo}
-                    onVideoEnded={onProject2VideoEnded}
+                    onVideoEnded={() => onVideoCardEnded('project2')}
                     videoPreload="metadata"
+                    onHoverStart={() => onHoverVideoCard('project2')}
+                    onHoverEnd={() => onLeaveVideoCard('project2')}
                   />
                 ) : card.id === 'lab37' ? (
                   <button

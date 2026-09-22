@@ -100,7 +100,7 @@
 }
 
 /*
-  Rows 1 & 3: XL width, content-column height.
+  Full-width rows 1 & 2: XL width, content-column height.
   Video scales up to cover and stays top-left so overflow is clipped
   from the bottom and right.
 */

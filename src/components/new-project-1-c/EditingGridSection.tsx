@@ -42,6 +42,21 @@ export default function EditingGridSection() {
             </div>
           </div>
 
+          <div className="np1c-editing-grid__cell np1c-editing-grid__cell--full">
+            <div className="np1c-editing-grid__media np1c-editing-grid__media--row2">
+              <HoverReplayVideo
+                src={SEQUENCE_VIDEO}
+                aria-label="Scene visualizations without pre-rendered scenes"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              />
+              <p className="np1c-editing-grid__caption">{CAPTIONS.sequence}</p>
+            </div>
+          </div>
+
           <div className="np1c-editing-grid__cell np1c-editing-grid__cell--inspector">
             <div className="np1c-editing-grid__media np1c-editing-grid__media--inspector">
               <HoverReplayVideo
@@ -61,21 +76,6 @@ export default function EditingGridSection() {
             <div className="np1c-editing-grid__media np1c-editing-grid__media--autoplay">
               <ImgWithLoader src={AUTOPLAY_IMAGE} alt="Optional auto-play on the scene sequencer" />
               <p className="np1c-editing-grid__caption">{CAPTIONS.autoplay}</p>
-            </div>
-          </div>
-
-          <div className="np1c-editing-grid__cell np1c-editing-grid__cell--full">
-            <div className="np1c-editing-grid__media np1c-editing-grid__media--row2">
-              <HoverReplayVideo
-                src={SEQUENCE_VIDEO}
-                aria-label="Scene visualizations without pre-rendered scenes"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-              />
-              <p className="np1c-editing-grid__caption">{CAPTIONS.sequence}</p>
             </div>
           </div>
         </div>
