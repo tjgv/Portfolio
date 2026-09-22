@@ -84,7 +84,19 @@ function CxLightbox({
         </>
       )}
       <div className="cx-lightbox-content" onClick={(e) => e.stopPropagation()}>
-        <ImgWithLoader src={items[index]} alt="" className="cx-lightbox-img" />
+        <div
+          className="cx-lightbox-track"
+          style={{
+            transform: `translateX(-${index * 100}%)`,
+            transition: `transform ${CX_SLIDE_DURATION_MS}ms ${CX_SLIDE_EASING}`,
+          }}
+        >
+          {items.map((src, i) => (
+            <div key={src + i} className="cx-lightbox-slide">
+              <ImgWithLoader src={src} alt="" className="cx-lightbox-img" />
+            </div>
+          ))}
+        </div>
       </div>
       {hasMultiple && (
         <div className="cx-lightbox-strip" onClick={(e) => e.stopPropagation()}>
@@ -100,6 +112,66 @@ function CxLightbox({
             </button>
           ))}
         </div>
+      )}
+    </div>
+  )
+}
+
+const COSM_GALLERY = [
+  `${CX_IMAGES}/3.png`,
+  `${CX_IMAGES}/cosm-matrix.png?v=3`,
+  `${CX_IMAGES}/texas-ou-gsc-hall.png?v=2`,
+]
+
+function CxInlineGallery({
+  items,
+  onOpen,
+}: {
+  items: string[]
+  onOpen: (items: string[], index: number) => void
+}) {
+  const [index, setIndex] = useState(0)
+
+  const goPrev = useCallback(() => {
+    setIndex((i) => (i - 1 + items.length) % items.length)
+  }, [items.length])
+
+  const goNext = useCallback(() => {
+    setIndex((i) => (i + 1) % items.length)
+  }, [items.length])
+
+  return (
+    <div className="cx-inline-gallery">
+      <div className="cx-inline-gallery__frame">
+        <div
+          className="cx-inline-gallery__track"
+          style={{
+            transform: `translateX(-${index * 100}%)`,
+            transition: `transform ${CX_SLIDE_DURATION_MS}ms ${CX_SLIDE_EASING}`,
+          }}
+        >
+          {items.map((src, i) => (
+            <button
+              key={src + i}
+              type="button"
+              className="cx-inline-gallery__slide"
+              onClick={() => onOpen(items, i)}
+              aria-label={`Open image ${i + 1} full screen`}
+            >
+              <ImgWithLoader src={src} alt="" className="cx-img-openable" />
+            </button>
+          ))}
+        </div>
+      </div>
+      {items.length > 1 && (
+        <>
+          <button type="button" className="cx-inline-gallery__arrow cx-inline-gallery__arrow--left" onClick={goPrev} aria-label="Previous image">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+          <button type="button" className="cx-inline-gallery__arrow cx-inline-gallery__arrow--right" onClick={goNext} aria-label="Next image">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+          </button>
+        </>
       )}
     </div>
   )
@@ -657,7 +729,7 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
               Cosm is a company formed by several teams uniting to reinvent how audiences experience content through <em>Shared Reality</em>. <strong>Think virtual reality - but shared experienced along side an audience.</strong> At the heart of this vision is the CX Display, a massive dome-like environment that <em>immerses</em> viewers, transforming the venue into anything imaginable.
             </p>
             <div className="cx-full-width">
-              <ImgWithLoader src={`${CX_IMAGES}/3.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/3.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/3.png`], 0)} />
+              <CxInlineGallery items={COSM_GALLERY} onOpen={openLightbox} />
             </div>
           </div>
         </div>
@@ -919,6 +991,9 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
             <p className="paragraph-text">
               After the initial set of stakeholder review sessions, we gained alignment on primary use-cases and the fundamental nature for how the product should behave.
             </p>
+            <div className="cx-full-width">
+              <ImgWithLoader src={`${CX_IMAGES}/6.2.png`} alt="" className="cx-img-openable" onClick={() => openLightbox([`${CX_IMAGES}/6.2.png`], 0)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/6.2.png`], 0)} />
+            </div>
           </div>
         </div>
         </div>

@@ -1854,6 +1854,26 @@
   min-height: 0;
   width: 100%;
   max-width: calc(100vw - 150px);
+  overflow: hidden;
+}
+
+.cx-lightbox-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex: 0 0 100%;
+  min-width: 100%;
+  will-change: transform;
+}
+
+.cx-lightbox-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cx-lightbox-img {
@@ -1891,11 +1911,96 @@
 }
 
 .cx-lightbox-arrow-left {
-  left: 10vw;
+  left: 25px;
 }
 
 .cx-lightbox-arrow-right {
-  right: 10vw;
+  right: 25px;
+}
+
+/* Inline Cosm gallery – small black arrows sit 16px outside the image */
+.cx-section:has(.cx-inline-gallery) {
+  overflow: visible;
+}
+
+.cx-inline-gallery {
+  position: relative;
+  width: 100%;
+}
+
+.cx-inline-gallery__frame {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.cx-inline-gallery__track {
+  display: flex;
+  width: 100%;
+  will-change: transform;
+}
+
+.cx-inline-gallery__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: block;
+}
+
+.cx-inline-gallery__slide .media-with-loader-wrap,
+.cx-inline-gallery__slide img {
+  width: 100%;
+  display: block;
+}
+
+.cx-inline-gallery__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.cx-inline-gallery__arrow:hover {
+  opacity: 0.55;
+}
+
+.cx-inline-gallery__arrow--left {
+  left: 0;
+  transform: translate(calc(-100% - 16px), -50%);
+}
+
+.cx-inline-gallery__arrow--right {
+  right: 0;
+  transform: translate(calc(100% + 16px), -50%);
+}
+
+@media (max-width: 1024px) {
+  .cx-inline-gallery__arrow--left {
+    left: 16px;
+    transform: translateY(-50%);
+    filter: drop-shadow(0 0 2px #fff);
+  }
+
+  .cx-inline-gallery__arrow--right {
+    right: 16px;
+    transform: translateY(-50%);
+    filter: drop-shadow(0 0 2px #fff);
+  }
 }
 
 .cx-lightbox-strip {
