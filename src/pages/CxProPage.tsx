@@ -1165,23 +1165,22 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
         </div>
         </div>
 
-        {/* 21. Carousel */}
-        <div className="cx-section">          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
-            <CxCarousel
-              items={[
-                { id: '21.4', imageUrl: `${CX_IMAGES}/how-it-works.png` },
-                { id: '21.1', imageUrl: `${CX_IMAGES}/21.1.png?v=${CX_SECTION_21_CACHE}` },
-                { id: '21.2', imageUrl: `${CX_IMAGES}/21.2.png?v=${CX_SECTION_21_CACHE}` },
-                { id: '21.3', imageUrl: `${CX_IMAGES}/21.3.png?v=${CX_SECTION_21_CACHE}` },
-              ]}
-              onOpenLightbox={openLightbox}
-              cardWidth={CX_CAROUSEL_SECTION6_CARD_WIDTH}
-              cardGap={CX_CAROUSEL_SECTION6_GAP}
+        {/* 21. Problem diagram — above Project #1 media */}
+        <div className="cx-section">
+          <div className="cx-full-width cx-project1-problem">
+            <ImgWithLoader
+              src={`${CX_IMAGES}/project-1-problem.png?v=5`}
+              alt="Global Controls problems: users can't find relevant properties, and they repeat the process 5–6 times"
+              className="cx-img-openable"
+              onClick={() => openLightbox([`${CX_IMAGES}/xlp1.png`], 0)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && openLightbox([`${CX_IMAGES}/xlp1.png`], 0)}
             />
           </div>
         </div>
 
-        {/* 21b. Sequence videos under Project #1 carousel */}
+        {/* 21b. Sequence videos */}
         <div className="cx-section">
           <div className="cx-project1-videos">
             <figure className="cx-project1-video-block">
@@ -1223,6 +1222,23 @@ export default function CxProPage({ embedded = false }: CxProPageProps = {}) {
                 which will preserve its value when making a global change from the parent.
               </figcaption>
             </figure>
+          </div>
+        </div>
+
+        {/* 21c. Carousel at bottom of Project #1 */}
+        <div className="cx-section">
+          <div className="cx-carousel-bleed cx-carousel-bleed--large-cards">
+            <CxCarousel
+              items={[
+                { id: '21.4', imageUrl: `${CX_IMAGES}/how-it-works.png` },
+                { id: '21.1', imageUrl: `${CX_IMAGES}/21.1.png?v=${CX_SECTION_21_CACHE}` },
+                { id: '21.2', imageUrl: `${CX_IMAGES}/21.2.png?v=${CX_SECTION_21_CACHE}` },
+                { id: '21.3', imageUrl: `${CX_IMAGES}/21.3.png?v=${CX_SECTION_21_CACHE}` },
+              ]}
+              onOpenLightbox={openLightbox}
+              cardWidth={CX_CAROUSEL_SECTION6_CARD_WIDTH}
+              cardGap={CX_CAROUSEL_SECTION6_GAP}
+            />
           </div>
         </div>
 

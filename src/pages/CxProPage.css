@@ -1888,6 +1888,11 @@
   box-sizing: border-box;
 }
 
+.cx-lightbox-img[src*="xlp1.png"] {
+  border: none;
+  border-radius: 0;
+}
+
 .cx-lightbox-arrow {
   position: absolute;
   top: 50%;
@@ -2174,7 +2179,28 @@
 }
 
 
-/* Project #1 — stacked sequence videos under the carousel */
+/* Project #1 — problem diagram above videos */
+.cx-project1-problem,
+.cx-project1-problem .media-with-loader-wrap {
+  width: 100%;
+  max-width: 100%;
+}
+
+.cx-project1-problem {
+  margin: 8px 0 24px;
+}
+
+.cx-project1-problem img,
+.cx-pro-page .cx-project1-problem .cx-img-openable {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: none;
+  border-radius: 0;
+}
+
+/* Project #1 — stacked sequence videos */
 .cx-project1-videos {
   display: flex;
   flex-direction: column;
